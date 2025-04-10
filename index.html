@@ -69,11 +69,10 @@
 </section>
 
 <!-- ABOUT SECTION -->
-<section class="py-28 px-6 max-w-6xl mx-auto fade-in">
+<section id="about" class="py-28 px-6 max-w-6xl mx-auto fade-in">
   <div class="text-center mb-16">
-    <h2 class="text-4xl font-bold mb-4" data-animate>About Me – Turning Data Into Business Growth</h2>
-    <p class="text-lg text-gray-600" data-animate>Combining Analytics & Marketing for Real Results</p>
-</section>
+    <h2 class="text-4xl font-bold mb-4">About Me – Turning Data Into Business Growth</h2>
+    <p class="text-lg text-gray-600">Combining Analytics & Marketing for Real Results</p>
   </div>
   <div class="bg-white shadow-xl rounded-xl p-10">
     <p class="text-xl mb-4">I've managed <span class="highlight">multi-million dollar advertising budgets</span>, supporting over <strong>70 global clients</strong> in e-commerce, B2B, startups, and legal sectors.</p>
@@ -240,21 +239,5 @@
 
   faders.forEach(fader => observer.observe(fader));
 </script>
-<script>
-  // Framer Motion style animation fallback using class-based keyframes
-  window.addEventListener('DOMContentLoaded', () => {
-    const animatedElements = document.querySelectorAll('[data-animate]');
-    animatedElements.forEach((el, index) => {
-      el.style.opacity = 0;
-      el.style.transform = 'translateY(40px)';
-      setTimeout(() => {
-        el.style.transition = 'all 0.8s ease-out';
-        el.style.opacity = 1;
-        el.style.transform = 'translateY(0)';
-      }, index * 150);
-    });
-  });
-</script>
 </body>
 </html>
-
