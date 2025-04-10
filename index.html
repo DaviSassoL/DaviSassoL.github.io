@@ -13,11 +13,7 @@
   <meta property="og:url" content="https://davisasso.github.io" />
   <meta property="og:image" content="https://davisasso.github.io/Davi%20Blue%20Background.png" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/motion@10.16.0/dist/motion.min.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <style>
     body { font-family: 'Poppins', sans-serif; }
     html { scroll-behavior: smooth; }
@@ -32,59 +28,124 @@
       transform: translateY(-5px) scale(1.02);
       box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
     }
-    .faq-item { cursor: pointer; }
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
 
-<!-- WHATSAPP FLOATING BUTTON -->
-<a href="https://wa.me/5511916974757" target="_blank" aria-label="WhatsApp Chat"
-   class="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition duration-300">
-  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M16.472 13.237c-.297-.149-1.758-.867-2.031-.967-.273-.099-.472-.148-.672.15-.198.297-.768.967-.942 1.164-.173.198-.347.223-.644.075-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.019-.458.13-.606.134-.133.298-.347.447-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.149-.672-1.611-.922-2.206-.242-.579-.487-.5-.672-.51h-.576c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479c0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.077 4.487.709.306 1.263.489 1.695.625.712.227 1.36.195 1.871.118.571-.085 1.758-.718 2.006-1.412.248-.694.248-1.289.173-1.412-.074-.124-.273-.198-.571-.347z"/>
-    <path d="M20.52 3.48a11.933 11.933 0 00-16.897 0c-4.668 4.668-4.668 12.262 0 16.93a11.948 11.948 0 0012.633 2.52l.332.348c.347.347.904.346 1.25-.001l1.999-2c.347-.346.347-.903 0-1.25l-.345-.345a11.948 11.948 0 002.528-12.634 11.933 11.933 0 00-1.5-1.5zm-1.06 15.839l-.001.001a9.968 9.968 0 01-10.617 2.063c-.346-.129-.645-.281-.947-.453l-4.04 1.053 1.059-4.012a9.978 9.978 0 01-.471-.967 9.966 9.966 0 012.061-10.624c3.905-3.904 10.24-3.904 14.144 0a9.968 9.968 0 010 14.143z"/>
-  </svg>
-</a>
+<!-- REINSERINDO TODAS AS SEÇÕES PRINCIPAIS -->
 
-<!-- FAQ SECTION -->
-<section id="faq" class="py-24 px-6 bg-white fade-in">
-  <div class="text-center mb-16">
-    <h2 class="text-4xl font-bold">Frequently Asked Questions</h2>
-    <p class="text-lg text-gray-600">Some common questions I get as a consultant</p>
+<!-- NAVBAR -->
+<nav class="sticky-nav w-full py-4 px-6 flex justify-between items-center">
+  <h1 class="text-xl font-bold text-blue-800">Davi Sasso</h1>
+  <div class="space-x-4 text-sm md:text-base">
+    <a href="#about" class="hover:underline text-gray-700">About</a>
+    <a href="#services" class="hover:underline text-gray-700">Services</a>
+    <a href="#results" class="hover:underline text-gray-700">Results</a>
+    <a href="#contact" class="hover:underline text-blue-700 font-semibold">Contact</a>
   </div>
-  <div class="max-w-3xl mx-auto space-y-6">
-    <div class="bg-gray-100 p-5 rounded-xl shadow faq-item">
-      <h3 class="text-xl font-semibold mb-2">📌 How does your consulting work?</h3>
-      <p class="text-gray-700">We start with a strategic call to understand your goals, then I audit your data and build a custom roadmap focused on growth.</p>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="bg-gradient-to-r from-blue-800 to-blue-500 py-28 px-6 fade-in">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
+    <div class="md:w-1/2 text-center md:text-left">
+      <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">Unlock Exceptional Growth with Data-Driven Marketing</h1>
+      <p class="text-xl text-blue-100 mb-8">I'm Davi Sasso, an experienced marketing strategist dedicated to using data analytics to scale your business efficiently and effectively.</p>
+      <a href="#contact" class="inline-block bg-white text-blue-700 py-3 px-8 rounded-full text-lg font-semibold shadow-lg hover:bg-gray-100 transition">Schedule Your Free Strategy Session</a>
     </div>
-    <div class="bg-gray-100 p-5 rounded-xl shadow faq-item">
-      <h3 class="text-xl font-semibold mb-2">🌍 Do you work with clients outside Brazil?</h3>
-      <p class="text-gray-700">Yes — I’ve worked with businesses from the US, Brazil, and Europe, always adapting to each local market and audience.</p>
-    </div>
-    <div class="bg-gray-100 p-5 rounded-xl shadow faq-item">
-      <h3 class="text-xl font-semibold mb-2">🛠 What tools do you use?</h3>
-      <p class="text-gray-700">Google Ads, Meta Ads, Looker Studio, CallRail, GA4, GTM, Ahrefs, SEMrush, RD Station, and Python dashboards.</p>
-    </div>
-    <div class="bg-gray-100 p-5 rounded-xl shadow faq-item">
-      <h3 class="text-xl font-semibold mb-2">📈 What kind of results should I expect?</h3>
-      <p class="text-gray-700">Growth. More qualified leads, lower costs, better insights, and data-backed marketing that scales with your business.</p>
+    <div class="md:w-1/2 flex justify-center">
+      <img src="Davi Blue Background.png" alt="Davi Sasso" class="w-80 h-80 object-cover rounded-full shadow-2xl border-4 border-white">
     </div>
   </div>
 </section>
 
-<script>
-  const faders = document.querySelectorAll('.fade-in');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('show');
-      }
-    });
-  }, { threshold: 0.1 });
-  faders.forEach(fader => observer.observe(fader));
-</script>
+<!-- ABOUT SECTION -->
+<section id="about" class="py-28 px-6 max-w-6xl mx-auto fade-in">
+  <div class="text-center mb-16">
+    <h2 class="text-4xl font-bold mb-4">Who Am I?</h2>
+    <p class="text-lg text-gray-600">Combining Analytics & Marketing for Real Results</p>
+  </div>
+  <div class="bg-white shadow-xl rounded-xl p-10">
+    <p class="text-xl mb-4">I've managed <span class="highlight">multi-million dollar advertising budgets</span>, supporting over <strong>70 global clients</strong> in e-commerce, B2B, startups, and legal sectors.</p>
+    <p class="text-xl mb-4">My work has led to impressive outcomes, including increasing an e-commerce client's ROAS to <span class="highlight">343.27%</span> in just one month and boosting lead generation for a client by <span class="highlight">700%</span> (from 5 to 40 monthly leads), while significantly reducing costs per conversion.</p>
+    <p class="text-xl">Currently, I'm further enhancing my skills with an <strong>Executive MBA in Data Engineering</strong> from Mackenzie University, ensuring my strategies are always informed by cutting-edge analytics.</p>
+  </div>
+</section>
+
+<!-- SERVICES SECTION -->
+<section id="services" class="bg-gray-100 py-28 px-6 fade-in">
+  <div class="text-center mb-16">
+    <h2 class="text-4xl font-bold">My Services</h2>
+    <p class="text-lg text-gray-600">Strategically Designed for Your Success</p>
+  </div>
+  <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto">
+    <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+      <h3 class="text-xl font-semibold mb-2">📊 Marketing Analytics</h3>
+      <p>Insights that turn data into clear business actions.</p>
+    </div>
+    <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+      <h3 class="text-xl font-semibold mb-2">🚀 Paid Media Optimization</h3>
+      <p>Advanced digital strategies designed for optimal ROI.</p>
+    </div>
+    <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+      <h3 class="text-xl font-semibold mb-2">🎯 Lead Generation</h3>
+      <p>Efficiently grow and nurture leads with automated scoring.</p>
+    </div>
+    <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+      <h3 class="text-xl font-semibold mb-2">📈 Dashboard Creation</h3>
+      <p>Custom-built dashboards for clear, actionable insights.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS SECTION -->
+<section id="results" class="py-24 px-6 bg-white fade-in">
+  <div class="text-center mb-16">
+    <h2 class="text-4xl font-bold">Key Results</h2>
+    <p class="text-lg text-gray-600">Delivering measurable growth across industries</p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center max-w-6xl mx-auto">
+    <div>
+      <h3 class="text-5xl font-bold text-blue-700">343%</h3>
+      <p class="text-lg mt-2">Avg. ROAS (Last 30 Days)</p>
+    </div>
+    <div>
+      <h3 class="text-5xl font-bold text-blue-700">+700%</h3>
+      <p class="text-lg mt-2">Lead Growth</p>
+    </div>
+    <div>
+      <h3 class="text-5xl font-bold text-blue-700">70+</h3>
+      <p class="text-lg mt-2">Businesses Served</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact" class="bg-blue-800 text-white py-28 px-6 fade-in">
+  <div class="text-center max-w-3xl mx-auto">
+    <h2 class="text-4xl font-bold mb-5">Ready to Transform Your Results?</h2>
+    <p class="text-xl mb-10">Contact me today and see how data-driven strategies can significantly accelerate your business growth.</p>
+    <a href="mailto:davilima39@hotmail.com" class="inline-block bg-white text-blue-700 py-3 px-10 rounded-full text-lg font-semibold shadow-lg hover:bg-gray-100 transition">Get in Touch</a>
+    <p class="mt-8">Or connect via <a href="https://www.linkedin.com/in/davi-sasso-14a706232/" target="_blank" class="underline">LinkedIn</a></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-gray-900 text-white text-center py-8">
+  © 2025 Davi Sasso | Data-Driven Marketing Consultant
+</footer>
+<!-- Posso reinserir todas com as melhorias se quiser. Deseja que eu faça isso agora? -->
+
 </body>
 </html>
+
 
 
 
