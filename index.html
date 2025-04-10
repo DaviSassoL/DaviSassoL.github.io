@@ -143,6 +143,18 @@
 </footer>
 <!-- Posso reinserir todas com as melhorias se quiser. Deseja que eu faça isso agora? -->
 
+<script>
+  const faders = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  faders.forEach(fader => observer.observe(fader));
+</script>
 </body>
 </html>
 
