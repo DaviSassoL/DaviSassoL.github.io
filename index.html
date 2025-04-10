@@ -240,9 +240,6 @@
 
   faders.forEach(fader => observer.observe(fader));
 </script>
-</body>
-</html>
-
 <script>
   const faders = document.querySelectorAll('.fade-in');
   const observer = new IntersectionObserver((entries) => {
@@ -267,3 +264,6 @@
     }, index * 150);
   });
 </script>
+</body>
+</html>
+
