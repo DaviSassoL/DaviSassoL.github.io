@@ -242,3 +242,28 @@
 </script>
 </body>
 </html>
+
+<script>
+  const faders = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  faders.forEach(fader => observer.observe(fader));
+
+  // Framer Motion style animation fallback using class-based keyframes
+  const animatedElements = document.querySelectorAll('[data-animate]');
+  animatedElements.forEach((el, index) => {
+    el.style.opacity = 0;
+    el.style.transform = 'translateY(40px)';
+    setTimeout(() => {
+      el.style.transition = 'all 0.8s ease-out';
+      el.style.opacity = 1;
+      el.style.transform = 'translateY(0)';
+    }, index * 150);
+  });
+</script>
