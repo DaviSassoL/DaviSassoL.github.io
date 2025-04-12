@@ -39,6 +39,13 @@
       background-color: white;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
+    .parallax {
+      transform: translateY(0);
+      transition: transform 1s ease-out;
+    }
+    .parallax.show {
+      transform: translateY(-10px);
+    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -76,7 +83,7 @@
 <!-- ABOUT SECTION -->
 <section id="about" class="py-28 px-6 max-w-6xl mx-auto fade-in">
   <div class="text-center mb-16">
-    <h2 class="text-4xl font-bold mb-4">About Me – Turning Data Into Business Growth</h2>
+    <h2 class="text-4xl font-bold mb-4 parallax fade-in">About Me – Turning Data Into Business Growth</h2>
     <p class="text-lg text-gray-600">Combining Analytics & Marketing for Real Results</p>
   </div>
   <div class="bg-white shadow-xl rounded-xl p-10">
@@ -89,7 +96,7 @@
 <!-- SERVICES SECTION -->
 <section id="services" class="bg-gray-100 py-28 px-6 fade-in">
   <div class="text-center mb-16">
-    <h2 class="text-4xl font-bold">My Services</h2>
+    <h2 class="text-4xl font-bold parallax fade-in">My Services</h2>
     <p class="text-lg text-gray-600">Strategically Designed for Your Success</p>
   </div>
   <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto">
@@ -115,7 +122,7 @@
 <!-- RESULTS SECTION -->
 <section id="results" class="py-24 px-6 bg-white fade-in">
   <div class="text-center mb-16">
-    <h2 class="text-4xl font-bold">Key Results</h2>
+    <h2 class="text-4xl font-bold parallax fade-in">Key Results</h2>
     <p class="text-lg text-gray-600">Delivering measurable growth across industries</p>
   </div>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center max-w-6xl mx-auto">
@@ -152,7 +159,7 @@
 <!-- TECH STACK SECTION -->
 <section id="stack" class="py-24 px-6 bg-white fade-in">
   <div class="text-center mb-16">
-    <h2 class="text-4xl font-bold">My Marketing + Data Stack</h2>
+    <h2 class="text-4xl font-bold parallax fade-in">My Marketing + Data Stack</h2>
     <p class="text-lg text-gray-600">Tools I use daily — and technologies I'm currently incorporating into my work</p>
   </div>
   <div class="max-w-6xl mx-auto">
@@ -180,7 +187,7 @@
 <!-- PROCESS SECTION -->
 <section id="process" class="bg-gray-100 py-28 px-6 fade-in">
   <div class="text-center mb-16">
-    <h2 class="text-4xl font-bold">How I Work</h2>
+    <h2 class="text-4xl font-bold parallax fade-in">How I Work</h2>
     <p class="text-lg text-gray-600">A strategic and data-driven approach for consistent growth</p>
   </div>
   <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto">
@@ -207,7 +214,7 @@
 <!-- CONTACT SECTION -->
 <section id="contact" class="bg-blue-800 text-white py-28 px-6 fade-in">
   <div class="text-center max-w-3xl mx-auto">
-    <h2 class="text-4xl font-bold mb-5">Ready to Transform Your Results?</h2>
+    <h2 class="text-4xl font-bold mb-5 parallax fade-in">Ready to Transform Your Results?</h2>
     <p class="text-xl mb-10">Contact me today and see how data-driven strategies can significantly accelerate your business growth.</p>
     <form action="https://formsubmit.co/davilima39@hotmail.com" method="POST" class="bg-white text-gray-900 rounded-xl p-6 shadow-lg space-y-6">
       <input type="hidden" name="_captcha" value="false">
