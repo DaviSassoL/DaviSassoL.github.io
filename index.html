@@ -53,6 +53,20 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
    }
+    .pulse {
+  animation: pulse 2s infinite;
+  }
+    @keyframes pulse {
+    0% {
+    box-shadow: 0 0 0 0 rgba(255,255,255,0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(255,255,255,0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255,255,255,0);
+  }
+}
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -157,8 +171,8 @@
       Want to make smarter decisions? I’ll implement full tracking and build dashboards to give you actionable insights.
       Already getting a high volume of leads? Let’s implement lead scoring so your sales team can prioritize those with the highest likelihood of conversion.
     </p>
-    <a href="#contact" class="inline-block bg-white text-blue-800 px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-gray-100 transition">
-      Start Your Strategy Now
+    <a href="#contact" class="pulse inline-block bg-white text-blue-800 px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-gray-100 transition">
+    Start Your Strategy Now
     </a>
   </div>
 </section>
