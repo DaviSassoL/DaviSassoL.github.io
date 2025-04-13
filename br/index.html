@@ -1,1 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Davi Sasso | Consultor de Marketing &amp; Analytics Orientado por Dados</title>
+  <meta name="description" content="Consultoria em Marketing e Dados com foco em performance e inteligência analítica. Soluções sob medida para escalar seu negócio." />
+  <meta name="keywords" content="marketing digital, engenharia de dados, consultoria, mídia paga, dashboards, lead scoring, performance" />
+  <meta name="author" content="Davi Sasso">
+  <meta property="og:title" content="Davi Sasso | Consultor de Marketing &amp; Analytics Orientado por Dados" />
+  <meta property="og:description" content="Especialista em estratégias orientadas por dados para impulsionar o crescimento, gerar leads e otimizar campanhas." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://davisasso.com/br" />
+  <meta property="og:image" content="https://davisasso.com/br/davi-blue-background.png" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="https://davisasso.com/br" />
+  <meta name="robots" content="index, follow" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    html { scroll-behavior: smooth; }
+    section { scroll-margin-top: 80px; }
+    .highlight { color: #1e40af; font-weight: 600; }
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 1s ease-out, transform 1s ease-out; }
+    .fade-in.show { opacity: 1; transform: translateY(0); }
+    .interactive-card {
+      transition: all 0.3s ease-in-out;
+      transform: translateY(0);
+    }
+    .interactive-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
+    }
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .parallax {
+      transform: translateY(0);
+      transition: transform 1s ease-out;
+    }
+    .parallax.show {
+      transform: translateY(-10px);
+    }
+    .glass {
+      background-color: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.1);
+    }
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.5); }
+      70% { box-shadow: 0 0 0 15px rgba(255,255,255,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+    }
+    /* Container para centralizar o conteúdo */
+    .header-container { max-width: 1200px; margin: 0 auto; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <!-- Botão flutuante do WhatsApp -->
+  <a href="https://wa.me/5511916974757" target="_blank" aria-label="Chat no WhatsApp"
+     class="fixed bottom-5 right-5 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg z-50 transition duration-300">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="Ícone do WhatsApp" class="h-6 w-6 invert" />
+  </a>
 
+  <!-- NAVBAR -->
+  <nav class="sticky-nav py-4 px-6">
+    <div class="header-container flex items-center justify-between">
+      <!-- Logo -->
+      <h1 class="text-xl font-bold text-blue-800">Davi Sasso</h1>
+      <!-- Navegação Desktop -->
+      <ul class="hidden md:flex gap-6 text-sm md:text-base">
+        <li><a href="#about" class="hover:underline text-gray-700">Sobre Mim</a></li>
+        <li><a href="#services" class="hover:underline text-gray-700">Serviços</a></li>
+        <li><a href="#stack" class="hover:underline text-gray-700">Ferramentas &amp; Tecnologias</a></li>
+        <li><a href="#contact" class="hover:underline text-blue-700 font-semibold">Contato</a></li>
+        <li><a href="https://www.linkedin.com/in/davi-sasso-14a706232/" target="_blank" class="hover:underline text-blue-600">LinkedIn</a></li>
+      </ul>
+      <!-- Botão de Menu Mobile (hamburguer) -->
+      <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <!-- Menu Mobile -->
+    <div id="mobile-menu" class="hidden md:hidden header-container mt-4">
+      <ul class="flex flex-col gap-4 text-sm">
+        <li><a href="#about" class="block hover:underline text-gray-700">Sobre Mim</a></li>
+        <li><a href="#services" class="block hover:underline text-gray-700">Serviços</a></li>
+        <li><a href="#stack" class="block hover:underline text-gray-700">Ferramentas &amp; Tecnologias</a></li>
+        <li><a href="#contact" class="block hover:underline text-blue-700 font-semibold">Contato</a></li>
+        <li><a href="https://www.linkedin.com/in/davi-sasso-14a706232/" target="_blank" class="block hover:underline text-blue-600">LinkedIn</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- SEÇÃO HERO -->
+  <section class="bg-gradient-to-r from-blue-800 to-blue-500 py-28 px-6 fade-in">
+    <div class="header-container flex flex-col md:flex-row items-center gap-12">
+      <div class="md:w-1/2 text-center md:text-left">
+        <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+          Desbloqueie um Crescimento Excepcional com Marketing Orientado por Dados
+        </h1>
+        <p class="text-xl text-white/90 mb-8">
+          Eu sou Davi Sasso, um estrategista de marketing experiente dedicado a utilizar análises de dados para escalar seu negócio de forma eficiente e eficaz.
+        </p>
+        <a href="#contact" class="inline-block bg-white text-blue-700 py-3 px-8 rounded-full text-lg font-semibold shadow-lg hover:bg-gray-100 hover:scale-105 transition-transform duration-200">
+          Agende sua Sessão de Estratégia Gratuita
+        </a>
+      </div>
+      <div class="md:w-1/2 flex justify-center">
+        <img src="davi-blue-background.png" alt="Davi Sasso" class="w-80 h-80 object-cover rounded-full shadow-2xl border-4 border-white">
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO SOBRE MIM -->
+  <section id="about" class="py-28 px-6 max-w-6xl mx-auto fade-in">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold mb-4 parallax fade-in">Sobre Mim – Transformando Dados em Crescimento Empresarial</h2>
+      <p class="text-lg text-gray-600">Combinando Análise e Marketing para Resultados Reais</p>
+    </div>
+    <div class="bg-white shadow-xl rounded-xl p-10">
+      <p class="text-xl mb-4">
+        Eu gerenciei orçamentos publicitários de milhões de dólares, atendendo mais de 70 clientes globais em e-commerce, B2B, startups e setor jurídico.
+      </p>
+      <p class="text-xl mb-4">
+        Meu trabalho resultou em resultados impressionantes, incluindo o aumento do ROAS de um cliente de e-commerce para <span class="highlight">343,27%</span> em apenas um mês e a ampliação da geração de leads em <span class="highlight">700%</span>, reduzindo significativamente os custos por conversão.
+      </p>
+      <p class="text-xl">
+        Atualmente, estou aprimorando minhas habilidades com um <strong>Executive MBA em Engenharia de Dados</strong> pela Universidade Mackenzie, garantindo que minhas estratégias estejam sempre alinhadas com análises de ponta.
+      </p>
+    </div>
+  </section>
+
+  <!-- SEÇÃO DE SERVIÇOS -->
+  <section id="services" class="bg-gray-100 py-28 px-6 fade-in">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold parallax fade-in">Meus Serviços</h2>
+      <p class="text-lg text-gray-600">Projetados Estratégicamente para o Seu Sucesso</p>
+    </div>
+    <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto">
+      <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+        <h3 class="text-xl font-semibold mb-2">📊 Análise de Marketing</h3>
+        <p>Insights que transformam dados em ações claras para o negócio.</p>
+      </div>
+      <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+        <h3 class="text-xl font-semibold mb-2">🚀 Otimização de Mídia Paga</h3>
+        <p>Estratégias digitais avançadas projetadas para um ROI ideal.</p>
+      </div>
+      <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+        <h3 class="text-xl font-semibold mb-2">🎯 Geração de Leads</h3>
+        <p>Cresça e cultive leads de forma eficiente com pontuação automatizada.</p>
+      </div>
+      <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+        <h3 class="text-xl font-semibold mb-2">📈 Criação de Dashboards</h3>
+        <p>Dashboards personalizados para insights claros e acionáveis.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO DE RESULTADOS -->
+  <section id="results" class="py-24 px-6 bg-white fade-in">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold parallax fade-in">Resultados Chave</h2>
+      <p class="text-lg text-gray-600">Entregando crescimento mensurável em diversos setores</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center max-w-6xl mx-auto">
+      <div>
+        <h3 class="text-5xl font-bold text-blue-700">343%</h3>
+        <p class="text-lg mt-2">ROAS Médio (Últimos 30 dias)</p>
+      </div>
+      <div>
+        <h3 class="text-5xl font-bold text-blue-700">+700%</h3>
+        <p class="text-lg mt-2">Crescimento de Leads</p>
+      </div>
+      <div>
+        <h3 class="text-5xl font-bold text-blue-700">70+</h3>
+        <p class="text-lg mt-2">Empresas Atendidas</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO DE RECOMENDAÇÃO -->
+  <section id="testimonial" class="bg-white py-20 px-6 fade-in">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold parallax fade-in">Recomendação</h2>
+      <p class="text-lg text-gray-600">De um ex-executivo com quem trabalhei</p>
+    </div>
+    <div class="max-w-4xl mx-auto bg-gray-50 rounded-xl p-8 shadow-lg flex flex-col md:flex-row items-center gap-6">
+      <img src="shawn-leamon.jpg" alt="Shawn Leamon" class="w-24 h-24 rounded-full object-cover border-2 border-blue-800 shadow-md">
+      <div>
+        <p class="text-lg italic mb-4">
+          “O profundo conhecimento do Davi sobre publicidade paga, aliado às suas notáveis habilidades de resolver problemas e sua motivação incansável, gera consistentemente um ROI impressionante para nossos clientes e ele se mostrou indispensável para nossa equipe.”
+        </p>
+        <p class="text-sm font-semibold text-blue-800">Shawn Christopher Leamon</p>
+        <p class="text-sm text-gray-600">Chefe de Estratégia</p>
+        <a href="https://shawnleamon.com" target="_blank" class="text-sm text-blue-600 underline">shawnleamon.com</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO CTA -->
+  <section class="bg-blue-800 text-white py-20 px-6 fade-in">
+    <div class="header-container max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-4">Quer fazer seu negócio crescer através de dados e estratégia?</h2>
+      <p class="text-xl mb-6">
+        Entre em contato hoje mesmo e descubra como estratégias orientadas por dados podem acelerar significativamente o crescimento do seu negócio.
+      </p>
+      <a href="#contact" class="pulse inline-block bg-white text-blue-800 px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-gray-100 transition">
+        Comece sua Estratégia Agora
+      </a>
+    </div>
+  </section>
+
+  <!-- SEÇÃO TECH STACK -->
+  <section id="stack" class="py-24 px-6 bg-white fade-in">
+    <div class="header-container text-center mb-16">
+      <h2 class="text-4xl font-bold parallax fade-in md:whitespace-nowrap">Meu Stack de Marketing + Dados</h2>
+      <p class="text-lg text-gray-600">Ferramentas que uso diariamente — e tecnologias que estou incorporando no meu trabalho</p>
+    </div>
+    <div class="header-container max-w-6xl mx-auto">
+      <h3 class="text-2xl font-semibold text-blue-800 mb-4">Ferramentas que uso regularmente</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm mb-12">
+        <div class="bg-gray-100 p-4 shadow rounded">Google Ads</div>
+        <div class="bg-gray-100 p-4 shadow rounded">Meta Ads</div>
+        <div class="bg-gray-100 p-4 shadow rounded">LinkedIn Ads</div>
+        <div class="bg-gray-100 p-4 shadow rounded">CallRail</div>
+        <div class="bg-gray-100 p-4 shadow rounded">Opteo</div>
+        <div class="bg-gray-100 p-4 shadow rounded">Agency Analytics</div>
+        <div class="bg-gray-100 p-4 shadow rounded">Semrush</div>
+        <div class="bg-gray-100 p-4 shadow rounded">Ahrefs</div>
+      </div>
+      <h3 class="text-2xl font-semibold text-blue-800 mb-4">Tecnologias que estou integrando</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm">
+        <div class="bg-gray-100 p-4 shadow rounded">Python</div>
+        <div class="bg-gray-100 p-4 shadow rounded">SQL</div>
+        <div class="bg-gray-100 p-4 shadow rounded">BigQuery</div>
+        <div class="bg-gray-100 p-4 shadow rounded">Cloud Platforms</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO PROCESSO -->
+  <section id="process" class="bg-gray-100 py-28 px-6 fade-in">
+    <div class="header-container text-center mb-16">
+      <h2 class="text-4xl font-bold parallax fade-in">Como Eu Trabalho</h2>
+      <p class="text-lg text-gray-600">Uma abordagem estratégica e orientada por dados para um crescimento consistente</p>
+    </div>
+    <div class="header-container grid gap-10 md:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto">
+      <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+        <h3 class="text-xl font-semibold mb-2">🔍 Diagnóstico</h3>
+        <p>Compreendendo os objetivos, desafios e o desempenho atual do seu negócio.</p>
+      </div>
+      <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+        <h3 class="text-xl font-semibold mb-2">📊 Mapeamento de Dados</h3>
+        <p>Auditoria de dados, ferramentas e campanhas para identificar oportunidades de melhoria.</p>
+      </div>
+      <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+        <h3 class="text-xl font-semibold mb-2">🎯 Execução Estratégica</h3>
+        <p>Implementação de campanhas, sistemas de pontuação, automações e dashboards analíticos.</p>
+      </div>
+      <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+        <h3 class="text-xl font-semibold mb-2">📈 Resultados &amp; Insights</h3>
+        <p>Entrega de insights claros, orientados por dados, e recomendações contínuas de otimização.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO CONTATO -->
+  <section id="contact" class="bg-blue-800 text-white py-28 px-6 fade-in">
+    <div class="header-container text-center max-w-3xl mx-auto">
+      <h2 class="text-4xl font-bold mb-5 parallax fade-in">Pronto para Transformar Seus Resultados?</h2>
+      <p class="text-xl mb-10">Entre em contato hoje mesmo e descubra como estratégias orientadas por dados podem acelerar significativamente o crescimento do seu negócio.</p>
+      <form action="https://formsubmit.co/davilima39@hotmail.com" method="POST" class="glass text-white rounded-xl p-6 shadow-lg space-y-6">
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_next" value="https://davisassol.github.io/thank-you.html" />
+        <div>
+          <label class="block text-left font-medium mb-2" for="name">Nome</label>
+          <input type="text" id="name" name="name" required class="w-full p-3 border border-gray-300 rounded-lg" />
+        </div>
+        <div>
+          <label class="block text-left font-medium mb-2" for="email">Email</label>
+          <input type="email" id="email" name="email" required class="w-full p-3 border border-gray-300 rounded-lg" />
+        </div>
+        <div>
+          <label class="block text-left font-medium mb-2" for="message">Mensagem</label>
+          <textarea id="message" name="message" rows="4" required class="w-full p-3 border border-gray-300 rounded-lg"></textarea>
+        </div>
+        <button type="submit" class="bg-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-600 transition">
+          Enviar Mensagem
+        </button>
+      </form>
+      <p class="mt-8">Ou conecte-se via <a href="https://www.linkedin.com/in/davi-sasso-14a706232/" target="_blank" class="underline">LinkedIn</a></p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-white text-center py-8">
+    <div class="header-container">
+      <p>© 2025 Davi Sasso | Consultor de Marketing Orientado por Dados</p>
+    </div>
+  </footer>
+
+  <script>
+    // Toggle do menu mobile
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+    mobileMenuButton.addEventListener("click", function() {
+      mobileMenu.classList.toggle("hidden");
+    });
+
+    // Animação: exibe os elementos com fade-in quando estiverem na visualização
+    const faders = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.1 });
+    faders.forEach(fader => observer.observe(fader));
+  </script>
+</body>
+</html>
