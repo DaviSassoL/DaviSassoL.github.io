@@ -56,55 +56,48 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
     }
-    .pulse {
-      animation: pulse 2s infinite;
-    }
+    .pulse { animation: pulse 2s infinite; }
     @keyframes pulse {
-      0% {
-        box-shadow: 0 0 0 0 rgba(255,255,255,0.5);
-      }
-      70% {
-        box-shadow: 0 0 0 15px rgba(255,255,255,0);
-      }
-      100% {
-        box-shadow: 0 0 0 0 rgba(255,255,255,0);
-      }
+      0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.5); }
+      70% { box-shadow: 0 0 0 15px rgba(255,255,255,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
     }
     /* Controle dos textos por idioma */
     .lang-pt { display: none; }
-    /* Seletor de idioma: botões sem borda e background com alinhamento central */
+    /* Seletor de idioma – posicionamento e alinhamento */
     #lang-switcher {
       display: flex;
-      gap: 0.5rem; /* Gap reduzido para melhor alinhamento */
+      gap: 0.5rem;
       align-items: center;
     }
     #lang-switcher a {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border: none;
-      background: none;
       cursor: pointer;
+    }
+    /* Header: container para logo e navegação */
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
     }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
   <!-- WHATSAPP FLOATING BUTTON -->
-  <a href="https://wa.me/5511916974757" target="_blank" aria-label="WhatsApp Chat"
-     class="fixed bottom-5 right-5 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg z-50 transition duration-300">
+  <a href="https://wa.me/5511916974757" target="_blank" aria-label="WhatsApp Chat" class="fixed bottom-5 right-5 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg z-50 transition duration-300">
     <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp Icon" class="h-6 w-6 invert" />
   </a>
 
   <!-- NAVBAR -->
-  <nav class="sticky-nav w-full py-4 px-6">
-    <!-- Linha Superior: Logotipo e Seletor de Idioma -->
-    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-      <div class="flex justify-between items-center w-full">
+  <nav class="sticky-nav py-4 px-6">
+    <div class="header-container flex items-center justify-between">
+      <!-- Logo e selector de idioma -->
+      <div class="flex items-center gap-4">
         <h1 class="text-xl font-bold text-blue-800">
           <span class="lang-en">Davi Sasso</span>
           <span class="lang-pt">Davi Sasso</span>
         </h1>
-        <!-- Seletor de idioma: os links direcionam para URLs diferentes -->
         <div id="lang-switcher">
           <a href="https://davisasso.com/en" aria-label="English">
             <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="English" class="h-6 w-6">
@@ -114,47 +107,36 @@
           </a>
         </div>
       </div>
-      <!-- Linha Inferior: Menu de Navegação -->
-      <div class="mt-4">
-        <ul class="flex flex-col sm:flex-row gap-4 justify-center sm:justify-end text-sm md:text-base">
-          <li>
-            <a href="#about" class="hover:underline text-gray-700">
-              <span class="lang-en">About</span>
-              <span class="lang-pt">Sobre Mim</span>
-            </a>
-          </li>
-          <li>
-            <a href="#services" class="hover:underline text-gray-700">
-              <span class="lang-en">Services</span>
-              <span class="lang-pt">Serviços</span>
-            </a>
-          </li>
-          <li>
-            <a href="#stack" class="hover:underline text-gray-700">
-              <span class="lang-en">Tech Stack</span>
-              <span class="lang-pt">Ferramentas &amp; Tecnologias</span>
-            </a>
-          </li>
-          <li>
-            <a href="#contact" class="hover:underline text-blue-700 font-semibold">
-              <span class="lang-en">Contact</span>
-              <span class="lang-pt">Contato</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://www.linkedin.com/in/davi-sasso-14a706232/" target="_blank" class="text-blue-600 hover:underline">
-              <span class="lang-en">LinkedIn</span>
-              <span class="lang-pt">LinkedIn</span>
-            </a>
-          </li>
-        </ul>
-      </div>
+      <!-- Navegação Desktop -->
+      <ul class="hidden md:flex gap-6 text-sm md:text-base">
+        <li><a href="#about" class="hover:underline text-gray-700"><span class="lang-en">About</span><span class="lang-pt">Sobre Mim</span></a></li>
+        <li><a href="#services" class="hover:underline text-gray-700"><span class="lang-en">Services</span><span class="lang-pt">Serviços</span></a></li>
+        <li><a href="#stack" class="hover:underline text-gray-700"><span class="lang-en">Tech Stack</span><span class="lang-pt">Ferramentas &amp; Tecnologias</span></a></li>
+        <li><a href="#contact" class="hover:underline text-blue-700 font-semibold"><span class="lang-en">Contact</span><span class="lang-pt">Contato</span></a></li>
+        <li><a href="https://www.linkedin.com/in/davi-sasso-14a706232/" target="_blank" class="hover:underline text-blue-600"><span class="lang-en">LinkedIn</span><span class="lang-pt">LinkedIn</span></a></li>
+      </ul>
+      <!-- Botão Hamburger para Mobile -->
+      <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden header-container mt-4">
+      <ul class="flex flex-col gap-4 text-sm">
+        <li><a href="#about" class="block hover:underline text-gray-700"><span class="lang-en">About</span><span class="lang-pt">Sobre Mim</span></a></li>
+        <li><a href="#services" class="block hover:underline text-gray-700"><span class="lang-en">Services</span><span class="lang-pt">Serviços</span></a></li>
+        <li><a href="#stack" class="block hover:underline text-gray-700"><span class="lang-en">Tech Stack</span><span class="lang-pt">Ferramentas &amp; Tecnologias</span></a></li>
+        <li><a href="#contact" class="block hover:underline text-blue-700 font-semibold"><span class="lang-en">Contact</span><span class="lang-pt">Contato</span></a></li>
+        <li><a href="https://www.linkedin.com/in/davi-sasso-14a706232/" target="_blank" class="block hover:underline text-blue-600"><span class="lang-en">LinkedIn</span><span class="lang-pt">LinkedIn</span></a></li>
+      </ul>
     </div>
   </nav>
 
   <!-- HERO SECTION -->
   <section class="bg-gradient-to-r from-blue-800 to-blue-500 py-28 px-6 fade-in">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
+    <div class="header-container max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
       <div class="md:w-1/2 text-center md:text-left">
         <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
           <span class="lang-en">Unlock Exceptional Growth with Data-Driven Marketing</span>
@@ -342,7 +324,7 @@
 
   <!-- CTA SECTION -->
   <section class="bg-blue-800 text-white py-20 px-6 fade-in">
-    <div class="max-w-4xl mx-auto text-center">
+    <div class="header-container max-w-4xl mx-auto text-center">
       <h2 class="text-4xl font-bold mb-4">
         <span class="lang-en">Looking to grow your business through data and strategy?</span>
         <span class="lang-pt">Quer fazer seu negócio crescer através de dados e estratégia?</span>
@@ -368,8 +350,8 @@
 
   <!-- TECH STACK SECTION -->
   <section id="stack" class="py-24 px-6 bg-white fade-in">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl font-bold parallax fade-in">
+    <div class="header-container text-center mb-16">
+      <h2 class="text-4xl font-bold parallax fade-in md:whitespace-nowrap">
         <span class="lang-en">My Marketing + Data Stack</span>
         <span class="lang-pt">Meu Stack de Marketing + Dados</span>
       </h2>
@@ -378,7 +360,7 @@
         <span class="lang-pt">Ferramentas que uso diariamente — e tecnologias que estou incorporando no meu trabalho</span>
       </p>
     </div>
-    <div class="max-w-6xl mx-auto">
+    <div class="header-container max-w-6xl mx-auto">
       <h3 class="text-2xl font-semibold text-blue-800 mb-4">
         <span class="lang-en">Tools I use regularly</span>
         <span class="lang-pt">Ferramentas que uso regularmente</span>
@@ -408,7 +390,7 @@
 
   <!-- PROCESS SECTION -->
   <section id="process" class="bg-gray-100 py-28 px-6 fade-in">
-    <div class="text-center mb-16">
+    <div class="header-container text-center mb-16">
       <h2 class="text-4xl font-bold parallax fade-in">
         <span class="lang-en">How I Work</span>
         <span class="lang-pt">Como Eu Trabalho</span>
@@ -418,7 +400,7 @@
         <span class="lang-pt">Uma abordagem estratégica e orientada por dados para um crescimento consistente</span>
       </p>
     </div>
-    <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto">
+    <div class="header-container grid gap-10 md:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto">
       <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
         <h3 class="text-xl font-semibold mb-2">
           <span class="lang-en">🔍 Diagnosis</span>
@@ -464,7 +446,7 @@
 
   <!-- CONTACT SECTION -->
   <section id="contact" class="bg-blue-800 text-white py-28 px-6 fade-in">
-    <div class="text-center max-w-3xl mx-auto">
+    <div class="header-container text-center max-w-3xl mx-auto">
       <h2 class="text-4xl font-bold mb-5 parallax fade-in">
         <span class="lang-en">Ready to Transform Your Results?</span>
         <span class="lang-pt">Pronto para Transformar Seus Resultados?</span>
@@ -515,12 +497,16 @@
 
   <!-- FOOTER -->
   <footer class="bg-gray-900 text-white text-center py-8">
-    <span class="lang-en">© 2025 Davi Sasso | Data-Driven Marketing Consultant</span>
-    <span class="lang-pt">© 2025 Davi Sasso | Consultor de Marketing Orientado por Dados</span>
+    <div class="header-container">
+      <p>
+        <span class="lang-en">© 2025 Davi Sasso | Data-Driven Marketing Consultant</span>
+        <span class="lang-pt">© 2025 Davi Sasso | Consultor de Marketing Orientado por Dados</span>
+      </p>
+    </div>
   </footer>
 
   <script>
-    // Ajusta a exibição do conteúdo conforme o idioma detectado na URL
+    // Exibição do conteúdo conforme o idioma na URL
     window.addEventListener("DOMContentLoaded", function() {
       let currentLang = "en"; // padrão: inglês
       if (window.location.pathname.indexOf("/br") !== -1) {
@@ -530,15 +516,22 @@
       }
       
       if (currentLang === "en") {
-          document.querySelectorAll('.lang-en').forEach(el => { el.style.display = "inline"; });
-          document.querySelectorAll('.lang-pt').forEach(el => { el.style.display = "none"; });
+          document.querySelectorAll('.lang-en').forEach(el => el.style.display = "inline");
+          document.querySelectorAll('.lang-pt').forEach(el => el.style.display = "none");
       } else {
-          document.querySelectorAll('.lang-en').forEach(el => { el.style.display = "none"; });
-          document.querySelectorAll('.lang-pt').forEach(el => { el.style.display = "inline"; });
+          document.querySelectorAll('.lang-en').forEach(el => el.style.display = "none");
+          document.querySelectorAll('.lang-pt').forEach(el => el.style.display = "inline");
       }
     });
 
-    // Exibe os elementos com fade-in quando estiverem na visualização
+    // Toggle do menu mobile
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+    mobileMenuButton.addEventListener("click", function() {
+      mobileMenu.classList.toggle("hidden");
+    });
+
+    // Animação: exibe elementos com fade-in ao entrar na visualização
     const faders = document.querySelectorAll('.fade-in');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -551,5 +544,4 @@
   </script>
 </body>
 </html>
-
 
