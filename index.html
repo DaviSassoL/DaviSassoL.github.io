@@ -72,7 +72,12 @@
     }
     /* Controle dos textos por idioma */
     .lang-pt { display: none; }
-    /* Seletor de idioma: botões sem borda e background */
+    /* Seletor de idioma: botões sem borda e background com alinhamento central */
+    #lang-switcher {
+      display: flex;
+      gap: 0.5rem; /* Gap reduzido para melhor alinhamento */
+      align-items: center;
+    }
     #lang-switcher a {
       display: inline-flex;
       align-items: center;
@@ -100,7 +105,7 @@
           <span class="lang-pt">Davi Sasso</span>
         </h1>
         <!-- Seletor de idioma: os links direcionam para URLs diferentes -->
-        <div id="lang-switcher" class="flex gap-4">
+        <div id="lang-switcher">
           <a href="https://davisasso.com/en" aria-label="English">
             <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="English" class="h-6 w-6">
           </a>
@@ -533,7 +538,7 @@
       }
     });
 
-    // Animação: exibe os elementos com fade-in quando estiverem na visualização
+    // Exibe os elementos com fade-in quando estiverem na visualização
     const faders = document.querySelectorAll('.fade-in');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -546,4 +551,5 @@
   </script>
 </body>
 </html>
+
 
