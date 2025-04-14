@@ -5,32 +5,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Davi Sasso | Data-Driven Marketing &amp; Analytics Consultant</title>
-  <meta name="description" content="Data-driven marketing and analytics consulting focused on performance and insights. Tailor-made solutions to scale your business." />
-  <meta name="keywords" content="digital marketing, data engineering, consulting, paid media, dashboards, lead scoring, performance" />
+  <meta name="description" content="Data-driven marketing and analytics consulting focused on performance and actionable insights. Tailor-made solutions to scale your business." />
+  <meta name="keywords" content="digital marketing, data engineering, consulting, paid media, dashboards, lead scoring, marketing performance" />
   <meta name="author" content="Davi Sasso" />
   <meta name="robots" content="index, follow" />
   <meta name="googlebot" content="index,follow" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Davi Sasso | Data &amp; Marketing Consultant" />
+  
+  <!-- Open Graph e Twitter Cards -->
+  <meta property="og:title" content="Davi Sasso | Data-Driven Marketing &amp; Analytics Consultant" />
   <meta property="og:description" content="Expert in data-driven strategies to boost growth, generate leads, and optimize campaigns." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://davisasso.github.io" />
   <meta property="og:image" content="https://davisasso.github.io/davi-blue-background.png" />
-
-  <!-- Twitter Cards -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Davi Sasso | Data-Driven Marketing &amp; Analytics Consultant" />
   <meta name="twitter:description" content="Expert in data-driven strategies to boost growth, generate leads, and optimize campaigns." />
   <meta name="twitter:image" content="https://davisasso.github.io/davi-blue-background.png" />
-  <meta name="twitter:site" content="@yourTwitterHandle" />
-
-  <!-- Canonical & Alternate for Language -->
+  
+  <!-- Canonical e Hreflang para versões de idioma -->
   <link rel="canonical" href="https://davisasso.github.io/" />
   <link rel="alternate" hreflang="en" href="https://davisasso.github.io/" />
   <link rel="alternate" hreflang="pt" href="https://davisasso.github.io/br/" />
 
-  <!-- Dados Estruturados com JSON-LD -->
+  <!-- Structured Data: JSON-LD -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -43,8 +40,8 @@
       ]
     }
   </script>
-
-  <!-- Tailwind CSS & Fonts -->
+  
+  <!-- Tailwind CSS & Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -54,12 +51,14 @@
     html { scroll-behavior: smooth; }
     section { scroll-margin-top: 80px; }
     .highlight { color: #1e40af; font-weight: 600; }
+
     .fade-in {
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 1s ease-out, transform 1s ease-out;
     }
     .fade-in.show { opacity: 1; transform: translateY(0); }
+
     .interactive-card {
       transition: all 0.3s ease-in-out;
     }
@@ -67,6 +66,7 @@
       transform: translateY(-5px) scale(1.02);
       box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
     }
+
     .sticky-nav {
       position: sticky;
       top: 0;
@@ -74,11 +74,13 @@
       background-color: white;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
+
     .parallax {
       transform: translateY(0);
       transition: transform 1s ease-out;
     }
     .parallax.show { transform: translateY(-10px); }
+
     .glass {
       background-color: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(10px);
@@ -86,14 +88,15 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: 0 8px 32px 0 rgba(31,38,135,0.1);
     }
+
     .pulse { animation: pulse 2s infinite; }
     @keyframes pulse {
       0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.5); }
       70% { box-shadow: 0 0 0 15px rgba(255,255,255,0); }
       100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
     }
-    
-    /* Navegação e Layout */
+
+    /* Navigation and Layout */
     #lang-switcher {
       display: flex;
       gap: 0.5rem;
@@ -110,15 +113,15 @@
       margin: 0 auto;
       padding: 0 1rem;
     }
-    
-    /* Formulário: Garantir contraste nos inputs */
+
+    /* Inputs: Garantindo contraste para acessibilidade */
     input[type="text"],
     input[type="email"],
     textarea {
       color: #1f2937; /* text-gray-900 */
     }
-    
-    /* Skip to content link (acessível) */
+
+    /* Skip to Content link (apenas visível on focus) */
     .skip-link {
       position: absolute;
       top: -40px;
@@ -135,7 +138,7 @@
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
-  <!-- Skip to Content Link -->
+  <!-- Skip to Content (útil para acessibilidade) -->
   <a href="#main-content" class="skip-link">Skip to Content</a>
   
   <!-- WhatsApp Floating Button -->
@@ -148,7 +151,7 @@
   <header>
     <nav class="sticky-nav py-4 px-6" aria-label="Main Navigation">
       <div class="header-container flex items-center justify-between">
-        <!-- Logo and Language Switcher -->
+        <!-- Logo e Language Switcher -->
         <div class="flex items-center gap-4">
           <h1 class="text-xl font-bold text-blue-800">Davi Sasso</h1>
           <div id="lang-switcher">
@@ -175,7 +178,7 @@
           </svg>
         </button>
       </div>
-      <!-- Mobile Navigation -->
+      <!-- Mobile Navigation Menu -->
       <div id="mobile-menu" class="hidden md:hidden header-container mt-4">
         <ul class="flex flex-col gap-4 text-sm">
           <li><a href="#about" class="block hover:underline text-gray-700">About</a></li>
@@ -209,7 +212,7 @@
         </div>
       </div>
     </section>
-  
+    
     <!-- ABOUT SECTION -->
     <section id="about" class="py-28 px-6 max-w-6xl mx-auto fade-in">
       <div class="text-center mb-16">
@@ -228,7 +231,7 @@
         </p>
       </div>
     </section>
-  
+    
     <!-- SERVICES SECTION -->
     <section id="services" class="bg-gray-100 py-28 px-6 fade-in">
       <div class="text-center mb-16">
@@ -254,7 +257,7 @@
         </div>
       </div>
     </section>
-  
+    
     <!-- RESULTS SECTION -->
     <section id="results" class="py-24 px-6 bg-white fade-in">
       <div class="text-center mb-16">
@@ -276,7 +279,7 @@
         </div>
       </div>
     </section>
-  
+    
     <!-- TESTIMONIAL SECTION -->
     <section id="testimonial" class="bg-white py-20 px-6 fade-in">
       <div class="text-center mb-12">
@@ -295,25 +298,25 @@
         </div>
       </div>
     </section>
-  
+    
     <!-- CTA SECTION -->
     <section class="bg-blue-800 text-white py-20 px-6 fade-in">
       <div class="header-container max-w-4xl mx-auto text-center">
-        <h2 class="text-4xl font-bold mb-4">Looking to grow your business through data and strategy?</h2>
+        <h2 class="text-4xl font-bold mb-4">Looking to Grow Your Business Through Data and Strategy?</h2>
         <p class="text-xl mb-6">
-          I help businesses generate more qualified leads through digital strategies such as paid media, SEO, and performance tracking.
+          I help businesses generate more qualified leads using paid media, SEO, and data analytics.
         </p>
         <a href="#contact" class="pulse inline-block bg-white text-blue-800 px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-gray-100 transition">
           Schedule Your Free Strategy Session
         </a>
       </div>
     </section>
-  
+    
     <!-- TECH STACK SECTION -->
     <section id="stack" class="py-24 px-6 bg-white fade-in">
       <div class="header-container text-center mb-16">
         <h2 class="text-4xl font-bold parallax fade-in md:whitespace-nowrap">My Marketing + Data Stack</h2>
-        <p class="text-lg text-gray-600">Tools I use daily — and technologies I'm currently incorporating into my work</p>
+        <p class="text-lg text-gray-600">Tools I use daily and technologies I'm currently incorporating into my work</p>
       </div>
       <div class="header-container max-w-6xl mx-auto">
         <h3 class="text-2xl font-semibold text-blue-800 mb-4">Tools I use regularly</h3>
@@ -336,7 +339,7 @@
         </div>
       </div>
     </section>
-  
+    
     <!-- PROCESS SECTION -->
     <section id="process" class="bg-gray-100 py-28 px-6 fade-in">
       <div class="header-container text-center mb-16">
@@ -362,7 +365,7 @@
         </div>
       </div>
     </section>
-  
+    
     <!-- CONTACT SECTION -->
     <section id="contact" class="bg-blue-800 text-white py-28 px-6 fade-in">
       <div class="header-container text-center max-w-3xl mx-auto">
@@ -405,12 +408,12 @@
     const mobileMenu = document.getElementById("mobile-menu");
     mobileMenuButton.addEventListener("click", function() {
       mobileMenu.classList.toggle("hidden");
-      // Atualizar aria-expanded para acessibilidade
+      // Atualiza atributo aria-expanded para acessibilidade
       let expanded = mobileMenuButton.getAttribute("aria-expanded") === "true";
       mobileMenuButton.setAttribute("aria-expanded", !expanded);
     });
   
-    // Animation: Show elements on scroll
+    // Animation: show elements on scroll
     const faders = document.querySelectorAll('.fade-in');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -423,5 +426,6 @@
   </script>
 </body>
 </html>
+
 
 
