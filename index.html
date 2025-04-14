@@ -53,13 +53,28 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: 0 8px 32px 0 rgba(31,38,135,0.1);
     }
-    .pulse { animation: pulse 2s infinite; }
+    .pulse { 
+      animation: pulse 2s infinite; 
+    }
     @keyframes pulse {
       0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.5); }
       70% { box-shadow: 0 0 0 15px rgba(255,255,255,0); }
       100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
     }
-    /* Basic container */
+    /* Controle dos textos por idioma – agora cada arquivo mostra somente um idioma */
+    /* Seletor de idioma – mantendo as bandeiras na mesma linha */
+    #lang-switcher {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    #lang-switcher a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    /* Container para centralizar o conteúdo */
     .header-container {
       max-width: 1200px;
       margin: 0 auto;
@@ -75,7 +90,7 @@
   <!-- NAVBAR -->
   <nav class="sticky-nav py-4 px-6">
     <div class="header-container flex items-center justify-between">
-      <!-- Logo and language switcher -->
+      <!-- Logo e language switcher (mantidos na mesma linha) -->
       <div class="flex items-center gap-4">
         <h1 class="text-xl font-bold text-blue-800">Davi Sasso</h1>
         <div id="lang-switcher">
@@ -95,7 +110,7 @@
         <li><a href="#contact" class="hover:underline text-blue-700 font-semibold">Contact</a></li>
         <li><a href="https://www.linkedin.com/in/davi-sasso-14a706232/" target="_blank" class="hover:underline text-blue-600">LinkedIn</a></li>
       </ul>
-      <!-- Mobile Menu Button -->
+      <!-- Botão Hamburger para Mobile -->
       <button id="mobile-menu-button" class="md:hidden focus:outline-none">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
@@ -237,7 +252,7 @@
   <section id="stack" class="py-24 px-6 bg-white fade-in">
     <div class="header-container text-center mb-16">
       <h2 class="text-4xl font-bold parallax fade-in md:whitespace-nowrap">My Marketing + Data Stack</h2>
-      <p class="text-lg text-gray-600">Tools I use daily and technologies I'm incorporating into my work</p>
+      <p class="text-lg text-gray-600">Tools I use daily — and technologies I'm currently incorporating into my work</p>
     </div>
     <div class="header-container max-w-6xl mx-auto">
       <h3 class="text-2xl font-semibold text-blue-800 mb-4">Tools I use regularly</h3>
@@ -297,15 +312,15 @@
         <input type="hidden" name="_next" value="https://davisassol.github.io/thank-you.html">
         <div>
           <label class="block text-left font-medium mb-2" for="name">Name</label>
-          <input type="text" id="name" name="name" required class="w-full p-3 border border-gray-300 rounded-lg">
+          <input type="text" id="name" name="name" required class="w-full p-3 border border-gray-300 rounded-lg text-gray-900">
         </div>
         <div>
           <label class="block text-left font-medium mb-2" for="email">Email</label>
-          <input type="email" id="email" name="email" required class="w-full p-3 border border-gray-300 rounded-lg">
+          <input type="email" id="email" name="email" required class="w-full p-3 border border-gray-300 rounded-lg text-gray-900">
         </div>
         <div>
           <label class="block text-left font-medium mb-2" for="message">Message</label>
-          <textarea id="message" name="message" rows="4" required class="w-full p-3 border border-gray-300 rounded-lg"></textarea>
+          <textarea id="message" name="message" rows="4" required class="w-full p-3 border border-gray-300 rounded-lg text-gray-900"></textarea>
         </div>
         <button type="submit" class="bg-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-600 transition">
           Send Message
