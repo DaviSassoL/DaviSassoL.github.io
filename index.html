@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Meta Tags e SEO Avançado -->
+  <!-- Meta Tags and Advanced SEO -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Alterado conforme recomendação: -->
   <title>Davi Sasso | Marketing Orientado a Dados</title>
   <meta name="description" content="Consultoria em marketing com foco em performance, dados e resultados. ROI, ROAS e crescimento real para o seu negócio." />
   <meta name="keywords" content="marketing baseado em dados, especialista em paid ads, growth marketing, consultoria de marketing digital, otimização de campanhas" />
@@ -37,6 +36,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
+  <!-- Internal CSS -->
   <style>
     /* Global Styles */
     body { font-family: 'Poppins', sans-serif; }
@@ -105,15 +105,11 @@
       margin: 0 auto;
       padding: 0 1rem;
     }
-
-    /* Inputs: Ensure contrast */
     input[type="text"],
     input[type="email"],
     textarea {
       color: #1f2937;
     }
-
-    /* Skip to content link (accessible) */
     .skip-link {
       position: absolute;
       top: -40px;
@@ -125,11 +121,25 @@
       transition: top 0.3s;
     }
     .skip-link:focus { top: 0; }
-
-    /* Additional Interactivity: Hover effect on CTA */
     .cta-hover:hover {
       transform: translateY(-3px);
       box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+
+    /* Horizontal Scrolling Testimonial CSS */
+    @keyframes scroll-left-to-right {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+    .animate-scroll {
+      animation: scroll-left-to-right 20s linear infinite;
+    }
+    #scrolling-review:hover {
+      animation-play-state: paused;
     }
   </style>
 </head>
@@ -204,7 +214,7 @@
           </a>
         </div>
         <div class="md:w-1/2 flex justify-center">
-          <img src="davi-blue-background.png" alt="Davi Sasso with performance chart in the background" class="w-80 h-80 object-cover rounded-full shadow-2xl border-4 border-white" loading="lazy">
+          <img src="davi-blue-background.png" alt="Davi Sasso with performance chart" class="w-80 h-80 object-cover rounded-full shadow-2xl border-4 border-white" loading="lazy">
         </div>
       </div>
     </section>
@@ -275,35 +285,49 @@
         </div>
       </div>
     </section>
-      
-    <!-- TESTIMONIAL SECTION (Carousel de Depoimentos) -->
+    
+    <!-- TESTIMONIALS SECTION (Horizontal Scrolling with All Reviews) -->
     <section id="testimonial" class="bg-white py-20 px-6 fade-in">
       <div class="text-center mb-12">
-        <h2 class="text-4xl font-bold parallax fade-in">Recommendation</h2>
+        <h2 class="text-4xl font-bold parallax fade-in">Recommendations</h2>
         <p class="text-lg text-gray-600">From executives I've worked with</p>
       </div>
-      <div class="testimonial-slider header-container bg-gray-50 rounded-xl p-8 shadow-lg">
-        <!-- Depoimento de Shawn (primeiro slide) -->
-        <div class="testimonial-item flex flex-col md:flex-row items-center gap-6">
-          <img src="shawn-leamon.jpg" alt="Shawn Leamon" class="w-24 h-24 rounded-full object-cover border-2 border-blue-800 shadow-md" loading="lazy">
-          <div>
-            <p class="text-lg italic mb-4">
-              “Davi’s deep understanding of paid advertising, paired with his sharp problem-solving skills and relentless drive, consistently delivers impressive ROI and makes him an indispensable part of our team.”
-            </p>
-            <p class="text-sm font-semibold text-blue-800">Shawn Christopher Leamon</p>
-            <p class="text-sm text-gray-600">Chief Strategist</p>
-            <a href="https://shawnleamon.com" target="_blank" class="text-sm text-blue-600 underline">shawnleamon.com</a>
+      <div class="overflow-hidden relative">
+        <!-- Scrolling container with all reviews -->
+        <div id="scrolling-review" class="whitespace-nowrap inline-block animate-scroll">
+          <!-- Shawn's review (appears first) -->
+          <div class="inline-block mr-16 align-middle">
+            <img src="shawn-leamon.jpg" alt="Shawn Leamon" class="w-24 h-24 rounded-full object-cover border-2 border-blue-800 shadow-md mb-2 inline-block">
+            <div class="inline-block align-middle ml-4">
+              <p class="text-lg italic inline-block">
+                “Davi’s deep understanding of paid advertising, paired with his sharp problem-solving skills and relentless drive, consistently delivers impressive ROI and makes him an indispensable part of our team.”
+              </p>
+              <p class="text-sm font-semibold text-blue-800 mt-2">Shawn Christopher Leamon</p>
+              <p class="text-sm text-gray-600">Chief Strategist</p>
+              <a href="https://shawnleamon.com" target="_blank" class="text-sm text-blue-600 underline">shawnleamon.com</a>
+            </div>
           </div>
-        </div>
-        <!-- Depoimento de Brenton (segundo slide) -->
-        <div class="testimonial-item flex flex-col md:flex-row items-center gap-6" style="display: none;">
-          <img src="brenton.jpeg" alt="Brenton Miller" class="w-24 h-24 rounded-full object-cover border-2 border-blue-800 shadow-md" loading="lazy">
-          <div>
-            <p class="text-lg italic mb-4">
-              “Davi was proactive, eager to learn, and always delivered with a strong work ethic. His positive attitude and collaborative spirit made him a valuable part of the team.”
-            </p>
-            <p class="text-sm font-semibold text-blue-800">Brenton Miller</p>
-            <p class="text-sm text-gray-600">Managing Partner, Miller &amp; Miller Enterprises</p>
+          <!-- Brenton's review (appears second) -->
+          <div class="inline-block mr-16 align-middle">
+            <img src="brenton.jpeg" alt="Brenton Miller" class="w-24 h-24 rounded-full object-cover border-2 border-blue-800 shadow-md mb-2 inline-block">
+            <div class="inline-block align-middle ml-4">
+              <p class="text-lg italic inline-block">
+                “Davi was proactive, eager to learn, and always delivered with a strong work ethic. His positive attitude and collaborative spirit made him a valuable part of the team.”
+              </p>
+              <p class="text-sm font-semibold text-blue-800 mt-2">Brenton Miller</p>
+              <p class="text-sm text-gray-600">Managing Partner, Miller &amp; Miller Enterprises</p>
+            </div>
+          </div>
+          <!-- Giovani's review (appears third) -->
+          <div class="inline-block mr-16 align-middle">
+            <img src="https://raw.githubusercontent.com/yourusername/yourrepo/main/giovani.jpeg" alt="Giovani Soave" class="w-24 h-24 rounded-full object-cover border-2 border-blue-800 shadow-md mb-2 inline-block">
+            <div class="inline-block align-middle ml-4">
+              <p class="text-lg italic inline-block">
+                "Davi is an extremely methodical, analytical, and thoughtful professional when it comes to making decisions regarding digital marketing campaigns—whether paid or organic. He is a fantastic team player who, whenever faced with an unfamiliar task, takes the initiative to study, understand, and apply new methods. I highly recommend his work. A genuinely good guy—honest, incredibly intelligent, and very competent!"
+              </p>
+              <p class="text-sm font-semibold text-blue-800 mt-2">Giovani Soave</p>
+              <p class="text-sm text-gray-600">CEO</p>
+            </div>
           </div>
         </div>
       </div>
@@ -412,6 +436,7 @@
     </div>
   </footer>
   
+  <!-- JavaScript for Mobile Menu Toggle and Scrolling Testimonial Pause on Touch -->
   <script>
     // Toggle for mobile menu
     const mobileMenuButton = document.getElementById("mobile-menu-button");
@@ -422,33 +447,18 @@
       mobileMenuButton.setAttribute("aria-expanded", !expanded);
     });
   
-    // Animation: Show elements on scroll
-    const faders = document.querySelectorAll('.fade-in');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
-        }
-      });
-    }, { threshold: 0.1 });
-    faders.forEach(fader => observer.observe(fader));
-  
-    // Testimonial Slider Script
-    const testimonials = document.querySelectorAll('.testimonial-item');
-    let currentIndex = 0;
-    function showTestimonial(index) {
-      testimonials.forEach((item, i) => {
-        item.style.display = (i === index) ? 'flex' : 'none';
-      });
-    }
-    showTestimonial(currentIndex);
-    setInterval(() => {
-      currentIndex = (currentIndex + 1) % testimonials.length;
-      showTestimonial(currentIndex);
-    }, 5000);
+    // Pause scrolling animation on mobile touch events
+    const scrollingReview = document.getElementById('scrolling-review');
+    scrollingReview.addEventListener('touchstart', function() {
+      scrollingReview.style.animationPlayState = 'paused';
+    });
+    scrollingReview.addEventListener('touchend', function() {
+      scrollingReview.style.animationPlayState = 'running';
+    });
   </script>
 </body>
 </html>
+
 
 
 
