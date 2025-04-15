@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Meta Tags and Advanced SEO -->
+  <!-- Meta Tags e SEO Avançado -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Davi Sasso | Marketing Orientado a Dados</title>
@@ -44,11 +44,13 @@
     section { scroll-margin-top: 80px; }
     .highlight { color: #1e40af; font-weight: 600; }
     
+    /* Fade-In Effect: inicial opacidade 0 */
     .fade-in {
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 1s ease-out, transform 1s ease-out;
     }
+    /* Quando a classe 'show' for adicionada, o elemento fica visível */
     .fade-in.show {
       opacity: 1;
       transform: translateY(0);
@@ -295,7 +297,7 @@
       <div class="overflow-hidden relative">
         <!-- Scrolling container with all reviews -->
         <div id="scrolling-review" class="whitespace-nowrap inline-block animate-scroll">
-          <!-- Shawn's review (appears first) -->
+          <!-- Shawn's review (primeiro) -->
           <div class="inline-block mr-16 align-middle">
             <img src="shawn-leamon.jpg" alt="Shawn Leamon" class="w-24 h-24 rounded-full object-cover border-2 border-blue-800 shadow-md mb-2 inline-block">
             <div class="inline-block align-middle ml-4">
@@ -307,7 +309,7 @@
               <a href="https://shawnleamon.com" target="_blank" class="text-sm text-blue-600 underline">shawnleamon.com</a>
             </div>
           </div>
-          <!-- Brenton's review (appears second) -->
+          <!-- Brenton's review (segundo) -->
           <div class="inline-block mr-16 align-middle">
             <img src="brenton.jpeg" alt="Brenton Miller" class="w-24 h-24 rounded-full object-cover border-2 border-blue-800 shadow-md mb-2 inline-block">
             <div class="inline-block align-middle ml-4">
@@ -318,7 +320,7 @@
               <p class="text-sm text-gray-600">Managing Partner, Miller &amp; Miller Enterprises</p>
             </div>
           </div>
-          <!-- Giovani's review (appears third) -->
+          <!-- Giovani's review (terceiro) -->
           <div class="inline-block mr-16 align-middle">
             <img src="https://raw.githubusercontent.com/yourusername/yourrepo/main/giovani.jpeg" alt="Giovani Soave" class="w-24 h-24 rounded-full object-cover border-2 border-blue-800 shadow-md mb-2 inline-block">
             <div class="inline-block align-middle ml-4">
@@ -436,7 +438,7 @@
     </div>
   </footer>
   
-  <!-- JavaScript for Mobile Menu Toggle and Scrolling Testimonial Pause on Touch -->
+  <!-- JavaScript: Mobile Menu Toggle, Fade-In on Scroll, and Pause Animation on Touch -->
   <script>
     // Toggle for mobile menu
     const mobileMenuButton = document.getElementById("mobile-menu-button");
@@ -446,8 +448,24 @@
       let expanded = mobileMenuButton.getAttribute("aria-expanded") === "true";
       mobileMenuButton.setAttribute("aria-expanded", !expanded);
     });
+    
+    // IntersectionObserver para adicionar a classe 'show' aos elementos com 'fade-in'
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = {
+      threshold: 0.1
+    };
+    const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('show');
+        appearOnScroll.unobserve(entry.target);
+      });
+    }, appearOptions);
+    faders.forEach(fader => {
+      appearOnScroll.observe(fader);
+    });
   
-    // Pause scrolling animation on mobile touch events
+    // Pausa a animação de scrolling em dispositivos móveis no toque
     const scrollingReview = document.getElementById('scrolling-review');
     scrollingReview.addEventListener('touchstart', function() {
       scrollingReview.style.animationPlayState = 'paused';
@@ -458,6 +476,7 @@
   </script>
 </body>
 </html>
+
 
 
 
