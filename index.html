@@ -154,16 +154,31 @@
         text-align: left;
       }
     }
-    /* Mobile: Reduz padding e força altura natural para evitar espaço extra */
+    /* Mobile: Ajusta o padding para evitar espaço extra */
     @media (max-width: 767px) {
       .testimonial-content {
         padding: 1rem;
-        height: auto !important;
       }
       #testimonial {
-        padding-top: 1rem !important;
-        padding-bottom: 1rem !important;
-        margin-bottom: 0 !important;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+      }
+      #prevBtn {
+        left: 0.5rem;
+      }
+      #nextBtn {
+        right: 0.5rem;
+      }
+      .slider-nav {
+        width: 2rem;
+        height: 2rem;
+        padding: 0.25rem;
+        top: 45%;
+        transform: translateY(-45%);
+      }
+      .slider-nav svg {
+        width: 1.5rem;  /* Aumentado de 1.25rem para 1.5rem */
+        height: 1.5rem;
       }
     }
     .testimonial-content img {
@@ -184,7 +199,7 @@
     /* Botões de Navegação do Slider */
     .slider-nav {
       position: absolute;
-      top: 50%; /* Desktop: centralizado verticalmente */
+      top: 50%;
       transform: translateY(-50%);
       background: white;
       border: 1px solid #d1d5db;
@@ -196,26 +211,6 @@
     }
     #prevBtn { left: 1rem; }
     #nextBtn { right: 1rem; }
-    /* Mobile: Ajusta o posicionamento das setas para evitar sobreposição */
-    @media (max-width: 767px) {
-      #prevBtn {
-        left: 0.5rem;
-      }
-      #nextBtn {
-        right: 0.5rem;
-      }
-      .slider-nav {
-        width: 2rem;
-        height: 2rem;
-        padding: 0.25rem;
-        top: 45%;
-        transform: translateY(-45%);
-      }
-      .slider-nav svg {
-        width: 1.25rem;
-        height: 1.25rem;
-      }
-    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -397,18 +392,13 @@
               </div>
             </div>
           </div>
-          <!-- Slide 3: Depoimento do Giovani -->
+          <!-- Slide 3: Depoimento do Giovani (mais extenso, com espaçamento extra) -->
           <div class="testimonial-slide extra-space">
             <div class="testimonial-content">
               <img src="giovani.jpeg" alt="Giovani Soave">
               <div>
-                <!-- Versão Completa para telas md em diante -->
-                <p class="text-lg italic hidden md:block">
+                <p class="text-lg italic">
                   "Davi is an extremely methodical, analytical, and thoughtful professional when it comes to making decisions regarding digital marketing campaigns—whether paid or organic. He is a fantastic team player who, whenever faced with an unfamiliar task, takes the initiative to study, understand, and apply new methods. I highly recommend his work. A genuinely good guy—honest, incredibly intelligent, and very competent!"
-                </p>
-                <!-- Versão Curta para telas mobile -->
-                <p class="text-lg italic block md:hidden">
-                  "Davi is a highly analytical and proactive marketer who quickly learns and applies new strategies. He’s reliable, intelligent, and consistently brings value to any team."
                 </p>
                 <p class="text-sm font-semibold text-blue-800 mt-2">Giovani Soave</p>
                 <p class="text-sm text-gray-600">Chief Executive Officer</p>
@@ -566,18 +556,7 @@
     function goToSlide(index) {
       slider.style.transform = `translateX(-${index * 100}%)`;
       currentSlide = index;
-      
-      // Em mobile: ajuste o espaço vertical da seção de depoimentos.
-      const testimonialSection = document.getElementById('testimonial');
-      if (window.innerWidth < 768) {
-        let activeSlide = slides[index];
-        // Slide com depoimento extenso (Giovani) mantém margin-bottom 3rem; os outros 0.
-        if(activeSlide.classList.contains('extra-space')){
-          testimonialSection.style.marginBottom = "3rem";
-        } else {
-          testimonialSection.style.marginBottom = "0";
-        }
-      }
+      // Removido o ajuste de margin-bottom do container para manter o layout consistente
     }
     function nextSlide() {
       let nextIndex = (currentSlide + 1) % totalSlides;
@@ -610,17 +589,8 @@
     slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
     slider.addEventListener('mouseleave', startInterval);
     
-    // Inicia o slider
-    startInterval();
-
-    // Equaliza a altura dos cards de depoimento somente em desktop.
+    // Equaliza a altura dos cards de depoimento em todas as telas.
     function equalizeTestimonialHeights() {
-      if (window.innerWidth < 768) {
-        document.querySelectorAll('.testimonial-content').forEach(el => {
-          el.style.minHeight = "auto";
-        });
-        return;
-      }
       const testimonials = document.querySelectorAll('.testimonial-content');
       let maxHeight = 0;
       testimonials.forEach((el) => {
