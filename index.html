@@ -131,6 +131,8 @@
     .testimonial-slider {
       display: flex;
       transition: transform 0.7s ease-in-out;
+      /* Remoção de padding inicial para evitar espaço extra */
+      padding-bottom: 0;
     }
     /* Cada slide ocupa 100% da largura do container */
     .testimonial-slide {
@@ -155,10 +157,11 @@
         text-align: left;
       }
     }
-    /* Reduz padding em mobile para evitar espaços em branco excessivos */
+    /* Reduz padding em mobile para evitar espaços em branco excessivos e força altura natural */
     @media (max-width: 767px) {
       .testimonial-content {
         padding: 1rem;
+        height: auto !important;
       }
       /* Ajusta o padding da seção de depoimentos para um visual mais compacto */
       #testimonial {
@@ -196,14 +199,13 @@
     }
     #prevBtn { left: 1rem; }
     #nextBtn { right: 1rem; }
-
-    /* Ajustes específicos para mobile: reposiciona as setas para fora do container */
+    /* Ajustes específicos para mobile: reposiciona as setas para dentro do container, próximas ao texto */
     @media (max-width: 767px) {
       #prevBtn {
-        left: -1rem;
+        left: 0.5rem;
       }
       #nextBtn {
-        right: -1rem;
+        right: 0.5rem;
       }
       .slider-nav {
         width: 2rem;
@@ -560,7 +562,7 @@
       slider.style.transform = `translateX(-${index * 100}%)`;
       currentSlide = index;
 
-      // Ajusta o espaçamento extra em mobile apenas para o slide com classe "extra-space"
+      // Em mobile, se o slide tiver a classe extra-space, aplica padding extra; caso contrário, zera.
       if(window.innerWidth < 768) {
         let activeSlide = slides[index];
         if(activeSlide.classList.contains('extra-space')) {
@@ -604,7 +606,7 @@
     // Inicia o slider
     startInterval();
 
-    // Equaliza a altura dos cards de testemunho somente em desktop.
+    // Equaliza a altura dos cards de depoimento somente em desktop
     function equalizeTestimonialHeights() {
       if (window.innerWidth < 768) {
         document.querySelectorAll('.testimonial-content').forEach(el => {
