@@ -154,31 +154,16 @@
         text-align: left;
       }
     }
-    /* Mobile: Ajusta o padding para evitar espaço extra */
+    /* Mobile: Reduz padding e força altura natural para evitar espaço extra */
     @media (max-width: 767px) {
       .testimonial-content {
         padding: 1rem;
+        height: auto !important;
       }
       #testimonial {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-      }
-      #prevBtn {
-        left: 0.5rem;
-      }
-      #nextBtn {
-        right: 0.5rem;
-      }
-      .slider-nav {
-        width: 2rem;
-        height: 2rem;
-        padding: 0.25rem;
-        top: 45%;
-        transform: translateY(-45%);
-      }
-      .slider-nav svg {
-        width: 1.5rem;  /* Aumentado de 1.25rem para 1.5rem */
-        height: 1.5rem;
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+        margin-bottom: 0 !important;
       }
     }
     .testimonial-content img {
@@ -199,7 +184,7 @@
     /* Botões de Navegação do Slider */
     .slider-nav {
       position: absolute;
-      top: 50%;
+      top: 50%; /* Desktop: centralizado verticalmente */
       transform: translateY(-50%);
       background: white;
       border: 1px solid #d1d5db;
@@ -211,6 +196,26 @@
     }
     #prevBtn { left: 1rem; }
     #nextBtn { right: 1rem; }
+    /* Mobile: Ajusta o posicionamento das setas para evitar sobreposição */
+    @media (max-width: 767px) {
+      #prevBtn {
+        left: 0.5rem;
+      }
+      #nextBtn {
+        right: 0.5rem;
+      }
+      .slider-nav {
+        width: 2rem;
+        height: 2rem;
+        padding: 0.25rem;
+        top: 45%;
+        transform: translateY(-45%);
+      }
+      .slider-nav svg {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -401,7 +406,7 @@
                   "Davi is an extremely methodical, analytical, and thoughtful professional when it comes to making decisions regarding digital marketing campaigns—whether paid or organic. He is a fantastic team player who, whenever faced with an unfamiliar task, takes the initiative to study, understand, and apply new methods. I highly recommend his work. A genuinely good guy—honest, incredibly intelligent, and very competent!"
                 </p>
                 <p class="text-sm font-semibold text-blue-800 mt-2">Giovani Soave</p>
-                <p class="text-sm text-gray-600">Chief Executive Officer</p>
+                <p class="text-sm text-gray-600">CEO</p>
               </div>
             </div>
           </div>
@@ -420,8 +425,8 @@
       </div>
     </section>
     
-    <!-- CTA SECTION (sem ID duplicado) -->
-    <section class="bg-blue-800 text-white py-20 px-6 fade-in">
+    <!-- CTA SECTION -->
+    <section class="bg-blue-800 text-white py-20 px-6 fade-in" id="contactForm">
       <div class="header-container max-w-4xl mx-auto text-center">
         <h2 class="text-4xl font-bold mb-4">Looking to grow your business through data and strategy?</h2>
         <p class="text-xl mb-6">
@@ -487,7 +492,7 @@
       </div>
     </section>
     
-    <!-- CONTACT SECTION (formulário) -->
+    <!-- CONTACT SECTION -->
     <section id="contactForm" class="bg-blue-800 text-white py-28 px-6 fade-in">
       <div class="header-container text-center max-w-3xl mx-auto">
         <h2 class="text-4xl font-bold mb-5 parallax fade-in">Ready to Transform Your Results?</h2>
@@ -554,9 +559,20 @@
     let slideInterval;
     
     function goToSlide(index) {
-      slider.style.transform = `translateX(-${index * 100}%)`;
+      slider.style.transform = translateX(-${index * 100}%);
       currentSlide = index;
-      // Removido o ajuste de margin-bottom do container para manter o layout consistente
+      
+      // Em mobile: ajuste o espaço vertical da seção de depoimentos.
+      const testimonialSection = document.getElementById('testimonial');
+      if (window.innerWidth < 768) {
+        let activeSlide = slides[index];
+        // Slide com depoimento extenso (Giovani) mantém margin-bottom 3rem; os outros 0.
+        if(activeSlide.classList.contains('extra-space')){
+          testimonialSection.style.marginBottom = "3rem";
+        } else {
+          testimonialSection.style.marginBottom = "0";
+        }
+      }
     }
     function nextSlide() {
       let nextIndex = (currentSlide + 1) % totalSlides;
@@ -589,8 +605,17 @@
     slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
     slider.addEventListener('mouseleave', startInterval);
     
-    // Equaliza a altura dos cards de depoimento em todas as telas.
+    // Inicia o slider
+    startInterval();
+
+    // Equaliza a altura dos cards de depoimento somente em desktop.
     function equalizeTestimonialHeights() {
+      if (window.innerWidth < 768) {
+        document.querySelectorAll('.testimonial-content').forEach(el => {
+          el.style.minHeight = "auto";
+        });
+        return;
+      }
       const testimonials = document.querySelectorAll('.testimonial-content');
       let maxHeight = 0;
       testimonials.forEach((el) => {
