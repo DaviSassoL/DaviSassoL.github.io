@@ -44,6 +44,28 @@
     section { scroll-margin-top: 80px; }
     .highlight { color: #1e40af; font-weight: 600; }
     
+    /* Skip to Content – oculto visualmente, visível ao focar */
+    .sr-only { 
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .focus\:not-sr-only:focus {
+      position: static;
+      width: auto;
+      height: auto;
+      margin: 0;
+      overflow: visible;
+      clip: auto;
+      white-space: normal;
+    }
+    
     /* Fade-In Effect */
     .fade-in {
       opacity: 0;
@@ -64,7 +86,7 @@
     
     /* Navbar e Layout */
     .sticky-nav {
-      /* Em desktop utiliza sticky; mobile será ajustado via media query */
+      /* Em desktop utiliza sticky; no mobile será fixo para sempre estar visível */
       position: sticky;
       top: 0;
       z-index: 50;
@@ -72,7 +94,7 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
     
-    /* Parallax (efeito de animação de título, por exemplo) */
+    /* Parallax */
     .parallax {
       transform: translateY(0);
       transition: transform 1s ease-out;
@@ -156,7 +178,7 @@
     
     /* Ajustes MOBILE */
     @media (max-width: 767px) {
-      /* Navbar mobile fixa */
+      /* Navbar fixa no topo com largura total */
       nav.sticky-nav {
         position: fixed;
         top: 0;
@@ -166,6 +188,20 @@
       /* Compensa o espaço do navbar fixo */
       main#main-content {
         padding-top: 70px;
+      }
+      /* Simplifica o seletor de idioma para texto e ocupa uma única linha */
+      #lang-switcher {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+      #lang-switcher a {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #1e40af;
+      }
+      #lang-switcher span {
+        color: #6b7280;
       }
       /* Testemunhos: padroniza altura e centraliza */
       .testimonial-slide {
@@ -182,14 +218,27 @@
         justify-content: center;
         height: 100%;
       }
-      /* Esconde os botões absolutos (desktop) */
+      /* Esconde os botões de navegação absolutos (desktop) */
       .slider-nav { display: none; }
+      /* Botões de navegação mobile abaixo do slider */
+      .mobile-slider-nav {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+      .mobile-slider-nav button {
+        border: 1px solid #d1d5db;
+        background: white;
+        padding: 0.5rem;
+        border-radius: 9999px;
+      }
     }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
-  <!-- Skip to Content -->
-  <a href="#main-content" class="skip-link">Skip to Content</a>
+  <!-- Skip to Content (oculto visualmente, aparece ao focar) -->
+  <a href="#main-content" class="sr-only focus:not-sr-only">Skip to Content</a>
 
   <!-- WhatsApp Floating Button -->
   <a href="https://wa.me/5511916974757" target="_blank" aria-label="WhatsApp Chat" class="fixed bottom-5 right-5 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg z-50 transition duration-300">
@@ -200,16 +249,14 @@
   <header>
     <nav class="sticky-nav py-4 px-6" aria-label="Main Navigation">
       <div class="header-container flex items-center justify-between">
-        <!-- Logo e Troca de Idioma -->
+        <!-- Logo e Language Switcher -->
         <div class="flex items-center gap-4">
           <h1 class="text-xl font-bold text-blue-800">Davi Sasso</h1>
+          <!-- Language Switcher simplificado -->
           <div id="lang-switcher">
-            <a href="https://davisasso.com/en" aria-label="English">
-              <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="English" class="h-6 w-6" loading="lazy">
-            </a>
-            <a href="https://davisasso.com/br" aria-label="Portuguese">
-              <img src="https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg" alt="Portuguese" class="h-6 w-6" loading="lazy">
-            </a>
+            <a href="https://davisasso.com/en">EN</a>
+            <span>/</span>
+            <a href="https://davisasso.com/br">PT</a>
           </div>
         </div>
         <!-- Navegação Desktop -->
@@ -336,8 +383,8 @@
         <h2 class="text-4xl font-bold parallax fade-in">Recommendations</h2>
         <p class="text-lg text-gray-600">From executives I've worked with</p>
       </div>
-      <!-- Slider Container -->
       <div class="relative max-w-4xl mx-auto overflow-hidden">
+        <!-- Slider Container -->
         <div id="testimonial-slider" class="testimonial-slider">
           <!-- Slide 1: Depoimento do Shawn -->
           <div class="testimonial-slide">
@@ -385,7 +432,7 @@
             </div>
           </div>
         </div>
-        <!-- Botões de navegação do slider DESKTOP (exibidos apenas em md e superiores) -->
+        <!-- Botões de navegação DESKTOP -->
         <button id="prevBtn" class="slider-nav hidden md:block" aria-label="Previous">
           <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -397,8 +444,8 @@
           </svg>
         </button>
       </div>
-      <!-- Navegação do slider MOBILE: botões abaixo do slider -->
-      <div class="flex justify-center gap-4 mt-4 md:hidden">
+      <!-- Botões de navegação MOBILE abaixo do slider -->
+      <div class="mobile-slider-nav md:hidden">
         <button id="prevBtnMobile" class="rounded-full border border-gray-300 p-2 bg-white">
           <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -558,7 +605,7 @@
       goToSlide(prevIndex);
     }
     
-    // Eventos para botões Desktop
+    // Eventos para botões DESKTOP
     document.getElementById('nextBtn')?.addEventListener('click', () => {
       nextSlide();
       resetInterval();
@@ -568,7 +615,7 @@
       resetInterval();
     });
     
-    // Eventos para botões Mobile (novos)
+    // Eventos para botões MOBILE
     document.getElementById('nextBtnMobile')?.addEventListener('click', () => {
       nextSlide();
       resetInterval();
@@ -597,6 +644,7 @@
   </script>
 </body>
 </html>
+
 
 
 
