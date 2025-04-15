@@ -35,9 +35,6 @@
   <!-- Tailwind CSS and Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Alpine.js para interação (usado na seção de depoimentos) -->
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
   <!-- Internal CSS -->
   <style>
@@ -130,7 +127,7 @@
       box-shadow: 0 8px 16px rgba(0,0,0,0.15);
     }
 
-    /* Estilização do Slider de Testemunhos (antigo) – remova se não for utilizar mais */
+    /* Estilização do Slider de Testemunhos */
     .testimonial-slider {
       display: flex;
       transition: transform 0.7s ease-in-out;
@@ -184,10 +181,10 @@
         margin-right: 1.5rem;
       }
     }
-    /* Botões de Navegação do Slider (antigo) – removidos nesta versão */
+    /* Botões de Navegação do Slider */
     .slider-nav {
       position: absolute;
-      top: 50%;
+      top: 50%; /* Desktop: centralizado verticalmente */
       transform: translateY(-50%);
       background: white;
       border: 1px solid #d1d5db;
@@ -199,9 +196,14 @@
     }
     #prevBtn { left: 1rem; }
     #nextBtn { right: 1rem; }
+    /* Mobile: Ajusta o posicionamento das setas para evitar sobreposição */
     @media (max-width: 767px) {
-      #prevBtn { left: 0.5rem; }
-      #nextBtn { right: 0.5rem; }
+      #prevBtn {
+        left: 0.5rem;
+      }
+      #nextBtn {
+        right: 0.5rem;
+      }
       .slider-nav {
         width: 2rem;
         height: 2rem;
@@ -359,92 +361,68 @@
       </div>
     </section>
     
-    <!-- TESTIMONIALS (Slider Responsivo com Scroll Snap e Alpine.js) -->
+    <!-- TESTIMONIALS (Slider Responsivo) -->
     <section id="testimonial" class="bg-white py-20 px-6 fade-in">
       <div class="text-center mb-12">
         <h2 class="text-4xl font-bold parallax fade-in">Recommendations</h2>
         <p class="text-lg text-gray-600">From executives I've worked with</p>
       </div>
-      <!-- Novo Carrossel de Testemunhos -->
-      <div x-data="testimonialCarousel()" x-init="init()" class="relative">
-        <!-- Container com scroll snap -->
-        <div class="overflow-x-auto flex flex-nowrap snap-x snap-mandatory gap-4 scroll-smooth"
-             @pointerdown="pauseAutoplay" 
-             @pointerup="startAutoplay" 
-             @touchstart="pauseAutoplay" 
-             @touchend="startAutoplay">
-          <template x-for="(testimonial, index) in testimonials" :key="index">
-            <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 snap-center min-h-[200px] bg-white p-6 rounded-xl shadow-lg">
-              <img :src="testimonial.img" alt="" class="w-16 h-16 rounded-full object-cover mx-auto mb-4">
-              <p class="text-lg italic text-gray-700" x-text="testimonial.message"></p>
-              <div class="mt-4 text-center">
-                <h3 class="text-lg font-bold text-blue-800" x-text="testimonial.author"></h3>
-                <p class="text-sm text-gray-600" x-text="testimonial.position"></p>
-                <template x-if="testimonial.link">
-                  <a :href="testimonial.link" target="_blank" class="text-sm text-blue-600 underline">Website</a>
-                </template>
+      <div class="relative max-w-4xl mx-auto overflow-hidden">
+        <!-- Slider Container -->
+        <div id="testimonial-slider" class="testimonial-slider">
+          <!-- Slide 1: Depoimento do Shawn -->
+          <div class="testimonial-slide">
+            <div class="testimonial-content">
+              <img src="shawn-leamon.jpg" alt="Shawn Leamon">
+              <div>
+                <p class="text-lg italic">
+                  “Davi’s deep understanding of paid advertising, paired with his sharp problem-solving skills and relentless drive, consistently delivers impressive ROI and makes him an indispensable part of our team.”
+                </p>
+                <p class="text-sm font-semibold text-blue-800 mt-2">Shawn Christopher Leamon</p>
+                <p class="text-sm text-gray-600">Chief Strategist</p>
+                <a href="https://shawnleamon.com" target="_blank" class="text-sm text-blue-600 underline">shawnleamon.com</a>
               </div>
             </div>
-          </template>
+          </div>
+          <!-- Slide 2: Depoimento do Brenton -->
+          <div class="testimonial-slide">
+            <div class="testimonial-content">
+              <img src="brenton.jpeg" alt="Brenton Miller">
+              <div>
+                <p class="text-lg italic">
+                  “Davi was proactive, eager to learn, and always delivered with a strong work ethic. His positive attitude and collaborative spirit made him a valuable part of the team.”
+                </p>
+                <p class="text-sm font-semibold text-blue-800 mt-2">Brenton Miller</p>
+                <p class="text-sm text-gray-600">Managing Partner, Miller &amp; Miller Enterprises</p>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 3: Depoimento do Giovani (mais extenso, com espaçamento extra) -->
+          <div class="testimonial-slide extra-space">
+            <div class="testimonial-content">
+              <img src="giovani.jpeg" alt="Giovani Soave">
+              <div>
+                <p class="text-lg italic">
+                  "Davi is an extremely methodical, analytical, and thoughtful professional when it comes to making decisions regarding digital marketing campaigns—whether paid or organic. He is a fantastic team player who, whenever faced with an unfamiliar task, takes the initiative to study, understand, and apply new methods. I highly recommend his work. A genuinely good guy—honest, incredibly intelligent, and very competent!"
+                </p>
+                <p class="text-sm font-semibold text-blue-800 mt-2">Giovani Soave</p>
+                <p class="text-sm text-gray-600">CEO</p>
+              </div>
+            </div>
+          </div>
         </div>
+        <!-- Botões de Navegação do Slider -->
+        <button id="prevBtn" class="slider-nav" aria-label="Previous">
+          <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button id="nextBtn" class="slider-nav" aria-label="Next">
+          <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
       </div>
-      
-      <!-- Lógica do slider com Alpine.js -->
-      <script>
-        function testimonialCarousel() {
-          return {
-            testimonials: [
-              { 
-                message: "Davi’s deep understanding of paid advertising, paired with his sharp problem-solving skills and relentless drive, consistently delivers impressive ROI and makes him an indispensable part of our team.", 
-                author: "Shawn Christopher Leamon", 
-                position: "Chief Strategist", 
-                img: "shawn-leamon.jpg", 
-                link: "https://shawnleamon.com" 
-              },
-              { 
-                message: "Davi was proactive, eager to learn, and always delivered with a strong work ethic. His positive attitude and collaborative spirit made him a valuable part of the team.", 
-                author: "Brenton Miller", 
-                position: "Managing Partner, Miller & Miller Enterprises", 
-                img: "brenton.jpeg" 
-              },
-              { 
-                message: "Davi is an extremely methodical, analytical, and thoughtful professional when it comes to making decisions regarding digital marketing campaigns—whether paid or organic. He is a fantastic team player who, whenever faced with an unfamiliar task, takes the initiative to study, understand, and apply new methods. I highly recommend his work. A genuinely good guy—honest, incredibly intelligent, and very competent!", 
-                author: "Giovani Soave", 
-                position: "CEO", 
-                img: "giovani.jpeg" 
-              }
-            ],
-            autoplayInterval: null,
-            autoplayDelay: 5000, // 5 segundos
-
-            init() {
-              this.startAutoplay();
-            },
-            startAutoplay() {
-              if (!this.autoplayInterval) {
-                this.autoplayInterval = setInterval(() => {
-                  this.scrollToNext();
-                }, this.autoplayDelay);
-              }
-            },
-            pauseAutoplay() {
-              if (this.autoplayInterval) {
-                clearInterval(this.autoplayInterval);
-                this.autoplayInterval = null;
-              }
-            },
-            scrollToNext() {
-              const container = this.$el.querySelector('.overflow-x-auto');
-              const firstItem = container.querySelector('.flex-shrink-0');
-              if (firstItem) {
-                const gap = parseInt(getComputedStyle(container).gap) || 0;
-                const scrollAmount = firstItem.offsetWidth + gap;
-                container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-              }
-            }
-          }
-        }
-      </script>
     </section>
     
     <!-- CTA SECTION -->
@@ -550,7 +528,7 @@
     </div>
   </footer>
   
-  <!-- JavaScript: Mobile Menu Toggle e Fade-In Effect -->
+  <!-- JavaScript: Mobile Menu Toggle, Fade-In, Slider e Ajuste Dinâmico -->
   <script>
     // Toggle do Menu Mobile
     const mobileMenuButton = document.getElementById("mobile-menu-button");
@@ -572,9 +550,88 @@
       });
     }, appearOptions);
     faders.forEach(fader => appearOnScroll.observe(fader));
+    
+    // Slider de Depoimentos
+    const slider = document.getElementById('testimonial-slider');
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
+    let slideInterval;
+    
+    function goToSlide(index) {
+      slider.style.transform = `translateX(-${index * 100}%)`;
+      currentSlide = index;
+      
+      // Em mobile: ajuste o espaço vertical da seção de depoimentos.
+      const testimonialSection = document.getElementById('testimonial');
+      if (window.innerWidth < 768) {
+        let activeSlide = slides[index];
+        // Slide com depoimento extenso (Giovani) mantém margin-bottom 3rem; os outros 0.
+        if(activeSlide.classList.contains('extra-space')){
+          testimonialSection.style.marginBottom = "3rem";
+        } else {
+          testimonialSection.style.marginBottom = "0";
+        }
+      }
+    }
+    function nextSlide() {
+      let nextIndex = (currentSlide + 1) % totalSlides;
+      goToSlide(nextIndex);
+    }
+    function prevSlide() {
+      let prevIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+      goToSlide(prevIndex);
+    }
+    
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      nextSlide();
+      resetInterval();
+    });
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      prevSlide();
+      resetInterval();
+    });
+    
+    function startInterval() {
+      slideInterval = setInterval(nextSlide, 8000); // Auto-avança a cada 8 segundos
+    }
+    function resetInterval() {
+      clearInterval(slideInterval);
+      startInterval();
+    }
+    // Pausa o auto-slide ao interagir (mobile e desktop)
+    slider.addEventListener('touchstart', () => clearInterval(slideInterval));
+    slider.addEventListener('touchend', startInterval);
+    slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+    slider.addEventListener('mouseleave', startInterval);
+    
+    // Inicia o slider
+    startInterval();
+
+    // Equaliza a altura dos cards de depoimento somente em desktop.
+    function equalizeTestimonialHeights() {
+      if (window.innerWidth < 768) {
+        document.querySelectorAll('.testimonial-content').forEach(el => {
+          el.style.minHeight = "auto";
+        });
+        return;
+      }
+      const testimonials = document.querySelectorAll('.testimonial-content');
+      let maxHeight = 0;
+      testimonials.forEach((el) => {
+        el.style.minHeight = "auto"; // Reseta a altura
+        if (el.offsetHeight > maxHeight) {
+          maxHeight = el.offsetHeight;
+        }
+      });
+      testimonials.forEach((el) => {
+        el.style.minHeight = maxHeight + "px";
+      });
+    }
+    
+    window.addEventListener('load', equalizeTestimonialHeights);
+    window.addEventListener('resize', equalizeTestimonialHeights);
   </script>
 </body>
 </html>
-
-
 
