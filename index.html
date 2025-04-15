@@ -397,13 +397,18 @@
               </div>
             </div>
           </div>
-          <!-- Slide 3: Depoimento do Giovani (mais extenso, com espaçamento extra) -->
+          <!-- Slide 3: Depoimento do Giovani -->
           <div class="testimonial-slide extra-space">
             <div class="testimonial-content">
               <img src="giovani.jpeg" alt="Giovani Soave">
               <div>
-                <p class="text-lg italic">
+                <!-- Versão Completa para telas md em diante -->
+                <p class="text-lg italic hidden md:block">
                   "Davi is an extremely methodical, analytical, and thoughtful professional when it comes to making decisions regarding digital marketing campaigns—whether paid or organic. He is a fantastic team player who, whenever faced with an unfamiliar task, takes the initiative to study, understand, and apply new methods. I highly recommend his work. A genuinely good guy—honest, incredibly intelligent, and very competent!"
+                </p>
+                <!-- Versão Curta para telas mobile -->
+                <p class="text-lg italic block md:hidden">
+                  "Davi is a highly analytical and proactive marketer who quickly learns and applies new strategies. He’s reliable, intelligent, and consistently brings value to any team."
                 </p>
                 <p class="text-sm font-semibold text-blue-800 mt-2">Giovani Soave</p>
                 <p class="text-sm text-gray-600">Chief Executive Officer</p>
@@ -634,5 +639,6 @@
   </script>
 </body>
 </html>
+
 
 
