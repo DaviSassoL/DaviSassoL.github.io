@@ -59,15 +59,20 @@
     }
     .interactive-card:hover {
       transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.08);
     }
+    
+    /* Navbar e Layout */
     .sticky-nav {
+      /* Em desktop utiliza sticky; mobile será ajustado via media query */
       position: sticky;
       top: 0;
       z-index: 50;
       background-color: white;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
+    
+    /* Parallax (efeito de animação de título, por exemplo) */
     .parallax {
       transform: translateY(0);
       transition: transform 1s ease-out;
@@ -75,11 +80,12 @@
     .parallax.show {
       transform: translateY(-10px);
     }
+    
     .glass {
-      background-color: rgba(255, 255, 255, 0.15);
+      background-color: rgba(255,255,255,0.15);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255,255,255,0.2);
       box-shadow: 0 8px 32px 0 rgba(31,38,135,0.1);
     }
     .pulse { animation: pulse 2s infinite; }
@@ -88,46 +94,8 @@
       70% { box-shadow: 0 0 0 15px rgba(255,255,255,0); }
       100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
     }
-
-    /* Navigation and Layout */
-    #lang-switcher {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-    }
-    #lang-switcher a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-    .header-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-    input[type="text"],
-    input[type="email"],
-    textarea {
-      color: #1f2937;
-    }
-    .skip-link {
-      position: absolute;
-      top: -40px;
-      left: 0;
-      background: #1e40af;
-      color: white;
-      padding: 8px 16px;
-      z-index: 100;
-      transition: top 0.3s;
-    }
-    .skip-link:focus { top: 0; }
-    .cta-hover:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-    }
-
-    /* Estilização do Slider de Testemunhos */
+    
+    /* Slider de Testemunhos */
     .testimonial-slider {
       display: flex;
       transition: transform 0.7s ease-in-out;
@@ -154,65 +122,6 @@
         text-align: left;
       }
     }
-    /* Ajustes apenas na versão mobile */
-    @media (max-width: 767px) {
-      /* Uniformiza a altura dos depoimentos e centraliza o conteúdo */
-      .testimonial-slide {
-        min-height: 320px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .testimonial-content {
-        padding: 1rem;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        height: 100%;
-      }
-      #testimonial {
-        padding-top: 1rem !important;
-        padding-bottom: 1rem !important;
-        margin-bottom: 0 !important;
-      }
-      /* Reposiciona as setas de navegação para a parte inferior do slider */
-      .slider-nav {
-        width: 2rem;
-        height: 2rem;
-        padding: 0.25rem;
-        top: auto;
-        bottom: -1rem;
-        transform: none;
-      }
-      .slider-nav svg {
-        width: 1.25rem;
-        height: 1.25rem;
-      }
-      #prevBtn {
-        left: 0.5rem;
-      }
-      #nextBtn {
-        right: 0.5rem;
-      }
-    }
-
-    /* Setas de Navegação do Slider para Desktop */
-    .slider-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: white;
-      border: 1px solid #d1d5db;
-      border-radius: 9999px;
-      padding: 0.5rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      cursor: pointer;
-      z-index: 2;
-    }
-    #prevBtn { left: 1rem; }
-    #nextBtn { right: 1rem; }
-
     .testimonial-content img {
       width: 6rem;
       height: 6rem;
@@ -227,6 +136,54 @@
         margin-bottom: 0;
         margin-right: 1.5rem;
       }
+    }
+    
+    /* Botões de navegação do slider – DESKTOP */
+    .slider-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      border: 1px solid #d1d5db;
+      border-radius: 9999px;
+      padding: 0.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      cursor: pointer;
+      z-index: 2;
+    }
+    #prevBtn { left: 1rem; }
+    #nextBtn { right: 1rem; }
+    
+    /* Ajustes MOBILE */
+    @media (max-width: 767px) {
+      /* Navbar mobile fixa */
+      nav.sticky-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+      /* Compensa o espaço do navbar fixo */
+      main#main-content {
+        padding-top: 70px;
+      }
+      /* Testemunhos: padroniza altura e centraliza */
+      .testimonial-slide {
+        min-height: 320px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .testimonial-content {
+        padding: 1rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+      }
+      /* Esconde os botões absolutos (desktop) */
+      .slider-nav { display: none; }
     }
   </style>
 </head>
@@ -379,8 +336,8 @@
         <h2 class="text-4xl font-bold parallax fade-in">Recommendations</h2>
         <p class="text-lg text-gray-600">From executives I've worked with</p>
       </div>
+      <!-- Slider Container -->
       <div class="relative max-w-4xl mx-auto overflow-hidden">
-        <!-- Slider Container -->
         <div id="testimonial-slider" class="testimonial-slider">
           <!-- Slide 1: Depoimento do Shawn -->
           <div class="testimonial-slide">
@@ -428,13 +385,26 @@
             </div>
           </div>
         </div>
-        <!-- Botões de Navegação do Slider -->
-        <button id="prevBtn" class="slider-nav" aria-label="Previous">
+        <!-- Botões de navegação do slider DESKTOP (exibidos apenas em md e superiores) -->
+        <button id="prevBtn" class="slider-nav hidden md:block" aria-label="Previous">
           <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
           </svg>
         </button>
-        <button id="nextBtn" class="slider-nav" aria-label="Next">
+        <button id="nextBtn" class="slider-nav hidden md:block" aria-label="Next">
+          <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+      <!-- Navegação do slider MOBILE: botões abaixo do slider -->
+      <div class="flex justify-center gap-4 mt-4 md:hidden">
+        <button id="prevBtnMobile" class="rounded-full border border-gray-300 p-2 bg-white">
+          <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button id="nextBtnMobile" class="rounded-full border border-gray-300 p-2 bg-white">
           <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
           </svg>
@@ -442,7 +412,7 @@
       </div>
     </section>
     
-    <!-- CTA SECTION (sem ID duplicado) -->
+    <!-- CTA SECTION -->
     <section class="bg-blue-800 text-white py-20 px-6 fade-in">
       <div class="header-container max-w-4xl mx-auto text-center">
         <h2 class="text-4xl font-bold mb-4">Looking to grow your business through data and strategy?</h2>
@@ -509,7 +479,7 @@
       </div>
     </section>
     
-    <!-- CONTACT SECTION (formulário) -->
+    <!-- CONTACT SECTION -->
     <section id="contactForm" class="bg-blue-800 text-white py-28 px-6 fade-in">
       <div class="header-container text-center max-w-3xl mx-auto">
         <h2 class="text-4xl font-bold mb-5 parallax fade-in">Ready to Transform Your Results?</h2>
@@ -545,7 +515,7 @@
     </div>
   </footer>
   
-  <!-- JavaScript: Mobile Menu Toggle, Fade-In, Slider e Ajuste Dinâmico -->
+  <!-- JavaScript: Mobile Menu Toggle, Fade-In, Slider e Controle de Navegação -->
   <script>
     // Toggle do Menu Mobile
     const mobileMenuButton = document.getElementById("mobile-menu-button");
@@ -559,7 +529,7 @@
     // IntersectionObserver para efeito Fade-In
     const faders = document.querySelectorAll('.fade-in');
     const appearOptions = { threshold: 0.1 };
-    const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         entry.target.classList.add('show');
@@ -578,18 +548,6 @@
     function goToSlide(index) {
       slider.style.transform = `translateX(-${index * 100}%)`;
       currentSlide = index;
-      
-      // Em mobile: ajuste o espaço vertical da seção de depoimentos.
-      const testimonialSection = document.getElementById('testimonial');
-      if (window.innerWidth < 768) {
-        let activeSlide = slides[index];
-        // Slide com depoimento extenso (Giovani) mantém margin-bottom 3rem; os outros 0.
-        if(activeSlide.classList.contains('extra-space')){
-          testimonialSection.style.marginBottom = "3rem";
-        } else {
-          testimonialSection.style.marginBottom = "0";
-        }
-      }
     }
     function nextSlide() {
       let nextIndex = (currentSlide + 1) % totalSlides;
@@ -600,11 +558,22 @@
       goToSlide(prevIndex);
     }
     
-    document.getElementById('nextBtn').addEventListener('click', () => {
+    // Eventos para botões Desktop
+    document.getElementById('nextBtn')?.addEventListener('click', () => {
       nextSlide();
       resetInterval();
     });
-    document.getElementById('prevBtn').addEventListener('click', () => {
+    document.getElementById('prevBtn')?.addEventListener('click', () => {
+      prevSlide();
+      resetInterval();
+    });
+    
+    // Eventos para botões Mobile (novos)
+    document.getElementById('nextBtnMobile')?.addEventListener('click', () => {
+      nextSlide();
+      resetInterval();
+    });
+    document.getElementById('prevBtnMobile')?.addEventListener('click', () => {
       prevSlide();
       resetInterval();
     });
@@ -616,7 +585,8 @@
       clearInterval(slideInterval);
       startInterval();
     }
-    // Pausa o auto-slide ao interagir (mobile e desktop)
+    
+    // Pausa o auto-slide ao interagir
     slider.addEventListener('touchstart', () => clearInterval(slideInterval));
     slider.addEventListener('touchend', startInterval);
     slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
@@ -624,33 +594,10 @@
     
     // Inicia o slider
     startInterval();
-
-    // Equaliza a altura dos cards de depoimento somente em desktop.
-    function equalizeTestimonialHeights() {
-      if (window.innerWidth < 768) {
-        document.querySelectorAll('.testimonial-content').forEach(el => {
-          el.style.minHeight = "auto";
-        });
-        return;
-      }
-      const testimonials = document.querySelectorAll('.testimonial-content');
-      let maxHeight = 0;
-      testimonials.forEach((el) => {
-        el.style.minHeight = "auto"; // Reseta a altura
-        if (el.offsetHeight > maxHeight) {
-          maxHeight = el.offsetHeight;
-        }
-      });
-      testimonials.forEach((el) => {
-        el.style.minHeight = maxHeight + "px";
-      });
-    }
-    
-    window.addEventListener('load', equalizeTestimonialHeights);
-    window.addEventListener('resize', equalizeTestimonialHeights);
   </script>
 </body>
 </html>
+
 
 
 
