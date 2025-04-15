@@ -156,14 +156,43 @@
     }
     /* Mobile: Reduz padding e força altura natural para evitar espaço extra */
     @media (max-width: 767px) {
+      /* Ajusta o tamanho dos depoimentos para que fiquem uniformes */
+      .testimonial-slide {
+        min-height: 320px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
       .testimonial-content {
         padding: 1rem;
-        height: auto !important;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
       }
       #testimonial {
         padding-top: 1rem !important;
         padding-bottom: 1rem !important;
         margin-bottom: 0 !important;
+      }
+      /* Ajusta as setas para não sobreporem o conteúdo */
+      .slider-nav {
+        width: 2rem;
+        height: 2rem;
+        padding: 0.25rem;
+        top: 85%;
+        transform: translateY(-85%);
+      }
+      .slider-nav svg {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+      #prevBtn {
+        left: 0.5rem;
+      }
+      #nextBtn {
+        right: 0.5rem;
       }
     }
     .testimonial-content img {
@@ -184,38 +213,15 @@
     /* Botões de Navegação do Slider */
     .slider-nav {
       position: absolute;
-      top: 50%; /* Desktop: centralizado verticalmente */
-      transform: translateY(-50%);
       background: white;
       border: 1px solid #d1d5db;
       border-radius: 9999px;
-      padding: 0.5rem;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       cursor: pointer;
       z-index: 2;
     }
     #prevBtn { left: 1rem; }
     #nextBtn { right: 1rem; }
-    /* Mobile: Ajusta o posicionamento das setas para evitar sobreposição */
-    @media (max-width: 767px) {
-      #prevBtn {
-        left: 0.5rem;
-      }
-      #nextBtn {
-        right: 0.5rem;
-      }
-      .slider-nav {
-        width: 2rem;
-        height: 2rem;
-        padding: 0.25rem;
-        top: 45%;
-        transform: translateY(-45%);
-      }
-      .slider-nav svg {
-        width: 1.25rem;
-        height: 1.25rem;
-      }
-    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -639,6 +645,7 @@
   </script>
 </body>
 </html>
+
 
 
 
