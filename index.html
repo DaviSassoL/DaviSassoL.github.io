@@ -154,9 +154,9 @@
         text-align: left;
       }
     }
-    /* Mobile: Reduz padding e força altura natural para evitar espaço extra */
+    /* Ajustes apenas na versão mobile */
     @media (max-width: 767px) {
-      /* Ajusta o tamanho dos depoimentos para que fiquem uniformes */
+      /* Uniformiza a altura dos depoimentos e centraliza o conteúdo */
       .testimonial-slide {
         min-height: 320px;
         display: flex;
@@ -176,7 +176,7 @@
         padding-bottom: 1rem !important;
         margin-bottom: 0 !important;
       }
-      /* Ajusta as setas para não sobreporem o conteúdo */
+      /* Ajusta as setas para a versão mobile */
       .slider-nav {
         width: 2rem;
         height: 2rem;
@@ -195,6 +195,23 @@
         right: 0.5rem;
       }
     }
+
+    /* Setas de Navegação do Slider para Desktop */
+    .slider-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      border: 1px solid #d1d5db;
+      border-radius: 9999px;
+      padding: 0.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      cursor: pointer;
+      z-index: 2;
+    }
+    #prevBtn { left: 1rem; }
+    #nextBtn { right: 1rem; }
+
     .testimonial-content img {
       width: 6rem;
       height: 6rem;
@@ -210,18 +227,6 @@
         margin-right: 1.5rem;
       }
     }
-    /* Botões de Navegação do Slider */
-    .slider-nav {
-      position: absolute;
-      background: white;
-      border: 1px solid #d1d5db;
-      border-radius: 9999px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      cursor: pointer;
-      z-index: 2;
-    }
-    #prevBtn { left: 1rem; }
-    #nextBtn { right: 1rem; }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
