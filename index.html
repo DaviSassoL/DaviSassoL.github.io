@@ -155,6 +155,12 @@
         text-align: left;
       }
     }
+    /* Ajuste de Padding para Mobile, para diminuir áreas vazias */
+    @media (max-width: 767px) {
+      .testimonial-content {
+        padding: 1rem;
+      }
+    }
     .testimonial-content img {
       width: 6rem;
       height: 6rem;
@@ -495,7 +501,7 @@
     </div>
   </footer>
   
-  <!-- JavaScript: Mobile Menu Toggle, Fade-In, Slider e Equalização de Alturas -->
+  <!-- JavaScript: Mobile Menu Toggle, Fade-In, Slider e Equalização de Alturas (apenas para desktop) -->
   <script>
     // Toggle do Menu Mobile
     const mobileMenuButton = document.getElementById("mobile-menu-button");
@@ -563,8 +569,14 @@
     // Inicia o slider
     startInterval();
 
-    // Equaliza a altura dos cards de testemunho
+    // Equaliza a altura dos cards de testemunho somente em desktop
     function equalizeTestimonialHeights() {
+      if (window.innerWidth < 768) {
+        document.querySelectorAll('.testimonial-content').forEach(el => {
+          el.style.minHeight = "auto";
+        });
+        return;
+      }
       const testimonials = document.querySelectorAll('.testimonial-content');
       let maxHeight = 0;
       testimonials.forEach((el) => {
