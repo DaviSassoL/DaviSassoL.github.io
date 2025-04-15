@@ -160,7 +160,7 @@
       .testimonial-content {
         padding: 1rem;
       }
-      /* Ajuste o padding da seção de depoimentos para um visual mais compacto */
+      /* Ajusta o padding da seção de depoimentos para um visual mais compacto */
       #testimonial {
         padding-top: 2rem;
         padding-bottom: 2rem;
@@ -192,9 +192,29 @@
       padding: 0.5rem;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       cursor: pointer;
+      z-index: 2;
     }
     #prevBtn { left: 1rem; }
     #nextBtn { right: 1rem; }
+
+    /* Ajustes específicos para mobile: reposiciona as setas para fora do container */
+    @media (max-width: 767px) {
+      #prevBtn {
+        left: -1rem;
+      }
+      #nextBtn {
+        right: -1rem;
+      }
+      .slider-nav {
+        width: 2rem;
+        height: 2rem;
+        padding: 0.25rem;
+      }
+      .slider-nav svg {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -506,7 +526,7 @@
     </div>
   </footer>
   
-  <!-- JavaScript: Mobile Menu Toggle, Fade-In, Slider e Ajuste de Espaçamento -->
+  <!-- JavaScript: Mobile Menu Toggle, Fade-In, Slider e Ajuste Dinâmico de Espaçamento -->
   <script>
     // Toggle do Menu Mobile
     const mobileMenuButton = document.getElementById("mobile-menu-button");
@@ -540,7 +560,7 @@
       slider.style.transform = `translateX(-${index * 100}%)`;
       currentSlide = index;
 
-      // Em mobile, ajuste o espaçamento adicional se o slide ativo tiver a classe "extra-space"
+      // Ajusta o espaçamento extra em mobile apenas para o slide com classe "extra-space"
       if(window.innerWidth < 768) {
         let activeSlide = slides[index];
         if(activeSlide.classList.contains('extra-space')) {
@@ -585,7 +605,6 @@
     startInterval();
 
     // Equaliza a altura dos cards de testemunho somente em desktop.
-    // Em mobile os cartões assumem sua altura natural para evitar espaços em branco.
     function equalizeTestimonialHeights() {
       if (window.innerWidth < 768) {
         document.querySelectorAll('.testimonial-content').forEach(el => {
