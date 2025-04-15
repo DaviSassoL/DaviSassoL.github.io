@@ -367,7 +367,6 @@
           <!-- Slide 3: Depoimento do Giovani -->
           <div class="testimonial-slide">
             <div class="testimonial-content">
-              <!-- Usando o arquivo local "giovani.jpeg" -->
               <img src="giovani.jpeg" alt="Giovani Soave">
               <div>
                 <p class="text-lg italic">
@@ -496,7 +495,7 @@
     </div>
   </footer>
   
-  <!-- JavaScript: Mobile Menu Toggle, Fade-In, and Slider Functionality -->
+  <!-- JavaScript: Mobile Menu Toggle, Fade-In, Slider e Equalização de Alturas -->
   <script>
     // Toggle do Menu Mobile
     const mobileMenuButton = document.getElementById("mobile-menu-button");
@@ -555,17 +554,33 @@
       clearInterval(slideInterval);
       startInterval();
     }
-    // Pausa o auto-slide ao tocar a área (mobile)
+    // Pausa o auto-slide ao interagir (mobile e desktop)
     slider.addEventListener('touchstart', () => clearInterval(slideInterval));
     slider.addEventListener('touchend', startInterval);
+    slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+    slider.addEventListener('mouseleave', startInterval);
     
     // Inicia o slider
     startInterval();
+
+    // Equaliza a altura dos cards de testemunho
+    function equalizeTestimonialHeights() {
+      const testimonials = document.querySelectorAll('.testimonial-content');
+      let maxHeight = 0;
+      testimonials.forEach((el) => {
+        el.style.minHeight = "auto"; // Reseta a altura
+        if (el.offsetHeight > maxHeight) {
+          maxHeight = el.offsetHeight;
+        }
+      });
+      testimonials.forEach((el) => {
+        el.style.minHeight = maxHeight + "px";
+      });
+    }
+    
+    window.addEventListener('load', equalizeTestimonialHeights);
+    window.addEventListener('resize', equalizeTestimonialHeights);
   </script>
 </body>
 </html>
-
-
-
-
 
