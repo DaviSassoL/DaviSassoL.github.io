@@ -1,51 +1,112 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MPRMMT57');</script>
-<!-- End Google Tag Manager -->
+  <!-- Meta Tags Básicos & SEO -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Davi Sasso | Consultor de Marketing &amp; Analytics Orientado por Dados</title>
-  <meta name="description" content="Consultoria em Marketing e Dados com foco em performance e inteligência analítica. Soluções sob medida para escalar seu negócio." />
-  <meta name="keywords" content="marketing digital, engenharia de dados, consultoria, mídia paga, dashboards, lead scoring, performance" />
-  <meta name="author" content="Davi Sasso">
-  <meta property="og:title" content="Davi Sasso | Consultor de Marketing &amp; Analytics Orientado por Dados" />
-  <meta property="og:description" content="Especialista em estratégias orientadas por dados para impulsionar o crescimento, gerar leads e otimizar campanhas." />
+  <title>Davi Sasso | Especialista em Marketing Orientado por Dados & Gerente de PPC</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <meta name="description" content="Davi Sasso é especialista em marketing orientado por dados, especialista em mídia paga, gerente de PPC, consultor de growth marketing, especialista em marketing de performance e estrategista de marketing digital dedicado a impulsionar o crescimento mensurável de negócios usando análises avançadas." />
+  <meta name="keywords" content="marketing orientado por dados, especialista em mídia paga, gerente de PPC, consultor de growth marketing, especialista em marketing de performance, estrategista de marketing digital" />
+  <meta name="author" content="Davi Sasso" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Meta Tags Open Graph -->
+  <meta property="og:title" content="Davi Sasso | Especialista em Marketing Orientado por Dados & Gerente de PPC" />
+  <meta property="og:description" content="Com análises de dados avançadas, Davi Sasso se destaca como estrategista de marketing e especialista em mídia paga." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://davisasso.com/br" />
-  <meta property="og:image" content="../davi-blue-background.png" />
-  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <meta property="og:image" content="https://davisasso.com/davi-blue-background.png" />
+  <meta property="og:locale" content="pt_BR" />
+
+  <!-- Meta Tags Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Davi Sasso | Especialista em Marketing Orientado por Dados & Gerente de PPC">
+  <meta name="twitter:description" content="Davi Sasso é especialista em marketing orientado por dados, especialista em mídia paga, gerente de PPC, consultor de growth marketing, especialista em marketing de performance e estrategista de marketing digital dedicado a impulsionar o crescimento mensurável de negócios usando análises avançadas.">
+  <meta name="twitter:image" content="https://davisasso.com/davi-blue-background.png">
+
+  <!-- Canonical & Alternates -->
   <link rel="canonical" href="https://davisasso.com/br" />
-  <meta name="robots" content="index, follow" />
+  <link rel="alternate" hreflang="en" href="https://davisasso.com" />
+  <link rel="alternate" hreflang="pt" href="https://davisasso.com/br" />
+
+  <!-- Dados Estruturados (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Davi Sasso",
+    "jobTitle": "Especialista em Marketing Orientado por Dados & Gerente de PPC",
+    "url": "https://davisasso.com/br",
+    "description": "Expert em marketing orientado por dados, campanhas de mídia paga e estratégias digitais projetadas para acelerar o crescimento de negócios.",
+    "sameAs": [
+      "https://www.linkedin.com/in/davi-sasso-14a706232/"
+    ]
+  }
+  </script>
+
+  <!-- Tailwind CSS e Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS Interno -->
   <style>
+    /* Global Styles */
     body { font-family: 'Poppins', sans-serif; }
     html { scroll-behavior: smooth; }
     section { scroll-margin-top: 80px; }
     .highlight { color: #1e40af; font-weight: 600; }
-    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 1s ease-out, transform 1s ease-out; }
-    .fade-in.show { opacity: 1; transform: translateY(0); }
+
+    /* Skip to Content – visually hidden but visible on focus */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .focus\:not-sr-only:focus {
+      position: static;
+      width: auto;
+      height: auto;
+      margin: 0;
+      overflow: visible;
+      clip: auto;
+      white-space: normal;
+    }
+
+    /* Fade-In Effect */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .fade-in.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
     .interactive-card {
       transition: all 0.3s ease-in-out;
-      transform: translateY(0);
     }
     .interactive-card:hover {
       transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.08);
     }
+
+    /* Navbar and Layout */
     .sticky-nav {
       position: sticky;
       top: 0;
       z-index: 50;
       background-color: white;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
+
+    /* Parallax */
     .parallax {
       transform: translateY(0);
       transition: transform 1s ease-out;
@@ -53,317 +114,530 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .parallax.show {
       transform: translateY(-10px);
     }
+
     .glass {
-      background-color: rgba(255, 255, 255, 0.15);
+      background-color: rgba(255,255,255,0.15);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.1);
     }
-    .pulse { 
-      animation: pulse 2s infinite; 
-    }
+    .pulse { animation: pulse 2s infinite; }
     @keyframes pulse {
       0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.5); }
       70% { box-shadow: 0 0 0 15px rgba(255,255,255,0); }
       100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
     }
-    /* Container para centralizar o conteúdo */
-    .header-container { max-width: 1200px; margin: 0 auto; }
-    /* Seletor de idioma – garante que as bandeiras fiquem na mesma linha */
-    #lang-switcher {
+
+    /* Testimonial Slider */
+    .testimonial-slider {
       display: flex;
-      gap: 0.5rem;
-      align-items: center;
+      transition: transform 0.7s ease-in-out;
+      padding-bottom: 0;
     }
-    #lang-switcher a {
-      display: inline-flex;
+    .testimonial-slide {
+      width: 100%;
+      flex-shrink: 0;
+      padding: 0 1rem;
+    }
+    .testimonial-content {
+      background-color: #f9fafb;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
+      text-align: center;
+    }
+    @media (min-width: 768px) {
+      .testimonial-content {
+        flex-direction: row;
+        text-align: left;
+      }
+    }
+    .testimonial-content img {
+      width: 6rem;
+      height: 6rem;
+      border-radius: 9999px;
+      object-fit: cover;
+      border: 2px solid #1e40af;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 1rem;
+    }
+    @media (min-width: 768px) {
+      .testimonial-content img {
+        margin-bottom: 0;
+        margin-right: 1.5rem;
+      }
+    }
+
+    /* Desktop Slider Navigation Buttons */
+    .slider-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      border: 1px solid #d1d5db;
+      border-radius: 9999px;
+      padding: 0.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       cursor: pointer;
+      z-index: 2;
+    }
+    #prevBtn { left: 1rem; }
+    #nextBtn { right: 1rem; }
+
+    /* Mobile Adjustments */
+    @media (max-width: 767px) {
+      nav.sticky-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+      main#main-content {
+        padding-top: 70px;
+      }
+      #lang-switcher {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+      #lang-switcher a {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #1e40af;
+      }
+      #lang-switcher span {
+        color: #6b7280;
+      }
+      .testimonial-slide {
+        min-height: 320px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .testimonial-content {
+        padding: 1rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+      }
+      .slider-nav { display: none; }
+      .mobile-slider-nav {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+      .mobile-slider-nav button {
+        border: 1px solid #d1d5db;
+        background: white;
+        padding: 0.5rem;
+        border-radius: 9999px;
+      }
     }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
- <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MPRMMT57"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+  <!-- Pular para o Conteúdo -->
+  <a href="#main-content" class="sr-only focus:not-sr-only">Pular para o Conteúdo</a>
+
   <!-- Botão flutuante do WhatsApp -->
-  <a href="https://wa.me/5511916974757" target="_blank" aria-label="Chat no WhatsApp"
-     class="fixed bottom-5 right-5 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg z-50 transition duration-300">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="Ícone do WhatsApp" class="h-6 w-6 invert" />
+  <a href="https://wa.me/5511916974757" target="_blank" aria-label="Chat no WhatsApp" class="fixed bottom-5 right-5 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg z-50 transition duration-300">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="Ícone do WhatsApp" class="h-6 w-6 invert" loading="lazy">
   </a>
 
-  <!-- NAVBAR -->
-  <nav class="sticky-nav py-4 px-6">
-    <div class="header-container flex items-center justify-between">
-      <!-- Logo -->
-      <h1 class="text-xl font-bold text-blue-800">Davi Sasso</h1>
-      <!-- Navegação Desktop -->
-      <ul class="hidden md:flex gap-6 text-sm md:text-base">
-        <li><a href="#about" class="hover:underline text-gray-700">Sobre Mim</a></li>
-        <li><a href="#services" class="hover:underline text-gray-700">Serviços</a></li>
-        <li><a href="#stack" class="hover:underline text-gray-700">Ferramentas &amp; Tecnologias</a></li>
-        <li><a href="#contact" class="hover:underline text-blue-700 font-semibold">Contato</a></li>
-        <li><a href="https://www.linkedin.com/in/davi-sasso-14a706232/" target="_blank" class="hover:underline text-blue-600">LinkedIn</a></li>
-      </ul>
-      <!-- Botão Hamburger para Mobile -->
-      <button id="mobile-menu-button" class="md:hidden focus:outline-none">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
-    </div>
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden header-container mt-4">
-      <ul class="flex flex-col gap-4 text-sm">
-        <li><a href="#about" class="block hover:underline text-gray-700">Sobre Mim</a></li>
-        <li><a href="#services" class="block hover:underline text-gray-700">Serviços</a></li>
-        <li><a href="#stack" class="block hover:underline text-gray-700">Ferramentas &amp; Tecnologias</a></li>
-        <li><a href="#contact" class="block hover:underline text-blue-700 font-semibold">Contato</a></li>
-        <li><a href="https://www.linkedin.com/in/davi-sasso-14a706232/" target="_blank" class="block hover:underline text-blue-600">LinkedIn</a></li>
-      </ul>
-    </div>
-  </nav>
+  <!-- HEADER -->
+  <header>
+    <nav class="sticky-nav py-4 px-6" aria-label="Navegação Principal">
+      <div class="header-container flex items-center justify-between">
+        <!-- Logo e Seletor de Idioma -->
+        <div class="flex items-center gap-4">
+          <a href="https://davisasso.com/br" aria-label="Página Inicial">
+            <span class="text-xl font-bold text-blue-800">Davi Sasso</span>
+          </a>
+          <div id="lang-switcher">
+            <a href="https://davisasso.com">EN</a>
+            <span>/</span>
+            <a href="https://davisasso.com/br">PT</a>
+          </div>
+        </div>
+        <!-- Navegação Desktop -->
+        <ul class="hidden md:flex gap-6 text-sm md:text-base">
+          <li><a href="#about" class="hover:underline text-gray-700">Sobre</a></li>
+          <li><a href="#services" class="hover:underline text-gray-700">Serviços</a></li>
+          <li><a href="#stack" class="hover:underline text-gray-700">Stack de Tecnologias</a></li>
+          <li><a href="#contactForm" class="hover:underline text-blue-700 font-semibold">Contato</a></li>
+          <li><a href="https://www.linkedin.com/in/davi-sasso-14a706232/" target="_blank" class="hover:underline text-blue-600">LinkedIn</a></li>
+        </ul>
+        <!-- Botão Mobile -->
+        <button id="mobile-menu-button" class="md:hidden focus:outline-none" aria-label="Alternar Menu Mobile" aria-expanded="false">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+      <!-- Navegação Mobile -->
+      <div id="mobile-menu" class="hidden md:hidden header-container mt-4">
+        <ul class="flex flex-col gap-4 text-sm">
+          <li><a href="#about" class="block hover:underline text-gray-700">Sobre</a></li>
+          <li><a href="#services" class="block hover:underline text-gray-700">Serviços</a></li>
+          <li><a href="#stack" class="block hover:underline text-gray-700">Stack de Tecnologias</a></li>
+          <li><a href="#contactForm" class="block hover:underline text-blue-700 font-semibold">Contato</a></li>
+          <li><a href="https://www.linkedin.com/in/davi-sasso-14a706232/" target="_blank" class="block hover:underline text-blue-600">LinkedIn</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 
-  <!-- SEÇÃO HERO -->
-  <section class="bg-gradient-to-r from-blue-800 to-blue-500 py-28 px-6 fade-in">
-    <div class="header-container max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
-      <div class="md:w-1/2 text-center md:text-left">
-        <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
-          Impulsione Seu Crescimento com Dados
-        </h1>
-        <p class="text-xl text-white/90 mb-8">
-          Eu sou Davi Sasso, um estrategista de marketing que utiliza análises de dados para escalar negócios de forma eficiente.
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+    <!-- HERO SECTION -->
+    <section class="bg-gradient-to-r from-blue-800 to-blue-500 py-28 px-6 fade-in">
+      <div class="header-container max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2 text-center md:text-left">
+          <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+            Desbloqueie Crescimento Excepcional com Dados
+          </h1>
+          <p class="text-xl text-white/90 mb-8">
+            Sou Davi Sasso — especialista em marketing orientado por dados, gerente de mídia paga, gerente de PPC, consultor de growth marketing, especialista em marketing de performance e estrategista digital dedicado a escalar seu negócio com eficiência.
+          </p>
+          <a href="#contactForm" class="inline-block bg-white text-blue-700 py-3 px-8 rounded-full text-lg font-semibold shadow-lg hover:bg-gray-100 hover:scale-105 transition-transform duration-200">
+            Agende Sua Sessão de Estratégia Gratuita
+          </a>
+        </div>
+        <div class="md:w-1/2 flex justify-center">
+          <img src="davi-blue-background.png" alt="Davi Sasso com gráfico de desempenho" class="w-80 h-80 object-cover rounded-full shadow-2xl border-4 border-white" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-28 px-6 max-w-6xl mx-auto fade-in">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4 parallax fade-in">Sobre Mim – Transformando Dados em Crescimento de Negócios</h2>
+        <p class="text-lg text-gray-600">Combinando Análise & Marketing para Resultados Reais</p>
+      </div>
+      <div class="bg-white shadow-xl rounded-xl p-10">
+        <p class="text-xl mb-4">
+          Gerenciei orçamentos publicitários de <strong>milhões de dólares</strong> e atendi mais de <strong>70 clientes</strong> globais em e-commerce, B2B, startups e setor jurídico.
         </p>
-        <a href="#contact" class="inline-block bg-white text-blue-700 py-3 px-8 rounded-full text-lg font-semibold shadow-lg hover:bg-gray-100 hover:scale-105 transition-transform duration-200">
-          Agende sua Sessão de Estratégia
+        <p class="text-xl mb-4">
+          Aumentei o ROAS de um cliente para <span class="highlight">343%</span> em 30 dias e potencializei a geração de leads em <span class="highlight">700%</span>, reduzindo o custo por conversão.
+        </p>
+        <p class="text-xl">
+          Atualmente aprimoro minhas habilidades com um <strong>Executive MBA em Engenharia de Dados</strong>, garantindo estratégias sempre à frente.
+        </p>
+      </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services" class="bg-gray-100 py-28 px-6 fade-in">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold parallax fade-in">Meus Serviços</h2>
+        <p class="text-lg text-gray-600">Projetados para o Seu Sucesso</p>
+      </div>
+      <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto">
+        <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+          <h3 class="text-xl font-semibold mb-2">📊 Análise de Marketing</h3>
+          <p>Transforme dados em insights claros e acionáveis.</p>
+        </div>
+        <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+          <h3 class="text-xl font-semibold mb-2">🚀 Otimização de Mídia Paga</h3>
+          <p>Estratégias avançadas para ROI ideal.</p>
+        </div>
+        <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+          <h3 class="text-xl font-semibold mb-2">🎯 Geração de Leads</h3>
+          <p>Captação eficaz de leads com táticas digitais comprovadas.</p>
+        </div>
+        <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+          <h3 class="text-xl font-semibold mb-2">📈 Dashboards Personalizados</h3>
+          <p>Ferramentas de visualização para insights rápidos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS SECTION -->
+    <section id="results" class="py-24 px-6 bg-white fade-in">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold parallax fade-in">Resultados Chave</h2>
+        <p class="text-lg text-gray-600">Entrega de crescimento mensurável em diversos setores</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center max-w-6xl mx-auto">
+        <div>
+          <h3 class="text-5xl font-bold text-blue-700">343%</h3>
+          <p class="text-lg mt-2">ROAS médio (30 dias)</p>
+        </div>
+        <div>
+          <h3 class="text-5xl font-bold text-blue-700">+700%</h3>
+          <p class="text-lg mt-2">Crescimento de Leads</p>
+        </div>
+        <div>
+          <h3 class="text-5xl font-bold text-blue-700">70+</h3>
+          <p class="text-lg mt-2">Clientes Atendidos</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section id="testimonial" class="bg-white py-20 px-6 fade-in">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold parallax fade-in">Recomendações</h2>
+        <p class="text-lg text-gray-600">De executivos com quem trabalhei</p>
+      </div>
+      <div class="relative max-w-4xl mx-auto overflow-hidden">
+        <div id="testimonial-slider" class="testimonial-slider">
+          <!-- Slide 1 -->
+          <div class="testimonial-slide">
+            <div class="testimonial-content">
+              <img src="shawn-leamon.jpg" alt="Shawn Leamon" loading="lazy">
+              <div>
+                <p class="text-lg italic">
+                  “O profundo conhecimento de Davi em publicidade paga, aliado ao seu poder de resolução de problemas, gera consistentemente um ROI impressionante.”
+                </p>
+                <p class="text-sm font-semibold text-blue-800 mt-2">Shawn Christopher Leamon</p>
+                <p class="text-sm text-gray-600">Chefe de Estratégia</p>
+                <a href="https://shawnleamon.com" target="_blank" class="text-sm text-blue-600 underline">shawnleamon.com</a>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="testimonial-slide">
+            <div class="testimonial-content">
+              <img src="brenton.jpeg" alt="Brenton Miller" loading="lazy">
+              <div>
+                <p class="text-lg italic">
+                  “A proatividade e o forte senso de responsabilidade de Davi fazem dele um integrante valioso em qualquer equipe.”
+                </p>
+                <p class="text-sm font-semibold text-blue-800 mt-2">Brenton Miller</p>
+                <p class="text-sm text-gray-600">Sócio-gerente, Miller & Miller Enterprises</p>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="testimonial-slide">
+            <div class="testimonial-content">
+              <img src="giovani.jpeg" alt="Giovani Soave" loading="lazy">
+              <div>
+                <p class="text-lg italic hidden md:block">
+                  “Davi é extremamente analítico e metódico ao gerenciar campanhas digitais. Ele domina novas estratégias e entrega crescimento mensurável.”
+                </p>
+                <p class="text-lg italic block md:hidden">
+                  “Davi é um profissional analítico que entrega valor e crescimento mensuráveis.”
+                </p>
+                <p class="text-sm font-semibold text-blue-800 mt-2">Giovani Soave</p>
+                <p class="text-sm text-gray-600">CEO</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button id="prevBtn" class="slider-nav hidden md:block" aria-label="Anterior">
+          <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button id="nextBtn" class="slider-nav hidden md:block" aria-label="Próximo">
+          <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-slider-nav md:hidden">
+        <button id="prevBtnMobile" class="rounded-full border border-gray-300 p-2 bg-white" aria-label="Anterior">
+          <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button id="nextBtnMobile" class="rounded-full border border-gray-300 p-2 bg-white" aria-label="Próximo">
+          <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="bg-blue-800 text-white py-20 px-6 fade-in">
+      <div class="header-container max-w-4xl mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-4">Procurando Crescer Seu Negócio por Meio de Dados?</h2>
+        <p class="text-xl mb-6">
+          Ajudo empresas a gerar leads qualificados usando estratégias digitais comprovadas como mídia paga, SEO e monitoramento de performance.
+        </p>
+        <a href="#contactForm" class="pulse inline-block bg-white text-blue-800 px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-gray-100 transition">
+          Agende Sua Sessão de Estratégia Gratuita
         </a>
       </div>
-      <div class="md:w-1/2 flex justify-center">
-        <!-- Usando caminho relativo para imagem (voltando uma pasta, se necessário) -->
-        <img src="../davi-blue-background.png" alt="Davi Sasso" class="w-80 h-80 object-cover rounded-full shadow-2xl border-4 border-white">
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- SEÇÃO SOBRE MIM -->
-  <section id="about" class="py-28 px-6 max-w-6xl mx-auto fade-in">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl font-bold mb-4 parallax fade-in">Sobre Mim – Transformando Dados em Crescimento</h2>
-      <p class="text-lg text-gray-600">Combinando Análise e Marketing para Resultados Reais</p>
-    </div>
-    <div class="bg-white shadow-xl rounded-xl p-10">
-      <p class="text-xl mb-4">
-        Eu gerenciei orçamentos publicitários de <strong>milhões de dólares</strong> para mais de <strong>70 clientes</strong> globais em e-commerce, B2B, startups e setores jurídicos.
-      </p>
-      <p class="text-xl mb-4">
-        Meu trabalho elevou o ROAS de um cliente para <span class="highlight">343,27%</span> em apenas um mês e aumentou a captação de leads em <span class="highlight">700%</span>, reduzindo os custos por conversão.
-      </p>
-      <p class="text-xl">
-        Atualmente, aprimoro minhas habilidades com um <strong>Executive MBA em Engenharia de Dados</strong> pela Universidade Mackenzie, garantindo estratégias fundamentadas em dados.
-      </p>
-    </div>
-  </section>
-
-  <!-- SEÇÃO DE SERVIÇOS -->
-  <section id="services" class="bg-gray-100 py-28 px-6 fade-in">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl font-bold parallax fade-in">Meus Serviços</h2>
-      <p class="text-lg text-gray-600">Projetados para o Seu Sucesso</p>
-    </div>
-    <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto">
-      <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
-        <h3 class="text-xl font-semibold mb-2">📊 Análise de Marketing</h3>
-        <p>Insights que transformam dados em ações práticas.</p>
+    <!-- TECH STACK SECTION -->
+    <section id="stack" class="py-24 px-6 bg-white fade-in">
+      <div class="header-container text-center mb-16">
+        <h2 class="text-4xl font-bold parallax fade-in md:whitespace-nowrap">Meu Stack de Marketing + Dados</h2>
+        <p class="text-lg text-gray-600">Ferramentas que uso diariamente — e tecnologias que estou integrando</p>
       </div>
-      <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
-        <h3 class="text-xl font-semibold mb-2">🚀 Mídia Paga</h3>
-        <p>Estratégias digitais para um ROI ideal.</p>
-      </div>
-      <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
-        <h3 class="text-xl font-semibold mb-2">🎯 Geração de Leads</h3>
-        <p>Captação e cultivo eficaz de leads com automação.</p>
-      </div>
-      <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
-        <h3 class="text-xl font-semibold mb-2">📈 Dashboards</h3>
-        <p>Dashboards personalizados para insights claros e rápidos.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- SEÇÃO DE RESULTADOS -->
-  <section id="results" class="py-24 px-6 bg-white fade-in">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl font-bold parallax fade-in">Resultados Chave</h2>
-      <p class="text-lg text-gray-600">Crescimento mensurável em diversos setores</p>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center max-w-6xl mx-auto">
-      <div>
-        <h3 class="text-5xl font-bold text-blue-700">343%</h3>
-        <p class="text-lg mt-2">ROAS Médio (30 dias)</p>
-      </div>
-      <div>
-        <h3 class="text-5xl font-bold text-blue-700">+700%</h3>
-        <p class="text-lg mt-2">Crescimento de Leads</p>
-      </div>
-      <div>
-        <h3 class="text-5xl font-bold text-blue-700">70+</h3>
-        <p class="text-lg mt-2">Clientes Atendidos</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- SEÇÃO DE RECOMENDAÇÃO -->
-  <section id="testimonial" class="bg-white py-20 px-6 fade-in">
-    <div class="text-center mb-12">
-      <h2 class="text-4xl font-bold parallax fade-in">Recomendação</h2>
-      <p class="text-lg text-gray-600">De um executivo com quem trabalhei</p>
-    </div>
-    <div class="header-container bg-gray-50 rounded-xl p-8 shadow-lg flex flex-col md:flex-row items-center gap-6">
-      <img src="../shawn-leamon.jpg" alt="Shawn Leamon" class="w-24 h-24 rounded-full object-cover border-2 border-blue-800 shadow-md">
-      <div>
-        <p class="text-lg italic mb-4">
-          “O profundo conhecimento do Davi sobre publicidade paga, aliado às suas habilidades de resolver problemas e à motivação incansável, gera consistentemente um ROI impressionante para os clientes.”
-        </p>
-        <p class="text-sm font-semibold text-blue-800">Shawn Christopher Leamon</p>
-        <p class="text-sm text-gray-600">Chefe de Estratégia</p>
-        <a href="https://shawnleamon.com" target="_blank" class="text-sm text-blue-600 underline">shawnleamon.com</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- SEÇÃO CTA -->
-  <section class="bg-blue-800 text-white py-20 px-6 fade-in">
-    <div class="header-container max-w-4xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-4">Impulsione Seu Negócio com Dados</h2>
-      <p class="text-xl mb-6">
-        Descubra como estratégias baseadas em dados podem acelerar o crescimento do seu negócio.
-      </p>
-      <a href="#contact" class="pulse inline-block bg-white text-blue-800 px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-gray-100 transition">
-        Comece Agora
-      </a>
-    </div>
-  </section>
-
-  <!-- SEÇÃO TECH STACK -->
-  <section id="stack" class="py-24 px-6 bg-white fade-in">
-    <div class="header-container text-center mb-16">
-      <h2 class="text-4xl font-bold parallax fade-in md:whitespace-nowrap">Meu Stack de Marketing + Dados</h2>
-      <p class="text-lg text-gray-600">Ferramentas e tecnologias que uso diariamente</p>
-    </div>
-    <div class="header-container max-w-6xl mx-auto">
-      <h3 class="text-2xl font-semibold text-blue-800 mb-4">Ferramentas que uso regularmente</h3>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm mb-12">
-        <div class="bg-gray-100 p-4 shadow rounded">Google Ads</div>
-        <div class="bg-gray-100 p-4 shadow rounded">Meta Ads</div>
-        <div class="bg-gray-100 p-4 shadow rounded">LinkedIn Ads</div>
-        <div class="bg-gray-100 p-4 shadow rounded">CallRail</div>
-        <div class="bg-gray-100 p-4 shadow rounded">Opteo</div>
-        <div class="bg-gray-100 p-4 shadow rounded">Agency Analytics</div>
-        <div class="bg-gray-100 p-4 shadow rounded">Semrush</div>
-        <div class="bg-gray-100 p-4 shadow rounded">Ahrefs</div>
-      </div>
-      <h3 class="text-2xl font-semibold text-blue-800 mb-4">Tecnologias que estou integrando</h3>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm">
-        <div class="bg-gray-100 p-4 shadow rounded">Python</div>
-        <div class="bg-gray-100 p-4 shadow rounded">SQL</div>
-        <div class="bg-gray-100 p-4 shadow rounded">BigQuery</div>
-        <div class="bg-gray-100 p-4 shadow rounded">Cloud Platforms</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SEÇÃO PROCESSO -->
-  <section id="process" class="bg-gray-100 py-28 px-6 fade-in">
-    <div class="header-container text-center mb-16">
-      <h2 class="text-4xl font-bold parallax fade-in">Como Eu Trabalho</h2>
-      <p class="text-lg text-gray-600">Uma abordagem estratégica e orientada por dados para crescimento consistente</p>
-    </div>
-    <div class="header-container grid gap-10 md:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto">
-      <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
-        <h3 class="text-xl font-semibold mb-2">🔍 Diagnóstico</h3>
-        <p>Compreender os objetivos, desafios e o desempenho atual do negócio.</p>
-      </div>
-      <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
-        <h3 class="text-xl font-semibold mb-2">📊 Mapeamento de Dados</h3>
-        <p>Auditoria de dados, ferramentas e campanhas para identificar oportunidades.</p>
-      </div>
-      <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
-        <h3 class="text-xl font-semibold mb-2">🎯 Execução Estratégica</h3>
-        <p>Implementação de campanhas, automações e dashboards analíticos.</p>
-      </div>
-      <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
-        <h3 class="text-xl font-semibold mb-2">📈 Resultados &amp; Insights</h3>
-        <p>Entrega de insights claros e recomendações contínuas de otimização.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- SEÇÃO CONTATO -->
-  <section id="contact" class="bg-blue-800 text-white py-28 px-6 fade-in">
-    <div class="header-container text-center max-w-3xl mx-auto">
-      <h2 class="text-4xl font-bold mb-5 parallax fade-in">Pronto para Transformar Seus Resultados?</h2>
-      <p class="text-xl mb-10">Entre em contato e descubra como estratégias baseadas em dados podem acelerar seu crescimento.</p>
-      <form action="https://formsubmit.co/contact@davisasso.com" method="POST" class="glass text-white rounded-xl p-6 shadow-lg space-y-6">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://davisassol.github.io/thank-you.html">
-        <div>
-          <label class="block text-left font-medium mb-2" for="name">Nome</label>
-          <input type="text" id="name" name="name" required class="w-full p-3 border border-gray-300 rounded-lg text-gray-900">
+      <div class="header-container max-w-6xl mx-auto">
+        <h3 class="text-2xl font-semibold text-blue-800 mb-4">Ferramentas que uso regularmente</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm mb-12">
+          <div class="bg-gray-100 p-4 shadow rounded">Google Ads</div>
+          <div class="bg-gray-100 p-4 shadow rounded">Meta Ads</div>
+          <div class="bg-gray-100 p-4 shadow rounded">LinkedIn Ads</div>
+          <div class="bg-gray-100 p-4 shadow rounded">CallRail</div>
+          <div class="bg-gray-100 p-4 shadow rounded">Opteo</div>
+          <div class="bg-gray-100 p-4 shadow rounded">Agency Analytics</div>
+          <div class="bg-gray-100 p-4 shadow rounded">Semrush</div>
+          <div class="bg-gray-100 p-4 shadow rounded">Ahrefs</div>
         </div>
-        <div>
-          <label class="block text-left font-medium mb-2" for="email">Email</label>
-          <input type="email" id="email" name="email" required class="w-full p-3 border border-gray-300 rounded-lg text-gray-900">
+        <h3 class="text-2xl font-semibold text-blue-800 mb-4">Tecnologias que estou integrando</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm">
+          <div class="bg-gray-100 p-4 shadow rounded">Python</div>
+          <div class="bg-gray-100 p-4 shadow rounded">SQL</div>
+          <div class="bg-gray-100 p-4 shadow rounded">BigQuery</div>
+          <div class="bg-gray-100 p-4 shadow rounded">Cloud Platforms</div>
         </div>
-        <div>
-          <label class="block text-left font-medium mb-2" for="message">Mensagem</label>
-          <textarea id="message" name="message" rows="4" required class="w-full p-3 border border-gray-300 rounded-lg text-gray-900"></textarea>
+      </div>
+    </section>
+
+    <!-- PROCESS SECTION -->
+    <section id="process" class="bg-gray-100 py-28 px-6 fade-in">
+      <div class="header-container text-center mb-16">
+        <h2 class="text-4xl font-bold parallax fade-in">Como Eu Trabalho</h2>
+        <p class="text-lg text-gray-600">Uma abordagem estratégica e orientada por dados para crescimento consistente</p>
+      </div>
+      <div class="header-container grid gap-10 md:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto">
+        <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+          <h3 class="text-xl font-semibold mb-2">🔍 Diagnóstico</h3>
+          <p>Compreender objetivos, desafios e desempenho atual do negócio.</p>
         </div>
-        <button type="submit" class="bg-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-600 transition">
-          Enviar Mensagem
-        </button>
-      </form>
-      <p class="mt-8">Ou conecte-se via <a href="https://www.linkedin.com/in/davi-sasso-14a706232/" target="_blank" class="underline">LinkedIn</a></p>
-    </div>
-  </section>
+        <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+          <h3 class="text-xl font-semibold mb-2">📊 Mapeamento de Dados</h3>
+          <p>Auditoria de dados, ferramentas e campanhas para identificar oportunidades.</p>
+        </div>
+        <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+          <h3 class="text-xl font-semibold mb-2">🎯 Execução Estratégica</h3>
+          <p>Implementação de campanhas, automações e dashboards analíticos.</p>
+        </div>
+        <div class="bg-white p-8 shadow-xl rounded-xl interactive-card">
+          <h3 class="text-xl font-semibold mb-2">📈 Resultados & Insights</h3>
+          <p>Entrega de insights claros e recomendações de otimização contínua.</p>
+        </div>
+      </div>
+    </section>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KQG8LN713Q"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- CONTACT SECTION -->
+    <section id="contactForm" class="bg-blue-800 text-white py-28 px-6 fade-in">
+      <div class="header-container text-center max-w-3xl mx-auto">
+        <h2 class="text-4xl font-bold mb-5 parallax fade-in">Pronto para Transformar Seus Resultados?</h2>
+        <p class="text-xl mb-10">Entre em contato hoje e veja como estratégias orientadas por dados podem acelerar o crescimento do seu negócio.</p>
+        <form action="https://formsubmit.co/contact@davisasso.com" method="POST" class="glass text-white rounded-xl p-6 shadow-lg space-y-6">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://davisasso.com/br/thank-you">
+          <div>
+            <label class="block text-left font-medium mb-2" for="name">Nome</label>
+            <input type="text" id="name" name="name" required class="w-full p-3 border border-gray-300 rounded-lg text-gray-900">
+          </div>
+          <div>
+            <label class="block text-left font-medium mb-2" for="email">Email</label>
+            <input type="email" id="email" name="email" required class="w-full p-3 border border-gray-300 rounded-lg text-gray-900">
+          </div>
+          <div>
+            <label class="block text-left font-medium mb-2" for="message">Mensagem</label>
+            <textarea id="message" name="message" rows="4" required class="w-full p-3 border border-gray-300 rounded-lg text-gray-900"></textarea>
+          </div>
+          <button type="submit" class="bg-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-600 transition">
+            Enviar Mensagem
+          </button>
+        </form>
+        <p class="mt-8">Ou conecte-se via <a href="https://www.linkedin.com/in/davi-sasso-14a706232/" target="_blank" class="underline">LinkedIn</a></p>
+      </div>
+    </section>
+  </main>
 
-  gtag('config', 'G-KQG8LN713Q');
-</script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KQG8LN713Q"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-KQG8LN713Q');
+  </script>
 
   <!-- FOOTER -->
   <footer class="bg-gray-900 text-white text-center py-8">
     <div class="header-container">
-      <p>© 2025 Davi Sasso | Consultor de Marketing Orientado por Dados</p>
+      <p>© 2025 Davi Sasso | Especialista em Marketing Orientado por Dados</p>
     </div>
   </footer>
 
+  <!-- JavaScript: Toggle Mobile Menu, Fade-In Effects e Slider de Depoimentos -->
   <script>
-    // Toggle do menu mobile
+    // Toggle Mobile Menu
     const mobileMenuButton = document.getElementById("mobile-menu-button");
     const mobileMenu = document.getElementById("mobile-menu");
     mobileMenuButton.addEventListener("click", function() {
       mobileMenu.classList.toggle("hidden");
+      let expanded = mobileMenuButton.getAttribute("aria-expanded") === "true";
+      mobileMenuButton.setAttribute("aria-expanded", !expanded);
     });
-  
-    // Animação: exibe elementos com fade-in ao entrar na visualização
+
+    // Intersection Observer for Fade-In
     const faders = document.querySelectorAll('.fade-in');
-    const observer = new IntersectionObserver((entries) => {
+    const appearOptions = { threshold: 0.1 };
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
-        }
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('show');
+        observer.unobserve(entry.target);
       });
-    }, { threshold: 0.1 });
-    faders.forEach(fader => observer.observe(fader));
+    }, appearOptions);
+    faders.forEach(fader => appearOnScroll.observe(fader));
+
+    // Testimonial Slider
+    const slider = document.getElementById('testimonial-slider');
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
+    let slideInterval;
+
+    function goToSlide(index) {
+      slider.style.transform = `translateX(-${index * 100}%)`;
+      currentSlide = index;
+    }
+    function nextSlide() {
+      let nextIndex = (currentSlide + 1) % totalSlides;
+      goToSlide(nextIndex);
+    }
+    function prevSlide() {
+      let prevIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+      goToSlide(prevIndex);
+    }
+
+    // Desktop Controls
+    document.getElementById('nextBtn')?.addEventListener('click', () => { nextSlide(); resetInterval(); });
+    document.getElementById('prevBtn')?.addEventListener('click', () => { prevSlide(); resetInterval(); });
+
+    // Mobile Controls
+    document.getElementById('nextBtnMobile')?.addEventListener('click', () => { nextSlide(); resetInterval(); });
+    document.getElementById('prevBtnMobile')?.addEventListener('click', () => { prevSlide(); resetInterval(); });
+
+    function startInterval() {
+      slideInterval = setInterval(nextSlide, 8000);
+    }
+    function resetInterval() {
+      clearInterval(slideInterval);
+      startInterval();
+    }
+
+    slider.addEventListener('touchstart', () => clearInterval(slideInterval));
+    slider.addEventListener('touchend', startInterval);
+    slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+    slider.addEventListener('mouseleave', startInterval);
+
+    // Iniciar autoplay
+    startInterval();
   </script>
 </body>
 </html>
