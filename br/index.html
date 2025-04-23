@@ -302,32 +302,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </section>
 
   <!-- SEÇÃO CONTATO -->
-  <section id="contact" class="bg-blue-800 text-white py-28 px-6 fade-in">
-    <div class="header-container text-center max-w-3xl mx-auto">
-      <h2 class="text-4xl font-bold mb-5 parallax fade-in">Pronto para Transformar Seus Resultados?</h2>
-      <p class="text-xl mb-10">Entre em contato e descubra como estratégias baseadas em dados podem acelerar seu crescimento.</p>
-      <form action="https://formsubmit.co/contact@davisasso.com" method="POST" class="glass text-white rounded-xl p-6 shadow-lg space-y-6">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://davisassol.github.io/thank-you.html">
-        <div>
-          <label class="block text-left font-medium mb-2" for="name">Nome</label>
-          <input type="text" id="name" name="name" required class="w-full p-3 border border-gray-300 rounded-lg text-gray-900">
-        </div>
-        <div>
-          <label class="block text-left font-medium mb-2" for="email">Email</label>
-          <input type="email" id="email" name="email" required class="w-full p-3 border border-gray-300 rounded-lg text-gray-900">
-        </div>
-        <div>
-          <label class="block text-left font-medium mb-2" for="message">Mensagem</label>
-          <textarea id="message" name="message" rows="4" required class="w-full p-3 border border-gray-300 rounded-lg text-gray-900"></textarea>
-        </div>
-        <button type="submit" class="bg-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-600 transition">
-          Enviar Mensagem
-        </button>
-      </form>
-      <p class="mt-8">Ou conecte-se via <a href="https://www.linkedin.com/in/davi-sasso-14a706232/" target="_blank" class="underline">LinkedIn</a></p>
-    </div>
-  </section>
+<form action="https://formsubmit.co/contact@davisasso.com" method="POST" class="glass text-white rounded-xl p-6 shadow-lg space-y-6">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_next" value="https://davisassol.github.io/thank-you.html">
+
+  <div>
+    <label class="block text-left font-medium mb-2" for="name">Nome</label>
+    <input type="text" id="name" name="name" required class="w-full p-3 border border-gray-300 rounded-lg text-gray-900">
+  </div>
+
+  <div>
+    <label class="block text-left font-medium mb-2" for="email">Email</label>
+    <input type="email" id="email" name="email" required class="w-full p-3 border border-gray-300 rounded-lg text-gray-900">
+  </div>
+
+  <div>
+    <label class="block text-left font-medium mb-2" for="website">Website da sua empresa</label>
+    <input type="url" id="website" name="website" placeholder="https://suaempresa.com.br" required class="w-full p-3 border border-gray-300 rounded-lg text-gray-900">
+  </div>
+
+  <div>
+    <label class="block text-left font-medium mb-2" for="message">Tem alguma área do seu atual marketing que queira discutir?</label>
+    <textarea id="message" name="message" rows="4" required class="w-full p-3 border border-gray-300 rounded-lg text-gray-900" placeholder="Me conte como posso ajudar..."></textarea>
+  </div>
+
+  <button type="submit" class="bg-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-600 transition">
+    Enviar Mensagem
+  </button>
+</form>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KQG8LN713Q"></script>
