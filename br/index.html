@@ -2,15 +2,18 @@
 <html lang="pt">
 <head>
   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MPRMMT57');</script>
-<!-- End Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MPRMMT57');</script>
+  <!-- End Google Tag Manager -->
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Davi Sasso | Consultor de Marketing &amp; Analytics Orientado por Dados</title>
+
+  <!-- SEO / OpenGraph -->
   <meta name="description" content="Consultoria em Marketing e Dados com foco em performance e inteligência analítica. Soluções sob medida para escalar seu negócio." />
   <meta name="keywords" content="marketing digital, engenharia de dados, consultoria, mídia paga, dashboards, lead scoring, performance" />
   <meta name="author" content="Davi Sasso">
@@ -22,85 +25,57 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <link rel="icon" href="../favicon.ico" type="image/x-icon">
   <link rel="canonical" href="https://davisasso.com/br" />
   <meta name="robots" content="index, follow" />
+
+  <!-- Tailwind + Fonte -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
   <style>
-    body { font-family: 'Poppins', sans-serif; }
-    html { scroll-behavior: smooth; }
-    section { scroll-margin-top: 80px; }
-    .highlight { color: #1e40af; font-weight: 600; }
-    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 1s ease-out, transform 1s ease-out; }
-    .fade-in.show { opacity: 1; transform: translateY(0); }
-    .interactive-card {
-      transition: all 0.3s ease-in-out;
-      transform: translateY(0);
-    }
-    .interactive-card:hover {
-      transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
-    }
-    .sticky-nav {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background-color: white;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-    .parallax {
-      transform: translateY(0);
-      transition: transform 1s ease-out;
-    }
-    .parallax.show {
-      transform: translateY(-10px);
-    }
-    .glass {
-      background-color: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
-    }
-    .pulse { 
-      animation: pulse 2s infinite; 
-    }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.5); }
-      70% { box-shadow: 0 0 0 15px rgba(255,255,255,0); }
-      100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
-    }
-    /* Container para centralizar o conteúdo */
-    .header-container { max-width: 1200px; margin: 0 auto; }
-    /* Seletor de idioma – garante que as bandeiras fiquem na mesma linha */
-    #lang-switcher {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-    }
-    #lang-switcher a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
+    body{font-family:'Poppins',sans-serif}
+    html{scroll-behavior:smooth}
+    section{scroll-margin-top:80px}
+    .highlight{color:#1e40af;font-weight:600}
+    .fade-in{opacity:0;transform:translateY(30px);transition:opacity 1s ease-out,transform 1s ease-out}
+    .fade-in.show{opacity:1;transform:translateY(0)}
+    .interactive-card{transition:all .3s ease-in-out;transform:translateY(0)}
+    .interactive-card:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 20px 30px rgba(0,0,0,.08)}
+    .sticky-nav{position:sticky;top:0;z-index:50;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.05)}
+    .parallax{transform:translateY(0);transition:transform 1s ease-out}
+    .parallax.show{transform:translateY(-10px)}
+    .glass{background:rgba(255,255,255,.15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);box-shadow:0 8px 32px rgba(31,38,135,.1)}
+    .pulse{animation:pulse 2s infinite}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.5)}70%{box-shadow:0 0 0 15px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+    .header-container{max-width:1200px;margin:0 auto}
+    #lang-switcher{display:flex;gap:.5rem;align-items:center}
+    #lang-switcher a{display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+
+    /* === CARROSSEL DEPOIMENTOS === */
+    .testimonial-slider{display:flex;transition:transform .7s ease-in-out}
+    .testimonial-slide{width:100%;flex-shrink:0;padding:0 1rem}
+    .testimonial-content{background:#f9fafb;padding:1.5rem;border-radius:.5rem;box-shadow:0 4px 6px rgba(0,0,0,.1);display:flex;flex-direction:column;align-items:center;text-align:center}
+    @media(min-width:768px){.testimonial-content{flex-direction:row;text-align:left}}
+    .testimonial-content img{width:6rem;height:6rem;border-radius:9999px;object-fit:cover;border:2px solid #1e40af;box-shadow:0 4px 6px rgba(0,0,0,.1);margin-bottom:1rem}
+    @media(min-width:768px){.testimonial-content img{margin-bottom:0;margin-right:1.5rem}}
+    .slider-nav{position:absolute;top:50%;transform:translateY(-50%);background:#fff;border:1px solid #d1d5db;border-radius:9999px;padding:.5rem;box-shadow:0 2px 4px rgba(0,0,0,.1);cursor:pointer;z-index:2}
+    #prevBtn{left:1rem}#nextBtn{right:1rem}
+    .mobile-slider-nav button{border:1px solid #d1d5db;background:#fff;padding:.5rem;border-radius:9999px}
   </style>
 </head>
+
 <body class="bg-gray-50 text-gray-900">
- <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MPRMMT57"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  <!-- Botão flutuante do WhatsApp -->
-  <a href="https://wa.me/5511916974757" target="_blank" aria-label="Chat no WhatsApp"
-     class="fixed bottom-5 right-5 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg z-50 transition duration-300">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="Ícone do WhatsApp" class="h-6 w-6 invert" />
+  <!-- Google Tag (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MPRMMT57" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <!-- Botão WhatsApp -->
+  <a href="https://wa.me/5511916974757" target="_blank" aria-label="Chat no WhatsApp" class="fixed bottom-5 right-5 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg z-50 transition duration-300">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp" class="h-6 w-6 invert"/>
   </a>
 
   <!-- NAVBAR -->
   <nav class="sticky-nav py-4 px-6">
     <div class="header-container flex items-center justify-between">
-      <!-- Logo -->
       <h1 class="text-xl font-bold text-blue-800">Davi Sasso</h1>
-      <!-- Navegação Desktop -->
       <ul class="hidden md:flex gap-6 text-sm md:text-base">
         <li><a href="#about" class="hover:underline text-gray-700">Sobre Mim</a></li>
         <li><a href="#services" class="hover:underline text-gray-700">Serviços</a></li>
@@ -108,14 +83,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li><a href="#contact" class="hover:underline text-blue-700 font-semibold">Contato</a></li>
         <li><a href="https://www.linkedin.com/in/davi-sasso-14a706232/" target="_blank" class="hover:underline text-blue-600">LinkedIn</a></li>
       </ul>
-      <!-- Botão Hamburger para Mobile -->
       <button id="mobile-menu-button" class="md:hidden focus:outline-none">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
     </div>
-    <!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden md:hidden header-container mt-4">
       <ul class="flex flex-col gap-4 text-sm">
         <li><a href="#about" class="block hover:underline text-gray-700">Sobre Mim</a></li>
@@ -127,22 +100,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </nav>
 
-  <!-- SEÇÃO HERO -->
+  <!-- HERO -->
   <section class="bg-gradient-to-r from-blue-800 to-blue-500 py-28 px-6 fade-in">
     <div class="header-container max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
       <div class="md:w-1/2 text-center md:text-left">
-        <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
-          Impulsione Seu Crescimento com Dados
-        </h1>
-        <p class="text-xl text-white/90 mb-8">
-          Eu sou Davi Sasso, um estrategista de marketing que utiliza análises de dados para escalar negócios de forma eficiente.
-        </p>
-        <a href="#contact" class="inline-block bg-white text-blue-700 py-3 px-8 rounded-full text-lg font-semibold shadow-lg hover:bg-gray-100 hover:scale-105 transition-transform duration-200">
-          Agende sua Sessão de Estratégia
-        </a>
+        <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight">Impulsione Seu Crescimento com Dados</h1>
+        <p class="text-xl text-white/90 mb-8">Eu sou Davi Sasso, um estrategista de marketing que utiliza análises de dados para escalar negócios de forma eficiente.</p>
+        <a href="#contact" class="inline-block bg-white text-blue-700 py-3 px-8 rounded-full text-lg font-semibold shadow-lg hover:bg-gray-100 hover:scale-105 transition-transform duration-200">Agende sua Sessão de Estratégia</a>
       </div>
       <div class="md:w-1/2 flex justify-center">
-        <!-- Usando caminho relativo para imagem (voltando uma pasta, se necessário) -->
         <img src="../davi-blue-background.png" alt="Davi Sasso" class="w-80 h-80 object-cover rounded-full shadow-2xl border-4 border-white">
       </div>
     </div>
@@ -215,33 +181,97 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
-<!-- Shawn Leamon -->
-<p class="text-lg italic">
-  “O profundo entendimento do Davi sobre publicidade paga, aliado à sua habilidade de resolver problemas e à sua determinação incansável, gera constantemente um ROI impressionante para nossos clientes e o tornou parte indispensável da equipe.”
-</p>
-<p class="text-sm font-semibold text-blue-800 mt-2">Shawn Christopher Leamon</p>
-<p class="text-sm text-gray-600">Chefe de Estratégia</p>
+ <!-- DEPOIMENTOS -->
+  <section id="testimonial" class="bg-white py-20 px-6 fade-in">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold parallax fade-in">Recomendações</h2>
+      <p class="text-lg text-gray-600">De executivos com quem trabalhei</p>
+    </div>
 
-<!-- Brenton Miller -->
-<p class="text-lg italic">
-  “A proatividade do Davi e sua forte ética de trabalho fazem dele um membro extremamente valioso para a equipe.”
-</p>
-<p class="text-sm font-semibold text-blue-800 mt-2">Brenton Miller</p>
-<p class="text-sm text-gray-600">Sócio-gerente, Miller &amp; Miller Enterprises</p>
+    <div class="relative max-w-4xl mx-auto overflow-hidden">
+      <div id="testimonial-slider" class="testimonial-slider">
+        <!-- Slide 1 -->
+        <div class="testimonial-slide">
+          <div class="testimonial-content">
+            <img src="../shawn-leamon.jpg" alt="Shawn Leamon" loading="lazy">
+            <div>
+              <p class="text-lg italic">
+                “O profundo entendimento do Davi sobre publicidade paga, aliado à sua habilidade de resolver problemas e à sua determinação incansável, gera constantemente um ROI impressionante para nossos clientes e o tornou parte indispensável da equipe.”
+              </p>
+              <p class="text-sm font-semibold text-blue-800 mt-2">Shawn Christopher Leamon</p>
+              <p class="text-sm text-gray-600">Chefe de Estratégia</p>
+              <a href="https://shawnleamon.com" target="_blank" class="text-sm text-blue-600 underline">shawnleamon.com</a>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="testimonial-slide">
+          <div class="testimonial-content">
+            <img src="../brenton.jpeg" alt="Brenton Miller" loading="lazy">
+            <div>
+              <p class="text-lg italic">
+                “A proatividade do Davi e sua forte ética de trabalho fazem dele um membro extremamente valioso para a equipe.”
+              </p>
+              <p class="text-sm font-semibold text-blue-800 mt-2">Brenton Miller</p>
+              <p class="text-sm text-gray-600">Sócio-gerente, Miller &amp; Miller Enterprises</p>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="testimonial-slide">
+          <div class="testimonial-content">
+            <img src="../giovani.jpeg" alt="Giovani Soave" loading="lazy">
+            <div>
+              <p class="text-lg italic">
+                “Davi é extremamente metódico e analítico na gestão de campanhas de marketing digital. Ele gera valor constante ao dominar novas estratégias e entregar crescimento mensurável.”
+              </p>
+              <p class="text-sm font-semibold text-blue-800 mt-2">Giovani Soave</p>
+              <p class="text-sm text-gray-600">Diretor-executivo</p>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 4 -->
+        <div class="testimonial-slide">
+          <div class="testimonial-content">
+            <img src="../thiago.jpeg" alt="Thiago Ribeiro" loading="lazy">
+            <div>
+              <p class="text-lg italic">
+                “Trabalhei com Davi Sasso no projeto Pet Friend. Mesmo no início da carreira, ele demonstrava grande proatividade, dedicação e vontade de aprender. Tenho plena confiança de que alcançará excelentes resultados em marketing orientado por dados.”
+              </p>
+              <p class="text-sm font-semibold text-blue-800 mt-2">Thiago Ribeiro</p>
+              <p class="text-sm text-gray-600">Estrategista de Marketing</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-<!-- Giovani Soave -->
-<p class="text-lg italic">
-  “Davi é extremamente metódico e analítico na gestão de campanhas de marketing digital. Ele gera valor constante ao dominar novas estratégias e entregar crescimento mensurável.”
-</p>
-<p class="text-sm font-semibold text-blue-800 mt-2">Giovani Soave</p>
-<p class="text-sm text-gray-600">Diretor-executivo</p>
+      <!-- Navegação Desktop -->
+      <button id="prevBtn" class="slider-nav hidden md:block" aria-label="Anterior">
+        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button id="nextBtn" class="slider-nav hidden md:block" aria-label="Próximo">
+        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
 
-<!-- Thiago Ribeiro -->
-<p class="text-lg italic">
-  “Trabalhei com Davi Sasso no projeto Pet Friend. Mesmo no início da carreira, ele já demonstrava grande proatividade, dedicação e vontade de aprender. Tenho plena confiança de que alcançará excelentes resultados em marketing orientado por dados.”
-</p>
-<p class="text-sm font-semibold text-blue-800 mt-2">Thiago Ribeiro</p>
-<p class="text-sm text-gray-600">Estrategista de Marketing</p>
+    <!-- Navegação Mobile -->
+    <div class="mobile-slider-nav md:hidden flex justify-center space-x-4 mt-6">
+      <button id="prevBtnMobile" class="rounded-full border border-gray-300 p-2 bg-white" aria-label="Anterior">
+        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button id="nextBtnMobile" class="rounded-full border border-gray-300 p-2 bg-white" aria-label="Próximo">
+        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  </section>
 
 
   <!-- SEÇÃO CTA -->
@@ -356,110 +386,49 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </footer>
 
+  <!-- JS – menu, fade-in e slider -->
   <script>
-    // Toggle do menu mobile
-    const mobileMenuButton = document.getElementById("mobile-menu-button");
-    const mobileMenu = document.getElementById("mobile-menu");
-    mobileMenuButton.addEventListener("click", function() {
-      mobileMenu.classList.toggle("hidden");
-    });
-  
-    // Animação: exibe elementos com fade-in ao entrar na visualização
-    const faders = document.querySelectorAll('.fade-in');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
-        }
-      });
-    }, { threshold: 0.1 });
-    faders.forEach(fader => observer.observe(fader));
-  </script>
-  <!-- JavaScript: Mobile Menu Toggle, Fade-In Effects e Testimonial Slider -->
-<script>
-  /* ==== TOGGLE DO MENU MOBILE ==== */
-  const mobileMenuButton = document.getElementById("mobile-menu-button");
-  const mobileMenu = document.getElementById("mobile-menu");
-  mobileMenuButton.addEventListener("click", () => {
-    mobileMenu.classList.toggle("hidden");
-    const expanded = mobileMenuButton.getAttribute("aria-expanded") === "true";
-    mobileMenuButton.setAttribute("aria-expanded", !expanded);
-  });
+    /* ===== MENU MOBILE ===== */
+    const mobileMenuButton=document.getElementById("mobile-menu-button");
+    const mobileMenu=document.getElementById("mobile-menu");
+    mobileMenuButton.addEventListener("click",()=>{mobileMenu.classList.toggle("hidden");const exp=mobileMenuButton.getAttribute("aria-expanded")==="true";mobileMenuButton.setAttribute("aria-expanded",!exp)});
 
-  /* ==== FADE-IN COM INTERSECTION OBSERVER ==== */
-  const faders = document.querySelectorAll(".fade-in");
-  const appearOnScroll = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
+    /* ===== FADE-IN ===== */
+    const faders=document.querySelectorAll(".fade-in");
+    const appear=new IntersectionObserver((entries,observer)=>{
+      entries.forEach(entry=>{
+        if(!entry.isIntersecting) return;
         entry.target.classList.add("show");
         observer.unobserve(entry.target);
       });
-    },
-    { threshold: 0.1 }
-  );
-  faders.forEach((fader) => appearOnScroll.observe(fader));
+    },{threshold:0.1});
+    faders.forEach(f=>appear.observe(f));
 
-  /* ==== TESTIMONIAL SLIDER ==== */
-  const slider = document.getElementById("testimonial-slider");
-  const slides = document.querySelectorAll(".testimonial-slide");
-  const totalSlides = slides.length;
-  let currentSlide = 0;
-  let slideInterval;
+    /* ===== SLIDER DEPOIMENTOS ===== */
+    const slider=document.getElementById("testimonial-slider");
+    const slides=document.querySelectorAll(".testimonial-slide");
+    const totalSlides=slides.length;
+    let currentSlide=0,slideInterval;
 
-  function goToSlide(index) {
-    slider.style.transform = `translateX(-${index * 100}%)`;
-    currentSlide = index;
-  }
-  function nextSlide() {
-    const nextIndex = (currentSlide + 1) % totalSlides;
-    goToSlide(nextIndex);
-  }
-  function prevSlide() {
-    const prevIndex = (currentSlide - 1 + totalSlides) % totalSlides;
-    goToSlide(prevIndex);
-  }
+    function goToSlide(i){slider.style.transform=`translateX(-${i*100}%)`;currentSlide=i;}
+    function nextSlide(){goToSlide((currentSlide+1)%totalSlides);}
+    function prevSlide(){goToSlide((currentSlide-1+totalSlides)%totalSlides);}
+    function startInterval(){slideInterval=setInterval(nextSlide,8000);}
+    function resetInterval(){clearInterval(slideInterval);startInterval();}
 
-  // Botões Desktop
-  document.getElementById("nextBtn")?.addEventListener("click", () => {
-    nextSlide();
-    resetInterval();
-  });
-  document.getElementById("prevBtn")?.addEventListener("click", () => {
-    prevSlide();
-    resetInterval();
-  });
+    document.getElementById("nextBtn")?.addEventListener("click",()=>{nextSlide();resetInterval()});
+    document.getElementById("prevBtn")?.addEventListener("click",()=>{prevSlide();resetInterval()});
+    document.getElementById("nextBtnMobile")?.addEventListener("click",()=>{nextSlide();resetInterval()});
+    document.getElementById("prevBtnMobile")?.addEventListener("click",()=>{prevSlide();resetInterval()});
 
-  // Botões Mobile
-  document.getElementById("nextBtnMobile")?.addEventListener("click", () => {
-    nextSlide();
-    resetInterval();
-  });
-  document.getElementById("prevBtnMobile")?.addEventListener("click", () => {
-    prevSlide();
-    resetInterval();
-  });
+    slider.addEventListener("mouseenter",()=>clearInterval(slideInterval));
+    slider.addEventListener("mouseleave",startInterval);
+    slider.addEventListener("touchstart",()=>clearInterval(slideInterval));
+    slider.addEventListener("touchend",startInterval);
 
-  // Autoplay
-  function startInterval() {
-    slideInterval = setInterval(nextSlide, 8000);
-  }
-  function resetInterval() {
-    clearInterval(slideInterval);
     startInterval();
-  }
-
-  // Pausar autoplay em hover / touch
-  slider.addEventListener("touchstart", () => clearInterval(slideInterval));
-  slider.addEventListener("touchend", startInterval);
-  slider.addEventListener("mouseenter", () => clearInterval(slideInterval));
-  slider.addEventListener("mouseleave", startInterval);
-
-  // Iniciar
-  startInterval();
-</script>
+  </script>
 </body>
 </html>
-
 
 
