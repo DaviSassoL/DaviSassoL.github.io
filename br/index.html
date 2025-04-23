@@ -215,24 +215,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
-  <!-- SEÇÃO DE RECOMENDAÇÃO -->
-  <section id="testimonial" class="bg-white py-20 px-6 fade-in">
-    <div class="text-center mb-12">
-      <h2 class="text-4xl font-bold parallax fade-in">Recomendação</h2>
-      <p class="text-lg text-gray-600">De um executivo com quem trabalhei</p>
-    </div>
-    <div class="header-container bg-gray-50 rounded-xl p-8 shadow-lg flex flex-col md:flex-row items-center gap-6">
-      <img src="../shawn-leamon.jpg" alt="Shawn Leamon" class="w-24 h-24 rounded-full object-cover border-2 border-blue-800 shadow-md">
-      <div>
-        <p class="text-lg italic mb-4">
-          “O profundo conhecimento do Davi sobre publicidade paga, aliado às suas habilidades de resolver problemas e à motivação incansável, gera consistentemente um ROI impressionante para os clientes.”
-        </p>
-        <p class="text-sm font-semibold text-blue-800">Shawn Christopher Leamon</p>
-        <p class="text-sm text-gray-600">Chefe de Estratégia</p>
-        <a href="https://shawnleamon.com" target="_blank" class="text-sm text-blue-600 underline">shawnleamon.com</a>
-      </div>
-    </div>
-  </section>
+<!-- Shawn Leamon -->
+<p class="text-lg italic">
+  “O profundo entendimento do Davi sobre publicidade paga, aliado à sua habilidade de resolver problemas e à sua determinação incansável, gera constantemente um ROI impressionante para nossos clientes e o tornou parte indispensável da equipe.”
+</p>
+<p class="text-sm font-semibold text-blue-800 mt-2">Shawn Christopher Leamon</p>
+<p class="text-sm text-gray-600">Chefe de Estratégia</p>
+
+<!-- Brenton Miller -->
+<p class="text-lg italic">
+  “A proatividade do Davi e sua forte ética de trabalho fazem dele um membro extremamente valioso para a equipe.”
+</p>
+<p class="text-sm font-semibold text-blue-800 mt-2">Brenton Miller</p>
+<p class="text-sm text-gray-600">Sócio-gerente, Miller &amp; Miller Enterprises</p>
+
+<!-- Giovani Soave -->
+<p class="text-lg italic">
+  “Davi é extremamente metódico e analítico na gestão de campanhas de marketing digital. Ele gera valor constante ao dominar novas estratégias e entregar crescimento mensurável.”
+</p>
+<p class="text-sm font-semibold text-blue-800 mt-2">Giovani Soave</p>
+<p class="text-sm text-gray-600">Diretor-executivo</p>
+
+<!-- Thiago Ribeiro -->
+<p class="text-lg italic">
+  “Trabalhei com Davi Sasso no projeto Pet Friend. Mesmo no início da carreira, ele já demonstrava grande proatividade, dedicação e vontade de aprender. Tenho plena confiança de que alcançará excelentes resultados em marketing orientado por dados.”
+</p>
+<p class="text-sm font-semibold text-blue-800 mt-2">Thiago Ribeiro</p>
+<p class="text-sm text-gray-600">Estrategista de Marketing</p>
+
 
   <!-- SEÇÃO CTA -->
   <section class="bg-blue-800 text-white py-20 px-6 fade-in">
@@ -365,6 +375,89 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }, { threshold: 0.1 });
     faders.forEach(fader => observer.observe(fader));
   </script>
+  <!-- JavaScript: Mobile Menu Toggle, Fade-In Effects e Testimonial Slider -->
+<script>
+  /* ==== TOGGLE DO MENU MOBILE ==== */
+  const mobileMenuButton = document.getElementById("mobile-menu-button");
+  const mobileMenu = document.getElementById("mobile-menu");
+  mobileMenuButton.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+    const expanded = mobileMenuButton.getAttribute("aria-expanded") === "true";
+    mobileMenuButton.setAttribute("aria-expanded", !expanded);
+  });
+
+  /* ==== FADE-IN COM INTERSECTION OBSERVER ==== */
+  const faders = document.querySelectorAll(".fade-in");
+  const appearOnScroll = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("show");
+        observer.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.1 }
+  );
+  faders.forEach((fader) => appearOnScroll.observe(fader));
+
+  /* ==== TESTIMONIAL SLIDER ==== */
+  const slider = document.getElementById("testimonial-slider");
+  const slides = document.querySelectorAll(".testimonial-slide");
+  const totalSlides = slides.length;
+  let currentSlide = 0;
+  let slideInterval;
+
+  function goToSlide(index) {
+    slider.style.transform = `translateX(-${index * 100}%)`;
+    currentSlide = index;
+  }
+  function nextSlide() {
+    const nextIndex = (currentSlide + 1) % totalSlides;
+    goToSlide(nextIndex);
+  }
+  function prevSlide() {
+    const prevIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+    goToSlide(prevIndex);
+  }
+
+  // Botões Desktop
+  document.getElementById("nextBtn")?.addEventListener("click", () => {
+    nextSlide();
+    resetInterval();
+  });
+  document.getElementById("prevBtn")?.addEventListener("click", () => {
+    prevSlide();
+    resetInterval();
+  });
+
+  // Botões Mobile
+  document.getElementById("nextBtnMobile")?.addEventListener("click", () => {
+    nextSlide();
+    resetInterval();
+  });
+  document.getElementById("prevBtnMobile")?.addEventListener("click", () => {
+    prevSlide();
+    resetInterval();
+  });
+
+  // Autoplay
+  function startInterval() {
+    slideInterval = setInterval(nextSlide, 8000);
+  }
+  function resetInterval() {
+    clearInterval(slideInterval);
+    startInterval();
+  }
+
+  // Pausar autoplay em hover / touch
+  slider.addEventListener("touchstart", () => clearInterval(slideInterval));
+  slider.addEventListener("touchend", startInterval);
+  slider.addEventListener("mouseenter", () => clearInterval(slideInterval));
+  slider.addEventListener("mouseleave", startInterval);
+
+  // Iniciar
+  startInterval();
+</script>
 </body>
 </html>
 
