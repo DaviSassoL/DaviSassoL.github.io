@@ -10,7 +10,12 @@
     tailwind.config = { theme: { extend: {} }, plugins: [require('@tailwindcss/typography')] };
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <style> body { font-family: 'Poppins', sans-serif; background-color: #f3f4f6; } </style>
+  <style>
+    body { font-family: 'Poppins', sans-serif; background-color: #f3f4f6; }
+    section { padding-top: 3rem; padding-bottom: 3rem; }
+    h2 { @apply text-3xl font-bold text-blue-700 mb-4; }
+    h3 { @apply text-2xl font-semibold text-blue-600 mt-6 mb-3; }
+  </style>
 </head>
 <body class="text-gray-800">
   <!-- Navbar -->
@@ -27,216 +32,205 @@
   </header>
 
   <!-- Hero -->
-  <section class="bg-gradient-to-r from-blue-700 to-blue-500 text-white py-24">
-    <div class="max-w-3xl mx-auto text-center px-6">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Marketing Digital para Advogados: Guia Avançado</h1>
-      <p class="text-lg md:text-xl mb-8">Por <span class="font-semibold">Davi Sasso</span> — Estratégias Data-Driven e Casos Reais</p>
+  <section class="bg-gradient-to-r from-blue-700 to-blue-500 text-white">
+    <div class="max-w-3xl mx-auto text-center px-6 py-16">
+      <h1 class="text-4xl lg:text-5xl font-extrabold mb-4">Marketing Digital para Advogados: Guia Avançado</h1>
+      <p class="text-lg lg:text-xl mb-8">Por <span class="font-semibold">Davi Sasso</span> — Estratégias Data-Driven e Casos Reais</p>
       <a href="https://davisasso.com/lp#contact" class="inline-block bg-white text-blue-700 font-semibold py-3 px-8 rounded-full shadow hover:bg-gray-100 transition">Agende sua Consultoria</a>
     </div>
   </section>
 
   <!-- Main Content -->
-  <main class="prose prose-lg prose-blue max-w-5xl mx-auto bg-white p-12 rounded-lg shadow-lg -mt-24 mb-24">
+  <main class="max-w-5xl mx-auto bg-white rounded-lg shadow-lg -mt-20 mb-24 overflow-hidden">
+    <!-- Sections Container -->
+    <div class="px-8 py-10 space-y-12 prose prose-lg prose-blue">
 
-    <!-- Introdução -->
-    <section>
-      <h2>Introdução</h2>
-      <p>Advocacia e marketing digital podem parecer mundos distintos, mas a realidade é que estratégias online bem estruturadas são decisivas para conquistar e reter clientes. Neste guia aprofundado, você encontra:</p>
-      <ul>
-        <li>Análises detalhadas de cada canal de aquisição.</li>
-        <li>Ferramentas e fluxos de trabalho recomendados.</li>
-        <li>Métricas avançadas para mensuração de resultados.</li>
-        <li>Estudos de caso com dados reais.</li>
-      </ul>
-    </section>
+      <!-- Introdução -->
+      <section>
+        <h2>Introdução</h2>
+        <p class="mt-2">Advocacia e marketing digital podem parecer mundos distintos, mas estratégias online bem estruturadas são decisivas para conquistar e reter clientes. Neste guia avançado, você encontra análises detalhadas de canais, ferramentas recomendadas e estudos de caso reais.</p>
+      </section>
 
-    <hr class="my-12" />
+      <!-- 1. Gestão de Tráfego Pago -->
+      <section>
+        <h2>1. Gestão de Tráfego Pago</h2>
+        <p class="mt-2">Campanhas pagas aceleram resultados, alcançando potenciais clientes com precisão. Veja em detalhe:</p>
+        
+        <h3>1.1 Google Ads</h3>
+        <p class="mt-2"><strong>Objetivo:</strong> Captar leads com alta intenção.</p>
+        <ul class="mt-2 list-disc list-inside">
+          <li><strong>Campanhas segmentadas:</strong> por área de atuação (trabalhista, cível, previdenciário).</li>
+          <li><strong>Ad Groups temáticos:</strong> agrupando palavras-chave correlacionadas.</li>
+          <li><strong>Landing Pages otimizadas:</strong> prova social, indicadores de confiança e formulário claro.</li>
+          <li><strong>Quality Score e lances:</strong> ajuste automático de CPA e horários de exibição.</li>
+        </ul>
+        <p class="mt-2"><strong>Métricas:</strong> CPC, CTR, CPA, ROAS. <strong>Exemplo:</strong> CPL reduzido de R$50 para R$28 após otimizações.</p>
 
-    <!-- 1. Gestão de Tráfego Pago -->
-    <section>
-      <h2>1. Gestão de Tráfego Pago</h2>
-      <p>Campanhas pagas são o caminho mais rápido para alcançar clientes com alta intenção de contratação. Vamos detalhar:</p>
-      
-      <h3>1.1 Google Ads</h3>
-      <p><em>Por que invester?</em> Leads de alta qualidade e mensuração precisa. Ideal para serviços emergenciais e de grande valor.</p>
-      <ul>
-        <li><strong>Estrutura de Campanhas:</strong> separe por linha de serviço (ex.: Trabalhista, Previdenciário, Penal), e agrupe keywords em Ad Groups de alta relevância.</li>
-        <li><strong>Landing Pages:</strong> crie páginas com prova social (depoimentos), formulário inteligente e indicadores claros (ex.: “Taxa de sucesso de 90%”).</li>
-        <li><strong>Otimização de Quality Score:</strong> melhore CTR e relevância de anúncio, e otimize experiência da página para aumentar o Índice de Qualidade.</li>
-        <li><strong>Ajuste de lances:</strong> utilize lances automáticos (CPA desejado) e ajuste por horário, dispositivo e localização.</li>
-      </ul>
-      <p><strong>Métricas-chave:</strong> CPC, CTR, Quality Score, CPA, ROAS.</p>
-      <p><strong>Estudo de Caso:</strong> Escritório de Direito do Trabalho aumentou em 120% os leads qualificados e reduziu o CPL de R$50 para R$28 após segmentar horários de pico e otimizar anúncios.</p>
+        <h3>1.2 Meta Ads (Facebook &amp; Instagram)</h3>
+        <p class="mt-2"><strong>Objetivo:</strong> Reconhecimento de marca e remarketing.</p>
+        <ul class="mt-2 list-disc list-inside">
+          <li><strong>Funil completo:</strong> Awareness, Consideration (Lead Ads) e Conversion.</li>
+          <li><strong>Públicos personalizados e lookalikes:</strong> amplie alcance e acerte no perfil ideal.</li>
+          <li><strong>Testes A/B contínuos:</strong> criativos, segmentação e mensagens.</li>
+        </ul>
+        <p class="mt-2"><strong>Métricas:</strong> CPM, CPC, CPA, Taxa de Conversão.</p>
 
-      <h3>1.2 Meta Ads (Facebook & Instagram)</h3>
-      <p><em>Públicos amplos e remarketing</em> combinados geram reconhecimento e conversão ao longo da jornada.</p>
-      <ul>
-        <li><strong>Funil Completo:</strong> use Awareness (vídeo/imagens), Consideration (formulário Lead Ads) e Conversion (tráfego para Landing Page).</li>
-        <li><strong>Públicos Personalizados:</strong> site visitors (Píxel), lista de emails, engajamento em posts.</li>
-        <li><strong>Lookalike:</strong> expanda para perfis semelhantes a clientes de maior LTV.</li>
-        <li><strong>Testes A/B:</strong> criativos, texto, CTA e segmentação. Roda testes quinzenais e mantenha as variantes vencedoras.</li>
-      </ul>
-      <p><strong>Métricas-chave:</strong> CPM, CPC, CPA, Taxa de Repetição, Taxa de Conversão de Lead Form.</p>
+        <h3>1.3 LinkedIn Ads</h3>
+        <p class="mt-2"><strong>Objetivo:</strong> Engajar decisores em B2B.</p>
+        <ul class="mt-2 list-disc list-inside">
+          <li><strong>Segmentação por cargo e setor:</strong> diretores jurídicos, gerentes de RH.</li>
+          <li><strong>Formatos eficientes:</strong> Sponsored Content, Message Ads e InMail.</li>
+          <li><strong>Conteúdo consultivo:</strong> artigos técnicos, whitepapers e webinars.</li>
+        </ul>
+        <p class="mt-2"><strong>Métricas:</strong> CPL, taxa de resposta, engajamento.</p>
+      </section>
 
-      <h3>1.3 LinkedIn Ads</h3>
-      <p><em>Estrategicamente para B2B Jurídico</em>, fundamental para escritórios corporativos.</p>
-      <ul>
-        <li><strong>Segmentação por Cargo:</strong> Diretor Jurídico, Gerente de Compliance, RH.</li>
-        <li><strong>Formatos:</strong> Sponsored Content, Message Ads (InMail) e Dynamic Ads.</li>
-        <li><strong>Conteúdo:</strong> artigos técnicos, whitepapers e webinars exclusivos.</li>
-      </ul>
-      <p><strong>Métricas-chave:</strong> CPL, Taxa de Resposta de InMail, Engajamento de Sponsored Content.</p>
-    </section>
+      <!-- 2. Criação de Sites e Landing Pages -->
+      <section>
+        <h2>2. Criação de Sites e Landing Pages</h2>
+        <p class="mt-2">Um site bem estruturado é fundamental para conversão. Invista em:</p>
+        
+        <h3>2.1 Performance Técnica</h3>
+        <ul class="mt-2 list-disc list-inside">
+          <li><strong>Velocidade:</strong> carregamento <strong>2s</strong> no mobile (auditado com Lighthouse).</li>
+          <li><strong>Mobile-First:</strong> navegação intuitiva, botões acessíveis e legíveis.</li>
+        </ul>
 
-    <hr class="my-12" />
+        <h3>2.2 UX &amp; Copywriting</h3>
+        <ul class="mt-2 list-disc list-inside">
+          <li><strong>Hierarquia de informação:</strong> títulos claros, subtítulos e bullets.</li>
+          <li><strong>CTAs visíveis:</strong> botões fixos e formulários breves.</li>
+        </ul>
 
-    <!-- 2. Criação de Sites e Landing Pages -->
-    <section>
-      <h2>2. Criação de Sites e Landing Pages</h2>
-      <p>Seu site é a central de conversão. As landing pages são os pontos finais de campanhas. Foque em:</p>
-      <h3>2.1 Performance Técnica</h3>
-      <ul>
-        <li><strong>Carregamento:</strong> <img src="lazy-loading.png" alt="Exemplo de Carregamento" /> < 2s no mobile (use Lighthouse para auditoria).</li>
-        <li><strong>Mobile-First:</strong> design responsivo fluido, botões táteis e menus simplificados.</li>
-      </ul>
-      <h3>2.2 UX & Copywriting</h3>
-      <ul>
-        <li><strong>Hierarquia Visual:</strong> título, subtítulo, benefícios, prova social e CTA.</li>
-        <li><strong>CTAs Diskados:</strong> chat WhatsApp persistente + CTA de email.</li>
-      </ul>
-      <h3>2.3 Ferramentas e Integrações</h3>
-      <ul>
-        <li>WordPress + Elementor Pro ou Webflow para agilidade.</li>
-        <li>Next.js/Tailwind para performance em headless.</li>
-        <li>Píxel, Google Tag Manager e Zenvia/WhatsApp Business API para captar e classificar leads.</li>
-      </ul>
-    </section>
+        <h3>2.3 Ferramentas e Integrações</h3>
+        <ul class="mt-2 list-disc list-inside">
+          <li>WordPress + Elementor ou Webflow para agilidade.</li>
+          <li>Next.js + Tailwind para desempenho em headless.</li>
+          <li>Píxel (Meta/LinkedIn), GTM e WhatsApp Business API.</li>
+        </ul>
+      </section>
 
-    <hr class="my-12" />
+      <!-- 3. SEO para Escritórios de Advocacia -->
+      <section>
+        <h2>3. SEO para Escritórios de Advocacia</h2>
+        <p class="mt-2">SEO garante tráfego orgânico sustentável. Aprofunde-se em:</p>
+        
+        <h3>3.1 Pesquisa de Palavras-Chave</h3>
+        <ul class="mt-2 list-disc list-inside">
+          <li>Informacionais, navegacionais e transacionais.</li>
+          <li>Ferramentas: Ahrefs, Semrush e Ubersuggest.</li>
+        </ul>
 
-    <!-- 3. SEO para Escritórios de Advocacia -->
-    <section>
-      <h2>3. SEO para Escritórios de Advocacia</h2>
-      <p>SEO sustentável alimenta o funil orgânico. Aprofunde em:</p>
-      <h3>3.1 Pesquisa de Palavras-Chave</h3>
-      <p>Ferramentas: Ahrefs, Semrush e Ubersuggest. Categorize em:</p>
-      <ul>
-        <li><strong>Informacionais:</strong> “como recorrer auxílio doença?”.</li>
-        <li><strong>Navegacionais:</strong> “site escritório x”.</li>
-        <li><strong>Transacionais:</strong> “advogado trabalhista SP”.</li>
-      </ul>
-      <h3>3.2 Conteúdo Local e Internacional</h3>
-      <p>Para escritórios que atuam em múltiplas cidades/países:</p>
-      <ul>
-        <li>Crie Páginas de Serviço com etiquetas hreflang e microdados LocalBusiness.</li>
-        <li>Implemente Schema de Organization, Lawyer e Review.</li>
-      </ul>
-      <h3>3.3 Autoridade e Backlinks</h3>
-      <ul>
-        <li>Guest posts em portais jurídicos e colunas em blogs relevantes.</li>
-        <li>Publicação de pesquisas próprias (papeis brancos) para ganhar backlinks naturais.</li>
-      </ul>
-    </section>
+        <h3>3.2 Conteúdo Local e Schema</h3>
+        <ul class="mt-2 list-disc list-inside">
+          <li>Páginas por cidade com hreflang e LocalBusiness schema.</li>
+          <li>Schema de Organization, Lawyer e Review.</li>
+        </ul>
 
-    <hr class="my-12" />
+        <h3>3.3 Backlinks e Autoridade</h3>
+        <ul class="mt-2 list-disc list-inside">
+          <li>Guest posts em portais jurídicos.</li>
+          <li>Whitepapers e pesquisas próprias.</li>
+        </ul>
+      </section>
 
-    <!-- 4. Marketing de Conteúdo Jurídico -->
-    <section>
-      <h2>4. Marketing de Conteúdo Jurídico</h2>
-      <p>Conteúdo de qualidade educa e converte. Aborde:</p>
-      <h3>4.1 Artigos e Blog Posts</h3>
-      <ul>
-        <li>Estruture com introdução, subpartes H2/H3 e conclusão com CTA.</li>
-        <li>Use dados e pesquisas para embasar (ex.: estatísticas do CNJ).</li>
-      </ul>
-      <h3>4.2 Materiais Ricos</h3>
-      <ul>
-        <li>E-books e whitepapers em PDF, de 15–30 páginas, distribuídos via landing page.</li>
-        <li>Infográficos com fluxos processuais para fácil compartilhamento.</li>
-      </ul>
-      <h3>4.3 Vídeos e Webinars</h3>
-      <ul>
-        <li>Reels/Shorts de 30s destacando dicas rápidas.</li>
-        <li>Webinars ao vivo com Q&A e ofertas exclusivas no final.</li>
-      </ul>
-    </section>
+      <!-- 4. Marketing de Conteúdo Jurídico -->
+      <section>
+        <h2>4. Marketing de Conteúdo Jurídico</h2>
+        <p class="mt-2">Conteúdo de valor gera autoridade e leads:</p>
+        
+        <h3>4.1 Artigos e Blog Posts</h3>
+        <ul class="mt-2 list-disc list-inside">
+          <li>Estrutura clara (H2/H3) com CTA no final.</li>
+          <li>Dados e estatísticas (ex.: CNJ).</li>
+        </ul>
 
-    <hr class="my-12" />
+        <h3>4.2 Materiais Ricos</h3>
+        <ul class="mt-2 list-disc list-inside">
+          <li>E-books de 15–30 páginas via formulário.</li>
+          <li>Infográficos processuais para compartilhamento.</li>
+        </ul>
 
-    <!-- 5. Google Meu Negócio & Reputação Local -->
-    <section>
-      <h2>5. Google Meu Negócio & Reputação Local</h2>
-      <p>O perfil GMB é seu cartão de visitas local. Maximize:</p>
-      <ul>
-        <li><strong>Postagens:</strong> ofertas, eventos e artigos do blog.</li>
-        <li><strong>QoQ:</strong> Questões & Respostas para antecipar dúvidas.</li>
-        <li><strong>Avaliações:</strong> campagne para coletar reviews após atendimento.</li>
-      </ul>
-    </section>
+        <h3>4.3 Vídeos e Webinars</h3>
+        <ul class="mt-2 list-disc list-inside">
+          <li>Reels e Shorts de 30s com dicas.</li>
+          <li>Webinars ao vivo com Q&A.</li>
+        </ul>
+      </section>
 
-    <hr class="my-12" />
+      <!-- 5. Google Meu Negócio & Reputação Local -->
+      <section>
+        <h2>5. Google Meu Negócio & Reputação Local</h2>
+        <p class="mt-2">Perfil otimizado no GMB aumenta visibilidade local:</p>
+        <ul class="mt-2 list-disc list-inside">
+          <li>Postagens semanais (ofertas, blog, fotos).</li>
+          <li>Secção Q&A e respostas a avaliações.</li>
+          <li>Campanhas para coletar reviews.</li>
+        </ul>
+      </section>
 
-    <!-- 6. Email Marketing & Automação -->
-    <section>
-      <h2>6. Email Marketing & Automação</h2>
-      <p>Automatize para nutrir e converter leads:</p>
-      <h3>6.1 Fluxos de Boas-vindas</h3>
-      <ul>
-        <li>Email 1 (Imediato): Apresentação do escritório e link para blog principal.</li>
-        <li>Email 2 (48h): Case de sucesso relevante ao interesse do lead.</li>
-        <li>Email 3 (5 dias): Oferta de diagnóstico gratuito.</li>
-      </ul>
-      <h3>6.2 Segmentação Avançada</h3>
-      <p>Tagueamento por origem de campanha, serviço de interesse e engajamento.</p>
-      <h3>6.3 Reengajamento</h3>
-      <ul>
-        <li>Campanhas de “Reativação” para contatos sem interação em 30 dias.</li>
-        <li>Ofertas exclusivas e pesquisa de satisfação.</li>
-      </ul>
-    </section>
+      <!-- 6. Email Marketing & Automação -->
+      <section>
+        <h2>6. Email Marketing & Automação</h2>
+        <p class="mt-2">Nurture e converta leads sem esforço manual:</p>
+        
+        <h3>6.1 Boas-vindas Automáticas</h3>
+        <ul class="mt-2 list-disc list-inside">
+          <li>Email imediato com apresentação e link ao blog.</li>
+          <li>Follow-up em 48h com case relevante.</li>
+          <li>Oferta de diagnóstico no 5º dia.</li>
+        </ul>
 
-    <hr class="my-12" />
+        <h3>6.2 Segmentação Dinâmica</h3>
+        <p class="mt-2">Tagueamento por interesse, origem e engajamento.</p>
 
-    <!-- 7. Dashboards & Análise de Dados -->
-    <section>
-      <h2>7. Dashboards & Análise de Dados</h2>
-      <p>Dados orientam decisões. Monte painéis em:</p>
-      <ul>
-        <li><strong>Google Analytics 4:</strong> eventos customizados (clique em WhatsApp, envio de formulário).</li>
-        <li><strong>Looker Studio:</strong> relatórios semanais automáticos com métricas de funil.</li>
-        <li><strong>Heatmaps:</strong> use Hotjar para entender comportamento de visitantes.</li>
-      </ul>
-    </section>
+        <h3>6.3 Reengajamento e Satisfação</h3>
+        <ul class="mt-2 list-disc list-inside">
+          <li>Campanhas para contatos inativos há 30 dias.</li>
+          <li>Pesquisa de satisfação e ofertas exclusivas.</li>
+        </ul>
+      </section>
 
-    <hr class="my-12" />
+      <!-- 7. Dashboards & Analítica -->
+      <section>
+        <h2>7. Dashboards & Analítica de Dados</h2>
+        <p class="mt-2">Dados guiam otimizações:</p>
+        <ul class="mt-2 list-disc list-inside">
+          <li>GA4 com eventos customizados (cliques, envios).</li>
+          <li>Looker Studio: relatórios visuais semanais.</li>
+          <li>Hotjar para heatmaps e gravações.</li>
+        </ul>
+      </section>
 
-    <!-- 8. Social Media & Branding Jurídico -->
-    <section>
-      <h2>8. Social Media & Branding Jurídico</h2>
-      <p>Fortaleça sua marca e engaje seu público:</p>
-      <h3>8.1 Conteúdo Orgânico</h3>
-      <ul>
-        <li>Posts educativos, depoimentos de clientes (com consentimento), behind-the-scenes.</li>
-        <li>Calendário editorial mensal com datas comemorativas e temas jurídicos em alta.</li>
-      </ul>
-      <h3>8.2 Anúncios Pagos</h3>
-      <ul>
-        <li>Carrossel de cases com CTA para 'Saiba Mais'.</li>
-        <li>Anúncios de vídeo vertical para Stories e Reels.</li>
-      </ul>
-      <h3>8.3 Monitoramento</h3>
-      <p>Use ferramentas como Hootsuite ou Buffer para agendar e analisar desempenho.</p>
-    </section>
+      <!-- 8. Social Media & Branding -->
+      <section>
+        <h2>8. Social Media & Branding Jurídico</h2>
+        <p class="mt-2">Fortaleça seu escritório nas redes sociais:</p>
+        
+        <h3>8.1 Conteúdo Orgânico</h3>
+        <ul class="mt-2 list-disc list-inside">
+          <li>Depoimentos, dicas e behind-the-scenes.</li>
+          <li>Calendário mensal com temas e datas relevantes.</li>
+        </ul>
 
-    <hr class="my-12" />
+        <h3>8.2 Anúncios Patrocinados</h3>
+        <ul class="mt-2 list-disc list-inside">
+          <li>Carrossel de cases com CTA “Saiba Mais”.</li>
+          <li>Vídeos verticais para Stories e Reels.</li>
+        </ul>
 
-    <!-- Conclusão -->
-    <section class="text-center">
-      <h2>Conclusão e Próximos Passos</h2>
-      <p>Este guia detalhado proporciona um roadmap completo para transformar marketing digital em um motor de crescimento para seu escritório. Adapte cada estratégia ao seu público e disponíveis recursos, e mensure rigorosamente os resultados.</p>
-      <a href="https://davisasso.com/lp#contact" class="inline-block bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow hover:bg-blue-600 transition mt-6">Agende sua Consultoria Personalizada</a>
-    </section>
+        <h3>8.3 Agendamento e Monitoramento</h3>
+        <p class="mt-2">Use Hootsuite ou Buffer para programar e analisar métricas.</p>
+      </section>
 
+      <!-- Conclusão -->
+      <section class="text-center">
+        <h2>Conclusão e Próximos Passos</h2>
+        <p class="mt-2">Com este guia avançado, você tem um roadmap completo para transformar marketing digital em motor de crescimento para seu escritório. Ajuste conforme seu público e recursos, e mensure resultados rigorosamente.</p>
+        <a href="https://davisasso.com/lp#contact" class="inline-block bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow hover:bg-blue-600 transition mt-6">Agende sua Consultoria Personalizada</a>
+      </section>
+
+    </div>
   </main>
 
   <!-- Footer -->
@@ -245,3 +239,4 @@
   </footer>
 </body>
 </html>
+
