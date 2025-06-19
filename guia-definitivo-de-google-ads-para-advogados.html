@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <!-- Meta Tags -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Guia Definitivo de Google Ads para Advogados no Brasil | Davi Sasso</title>
@@ -12,178 +11,227 @@
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://davisasso.com/blog/google-ads-advogados">
 
-  <!-- Tailwind + Fonts -->
+  <!-- TailwindCSS + Typography Plugin -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {} },
+      plugins: [require('@tailwindcss/typography')],
+    }
+  </script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family:'Poppins',sans-serif; background: #f3f4f6; }
-    a { text-decoration: none; }
-    .fade-in { opacity:0; transform: translateY(20px); transition: opacity .8s ease-out, transform .8s ease-out; }
-    .fade-in.show { opacity:1; transform: translateY(0); }
+    body { font-family: 'Poppins', sans-serif; background-color: #f9fafb; }
   </style>
 </head>
 <body class="text-gray-800 leading-relaxed">
   <!-- Navbar -->
-  <header class="bg-white shadow-sm sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
-      <a href="/" class="text-lg font-bold text-blue-800">Davi Sasso</a>
+  <header class="bg-white shadow sticky top-0 z-20">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+      <a href="/" class="text-xl font-bold text-blue-700">Davi Sasso</a>
       <nav class="space-x-6 text-sm font-medium">
-        <a href="/" class="text-gray-600 hover:text-blue-800">Home</a>
-        <a href="/blog" class="text-blue-800">Blog</a>
-        <a href="https://davisasso.com/lp#contact" class="text-gray-600 hover:text-blue-800">Contato</a>
-        <a href="https://linkedin.com/in/davi-sasso" target="_blank" class="text-gray-600 hover:text-blue-800">LinkedIn</a>
+        <a href="/" class="text-gray-600 hover:text-blue-700">Home</a>
+        <a href="/blog" class="text-blue-700 hover:underline">Blog</a>
+        <a href="https://davisasso.com/lp#contact" class="text-gray-600 hover:text-blue-700">Contato</a>
+        <a href="https://linkedin.com/in/davi-sasso" target="_blank" class="text-gray-600 hover:text-blue-700">LinkedIn</a>
       </nav>
     </div>
   </header>
 
   <!-- Hero -->
-  <section class="bg-gradient-to-r from-blue-800 to-blue-500 py-20">
-    <div class="max-w-4xl mx-auto text-center text-white px-4 fade-in">
-      <h1 class="text-3xl md:text-5xl font-extrabold mb-4">Guia Definitivo de Google Ads para Advogados no Brasil</h1>
-      <p class="text-lg md:text-xl mb-6">Por Davi Sasso<br>Especialista em Mídia Paga com foco em Marketing Jurídico</p>
-      <a href="https://davisasso.com/lp#contact" class="inline-block bg-white text-blue-800 font-semibold py-3 px-6 rounded-full shadow hover:bg-gray-100 transition">Solicite uma Análise Gratuita da Sua Campanha</a>
+  <section class="bg-gradient-to-r from-blue-700 to-blue-500 text-white py-24">
+    <div class="max-w-3xl mx-auto text-center px-6">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Guia Definitivo de Google Ads para Advogados no Brasil</h1>
+      <p class="text-lg md:text-xl mb-8">Por <span class="font-semibold">Davi Sasso</span> — Especialista em Mídia Paga para Marketing Jurídico</p>
+      <a href="https://davisasso.com/lp#contact" class="inline-block bg-white text-blue-700 font-semibold py-3 px-8 rounded-full shadow hover:bg-gray-100 transition">Solicite Análise Gratuita</a>
     </div>
   </section>
 
-  <!-- Content Container -->
-  <main class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg -mt-16 mb-16 fade-in">
+  <!-- Main Content -->
+  <main class="prose prose-lg prose-blue max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg -mt-16 mb-16">
     <!-- Índice -->
-    <section class="mb-8">
+    <nav class="mb-8">
       <h2 class="text-2xl font-bold mb-4">Índice</h2>
-      <ul class="list-disc list-inside space-y-2 text-gray-700">
-        <li><a href="#por-que" class="hover:text-blue-800">Por que o Google Ads é vital para advogados no Brasil</a></li>
-        <li><a href="#leilao" class="hover:text-blue-800">Como funciona o leilão do Google Ads</a></li>
-        <li><a href="#campanhas" class="hover:text-blue-800">Tipos de campanhas ideais para advocacia</a></li>
-        <li><a href="#palavras-chave" class="hover:text-blue-800">Como escolher palavras-chave que geram clientes</a></li>
-        <li><a href="#estrutura-anuncios" class="hover:text-blue-800">Estrutura de anúncios campeões</a></li>
-        <li><a href="#otimizacoes" class="hover:text-blue-800">Otimizações para reduzir CPL</a></li>
-        <li><a href="#segmentacao" class="hover:text-blue-800">Segmentação geográfica e por horário</a></li>
-        <li><a href="#casos" class="hover:text-blue-800">Casos reais de sucesso</a></li>
-        <li><a href="#checklist" class="hover:text-blue-800">Checklist para campanhas eficazes</a></li>
-        <li><a href="#contato" class="hover:text-blue-800">Diagnóstico gratuito da sua conta</a></li>
+      <ul class="list-decimal list-inside space-y-2">
+        <li><a href="#por-que" class="text-blue-600 hover:underline">Por que o Google Ads é vital</a></li>
+        <li><a href="#leilao" class="text-blue-600 hover:underline">Como funciona o leilão</a></li>
+        <li><a href="#campanhas" class="text-blue-600 hover:underline">Tipos de campanhas ideais</a></li>
+        <li><a href="#palavras-chave" class="text-blue-600 hover:underline">Escolha de palavras-chave</a></li>
+        <li><a href="#estrutura-anuncios" class="text-blue-600 hover:underline">Estrutura de anúncios</a></li>
+        <li><a href="#otimizacoes" class="text-blue-600 hover:underline">Otimizações para CPL</a></li>
+        <li><a href="#segmentacao" class="text-blue-600 hover:underline">Segmentação geográfica & horário</a></li>
+        <li><a href="#casos" class="text-blue-600 hover:underline">Casos reais de sucesso</a></li>
+        <li><a href="#checklist" class="text-blue-600 hover:underline">Checklist completo</a></li>
+        <li><a href="#contato" class="text-blue-600 hover:underline">Diagnóstico gratuito</a></li>
+      </ul>
+    </nav>
+
+    <!-- Section: Por que -->
+    <section id="por-que">
+      <h2>Por que o Google Ads é vital para advogados</h2>
+      <p>Atualmente, a maioria dos clientes busca soluções jurídicas no Google. Se seu escritório não aparece nas primeiras posições pagas, você perde oportunidades valiosas.</p>
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+        <p class="font-semibold">Exemplo de volume mensal de buscas:</p>
+        <ul>
+          <li>advogado previdenciário: <strong>14.800</strong></li>
+          <li>advogado de divórcio: <strong>6.600</strong></li>
+          <li>advogado criminal urgente: <strong>2.900</strong></li>
+        </ul>
+      </div>
+    </section>
+
+    <hr class="my-8" />
+
+    <!-- Section: Leilão -->
+    <section id="leilao">
+      <h2>Como funciona o leilão</h2>
+      <p>O Google Ads realiza um leilão em tempo real. A posição do anúncio depende de três fatores:</p>
+      <ol class="ml-6 list-decimal">
+        <li><strong>Lance (CPC Máximo)</strong></li>
+        <li><strong>Índice de Qualidade</strong> (CTR, relevância, experiência na página)</li>
+        <li><strong>Experiência do Usuário</strong> (UX)</li>
+      </ol>
+      <p>Um anúncio com alta relevância pode custar menos por clique e ocupar melhores posições.</p>
+    </section>
+
+    <hr class="my-8" />
+
+    <!-- Section: Campanhas -->
+    <section id="campanhas">
+      <h2>Tipos de campanhas ideais</h2>
+      <p>Selecione o tipo de campanha conforme seu objetivo:</p>
+      <table class="w-full border-collapse text-left">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="p-3">Campanha</th>
+            <th class="p-3">Uso</th>
+            <th class="p-3">Exemplo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-t">
+            <td class="p-3">Rede de Pesquisa</td>
+            <td class="p-3">Geração de leads qualificados</td>
+            <td class="p-3">“advogado trabalhista SP”</td>
+          </tr>
+          <tr class="border-t bg-gray-50">
+            <td class="p-3">Display</td>
+            <td class="p-3">Branding e remarketing</td>
+            <td class="p-3">Banners em sites jurídicos</td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-3">YouTube</td>
+            <td class="p-3">Autoridade e conteúdo</td>
+            <td class="p-3">Vídeos educativos</td>
+          </tr>
+          <tr class="border-t bg-gray-50">
+            <td class="p-3">Performance Max</td>
+            <td class="p-3">Escala omnichannel</td>
+            <td class="p-3">Pesquisa, Display, Vídeo</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr class="my-8" />
+
+    <!-- Section: Palavras-chave -->
+    <section id="palavras-chave">
+      <h2>Escolha de palavras-chave</h2>
+      <p>Priorize termos com intenção de contratação clara:</p>
+      <ul class="ml-6 list-disc">
+        <li>advogado revisão aposentadoria</li>
+        <li>advogado pensão alimentícia SP</li>
+        <li>advogado INSS RJ</li>
+      </ul>
+      <p class="mt-4">Terminologia negativa essencial: <span class="font-semibold">curso</span>, <span class="font-semibold">estágio</span>, <span class="font-semibold">salário</span>.</p>
+    </section>
+
+    <hr class="my-8" />
+
+    <!-- Section: Estrutura de Anúncios -->
+    <section id="estrutura-anuncios">
+      <h2>Estrutura de anúncios</h2>
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
+        <h3 class="font-semibold mb-2">Exemplo de Anúncio</h3>
+        <p><strong>Título 1:</strong> Advogado Especialista em Aposentadoria</p>
+        <p><strong>Título 2:</strong> Online & Presencial em Curitiba</p>
+        <p><strong>Descrição:</strong> Mais de 1.000 causas vencidas. Consultoria especializada.</p>
+      </div>
+      <ul class="ml-6 list-decimal">
+        <li>Destaque diferenciais (experiência, cases).</li>
+        <li>Utilize extensões (chamada, sitelinks).</li>
+        <li>Teste A/B de títulos e descrições.</li>
       </ul>
     </section>
 
-    <!-- Sections -->
-    <article class="prose prose-gray">
-      <section id="por-que">
-        <h2>Por que o Google Ads é vital para advogados no Brasil</h2>
-        <p>Hoje, a grande maioria das pessoas recorre ao Google ao procurar ajuda jurídica. Termos como “advogado de divórcio em SP”, “advogado criminal urgente” e “advogado especialista em aposentadoria” estão entre os mais pesquisados. Se o seu escritório não aparece nos primeiros resultados, está perdendo espaço e clientes.</p>
-        <p>Volume médio de buscas mensais (estimativas com Ubersuggest/Ahrefs):</p>
-        <ul>
-          <li><strong>advogado previdenciário</strong>: 14.800</li>
-          <li><strong>advogado de divórcio</strong>: 6.600</li>
-          <li><strong>advogado criminal urgente</strong>: 2.900</li>
-        </ul>
-      </section>
+    <hr class="my-8" />
 
-      <section id="leilao">
-        <h2>Como funciona o leilão do Google Ads</h2>
-        <p>O Google Ads usa um sistema de leilão. A posição do anúncio depende de:</p>
-        <ol>
-          <li><strong>Lance (CPC Máximo)</strong></li>
-          <li><strong>Índice de Qualidade</strong> (CTR, relevância, experiência da página)</li>
-          <li><strong>Experiência do Usuário</strong> (UX)</li>
-        </ol>
-        <p>Anúncios mais relevantes pagam menos e aparecem em posições melhores.</p>
-      </section>
+    <!-- Section: Otimizações -->
+    <section id="otimizacoes">
+      <h2>Otimizações para reduzir CPL</h2>
+      <ul class="ml-6 list-disc">
+        <li>Campanhas separadas por serviço</li>
+        <li>Landing pages dedicadas</li>
+        <li>Segmentação por horário e região</li>
+        <li>Remarketing para não conversores</li>
+      </ul>
+    </section>
 
-      <section id="campanhas">
-        <h2>Tipos de campanhas ideais para advocacia</h2>
-        <div class="overflow-x-auto">
-          <table class="w-full border">
-            <thead class="bg-gray-100"><tr><th class="p-2">Campanha</th><th class="p-2">Quando Usar</th><th class="p-2">Exemplo</th></tr></thead>
-            <tbody>
-              <tr><td class="p-2 border">Rede de Pesquisa</td><td class="p-2 border">Captação direta</td><td class="p-2 border">“advogado trabalhista em Curitiba”</td></tr>
-              <tr><td class="p-2 border">Rede de Display</td><td class="p-2 border">Reforço de marca / remarketing</td><td class="p-2 border">Banners em sites jurídicos</td></tr>
-              <tr><td class="p-2 border">YouTube</td><td class="p-2 border">Conteúdo educativo</td><td class="p-2 border">Vídeos explicativos</td></tr>
-              <tr><td class="p-2 border">Performance Max</td><td class="p-2 border">Escala multicanal</td><td class="p-2 border">Pesquisa, display, vídeo</td></tr>
-            </tbody>
-          </table>
+    <hr class="my-8" />
+
+    <!-- Section: Segmentação -->
+    <section id="segmentacao">
+      <h2>Segmentação eficaz</h2>
+      <p>Defina um raio de até <strong>10 km</strong> do escritório e exiba anúncios em dias úteis, das <strong>08h</strong> às <strong>20h</strong>.</p>
+    </section>
+
+    <hr class="my-8" />
+
+    <!-- Section: Casos -->
+    <section id="casos">
+      <h2>Casos reais de sucesso</h2>
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="p-4 bg-gray-50 rounded">
+          <h3 class="font-semibold">Escritório Trabalhista - SP</h3>
+          <p><strong>Investimento:</strong> R$1.500/mês</p>
+          <p><strong>Resultado:</strong> 38 leads em 30 dias</p>
         </div>
-      </section>
-
-      <section id="palavras-chave">
-        <h2>Como escolher palavras-chave que geram clientes</h2>
-        <p>Priorize termos com intenção comercial clara:</p>
-        <ul>
-          <li>advogado revisão de aposentadoria</li>
-          <li>advogado pensão alimentícia SP</li>
-          <li>advogado INSS RJ</li>
-        </ul>
-        <p>Palavras-negativas essenciais: curso, estágio, salário.</p>
-      </section>
-
-      <section id="estrutura-anuncios">
-        <h2>Estrutura de anúncios campeões</h2>
-        <p><strong>Título 1:</strong> Advogado Especialista em Aposentadoria<br><strong>Título 2:</strong> Online e Presencial em Curitiba<br>Descrição: Mais de 1.000 causas vencidas. Consultoria especializada.</p>
-        <ul>
-          <li>Destaque diferenciais: experiência, specialidades.</li>
-          <li>Use extensões: chamada, sitelinks.</li>
-          <li>Teste A/B continuamente.</li>
-        </ul>
-      </section>
-
-      <section id="otimizacoes">
-        <h2>Otimizações para reduzir CPL</h2>
-        <ul>
-          <li>Campanhas segmentadas por área</li>
-          <li>Landing pages específicas</li>
-          <li>Horários e geolocalização</li>
-          <li>Remarketing para não conversores</li>
-        </ul>
-      </section>
-
-      <section id="segmentacao">
-        <h2>Segmentação geográfica e por horário</h2>
-        <p>Campanhas locais (10 km de raio) costumam converter melhor. Veicule em dias úteis, 08h–20h.</p>
-      </section>
-
-      <section id="casos">
-        <h2>Casos reais de sucesso</h2>
-        <div class="space-y-4">
-          <div><strong>SP Trabalhista</strong> — R$1.500/mês → 38 leads em 30 dias</div>
-          <div><strong>Previdenciário Salvador</strong> — +67% contatos via WhatsApp</div>
+        <div class="p-4 bg-gray-50 rounded">
+          <h3 class="font-semibold">Previdenciário - Salvador</h3>
+          <p><strong>Estratégia:</strong> Segmentação por benefício + raio</p>
+          <p><strong>Resultado:</strong> +67% contatos via WhatsApp</p>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="checklist">
-        <h2>Checklist para campanhas eficazes</h2>
-        <ul class="list-disc list-inside">
-          <li>Campanhas por área</li>
-          <li>Formulário + WhatsApp</li>
-          <li>Palavras-negativas</li>
-          <li>Extensões completas</li>
-          <li>Ajustes semanais</li>
-        </ul>
-      </section>
+    <hr class="my-8" />
 
-      <section id="contato" class="mt-8 text-center">
-        <h2 class="text-2xl font-bold mb-4">Diagnóstico gratuito</h2>
-        <p class="mb-6">Avaliação técnica, otimizações e roadmap prioritário.</p>
-        <a href="https://davisasso.com/lp#contact" class="inline-block bg-blue-800 text-white font-semibold py-3 px-6 rounded-full shadow hover:bg-blue-700 transition">Solicitar diagnóstico gratuito</a>
-      </section>
-    </article>
+    <!-- Section: Checklist -->
+    <section id="checklist">
+      <h2>Checklist completo</h2>
+      <ul class="ml-6 list-inside list-disc">
+        <li>Campanhas por área de atuação</li>
+        <li>Páginas de destino com formulário e WhatsApp</li>
+        <li>Configuração de palavras negativas</li>
+        <li>Uso completo de extensões</li>
+        <li>Ajustes e relatórios semanais</li>
+      </ul>
+    </section>
+
+    <hr class="my-8" />
+
+    <!-- Section: Contato -->
+    <section id="contato" class="text-center">
+      <h2 class="text-2xl font-bold mb-4">Diagnóstico gratuito</h2>
+      <p class="mb-6">Receba avaliação completa, otimizações práticas e roadmap personalizado.</p>
+      <a href="https://davisasso.com/lp#contact" class="inline-block bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow hover:bg-blue-600 transition">Solicitar Diagnóstico</a>
+    </section>
   </main>
 
   <!-- Footer -->
-  <footer class="bg-gray-900 text-white text-center py-6">
-    <p>© 2025 Davi Sasso | Marketing com Dados e Estratégia para Escritórios de Advocacia</p>
+  <footer class="bg-gray-800 text-gray-400 text-center py-6">
+    <p>© 2025 Davi Sasso | Marketing & Dados para Escritórios de Advocacia</p>
   </footer>
-
-  <!-- Scripts -->
-  <script>
-    document.querySelectorAll('.fade-in').forEach(el => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('show');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-      observer.observe(el);
-    });
-  </script>
 </body>
 </html>
