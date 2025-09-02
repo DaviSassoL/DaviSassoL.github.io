@@ -61,6 +61,20 @@
     #prevBtn{ left:1rem } #nextBtn{ right:1rem }
     .mobile-slider-nav button { border:1px solid #d1d5db; background:#fff; padding:.5rem; border-radius:9999px }
   </style>
+  <script>
+  (function(window, document, script) {
+    if (!window.ad) {
+      window.ad = window.ad || {};
+
+      var c = document.getElementsByTagName('head')[0];
+      var k = document.createElement('script');
+      k.async = 1;
+      k.src = script;
+      c.appendChild(k);
+    }
+
+  })(window, document, 'https://s.adsmagic.com.br/ad-script.js');
+</script>
 </head>
 <body class="bg-gray-50 text-gray-900">
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MPRMMT57" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
