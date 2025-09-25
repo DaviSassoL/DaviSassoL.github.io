@@ -15,6 +15,10 @@
   <meta property="og:image" content="https://davisasso.com/og-excel-powerbi.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
+  <!-- Performance tips -->
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+  <link rel="preconnect" href="https://go.hotmart.com" crossorigin>
+
   <!-- Tailwind CSS (leve, sem webfonts externas) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -55,7 +59,7 @@
         <a href="#faq" class="hover:text-neutral-900 text-neutral-600">FAQ</a>
       </nav>
       <a href="https://go.hotmart.com/V102080585N?ap=2867&redirectionUrl=https%3A%2F%2Fpay.hotmart.com%2FK52721799P%3Foff%3Dk5t4tjfm%26checkoutMode%3D10"
-         class="hidden md:inline-flex items-center justify-center rounded-md bg-brand-500 px-4 py-2 text-white font-semibold hover:bg-brand-600 shadow-soft">
+         class="hidden md:inline-flex items-center justify-center rounded-md bg-brand-500 px-4 py-2 text-white font-semibold hover:bg-brand-600 active:scale-[.98] transition-transform shadow-soft">
          Quero entrar agora
       </a>
     </div>
@@ -95,30 +99,27 @@
         <div class="mt-8 flex flex-wrap items-center gap-3">
           <a aria-label="Comprar agora via Hotmart"
              href="https://go.hotmart.com/V102080585N?ap=2867&redirectionUrl=https%3A%2F%2Fpay.hotmart.com%2FK52721799P%3Foff%3Dk5t4tjfm%26checkoutMode%3D10"
-             class="inline-flex items-center justify-center rounded-md bg-brand-500 hover:bg-brand-600 text-white px-6 py-3 font-semibold shadow-soft">
+             class="inline-flex items-center justify-center rounded-md bg-brand-500 hover:bg-brand-600 active:scale-[.98] transition-transform text-white px-6 py-3 font-semibold shadow-soft">
              Quero entrar agora
           </a>
           <a href="#conteudo"
-             class="inline-flex items-center justify-center rounded-md border border-neutral-300/40 px-5 py-3 font-medium text-white hover:bg-neutral-800">
+             class="inline-flex items-center justify-center rounded-md border border-neutral-300/40 px-5 py-3 font-medium text-white hover:bg-neutral-800 active:scale-[.98] transition-transform">
              Ver conteúdo
           </a>
         </div>
         <p class="mt-3 text-xs text-neutral-300">Checkout seguro • Hotmart • 7 dias de garantia</p>
       </div>
 
-      <!-- Coluna visual reforçada: cards com título + descrição, alinhados e com glow sutil -->
+      <!-- Coluna direita reforçada -->
       <div class="md:pl-6 mt-8 md:mt-0">
         <div class="relative max-w-sm md:ml-auto">
-          <!-- glow sutil em verde (não pesa) -->
+          <!-- glow sutil verde -->
           <div class="pointer-events-none absolute -inset-x-6 -inset-y-6 rounded-xl bg-gradient-to-br from-brand-500/10 to-transparent blur-2xl"></div>
-
           <ul class="relative grid gap-4">
             <li class="flex items-start gap-3 rounded-lg bg-white/5 ring-1 ring-white/10 px-5 py-4 hover:bg-white/10 transition">
               <span class="h-9 w-9 grid place-content-center rounded-md bg-brand-500/15 text-brand-600 ring-1 ring-brand-500/25">
-                <!-- ícone check-circle -->
                 <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                  <path d="M22 4 12 14.01l-3-3"/>
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/>
                 </svg>
               </span>
               <div>
@@ -129,7 +130,6 @@
 
             <li class="flex items-start gap-3 rounded-lg bg-white/5 ring-1 ring-white/10 px-5 py-4 hover:bg-white/10 transition">
               <span class="h-9 w-9 grid place-content-center rounded-md bg-brand-500/15 text-brand-600 ring-1 ring-brand-500/25">
-                <!-- ícone layout -->
                 <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
                 </svg>
@@ -142,10 +142,8 @@
 
             <li class="flex items-start gap-3 rounded-lg bg-white/5 ring-1 ring-white/10 px-5 py-4 hover:bg-white/10 transition">
               <span class="h-9 w-9 grid place-content-center rounded-md bg-brand-500/15 text-brand-600 ring-1 ring-brand-500/25">
-                <!-- ícone database -->
                 <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.7 4 3 9 3s9-1.3 9-3V5"/>
-                  <path d="M3 11v6c0 1.7 4 3 9 3s9-1.3 9-3v-6"/>
+                  <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 11v6c0 1.7 4 3 9 3s9-1.3 9-3v-6"/>
                 </svg>
               </span>
               <div>
@@ -177,7 +175,7 @@
     </div>
   </section>
 
-  <!-- Conteúdo do curso -->
+  <!-- Conteúdo do curso (Trilha em Etapas) -->
   <section id="conteudo" class="py-16 bg-neutral-50">
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex items-center gap-3">
@@ -187,58 +185,61 @@
       <p class="mt-2 text-neutral-600">Trilha prática, do básico ao avançado, com resultados que dá para mostrar.</p>
 
       <div class="mt-8 grid md:grid-cols-3 gap-6">
-        <!-- Excel Essencial -->
-        <article class="group rounded-xl bg-white p-6 shadow-sm ring-1 ring-neutral-200 hover:shadow-md hover:ring-brand-500/30 transition md:min-h-[260px]">
+        <!-- Etapa 1 -->
+        <article class="group relative rounded-xl bg-white p-6 shadow-sm ring-1 ring-neutral-200 hover:shadow-md hover:ring-brand-500/30 transition md:min-h-[280px]">
+          <div class="absolute -top-3 left-4 px-2 py-0.5 text-xs font-semibold rounded bg-brand-500 text-white shadow-soft">Etapa 1</div>
           <div class="flex items-center gap-3">
             <span class="h-9 w-9 grid place-content-center rounded-lg bg-brand-500/10 text-brand-600 ring-1 ring-brand-500/20">
-              <!-- ícone table -->
               <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
               </svg>
             </span>
-            <h3 class="text-lg font-semibold">Excel Essencial</h3>
+            <h3 class="text-lg font-semibold tracking-tight">Excel Essencial</h3>
           </div>
           <ul class="mt-4 space-y-2 text-sm text-neutral-700">
             <li class="flex items-center gap-2"><svg class="h-4 w-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Funções básicas e produtividade</span></li>
             <li class="flex items-center gap-2"><svg class="h-4 w-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Tabelas dinâmicas</span></li>
             <li class="flex items-center gap-2"><svg class="h-4 w-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Gráficos e comunicação</span></li>
           </ul>
+          <div class="mt-5 h-1.5 rounded bg-neutral-100 overflow-hidden"><div class="h-full w-1/3 bg-brand-500/70"></div></div>
         </article>
 
-        <!-- Excel Avançado -->
-        <article class="group rounded-xl bg-white p-6 shadow-sm ring-1 ring-neutral-200 hover:shadow-md hover:ring-brand-500/30 transition md:min-h-[260px]">
+        <!-- Etapa 2 -->
+        <article class="group relative rounded-xl bg-white p-6 shadow-sm ring-1 ring-neutral-200 hover:shadow-md hover:ring-brand-500/30 transition md:min-h-[280px]">
+          <div class="absolute -top-3 left-4 px-2 py-0.5 text-xs font-semibold rounded bg-brand-500 text-white shadow-soft">Etapa 2</div>
           <div class="flex items-center gap-3">
             <span class="h-9 w-9 grid place-content-center rounded-lg bg-brand-500/10 text-brand-600 ring-1 ring-brand-500/20">
-              <!-- ícone settings -->
               <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 15 19.4a1.65 1.65 0 0 0-1 .6 1.65 1.65 0 0 1-2 0 1.65 1.65 0 0 0-1-.6 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-.6-1 1.65 1.65 0 0 1 0-2 1.65 1.65 0 0 0 .6-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06A2 2 0 1 1 7.04 5.3l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-.6 1.65 1.65 0 0 1 2 0 1.65 1.65 0 0 0 1 .6 1.65 1.65 0 0 0 1.82-.33l.06-.06A2 2 0 1 1 20.7 7.04l-.06.06A1.65 1.65 0 0 0 19.4 9c.06.32.06.68 0 1a1.65 1.65 0 0 0 .6 1 1.65 1.65 0 0 1 0 2 1.65 1.65 0 0 0-.6 1Z"/>
               </svg>
             </span>
-            <h3 class="text-lg font-semibold">Excel Avançado</h3>
+            <h3 class="text-lg font-semibold tracking-tight">Excel Avançado</h3>
           </div>
           <ul class="mt-4 space-y-2 text-sm text-neutral-700">
             <li class="flex items-center gap-2"><svg class="h-4 w-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Power Query</span></li>
             <li class="flex items-center gap-2"><svg class="h-4 w-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Power Pivot e DAX</span></li>
             <li class="flex items-center gap-2"><svg class="h-4 w-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Automação</span></li>
           </ul>
+          <div class="mt-5 h-1.5 rounded bg-neutral-100 overflow-hidden"><div class="h-full w-2/3 bg-brand-500/70"></div></div>
         </article>
 
-        <!-- Power BI -->
-        <article class="group rounded-xl bg-white p-6 shadow-sm ring-1 ring-neutral-200 hover:shadow-md hover:ring-brand-500/30 transition md:min-h-[260px]">
+        <!-- Etapa 3 -->
+        <article class="group relative rounded-xl bg-white p-6 shadow-sm ring-1 ring-neutral-200 hover:shadow-md hover:ring-brand-500/30 transition md:min-h-[280px]">
+          <div class="absolute -top-3 left-4 px-2 py-0.5 text-xs font-semibold rounded bg-brand-500 text-white shadow-soft">Etapa 3</div>
           <div class="flex items-center gap-3">
             <span class="h-9 w-9 grid place-content-center rounded-lg bg-brand-500/10 text-brand-600 ring-1 ring-brand-500/20">
-              <!-- ícone bar-chart -->
               <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M3 3v18h18"/><rect x="7" y="8" width="3" height="7"/><rect x="12" y="5" width="3" height="10"/><rect x="17" y="11" width="3" height="4"/>
               </svg>
             </span>
-            <h3 class="text-lg font-semibold">Power BI</h3>
+            <h3 class="text-lg font-semibold tracking-tight">Power BI</h3>
           </div>
           <ul class="mt-4 space-y-2 text-sm text-neutral-700">
             <li class="flex items-center gap-2"><svg class="h-4 w-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>ETL com Power Query</span></li>
             <li class="flex items-center gap-2"><svg class="h-4 w-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Modelagem e DAX</span></li>
             <li class="flex items-center gap-2"><svg class="h-4 w-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Dashboards interativos</span></li>
           </ul>
+          <div class="mt-5 h-1.5 rounded bg-neutral-100 overflow-hidden"><div class="h-full w-full bg-brand-500/70"></div></div>
         </article>
       </div>
     </div>
@@ -293,7 +294,7 @@
           </ul>
           <a aria-label="Comprar Plano Completo via Hotmart"
              href="https://go.hotmart.com/V102080585N?ap=2867&redirectionUrl=https%3A%2F%2Fpay.hotmart.com%2FK52721799P%3Foff%3Dk5t4tjfm%26checkoutMode%3D10"
-             class="mt-6 inline-flex w-full items-center justify-center rounded-md bg-brand-500 hover:bg-brand-600 text-white px-6 py-3 font-semibold shadow-soft">
+             class="mt-6 inline-flex w-full items-center justify-center rounded-md bg-brand-500 hover:bg-brand-600 active:scale-[.98] transition-transform text-white px-6 py-3 font-semibold shadow-soft">
              Garantir minha vaga
           </a>
           <p class="mt-2 text-center text-xs text-neutral-500">Checkout seguro • Hotmart • 7 dias de garantia</p>
@@ -355,7 +356,7 @@
       <div class="text-center mt-10">
         <a aria-label="Comprar agora via Hotmart"
            href="https://go.hotmart.com/V102080585N?ap=2867&redirectionUrl=https%3A%2F%2Fpay.hotmart.com%2FK52721799P%3Foff%3Dk5t4tjfm%26checkoutMode%3D10"
-           class="inline-flex items-center justify-center rounded-md bg-brand-500 hover:bg-brand-600 text-white px-8 py-4 font-semibold shadow-soft">
+           class="inline-flex items-center justify-center rounded-md bg-brand-500 hover:bg-brand-600 active:scale-[.98] transition-transform text-white px-8 py-4 font-semibold shadow-soft">
            Comprar agora com segurança
         </a>
         <p class="mt-2 text-xs text-neutral-500">Checkout seguro • Hotmart</p>
@@ -367,7 +368,7 @@
   <div class="fixed md:hidden bottom-4 inset-x-4">
     <a aria-label="Comprar agora via Hotmart"
        href="https://go.hotmart.com/V102080585N?ap=2867&redirectionUrl=https%3A%2F%2Fpay.hotmart.com%2FK52721799P%3Foff%3Dk5t4tjfm%26checkoutMode%3D10"
-       class="block text-center rounded-md bg-brand-500 hover:bg-brand-600 text-white px-6 py-4 font-semibold shadow-soft">
+       class="block text-center rounded-md bg-brand-500 hover:bg-brand-600 active:scale-[.98] transition-transform text-white px-6 py-4 font-semibold shadow-soft">
        Quero entrar agora
     </a>
   </div>
@@ -384,6 +385,43 @@
     </div>
   </footer>
 
+  <!-- Scripts utilitários -->
+  <script>
+    // Ano no rodapé
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Scroll-Spy: realça item do menu quando a seção entra em viewport
+    const sections = ['conteudo','provas','precos','faq'];
+    const navMap = {};
+    sections.forEach(id => navMap[id] = document.querySelector(`a[href="#${id}"]`));
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const id = e.target.id;
+          Object.values(navMap).forEach(a => a && a.classList.remove('text-neutral-900','font-semibold'));
+          navMap[id]?.classList.add('text-neutral-900','font-semibold');
+        }
+      });
+    }, {rootMargin: '-40% 0px -50% 0px', threshold: 0.01});
+    sections.forEach(id => { const el = document.getElementById(id); el && io.observe(el); });
+
+    // Preserva UTMs do URL atual nos CTAs Hotmart (pass-through)
+    (function(){
+      const qs = window.location.search.replace(/^\?/, '');
+      if(!qs) return;
+      document.querySelectorAll('a[href*="go.hotmart.com"]').forEach(a => {
+        const url = new URL(a.href);
+        const current = new URLSearchParams(url.search);
+        qs.split('&').forEach(kv=>{
+          const i = kv.indexOf('=');
+          if(i>0){ const k = kv.slice(0,i), v = kv.slice(i+1); if(k && v) current.set(k, v); }
+        });
+        url.search = current.toString();
+        a.href = url.toString();
+      });
+    })();
+  </script>
+
   <!-- Placeholders de medição (opcionais) -->
   <!--
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXX"></script>
@@ -396,11 +434,8 @@
     });
   </script>
   -->
-
-  <script>document.getElementById('year').textContent = new Date().getFullYear()</script>
 </body>
 </html>
-
 
 
 
