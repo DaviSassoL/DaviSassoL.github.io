@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Curso de Excel e Power BI – Domine Análise de Dados</title>
-  <meta name="description" content="Curso de Excel e Power BI do zero ao avançado. Projetos práticos, dashboards profissionais e garantia de 7 dias. Inscreva-se via Hotmart." />
+  <meta name="description" content="Domine Excel e Power BI do zero ao avançado. Projetos práticos, dashboards profissionais e garantia de 7 dias. Inscreva-se via Hotmart." />
   <link rel="icon" href="/favicon.ico" />
 
   <!-- SEO Social -->
@@ -15,7 +15,7 @@
   <meta property="og:image" content="https://davisasso.com/og-excel-powerbi.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Tailwind CSS -->
+  <!-- Tailwind CSS (leve, sem webfonts externas) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -23,12 +23,12 @@
         extend: {
           colors: {
             brand: {
-              50: '#f8f9f8',
-              100: '#f0f1f0',
-              200: '#d9dad9',
-              300: '#bfc1bf',
-              400: '#8f918f',
-              500: '#4caf50', /* verde principal */
+              50: '#f6f8f6',
+              100: '#ecf1ec',
+              200: '#d7e3d7',
+              300: '#b6d1b6',
+              400: '#83bb83',
+              500: '#4caf50',  /* Verde CTA */
               600: '#388e3c',
               700: '#2e7d32',
               800: '#1b5e20',
@@ -36,60 +36,75 @@
             },
             neutral: {
               50: '#ffffff',
-              900: '#000000'
+              100: '#f5f5f5',
+              200: '#e5e5e5',
+              300: '#d4d4d4',
+              700: '#404040',
+              800: '#262626',
+              900: '#0a0a0a'
             }
           },
-          boxShadow: {
-            soft: '0 10px 25px -10px rgba(16,24,40,.15)'
-          }
+          boxShadow: { soft: '0 10px 25px -10px rgba(16,24,40,.15)' },
+          borderRadius: { xl: '0.75rem' }
         }
       }
     }
   </script>
-  <style>html {scroll-behavior:smooth}</style>
+  <style>html{scroll-behavior:smooth}</style>
+
+  <!-- Schema.org (Course) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Curso de Excel e Power BI",
+    "description": "Trilha completa com Excel e Power BI, projetos práticos e certificado.",
+    "provider": {"@type":"Organization","name":"Hotmart"}
+  }
+  </script>
 </head>
 <body class="antialiased text-neutral-900 bg-neutral-50">
   <!-- Header -->
   <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-neutral-200">
     <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-      <span class="font-extrabold tracking-tight text-neutral-900">Excel & Power BI</span>
-      <nav class="hidden md:flex gap-6 text-sm">
+      <a href="#" class="font-extrabold tracking-tight text-neutral-900">Excel & Power BI</a>
+      <nav class="hidden md:flex gap-6 text-sm" aria-label="Navegação principal">
         <a href="#conteudo" class="hover:text-neutral-900 text-neutral-600">Conteúdo</a>
-        <a href="#beneficios" class="hover:text-neutral-900 text-neutral-600">Benefícios</a>
+        <a href="#provas" class="hover:text-neutral-900 text-neutral-600">Provas</a>
         <a href="#precos" class="hover:text-neutral-900 text-neutral-600">Planos</a>
         <a href="#faq" class="hover:text-neutral-900 text-neutral-600">FAQ</a>
       </nav>
-      <a href="https://go.hotmart.com/V102080585N?ap=2867&redirectionUrl=https%3A%2F%2Fpay.hotmart.com%2FK52721799P%3Foff%3Dk5t4tjfm%26checkoutMode%3D10" class="hidden md:inline-flex items-center justify-center rounded-md bg-brand-500 px-4 py-2 text-white font-semibold hover:bg-brand-600 shadow-soft">Quero entrar agora</a>
+      <a href="https://go.hotmart.com/V102080585N?ap=2867&redirectionUrl=https%3A%2F%2Fpay.hotmart.com%2FK52721799P%3Foff%3Dk5t4tjfm%26checkoutMode%3D10" class="hidden md:inline-flex items-center justify-center rounded-md bg-brand-500 px-4 py-2 text-white font-semibold hover:bg-brand-600 shadow-soft focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-600">Quero entrar agora</a>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="relative overflow-hidden bg-neutral-900 text-white">
-    <div class="max-w-6xl mx-auto px-4 py-20 grid md:grid-cols-2 gap-10 items-center">
+  <!-- HERO (preto, BOFU) -->
+  <section class="relative bg-neutral-900 text-white">
+    <div class="max-w-6xl mx-auto px-4 py-18 md:py-24 grid md:grid-cols-2 gap-10 items-center">
       <div>
-        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight tracking-tight">Domine Excel e Power BI com projetos práticos e foco no mercado</h1>
-        <p class="mt-5 text-lg text-neutral-200">Aprenda do zero ao avançado, com acesso imediato via Hotmart e garantia de 7 dias.</p>
-        <ul class="mt-6 space-y-2 text-neutral-100 text-sm">
-          <li>✔️ Trilha do zero ao avançado</li>
-          <li>✔️ Projetos passo a passo</li>
-          <li>✔️ Dashboards profissionais</li>
-          <li>✔️ Suporte a dúvidas</li>
+        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight">Domine Excel e Power BI com projetos práticos e foco no mercado</h1>
+        <p class="mt-5 text-lg text-neutral-200">Acesso imediato via Hotmart • Garantia de 7 dias • Aprenda do zero ao avançado</p>
+        <ul class="mt-6 grid sm:grid-cols-2 gap-2 text-neutral-100 text-sm">
+          <li>Trilha do zero ao avançado</li>
+          <li>Projetos passo a passo</li>
+          <li>Dashboards profissionais</li>
+          <li>Suporte a dúvidas</li>
         </ul>
         <div class="mt-8 flex flex-wrap items-center gap-3">
-          <a href="https://go.hotmart.com/V102080585N?ap=2867&redirectionUrl=https%3A%2F%2Fpay.hotmart.com%2FK52721799P%3Foff%3Dk5t4tjfm%26checkoutMode%3D10" class="inline-flex items-center justify-center rounded-md bg-brand-500 hover:bg-brand-600 text-white px-6 py-3 font-semibold shadow-soft">Quero entrar agora</a>
-          <a href="#conteudo" class="inline-flex items-center justify-center rounded-md border border-neutral-200 px-5 py-3 font-medium text-white hover:bg-neutral-800">Ver conteúdo</a>
+          <a aria-label="Comprar agora via Hotmart" href="https://go.hotmart.com/V102080585N?ap=2867&redirectionUrl=https%3A%2F%2Fpay.hotmart.com%2FK52721799P%3Foff%3Dk5t4tjfm%26checkoutMode%3D10" class="inline-flex items-center justify-center rounded-md bg-brand-500 hover:bg-brand-600 text-white px-6 py-3 font-semibold shadow-soft">Quero entrar agora</a>
+          <a href="#conteudo" class="inline-flex items-center justify-center rounded-md border border-neutral-300/40 px-5 py-3 font-medium text-white hover:bg-neutral-800">Ver conteúdo</a>
         </div>
         <p class="mt-3 text-xs text-neutral-300">Checkout seguro • Hotmart • 7 dias de garantia</p>
       </div>
       <div class="relative">
-        <div class="aspect-[16/10] rounded-md bg-neutral-100 shadow-2xl ring-1 ring-neutral-200 overflow-hidden grid place-content-center text-center text-neutral-900">
+        <div class="aspect-[16/10] rounded-md bg-white shadow-2xl ring-1 ring-neutral-200 overflow-hidden grid place-content-center text-center text-neutral-900">
           <p class="font-semibold">Curso prático com Excel e Power BI</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Destaques -->
+  <!-- Destaques rápidos -->
   <section class="py-8 border-y border-neutral-200 bg-white">
     <div class="max-w-6xl mx-auto px-4 grid sm:grid-cols-3 gap-6 text-center">
       <p class="text-sm text-neutral-700">Acesso vitalício</p>
@@ -98,43 +113,43 @@
     </div>
   </section>
 
-  <!-- Conteúdo -->
+  <!-- Conteúdo do curso -->
   <section id="conteudo" class="py-16 bg-neutral-50">
     <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-2xl md:text-3xl font-bold text-neutral-900">O que você vai aprender</h2>
+      <h2 class="text-2xl md:text-3xl font-bold">O que você vai aprender</h2>
       <div class="mt-8 grid md:grid-cols-3 gap-6">
-        <div class="rounded-md bg-white p-6 shadow-sm ring-1 ring-neutral-200">
+        <article class="rounded-md bg-white p-6 shadow-sm ring-1 ring-neutral-200">
           <h3 class="font-semibold text-lg">Excel Essencial</h3>
           <ul class="mt-3 space-y-2 text-sm text-neutral-700 list-disc list-inside">
-            <li>Funções básicas</li>
+            <li>Funções básicas e produtividade</li>
             <li>Tabelas dinâmicas</li>
-            <li>Gráficos</li>
+            <li>Gráficos e comunicação</li>
           </ul>
-        </div>
-        <div class="rounded-md bg-white p-6 shadow-sm ring-1 ring-neutral-200">
+        </article>
+        <article class="rounded-md bg-white p-6 shadow-sm ring-1 ring-neutral-200">
           <h3 class="font-semibold text-lg">Excel Avançado</h3>
           <ul class="mt-3 space-y-2 text-sm text-neutral-700 list-disc list-inside">
             <li>Power Query</li>
             <li>Power Pivot e DAX</li>
             <li>Automação</li>
           </ul>
-        </div>
-        <div class="rounded-md bg-white p-6 shadow-sm ring-1 ring-neutral-200">
+        </article>
+        <article class="rounded-md bg-white p-6 shadow-sm ring-1 ring-neutral-200">
           <h3 class="font-semibold text-lg">Power BI</h3>
           <ul class="mt-3 space-y-2 text-sm text-neutral-700 list-disc list-inside">
             <li>ETL com Power Query</li>
             <li>Modelagem e DAX</li>
             <li>Dashboards interativos</li>
           </ul>
-        </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- Benefícios -->
-  <section id="beneficios" class="py-16 bg-white">
+  <!-- Provas e garantias -->
+  <section id="provas" class="py-16 bg-white">
     <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-2xl md:text-3xl font-bold text-neutral-900">Benefícios e Garantias</h2>
+      <h2 class="text-2xl md:text-3xl font-bold">Provas e garantias</h2>
       <div class="mt-8 grid md:grid-cols-3 gap-6">
         <div class="rounded-md border border-neutral-200 p-6 text-center">
           <p class="font-semibold">Pagamento seguro via Hotmart</p>
@@ -149,10 +164,10 @@
     </div>
   </section>
 
-  <!-- Oferta -->
+  <!-- Oferta / Planos -->
   <section id="precos" class="py-16 bg-neutral-50">
     <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-2xl md:text-3xl font-bold text-neutral-900">Acesso Completo</h2>
+      <h2 class="text-2xl md:text-3xl font-bold">Acesso Completo</h2>
       <p class="mt-2 text-neutral-700">Valor exibido no checkout Hotmart. Entre agora e receba atualizações contínuas.</p>
       <div class="mt-8 grid md:grid-cols-3 gap-6">
         <div class="rounded-md bg-white p-6 ring-2 ring-brand-500 shadow-xl">
@@ -165,7 +180,7 @@
             <li>Certificado</li>
             <li>Suporte</li>
           </ul>
-          <a href="https://go.hotmart.com/V102080585N?ap=2867&redirectionUrl=https%3A%2F%2Fpay.hotmart.com%2FK52721799P%3Foff%3Dk5t4tjfm%26checkoutMode%3D10" class="mt-6 inline-flex w-full items-center justify-center rounded-md bg-brand-500 hover:bg-brand-600 text-white px-6 py-3 font-semibold shadow-soft">Garantir minha vaga</a>
+          <a aria-label="Comprar Plano Completo via Hotmart" href="https://go.hotmart.com/V102080585N?ap=2867&redirectionUrl=https%3A%2F%2Fpay.hotmart.com%2FK52721799P%3Foff%3Dk5t4tjfm%26checkoutMode%3D10" class="mt-6 inline-flex w-full items-center justify-center rounded-md bg-brand-500 hover:bg-brand-600 text-white px-6 py-3 font-semibold shadow-soft">Garantir minha vaga</a>
           <p class="mt-2 text-center text-xs text-neutral-500">Checkout seguro • Hotmart • 7 dias de garantia</p>
         </div>
       </div>
@@ -175,19 +190,19 @@
   <!-- Transparência -->
   <section class="py-16 bg-white">
     <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-2xl md:text-3xl font-bold text-neutral-900">Quem oferece o curso</h2>
-      <p class="mt-3 text-neutral-700">Esta é uma página de divulgação independente. A inscrição e o acesso ao conteúdo são realizados com segurança na plataforma Hotmart. Não somos os autores do curso.</p>
+      <h2 class="text-2xl md:text-3xl font-bold">Quem oferece o curso</h2>
+      <p class="mt-3 text-neutral-700">Esta é uma página de divulgação independente. A inscrição e o acesso ao conteúdo são realizados com segurança na plataforma Hotmart. Davi não é o instrutor do curso.</p>
     </div>
   </section>
 
   <!-- FAQ -->
   <section id="faq" class="py-16 bg-neutral-50">
     <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-2xl md:text-3xl font-bold text-neutral-900">Perguntas frequentes</h2>
+      <h2 class="text-2xl md:text-3xl font-bold">Perguntas frequentes</h2>
       <div class="mt-6 divide-y divide-neutral-200 bg-white rounded-md ring-1 ring-neutral-200">
         <details class="group p-6">
           <summary class="flex cursor-pointer justify-between font-medium">Como funciona o acesso?<span class="transition group-open:rotate-180">⌄</span></summary>
-          <p class="mt-3 text-sm text-neutral-700">O acesso é liberado automaticamente após a confirmação de pagamento.</p>
+          <p class="mt-3 text-sm text-neutral-700">O acesso é liberado automaticamente após a confirmação do pagamento.</p>
         </details>
         <details class="group p-6">
           <summary class="flex cursor-pointer justify-between font-medium">Preciso saber Excel antes?<span class="transition group-open:rotate-180">⌄</span></summary>
@@ -195,7 +210,7 @@
         </details>
         <details class="group p-6">
           <summary class="flex cursor-pointer justify-between font-medium">Recebo certificado?<span class="transition group-open:rotate-180">⌄</span></summary>
-          <p class="mt-3 text-sm text-neutral-700">Sim, após concluir os módulos você terá certificado emitido pela Hotmart.</p>
+          <p class="mt-3 text-sm text-neutral-700">Sim, após concluir os módulos você terá certificado emitido na plataforma.</p>
         </details>
         <details class="group p-6">
           <summary class="flex cursor-pointer justify-between font-medium">Qual a garantia?<span class="transition group-open:rotate-180">⌄</span></summary>
@@ -203,28 +218,48 @@
         </details>
       </div>
       <div class="text-center mt-10">
-        <a href="https://go.hotmart.com/V102080585N?ap=2867&redirectionUrl=https%3A%2F%2Fpay.hotmart.com%2FK52721799P%3Foff%3Dk5t4tjfm%26checkoutMode%3D10" class="inline-flex items-center justify-center rounded-md bg-brand-500 hover:bg-brand-600 text-white px-8 py-4 font-semibold shadow-soft">Comprar agora com segurança</a>
+        <a aria-label="Comprar agora via Hotmart" href="https://go.hotmart.com/V102080585N?ap=2867&redirectionUrl=https%3A%2F%2Fpay.hotmart.com%2FK52721799P%3Foff%3Dk5t4tjfm%26checkoutMode%3D10" class="inline-flex items-center justify-center rounded-md bg-brand-500 hover:bg-brand-600 text-white px-8 py-4 font-semibold shadow-soft">Comprar agora com segurança</a>
         <p class="mt-2 text-xs text-neutral-500">Checkout seguro • Hotmart</p>
       </div>
     </div>
   </section>
 
-  <!-- CTA flutuante mobile -->
+  <!-- CTA flutuante mobile (1 ação) -->
   <div class="fixed md:hidden bottom-4 inset-x-4">
-    <a href="https://go.hotmart.com/V102080585N?ap=2867&redirectionUrl=https%3A%2F%2Fpay.hotmart.com%2FK52721799P%3Foff%3Dk5t4tjfm%26checkoutMode%3D10" class="block text-center rounded-md bg-brand-500 hover:bg-brand-600 text-white px-6 py-4 font-semibold shadow-soft">Quero entrar agora</a>
+    <a aria-label="Comprar agora via Hotmart" href="https://go.hotmart.com/V102080585N?ap=2867&redirectionUrl=https%3A%2F%2Fpay.hotmart.com%2FK52721799P%3Foff%3Dk5t4tjfm%26checkoutMode%3D10" class="block text-center rounded-md bg-brand-500 hover:bg-brand-600 text-white px-6 py-4 font-semibold shadow-soft">Quero entrar agora</a>
   </div>
 
   <!-- Footer -->
   <footer class="py-10 bg-neutral-900 text-neutral-200 mt-16">
     <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-6 items-center">
-      <p class="text-sm">© <span id="year"></span> Página de divulgação independente. Não somos os autores do curso. Todos os direitos pertencem aos seus titulares.</p>
-      <nav class="flex gap-5 justify-start md:justify-end text-sm">
+      <p class="text-sm">© <span id="year"></span> Página de divulgação independente. Todos os direitos pertencem aos seus titulares.</p>
+      <nav class="flex gap-5 justify-start md:justify-end text-sm" aria-label="Links do rodapé">
         <a href="#conteudo" class="hover:text-white">Conteúdo</a>
         <a href="#precos" class="hover:text-white">Planos</a>
         <a href="#faq" class="hover:text-white">FAQ</a>
       </nav>
     </div>
   </footer>
+
+  <!-- Placeholders para Medição -->
+  <!--
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);} gtag('js', new Date());
+    gtag('config', 'AW-XXXXXXX');
+    document.querySelectorAll('a[href*="go.hotmart.com"]').forEach(a=>{
+      a.addEventListener('click',()=>{ if(window.gtag){ gtag('event','click_cta_hotmart',{event_category:'CTA',event_label:'ExcelPowerBI'}); } });
+    });
+  </script>
+  <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js" defer></script>
+  <script>
+    // Exemplo de coleta básica (substituir por endpoint próprio):
+    window.addEventListener('load',()=>{
+      if(window.webVitals){ const {onLCP,onCLS,onINP}=window.webVitals; const log=m=>console.log('[web-vitals]',m.name,Math.round(m.value)); onLCP(log); onCLS(log); onINP(log); }
+    });
+  </script>
+  -->
 
   <script>document.getElementById('year').textContent = new Date().getFullYear()</script>
 </body>
