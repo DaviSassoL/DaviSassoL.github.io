@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Diagrama – Arquitetura DevOps + DataOps</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050816;
+      --card-bg: #0b1020;
+      --card-alt: #111827;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --accent-2: #a855f7;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.25);
+      --radius-lg: 18px;
+      --radius-xl: 22px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.7);
+      --shadow-soft-small: 0 10px 30px rgba(15, 23, 42, 0.6);
+      --transition-fast: 0.2s ease-out;
+      --badge-bg: rgba(15, 23, 42, 0.9);
+      --line-color: rgba(148, 163, 184, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #0f172a 0, #020617 40%, #020617 100%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .diagram-shell {
+      width: 100%;
+      max-width: 1200px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(17, 24, 39, 0.98));
+      border-radius: 28px;
+      padding: 28px 26px 24px;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.75);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .diagram-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left,
+        rgba(56, 189, 248, 0.12) 0,
+        transparent 50%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .diagram-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .title-block h1 {
+      margin: 0 0 4px;
+      font-size: 1.35rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+    }
+
+    .title-block p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .pill {
+      align-self: center;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      font-size: 0.75rem;
+      color: var(--muted);
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow-soft-small);
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
+    }
+
+    .pill span {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+    }
+
+    /* LAYOUT PRINCIPAL: GRID */
+    .diagram-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.2fr);
+      gap: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 900px) {
+      .diagram-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* COLUNA ESQUERDA: LINHAS DEVOPS + DATAOPS */
+    .flows-column {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .lane {
+      background: radial-gradient(circle at top left,
+        rgba(15, 118, 110, 0.23),
+        rgba(15, 23, 42, 0.9));
+      border-radius: var(--radius-xl);
+      padding: 14px 16px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lane.devops {
+      background: radial-gradient(circle at top left,
+        rgba(59, 130, 246, 0.24),
+        rgba(15, 23, 42, 0.96));
+    }
+
+    .lane-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 8px;
+    }
+
+    .lane-title {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lane-title-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .lane-metric {
+      font-size: 0.76rem;
+      color: var(--muted);
+      opacity: 0.9;
+    }
+
+    .lane-metric strong {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    .lane-flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      gap: 8px;
+    }
+
+    .node {
+      position: relative;
+      flex: 1 1 120px;
+      min-width: 110px;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.8));
+      border-radius: var(--radius-lg);
+      padding: 10px 10px 9px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft-small);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+    }
+
+    .node::after {
+      content: "→";
+      position: absolute;
+      right: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.9rem;
+      color: var(--line-color);
+    }
+
+    .lane-flow .node:last-child::after {
+      content: "";
+      display: none;
+    }
+
+    .node:hover {
+      transform: translateY(-2px) translateZ(0);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.95);
+      border-color: rgba(56, 189, 248, 0.9);
+      background: radial-gradient(circle at top left,
+        rgba(56, 189, 248, 0.26),
+        rgba(15, 23, 42, 0.96));
+    }
+
+    .node-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .node-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.01em;
+    }
+
+    .node-pill {
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--muted);
+    }
+
+    .node-body {
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.4;
+      margin-top: 2px;
+    }
+
+    .node-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .tag {
+      font-size: 0.64rem;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .tag.accent {
+      border-color: rgba(56, 189, 248, 0.9);
+      background: rgba(15, 23, 42, 0.98);
+      color: #e0f2fe;
+    }
+
+    /* COLUNA DIREITA: OBS E GOVERNANÇA */
+    .side-column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      height: 100%;
+    }
+
+    .side-card {
+      flex: 1;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.9));
+      border-radius: var(--radius-xl);
+      padding: 14px 15px 14px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .side-card::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background:
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.2), transparent 60%),
+        radial-gradient(circle at bottom left, rgba(168, 85, 247, 0.24), transparent 60%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .side-card-header {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .side-card-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .side-card-title span {
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .side-badge {
+      position: relative;
+      font-size: 0.7rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--muted);
+      backdrop-filter: blur(8px);
+    }
+
+    .side-content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .side-section-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .side-section-title::before {
+      content: "";
+      width: 18px;
+      height: 1px;
+      background: linear-gradient(to right, rgba(56, 189, 248, 0.9), transparent);
+    }
+
+    .side-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .side-item {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 7px 7px 6px;
+      font-size: 0.72rem;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .side-item strong {
+      font-size: 0.74rem;
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .metric-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .metric-chip {
+      font-size: 0.68rem;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(74, 222, 128, 0.8);
+      color: #bbf7d0;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 700px) {
+      body {
+        padding: 20px 10px;
+      }
+
+      .diagram-shell {
+        padding: 20px 16px 18px;
+        border-radius: 22px;
+      }
+
+      .diagram-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .lane-flow {
+        flex-direction: column;
+      }
+
+      .node::after {
+        display: none;
+      }
+
+      .side-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="diagram-shell">
+    <header class="diagram-header">
+      <div class="title-block">
+        <h1>Arquitetura Integrada DevOps + DataOps</h1>
+        <p>Da captura do dado até o dashboard executivo, com entrega contínua e dados confiáveis.</p>
+      </div>
+      <div class="pill">
+        <div class="pill-dot"></div>
+        <span>Ambiente proposto</span>
+      </div>
+    </header>
+
+    <section class="diagram-grid">
+
+      <!-- COLUNA ESQUERDA: FLUXO DEVOPS + DATAOPS -->
+      <div class="flows-column">
+
+        <!-- DATAOPS -->
+        <section class="lane dataops">
+          <div class="lane-label">
+            <div class="lane-title">
+              <span class="lane-title-dot"></span>
+              DataOps – Pipeline de Dados
+            </div>
+            <div class="lane-metric">
+              Freshness: <strong>H+1</strong> · Falhas &lt; <strong>2%</strong>
+            </div>
+          </div>
+
+          <div class="lane-flow">
+
+            <article class="node">
+              <div class="node-header">
+                <div class="node-title">
+                  Fontes de Dados
+                </div>
+                <div class="node-pill">Entrada</div>
+              </div>
+              <div class="node-body">
+                ERP, CRM, E-commerce, Aplicativos, Gateway de Pagamentos.
+              </div>
+              <div class="node-tags">
+                <span class="tag">Eventos</span>
+                <span class="tag">APIs</span>
+                <span class="tag">Bases Transacionais</span>
+              </div>
+            </article>
+
+            <article class="node">
+              <div class="node-header">
+                <div class="node-title">
+                  Ingestão
+                </div>
+                <div class="node-pill">Airbyte / Connectors</div>
+              </div>
+              <div class="node-body">
+                Captura batch e incremental (CDC onde disponível) com agendamento centralizado.
+              </div>
+              <div class="node-tags">
+                <span class="tag accent">Ingestão Automática</span>
+                <span class="tag">Batch + Streaming*</span>
+              </div>
+            </article>
+
+            <article class="node">
+              <div class="node-header">
+                <div class="node-title">
+                  Orquestração
+                </div>
+                <div class="node-pill">Airflow / Prefect</div>
+              </div>
+              <div class="node-body">
+                Coordena ingestão, transformação, testes de dados e cargas incrementais.
+              </div>
+              <div class="node-tags">
+                <span class="tag accent">DAGs</span>
+                <span class="tag">Retries</span>
+                <span class="tag">Alertas</span>
+              </div>
+            </article>
+
+            <article class="node">
+              <div class="node-header">
+                <div class="node-title">
+                  Data Lake
+                </div>
+                <div class="node-pill">S3 / GCS</div>
+              </div>
+              <div class="node-body">
+                Armazena dados brutos e tratados com versionamento e camadas (raw, bronze, silver).
+              </div>
+              <div class="node-tags">
+                <span class="tag">Parquet</span>
+                <span class="tag">Partitioning</span>
+              </div>
+            </article>
+
+            <article class="node">
+              <div class="node-header">
+                <div class="node-title">
+                  Transformação & Testes
+                </div>
+                <div class="node-pill">dbt + Data Quality</div>
+              </div>
+              <div class="node-body">
+                Modelagem SQL versionada com testes de schema, regras de negócio e freshness.
+              </div>
+              <div class="node-tags">
+                <span class="tag accent">Testes Automatizados</span>
+                <span class="tag">CI de Dados</span>
+              </div>
+            </article>
+
+            <article class="node">
+              <div class="node-header">
+                <div class="node-title">
+                  Data Warehouse
+                </div>
+                <div class="node-pill">Redshift / BigQuery</div>
+              </div>
+              <div class="node-body">
+                Camada analítica para cubos, KPIs e indicadores de negócio em tempo quase real.
+              </div>
+              <div class="node-tags">
+                <span class="tag">Camadas Star/Snowflake</span>
+              </div>
+            </article>
+
+            <article class="node">
+              <div class="node-header">
+                <div class="node-title">
+                  Dashboards & Produtos de Dados
+                </div>
+                <div class="node-pill">Power BI / Metabase</div>
+              </div>
+              <div class="node-body">
+                Visão única para diretoria, operação e times de produto com métricas confiáveis.
+              </div>
+              <div class="node-tags">
+                <span class="tag accent">Scorecards</span>
+                <span class="tag">Monitoria de KPIs</span>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- DEVOPS -->
+        <section class="lane devops">
+          <div class="lane-label">
+            <div class="lane-title">
+              <span class="lane-title-dot"></span>
+              DevOps – Pipeline de Aplicações
+            </div>
+            <div class="lane-metric">
+              DF: <strong>2 deploys/dia</strong> · MTTR &lt; <strong>1h</strong>
+            </div>
+          </div>
+
+          <div class="lane-flow">
+
+            <article class="node">
+              <div class="node-header">
+                <div class="node-title">
+                  Código & Versionamento
+                </div>
+                <div class="node-pill">Git / GitHub</div>
+              </div>
+              <div class="node-body">
+                Repositórios de app e pipelines de dados com revisões via pull request.
+              </div>
+              <div class="node-tags">
+                <span class="tag accent">Branches</span>
+                <span class="tag">Code Review</span>
+              </div>
+            </article>
+
+            <article class="node">
+              <div class="node-header">
+                <div class="node-title">
+                  CI – Build & Testes
+                </div>
+                <div class="node-pill">GitHub Actions / Jenkins</div>
+              </div>
+              <div class="node-body">
+                Executa testes unitários, integração, lint e testes de dados a cada commit.
+              </div>
+              <div class="node-tags">
+                <span class="tag accent">Quality Gate</span>
+                <span class="tag">Pipelines Verdes</span>
+              </div>
+            </article>
+
+            <article class="node">
+              <div class="node-header">
+                <div class="node-title">
+                  CD – Deploy Contínuo
+                </div>
+                <div class="node-pill">Kubernetes / Containers</div>
+              </div>
+              <div class="node-body">
+                Releases automatizadas com blue/green ou canary, reduzindo risco em produção.
+              </div>
+              <div class="node-tags">
+                <span class="tag accent">Rollback Rápido</span>
+                <span class="tag">Infra como Código</span>
+              </div>
+            </article>
+
+            <article class="node">
+              <div class="node-header">
+                <div class="node-title">
+                  Aplicações em Produção
+                </div>
+                <div class="node-pill">APIs & Serviços</div>
+              </div>
+              <div class="node-body">
+                Serviços que geram eventos e dados consumidos pelo pipeline analítico.
+              </div>
+              <div class="node-tags">
+                <span class="tag">REST / gRPC</span>
+                <span class="tag">Eventos de Negócio</span>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+      </div>
+
+      <!-- COLUNA DIREITA: OBSERVABILIDADE & GOVERNANÇA -->
+      <aside class="side-column">
+        <section class="side-card">
+          <div class="side-card-header">
+            <div class="side-card-title">
+              <span>Camada transversal</span>
+              Observabilidade &amp; Governança
+            </div>
+            <div class="side-badge">
+              SRE · Data Quality
+            </div>
+          </div>
+
+          <div class="side-content">
+            <h3 class="side-section-title">Monitoramento</h3>
+            <div class="side-grid">
+              <div class="side-item">
+                <strong>Prometheus &amp; Grafana</strong>
+                <span>Métricas de latência, erro e disponibilidade de aplicações.</span>
+              </div>
+              <div class="side-item">
+                <strong>Loki / Logs</strong>
+                <span>Rastreamento de erros com correlação entre app e pipelines de dados.</span>
+              </div>
+            </div>
+
+            <h3 class="side-section-title">Qualidade de Dados</h3>
+            <div class="side-grid">
+              <div class="side-item">
+                <strong>Soda / Monte Carlo</strong>
+                <span>Alertas de freshness, volume, schema e anomalias no Data Warehouse.</span>
+              </div>
+              <div class="side-item">
+                <strong>Testes dbt</strong>
+                <span>Validação automática em cada modelo crítico antes de ir para consumo.</span>
+              </div>
+            </div>
+
+            <h3 class="side-section-title">Governança</h3>
+            <div class="side-grid">
+              <div class="side-item">
+                <strong>Data Catalog</strong>
+                <span>DataHub / Purview com linage, ownership e glossário de negócios.</span>
+              </div>
+              <div class="side-item">
+                <strong>LGPD &amp; Segurança</strong>
+                <span>Classificação de PII, máscaras e trilhas de auditoria por usuário.</span>
+              </div>
+            </div>
+
+            <div class="metric-row">
+              <span>Tempo para detectar incidente (dados ou app)</span>
+              <span class="metric-chip">&lt; 15 minutos</span>
+            </div>
+          </div>
+        </section>
+      </aside>
+
+    </section>
+  </main>
+</body>
+</html>
