@@ -7,14 +7,12 @@
   <style>
     :root {
       --bg: #020617;
-      --panel: #020617;
       --card: rgba(15, 23, 42, 0.97);
       --stroke: rgba(148, 163, 184, 0.45);
-      --stroke-strong: rgba(148, 163, 184, 0.75);
+      --stroke-strong: rgba(148, 163, 184, 0.8);
       --accent-red: #f97373;
       --accent-blue: #38bdf8;
       --accent-yellow: #facc15;
-      --accent-green: #22c55e;
       --text-main: #e5e7eb;
       --text-muted: #9ca3af;
       --radius-lg: 22px;
@@ -38,7 +36,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 32px 16px;
+      padding: 24px 16px;
     }
 
     /* SLIDE 16:9 */
@@ -48,12 +46,12 @@
       max-width: 1280px;
       aspect-ratio: 16 / 9;
       background: radial-gradient(circle at top left,
-          rgba(15, 23, 42, 0.96),
-          rgba(2, 6, 23, 0.98));
+          rgba(15, 23, 42, 0.98),
+          rgba(2, 6, 23, 1));
       border-radius: 28px;
       border: 1px solid var(--stroke-strong);
       box-shadow: var(--shadow);
-      padding: 22px 26px 18px;
+      padding: 20px 26px 18px;
       position: relative;
       overflow: hidden;
       display: flex;
@@ -65,7 +63,7 @@
       inset: 0;
       background:
         radial-gradient(circle at top left,
-          rgba(56, 189, 248, 0.16),
+          rgba(56, 189, 248, 0.14),
           transparent 55%),
         radial-gradient(circle at bottom right,
           rgba(248, 113, 113, 0.16),
@@ -89,7 +87,7 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 18px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .header-title h1 {
@@ -101,7 +99,7 @@
 
     .header-title p {
       margin: 0;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
     }
 
@@ -113,7 +111,7 @@
       padding: 6px 12px;
       border-radius: 999px;
       border: 1px solid var(--stroke-strong);
-      background: rgba(15, 23, 42, 0.94);
+      background: rgba(15, 23, 42, 0.96);
       color: var(--text-muted);
       font-size: 0.74rem;
       text-transform: uppercase;
@@ -129,7 +127,7 @@
       box-shadow: 0 0 10px rgba(248, 113, 113, 0.9);
     }
 
-    /* LAYOUT CENTRAL – DIAGRAMA */
+    /* CONTEÚDO CENTRAL */
 
     .content {
       flex: 1;
@@ -139,16 +137,34 @@
       min-height: 0;
     }
 
-    .problem-layout {
+    .diagram-row {
       flex: 1;
-      display: grid;
-      grid-template-columns:
-        minmax(0, 1.4fr) auto
-        minmax(0, 1.5fr) auto
-        minmax(0, 1.6fr);
-      column-gap: 12px;
-      align-items: flex-start; /* não estica os cards pra baixo */
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      gap: 14px;
       min-height: 0;
+    }
+
+    .block-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      position: relative;
+    }
+
+    /* SETAS ENTRE OS BLOCOS */
+
+    .block-wrapper + .block-wrapper::before {
+      content: "➜";
+      position: absolute;
+      left: -10px;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.6rem;
+      color: rgba(148, 163, 184, 0.9);
+      text-shadow: 0 0 6px rgba(148, 163, 184, 0.8);
     }
 
     .block {
@@ -160,12 +176,13 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-      position: relative;
+      height: 100%;
+      min-height: 0;
     }
 
     .block-header {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 10px;
       margin-bottom: 2px;
     }
@@ -179,7 +196,7 @@
       justify-content: center;
       font-size: 1rem;
       background: radial-gradient(circle at 30% 20%,
-        rgba(248, 113, 113, 0.2),
+        rgba(248, 113, 113, 0.22),
         rgba(15, 23, 42, 1));
       border: 1px solid rgba(248, 113, 113, 0.7);
       flex-shrink: 0;
@@ -194,13 +211,13 @@
 
     .icon-pill.impact {
       background: radial-gradient(circle at 30% 20%,
-        rgba(250, 204, 21, 0.25),
+        rgba(250, 204, 21, 0.26),
         rgba(15, 23, 42, 1));
       border-color: rgba(250, 204, 21, 0.85);
     }
 
     .block-title {
-      font-size: 0.92rem;
+      font-size: 0.94rem;
       font-weight: 600;
     }
 
@@ -225,6 +242,10 @@
 
     .list li {
       margin-bottom: 3px;
+    }
+
+    .spacer {
+      flex: 1;
     }
 
     .tag-row {
@@ -259,41 +280,20 @@
       color: #fef9c3;
     }
 
-    /* CONECTORES ENTRE OS BLOCOS */
-
-    .connector {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.7rem;
-      color: rgba(148, 163, 184, 0.95);
-      transform: rotate(-14deg);
-      opacity: 0.9;
-    }
-
-    .connector span {
-      display: inline-block;
-      filter: drop-shadow(0 0 6px rgba(148, 163, 184, 0.7));
-    }
-
-    .connector.right {
-      transform: rotate(12deg);
-    }
-
-    /* BOX DE MÉTRICAS DENTRO DO IMPACTO */
+    /* MÉTRICAS NO BLOCO DE IMPACTO */
 
     .metrics-box {
-      margin-top: 8px;
+      margin-top: 6px;
       border-radius: var(--radius-md);
-      border: 1px dashed rgba(248, 113, 113, 0.8);
-      padding: 8px 9px 7px;
+      border: 1px dashed rgba(248, 113, 113, 0.85);
+      padding: 7px 8px 6px;
       background: radial-gradient(circle at top left,
-          rgba(30, 64, 175, 0.32),
+          rgba(30, 64, 175, 0.34),
           rgba(15, 23, 42, 1));
       font-size: 0.74rem;
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      column-gap: 12px;
+      column-gap: 10px;
       row-gap: 4px;
     }
 
@@ -325,11 +325,11 @@
     /* BARRA DE RESUMO EMBAIXO */
 
     .diagnostic-bar {
-      margin-top: 6px;
+      margin-top: 4px;
       padding: 7px 10px;
       border-radius: 999px;
       border: 1px solid var(--stroke-strong);
-      background: rgba(15, 23, 42, 0.96);
+      background: rgba(15, 23, 42, 0.98);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -353,8 +353,8 @@
       font-size: 0.72rem;
       padding: 3px 9px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.75);
-      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      background: rgba(15, 23, 42, 1);
       white-space: nowrap;
       color: var(--text-main);
     }
@@ -375,7 +375,7 @@
       .slide {
         aspect-ratio: auto;
         max-width: 100%;
-        padding: 18px 14px 16px;
+        padding: 16px 12px 14px;
         border-radius: 22px;
       }
 
@@ -384,13 +384,11 @@
         align-items: flex-start;
       }
 
-      .problem-layout {
-        grid-template-columns: minmax(0, 1fr);
-        grid-template-rows: auto;
-        row-gap: 10px;
+      .diagram-row {
+        flex-direction: column;
       }
 
-      .connector {
+      .block-wrapper + .block-wrapper::before {
         display: none;
       }
 
@@ -416,115 +414,114 @@
 
       <section class="content">
         <!-- DIAGRAMA DO PROBLEMA -->
-        <div class="problem-layout">
+        <div class="diagram-row">
 
-          <!-- BLOCO ESQUERDA – APLICAÇÕES -->
-          <article class="block">
-            <div class="block-header">
-              <div class="icon-pill">⚠</div>
-              <div>
-                <div class="block-title">Aplicações (sem DevOps)</div>
-                <div class="block-subtitle">
-                  Deploy manual, sem testes e quase sem monitoramento.
+          <!-- BLOCO 1 – APLICAÇÕES -->
+          <div class="block-wrapper">
+            <article class="block">
+              <div class="block-header">
+                <div class="icon-pill">⚠</div>
+                <div>
+                  <div class="block-title">Aplicações (sem DevOps)</div>
+                  <div class="block-subtitle">
+                    Deploy manual, sem testes e quase sem monitoramento.
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="block-body">
-              Mudanças vão direto para produção, com alto risco de erro a cada release.
-            </div>
-            <ul class="list">
-              <li>Deploy direto em produção</li>
-              <li>Sem testes automatizados</li>
-              <li>Rollback na mão, quando dá tempo</li>
-            </ul>
-            <div class="tag-row">
-              <span class="tag bad">DF: 1 deploy/mês</span>
-              <span class="tag bad">CFR ~ 30%</span>
-              <span class="tag">Sem métricas de MTTR / LTTC</span>
-            </div>
-          </article>
-
-          <!-- CONECTOR TORTO -->
-          <div class="connector">
-            <span>↬</span>
+              <div class="block-body">
+                Cada mudança é um “evento” de risco: ninguém sabe se vai quebrar ou não.
+              </div>
+              <ul class="list">
+                <li>Deploy direto em produção</li>
+                <li>Sem testes automatizados</li>
+                <li>Rollback manual e demorado</li>
+              </ul>
+              <div class="spacer"></div>
+              <div class="tag-row">
+                <span class="tag bad">DF: 1 deploy/mês</span>
+                <span class="tag bad">CFR ~ 30%</span>
+                <span class="tag">Sem métricas de MTTR / LTTC</span>
+              </div>
+            </article>
           </div>
 
-          <!-- BLOCO CENTRO – DADOS -->
-          <article class="block">
-            <div class="block-header">
-              <div class="icon-pill data">🗄️</div>
-              <div>
-                <div class="block-title">Pipelines de Dados (ou a falta deles)</div>
-                <div class="block-subtitle">
-                  Scripts soltos, planilhas quebradas e cargas manuais.
+          <!-- BLOCO 2 – DADOS -->
+          <div class="block-wrapper">
+            <article class="block">
+              <div class="block-header">
+                <div class="icon-pill data">🗄️</div>
+                <div>
+                  <div class="block-title">Pipelines de Dados (ou a falta deles)</div>
+                  <div class="block-subtitle">
+                    Scripts soltos, planilhas quebradas e cargas manuais.
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="block-body">
-              Cada área cria seu próprio fluxo; não existe DataOps nem padrão de ingestão.
-            </div>
-            <ul class="list">
-              <li>Sem pipeline automatizado</li>
-              <li>D+2 para fechar relatórios</li>
-              <li>Dados nulos, duplicados, inconsistentes</li>
-            </ul>
-            <div class="tag-row">
-              <span class="tag data">Freshness: D+2</span>
-              <span class="tag data">~20% cargas falham</span>
-              <span class="tag">Sem testes de qualidade de dados</span>
-            </div>
-          </article>
-
-          <!-- CONECTOR TORTO -->
-          <div class="connector right">
-            <span>↬</span>
+              <div class="block-body">
+                Não existe DataOps: cada área inventa um fluxo diferente e nada é padronizado.
+              </div>
+              <ul class="list">
+                <li>Sem pipeline automatizado</li>
+                <li>Relatórios fecham só em D+2</li>
+                <li>Dados nulos, duplicados, inconsistentes</li>
+              </ul>
+              <div class="spacer"></div>
+              <div class="tag-row">
+                <span class="tag data">Freshness: D+2</span>
+                <span class="tag data">~20% ingestões falham</span>
+                <span class="tag">Sem testes de qualidade de dados</span>
+              </div>
+            </article>
           </div>
 
-          <!-- BLOCO DIREITA – IMPACTO NO NEGÓCIO -->
-          <article class="block">
-            <div class="block-header">
-              <div class="icon-pill impact">📉</div>
-              <div>
-                <div class="block-title">Impacto no Negócio</div>
-                <div class="block-subtitle">
-                  Mais risco, retrabalho e pouca confiança em software e relatórios.
+          <!-- BLOCO 3 – IMPACTO NO NEGÓCIO -->
+          <div class="block-wrapper">
+            <article class="block">
+              <div class="block-header">
+                <div class="icon-pill impact">📉</div>
+                <div>
+                  <div class="block-title">Impacto no Negócio</div>
+                  <div class="block-subtitle">
+                    Mais risco, retrabalho e baixa confiança em software e relatórios.
+                  </div>
                 </div>
               </div>
-            </div>
-            <ul class="list">
-              <li>Decisão em dados errados ou atrasados</li>
-              <li>Time de produto sem previsibilidade</li>
-              <li>Experiência ruim: erros, lentidão, promoções erradas</li>
-            </ul>
+              <ul class="list">
+                <li>Decisão em dados errados ou atrasados</li>
+                <li>Time de produto sem previsibilidade</li>
+                <li>Experiência ruim: erro, lentidão, promoções erradas</li>
+              </ul>
 
-            <div class="metrics-box">
-              <div class="metrics-title">Situação atual (hoje)</div>
+              <div class="metrics-box">
+                <div class="metrics-title">Situação atual (hoje)</div>
 
-              <div>
-                <div class="metrics-section-title">Aplicações</div>
-                <ul class="metrics-list">
-                  <li>DF: 1 deploy/mês</li>
-                  <li>CFR: ~30% com rollback</li>
-                  <li>MTTR: ~8h por incidente</li>
-                </ul>
+                <div>
+                  <div class="metrics-section-title">Aplicações</div>
+                  <ul class="metrics-list">
+                    <li>DF: 1 deploy/mês</li>
+                    <li>CFR: ~30% com rollback</li>
+                    <li>MTTR: ~8h por incidente</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <div class="metrics-section-title">Dados</div>
+                  <ul class="metrics-list">
+                    <li>Freshness: D+2</li>
+                    <li>~20% ingestões falham</li>
+                    <li>Sem testes de schema / regras</li>
+                  </ul>
+                </div>
               </div>
 
-              <div>
-                <div class="metrics-section-title">Dados</div>
-                <ul class="metrics-list">
-                  <li>Freshness: D+2</li>
-                  <li>~20% ingestões falham</li>
-                  <li>Sem testes de schema / regras</li>
-                </ul>
+              <div class="spacer"></div>
+              <div class="tag-row">
+                <span class="tag risk">Risco alto</span>
+                <span class="tag risk">Retrabalho constante</span>
+                <span class="tag risk">Pouca confiança da diretoria</span>
               </div>
-            </div>
-
-            <div class="tag-row">
-              <span class="tag risk">Risco alto</span>
-              <span class="tag risk">Retrabalho constante</span>
-              <span class="tag risk">Baixa confiança da diretoria</span>
-            </div>
-          </article>
+            </article>
+          </div>
 
         </div>
 
@@ -542,6 +539,7 @@
   </main>
 </body>
 </html>
+
 
 
 
