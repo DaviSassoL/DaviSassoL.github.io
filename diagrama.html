@@ -2,23 +2,23 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Cenário atual – Por que a operação não escala?</title>
+  <title>Cenário atual – Por que nossa operação não escala?</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
       --bg: #020617;
       --card: rgba(15, 23, 42, 0.97);
       --stroke: rgba(148, 163, 184, 0.45);
-      --stroke-strong: rgba(148, 163, 184, 0.8);
+      --stroke-strong: rgba(148, 163, 184, 0.75);
       --accent-red: #f97373;
       --accent-blue: #38bdf8;
       --accent-yellow: #facc15;
+      --accent-green: #22c55e;
       --text-main: #e5e7eb;
       --text-muted: #9ca3af;
       --radius-lg: 22px;
       --radius-md: 14px;
       --shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
-      --transition: 0.18s ease-out;
     }
 
     * {
@@ -36,25 +36,22 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px 16px;
+      padding: 32px 16px;
     }
 
-    /* SLIDE 16:9 */
-
+    /* SLIDE – container pensado para print em PPT */
     .slide {
       width: 100%;
-      max-width: 1280px;
-      aspect-ratio: 16 / 9;
+      max-width: 1180px;
       background: radial-gradient(circle at top left,
-          rgba(15, 23, 42, 0.98),
-          rgba(2, 6, 23, 1));
-      border-radius: 28px;
+          rgba(15, 23, 42, 0.96),
+          rgba(2, 6, 23, 0.98));
+      border-radius: 26px;
       border: 1px solid var(--stroke-strong);
       box-shadow: var(--shadow);
-      padding: 20px 26px 18px;
+      padding: 22px 26px 18px;
       position: relative;
       overflow: hidden;
-      display: flex;
     }
 
     .slide::before {
@@ -63,7 +60,7 @@
       inset: 0;
       background:
         radial-gradient(circle at top left,
-          rgba(56, 189, 248, 0.14),
+          rgba(56, 189, 248, 0.16),
           transparent 55%),
         radial-gradient(circle at bottom right,
           rgba(248, 113, 113, 0.16),
@@ -74,10 +71,6 @@
     .slide-inner {
       position: relative;
       z-index: 1;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      min-height: 0;
     }
 
     /* HEADER */
@@ -87,7 +80,7 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 18px;
-      margin-bottom: 10px;
+      margin-bottom: 14px;
     }
 
     .header-title h1 {
@@ -99,7 +92,7 @@
 
     .header-title p {
       margin: 0;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       color: var(--text-muted);
     }
 
@@ -111,7 +104,7 @@
       padding: 6px 12px;
       border-radius: 999px;
       border: 1px solid var(--stroke-strong);
-      background: rgba(15, 23, 42, 0.96);
+      background: rgba(15, 23, 42, 0.94);
       color: var(--text-muted);
       font-size: 0.74rem;
       text-transform: uppercase;
@@ -127,47 +120,16 @@
       box-shadow: 0 0 10px rgba(248, 113, 113, 0.9);
     }
 
-    /* CONTEÚDO CENTRAL */
+    /* GRID PRINCIPAL – 3 CARDS */
 
-    .content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      min-height: 0;
-    }
-
-    .diagram-row {
-      flex: 1;
-      display: flex;
-      align-items: flex-start; /* cards não esticam até o fundo */
-      justify-content: space-between;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
-      min-height: 0;
+      margin-bottom: 12px;
     }
 
-    .block-wrapper {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-      position: relative;
-    }
-
-    /* SETAS ENTRE OS BLOCOS */
-
-    .block-wrapper + .block-wrapper::before {
-      content: "➜";
-      position: absolute;
-      left: -10px;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 1.6rem;
-      color: rgba(148, 163, 184, 0.9);
-      text-shadow: 0 0 6px rgba(148, 163, 184, 0.8);
-    }
-
-    .block {
+    .card {
       background: var(--card);
       border-radius: var(--radius-lg);
       border: 1px solid var(--stroke-strong);
@@ -176,12 +138,11 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-      /* sem height: 100%; a altura segue o conteúdo */
     }
 
-    .block-header {
+    .card-header {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 10px;
       margin-bottom: 2px;
     }
@@ -195,7 +156,7 @@
       justify-content: center;
       font-size: 1rem;
       background: radial-gradient(circle at 30% 20%,
-        rgba(248, 113, 113, 0.22),
+        rgba(248, 113, 113, 0.2),
         rgba(15, 23, 42, 1));
       border: 1px solid rgba(248, 113, 113, 0.7);
       flex-shrink: 0;
@@ -210,28 +171,28 @@
 
     .icon-pill.impact {
       background: radial-gradient(circle at 30% 20%,
-        rgba(250, 204, 21, 0.26),
+        rgba(250, 204, 21, 0.25),
         rgba(15, 23, 42, 1));
       border-color: rgba(250, 204, 21, 0.85);
     }
 
-    .block-title {
-      font-size: 0.94rem;
+    .card-title {
+      font-size: 0.92rem;
       font-weight: 600;
     }
 
-    .block-subtitle {
+    .card-subtitle {
       font-size: 0.78rem;
       color: var(--text-muted);
     }
 
-    .block-body {
+    .card-text {
       font-size: 0.8rem;
       color: var(--text-muted);
       line-height: 1.4;
     }
 
-    .list {
+    .card-list {
       margin: 4px 0 0;
       padding-left: 14px;
       font-size: 0.78rem;
@@ -239,7 +200,7 @@
       line-height: 1.35;
     }
 
-    .list li {
+    .card-list li {
       margin-bottom: 3px;
     }
 
@@ -247,7 +208,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 4px;
-      margin-top: 6px;
+      margin-top: 4px;
     }
 
     .tag {
@@ -275,15 +236,15 @@
       color: #fef9c3;
     }
 
-    /* MÉTRICAS NO BLOCO DE IMPACTO */
+    /* MÉTRICAS NO CARD 3 */
 
     .metrics-box {
       margin-top: 6px;
       border-radius: var(--radius-md);
-      border: 1px dashed rgba(248, 113, 113, 0.85);
-      padding: 7px 8px 6px;
+      border: 1px dashed rgba(248, 113, 113, 0.8);
+      padding: 7px 9px 6px;
       background: radial-gradient(circle at top left,
-          rgba(30, 64, 175, 0.34),
+          rgba(30, 64, 175, 0.32),
           rgba(15, 23, 42, 1));
       font-size: 0.74rem;
       display: grid;
@@ -317,14 +278,13 @@
       margin-bottom: 2px;
     }
 
-    /* BARRA DE RESUMO EMBAIXO */
+    /* RESUMO EMBAIXO */
 
     .diagnostic-bar {
-      margin-top: 4px;
       padding: 7px 10px;
       border-radius: 999px;
       border: 1px solid var(--stroke-strong);
-      background: rgba(15, 23, 42, 0.98);
+      background: rgba(15, 23, 42, 0.96);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -348,8 +308,8 @@
       font-size: 0.72rem;
       padding: 3px 9px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.8);
-      background: rgba(15, 23, 42, 1);
+      border: 1px solid rgba(148, 163, 184, 0.75);
+      background: rgba(15, 23, 42, 0.98);
       white-space: nowrap;
       color: var(--text-main);
     }
@@ -368,9 +328,8 @@
 
     @media (max-width: 900px) {
       .slide {
-        aspect-ratio: auto;
         max-width: 100%;
-        padding: 16px 12px 14px;
+        padding: 18px 14px 16px;
         border-radius: 22px;
       }
 
@@ -379,15 +338,7 @@
         align-items: flex-start;
       }
 
-      .diagram-row {
-        flex-direction: column;
-      }
-
-      .block-wrapper + .block-wrapper::before {
-        display: none;
-      }
-
-      .metrics-box {
+      .grid {
         grid-template-columns: minmax(0, 1fr);
       }
     }
@@ -407,128 +358,121 @@
         </div>
       </header>
 
-      <section class="content">
-        <!-- DIAGRAMA DO PROBLEMA -->
-        <div class="diagram-row">
+      <!-- DIAGRAMA COM 3 BLOCOS (SEM ESPAÇO MORTO DENTRO DOS CARDS) -->
+      <section class="grid">
 
-          <!-- BLOCO 1 – APLICAÇÕES -->
-          <div class="block-wrapper">
-            <article class="block">
-              <div class="block-header">
-                <div class="icon-pill">⚠</div>
-                <div>
-                  <div class="block-title">Aplicações (sem DevOps)</div>
-                  <div class="block-subtitle">
-                    Deploy manual, sem testes e quase sem monitoramento.
-                  </div>
-                </div>
+        <!-- CARD 1 – APLICAÇÕES -->
+        <article class="card">
+          <div class="card-header">
+            <div class="icon-pill">⚠</div>
+            <div>
+              <div class="card-title">Aplicações (sem DevOps)</div>
+              <div class="card-subtitle">
+                Deploy manual, sem testes e quase sem monitoramento.
               </div>
-              <div class="block-body">
-                Cada mudança é um “evento” de risco: ninguém sabe se vai quebrar ou não.
+            </div>
+          </div>
+          <p class="card-text">
+            Cada release é uma aposta. Se der errado, derruba produção e o rollback é na mão.
+          </p>
+          <ul class="card-list">
+            <li>Deploy direto em produção</li>
+            <li>Sem testes automatizados</li>
+            <li>Mudanças sem revisão estruturada</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag bad">DF: 1 deploy/mês</span>
+            <span class="tag bad">CFR ~ 30%</span>
+            <span class="tag">Sem métricas de MTTR / LTTC</span>
+          </div>
+        </article>
+
+        <!-- CARD 2 – DADOS -->
+        <article class="card">
+          <div class="card-header">
+            <div class="icon-pill data">🗄️</div>
+            <div>
+              <div class="card-title">Pipelines de Dados (ou a falta deles)</div>
+              <div class="card-subtitle">
+                Scripts soltos, planilhas quebradas, cargas manuais.
               </div>
-              <ul class="list">
-                <li>Deploy direto em produção</li>
-                <li>Sem testes automatizados</li>
-                <li>Rollback manual e demorado</li>
+            </div>
+          </div>
+          <p class="card-text">
+            Cada área monta seu próprio fluxo; não existe DataOps nem padrão de ingestão.
+          </p>
+          <ul class="card-list">
+            <li>Sem pipeline automatizado</li>
+            <li>D+2 para fechar relatórios</li>
+            <li>Dados nulos, duplicados, inconsistentes</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag data">Freshness: D+2</span>
+            <span class="tag data">~20% cargas falham</span>
+            <span class="tag">Sem testes de qualidade</span>
+          </div>
+        </article>
+
+        <!-- CARD 3 – IMPACTO NO NEGÓCIO -->
+        <article class="card">
+          <div class="card-header">
+            <div class="icon-pill impact">📉</div>
+            <div>
+              <div class="card-title">Impacto no Negócio</div>
+              <div class="card-subtitle">
+                Risco alto, retrabalho e pouca confiança nos números.
+              </div>
+            </div>
+          </div>
+          <ul class="card-list">
+            <li>Decisão em dados errados ou atrasados</li>
+            <li>Time de produto sem previsibilidade</li>
+            <li>Experiência ruim: erros, lentidão, ofertas erradas</li>
+          </ul>
+
+          <div class="metrics-box">
+            <div class="metrics-title">Situação atual (hoje)</div>
+
+            <div>
+              <div class="metrics-section-title">Aplicações</div>
+              <ul class="metrics-list">
+                <li>DF: 1 deploy/mês</li>
+                <li>CFR: ~30% (rollback)</li>
+                <li>MTTR: ~8h por incidente</li>
               </ul>
-              <div class="tag-row">
-                <span class="tag bad">DF: 1 deploy/mês</span>
-                <span class="tag bad">CFR ~ 30%</span>
-                <span class="tag">Sem métricas de MTTR / LTTC</span>
-              </div>
-            </article>
-          </div>
+            </div>
 
-          <!-- BLOCO 2 – DADOS -->
-          <div class="block-wrapper">
-            <article class="block">
-              <div class="block-header">
-                <div class="icon-pill data">🗄️</div>
-                <div>
-                  <div class="block-title">Pipelines de Dados (ou a falta deles)</div>
-                  <div class="block-subtitle">
-                    Scripts soltos, planilhas quebradas e cargas manuais.
-                  </div>
-                </div>
-              </div>
-              <div class="block-body">
-                Não existe DataOps: cada área inventa um fluxo diferente e nada é padronizado.
-              </div>
-              <ul class="list">
-                <li>Sem pipeline automatizado</li>
-                <li>Relatórios fecham só em D+2</li>
-                <li>Dados nulos, duplicados, inconsistentes</li>
+            <div>
+              <div class="metrics-section-title">Dados</div>
+              <ul class="metrics-list">
+                <li>Freshness: D+2</li>
+                <li>~20% ingestões falham</li>
+                <li>Sem testes de schema / regras</li>
               </ul>
-              <div class="tag-row">
-                <span class="tag data">Freshness: D+2</span>
-                <span class="tag data">~20% ingestões falham</span>
-                <span class="tag">Sem testes de qualidade de dados</span>
-              </div>
-            </article>
+            </div>
           </div>
 
-          <!-- BLOCO 3 – IMPACTO NO NEGÓCIO -->
-          <div class="block-wrapper">
-            <article class="block">
-              <div class="block-header">
-                <div class="icon-pill impact">📉</div>
-                <div>
-                  <div class="block-title">Impacto no Negócio</div>
-                  <div class="block-subtitle">
-                    Mais risco, retrabalho e baixa confiança em software e relatórios.
-                  </div>
-                </div>
-              </div>
-              <ul class="list">
-                <li>Decisão em dados errados ou atrasados</li>
-                <li>Time de produto sem previsibilidade</li>
-                <li>Experiência ruim: erro, lentidão, promoções erradas</li>
-              </ul>
-
-              <div class="metrics-box">
-                <div class="metrics-title">Situação atual (hoje)</div>
-
-                <div>
-                  <div class="metrics-section-title">Aplicações</div>
-                  <ul class="metrics-list">
-                    <li>DF: 1 deploy/mês</li>
-                    <li>CFR: ~30% com rollback</li>
-                    <li>MTTR: ~8h por incidente</li>
-                  </ul>
-                </div>
-
-                <div>
-                  <div class="metrics-section-title">Dados</div>
-                  <ul class="metrics-list">
-                    <li>Freshness: D+2</li>
-                    <li>~20% ingestões falham</li>
-                    <li>Sem testes de schema / regras</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="tag-row">
-                <span class="tag risk">Risco alto</span>
-                <span class="tag risk">Retrabalho constante</span>
-                <span class="tag risk">Pouca confiança da diretoria</span>
-              </div>
-            </article>
+          <div class="tag-row">
+            <span class="tag risk">Risco alto</span>
+            <span class="tag risk">Retrabalho constante</span>
+            <span class="tag risk">Baixa confiança da diretoria</span>
           </div>
+        </article>
 
-        </div>
+      </section>
 
-        <!-- RESUMO DO DIAGNÓSTICO -->
-        <div class="diagnostic-bar">
-          <span class="diagnostic-label">Resumo do diagnóstico</span>
-          <div class="diagnostic-chips">
-            <span class="diagnostic-chip dev">Deploy manual, sem CI/CD</span>
-            <span class="diagnostic-chip data">Scripts soltos e planilhas frágeis</span>
-            <span class="diagnostic-chip obs">Sem métricas, monitoramento ou rastreabilidade</span>
-          </div>
+      <!-- RESUMO DO DIAGNÓSTICO -->
+      <section class="diagnostic-bar">
+        <span class="diagnostic-label">Resumo do diagnóstico</span>
+        <div class="diagnostic-chips">
+          <span class="diagnostic-chip dev">Deploy manual, sem CI/CD</span>
+          <span class="diagnostic-chip data">Scripts soltos e planilhas frágeis</span>
+          <span class="diagnostic-chip obs">Sem métricas, monitoramento ou rastreabilidade</span>
         </div>
       </section>
     </div>
   </main>
 </body>
 </html>
+
 
