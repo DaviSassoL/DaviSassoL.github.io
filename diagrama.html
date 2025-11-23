@@ -41,7 +41,7 @@
     /* SLIDE – largura fixa, altura mínima 720px para não cortar conteúdo */
     .slide {
       width: 1280px;
-      min-height: 720px; /* <<< antes era height: 720px; */
+      min-height: 720px; /* antes era height fixa */
       background: radial-gradient(circle at top left,
           rgba(15, 23, 42, 0.96),
           rgba(2, 6, 23, 0.98));
@@ -72,7 +72,7 @@
       z-index: 1;
       height: 100%;
       display: grid;
-      grid-template-rows: auto 1fr auto;
+      grid-template-rows: auto 1fr;
       row-gap: 10px;
     }
 
@@ -256,7 +256,7 @@
       border: 1px solid rgba(148, 163, 184, 0.8);
       padding: 10px 14px 9px;
       display: grid;
-      grid-template-columns: 1.1fr 1fr 1fr;
+      grid-template-columns: 1.2fr 1fr 1fr;
       column-gap: 16px;
       align-items: start;
     }
@@ -273,6 +273,7 @@
       font-size: 0.8rem;
       color: var(--text-main);
       line-height: 1.4;
+      margin-bottom: 6px;
     }
 
     .metrics-section-title {
@@ -292,24 +293,14 @@
       margin-bottom: 3px;
     }
 
-    /* BASE – RESUMO DO DIAGNÓSTICO */
+    /* RESUMO DO DIAGNÓSTICO DENTRO DA PRIMEIRA COLUNA */
 
-    .diagnostic-bar {
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--stroke-strong);
-      background: rgba(15, 23, 42, 0.96);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .diagnostic-label {
-      font-size: 0.72rem;
+    .diagnostic-block-title {
+      font-size: 0.76rem;
       text-transform: uppercase;
       letter-spacing: 0.13em;
       color: var(--text-muted);
-      white-space: nowrap;
+      margin-bottom: 4px;
     }
 
     .diagnostic-chips {
@@ -452,6 +443,14 @@
               e ainda toma decisão com dado atrasado e inconsistente. O resultado
               é simples: risco alto, retrabalho constante e pouca confiança nos números.
             </p>
+
+            <!-- Resumo do diagnóstico embutido aqui -->
+            <div class="diagnostic-block-title">Resumo do diagnóstico</div>
+            <div class="diagnostic-chips">
+              <span class="diagnostic-chip dev">Deploy manual, sem CI/CD e sem métricas DevOps</span>
+              <span class="diagnostic-chip data">Dados D+2, pipelines frágeis e alta intervenção manual</span>
+              <span class="diagnostic-chip obs">Monitoramento limitado e baixa confiança executiva nos números</span>
+            </div>
           </div>
 
           <div>
@@ -475,17 +474,8 @@
           </div>
         </div>
       </section>
-
-      <!-- BASE – RESUMO DO DIAGNÓSTICO -->
-      <section class="diagnostic-bar">
-        <span class="diagnostic-label">Resumo do diagnóstico</span>
-        <div class="diagnostic-chips">
-          <span class="diagnostic-chip dev">Deploy manual, sem CI/CD e sem métricas DevOps</span>
-          <span class="diagnostic-chip data">Dados D+2, pipelines frágeis e alta intervenção manual</span>
-          <span class="diagnostic-chip obs">Monitoramento limitado e baixa confiança executiva nos números</span>
-        </div>
-      </section>
     </div>
   </main>
 </body>
 </html>
+
