@@ -41,7 +41,7 @@
       padding: 32px 16px;
     }
 
-    /* FORMATO SLIDE PPT (16:9) + preenchimento total */
+    /* FORMATO SLIDE PPT (16:9) */
     .board {
       width: 100%;
       max-width: 1280px;
@@ -127,7 +127,7 @@
       box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
     }
 
-    /* LAYOUT PRINCIPAL – ocupa toda a altura disponível */
+    /* LAYOUT PRINCIPAL */
 
     .layout {
       flex: 1;
@@ -146,7 +146,6 @@
       body {
         padding: 22px 10px;
       }
-      /* em mobile, não forçar 16:9 pra não quebrar tudo */
       .board {
         aspect-ratio: auto;
         max-width: 100%;
@@ -176,7 +175,7 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      flex: 1;          /* cada lane ocupa metade da altura da coluna */
+      flex: 1;
       min-height: 0;
     }
 
@@ -238,7 +237,7 @@
       color: #e0f2fe;
     }
 
-    /* FLOW – ocupa o resto da lane */
+    /* FLOW */
 
     .lane-flow {
       position: relative;
@@ -323,7 +322,21 @@
       color: #e0f2fe;
     }
 
-    /* SIDE COLUMN – também ocupa toda a altura */
+    /* BULLETS SUPER RESUMIDOS DENTRO DOS CARDS */
+
+    .lane-card-list {
+      margin: 4px 0 0;
+      padding-left: 14px;
+      font-size: 0.66rem;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    .lane-card-list li {
+      margin-bottom: 2px;
+    }
+
+    /* SIDE COLUMN */
 
     .side {
       background: var(--side-bg);
@@ -489,6 +502,10 @@
                   <span class="tag">CRM</span>
                   <span class="tag">Apps / APIs</span>
                 </div>
+                <ul class="lane-card-list">
+                  <li>Capta eventos de negócio</li>
+                  <li>Centraliza dados brutos</li>
+                </ul>
               </div>
 
               <div class="lane-card">
@@ -498,6 +515,10 @@
                   <span class="tag">Batch</span>
                   <span class="tag">Incremental</span>
                 </div>
+                <ul class="lane-card-list">
+                  <li>Coleta automática</li>
+                  <li>Normaliza formatos</li>
+                </ul>
               </div>
 
               <div class="lane-card">
@@ -506,6 +527,10 @@
                   <span class="tag key">Airflow / Prefect</span>
                   <span class="tag">DAGs</span>
                 </div>
+                <ul class="lane-card-list">
+                  <li>Agenda os jobs</li>
+                  <li>Monitora falhas</li>
+                </ul>
               </div>
 
               <div class="lane-card">
@@ -515,6 +540,10 @@
                   <span class="tag key">dbt</span>
                   <span class="tag">DW</span>
                 </div>
+                <ul class="lane-card-list">
+                  <li>Separa camadas de dados</li>
+                  <li>Aplica regras de negócio</li>
+                </ul>
               </div>
 
               <div class="lane-card">
@@ -523,6 +552,10 @@
                   <span class="tag key">KPIs Executivos</span>
                   <span class="tag">Power BI / Metabase</span>
                 </div>
+                <ul class="lane-card-list">
+                  <li>Visão diária do negócio</li>
+                  <li>Decisão baseada em dados</li>
+                </ul>
               </div>
             </div>
           </section>
@@ -547,6 +580,10 @@
                   <span class="tag key">Git</span>
                   <span class="tag">Pull Requests</span>
                 </div>
+                <ul class="lane-card-list">
+                  <li>Padroniza mudanças</li>
+                  <li>Garante revisão</li>
+                </ul>
               </div>
 
               <div class="lane-card">
@@ -555,6 +592,10 @@
                   <span class="tag key">Build</span>
                   <span class="tag">Testes</span>
                 </div>
+                <ul class="lane-card-list">
+                  <li>Detecta erros cedo</li>
+                  <li>Valida a qualidade</li>
+                </ul>
               </div>
 
               <div class="lane-card">
@@ -563,6 +604,10 @@
                   <span class="tag key">Deploy Automático</span>
                   <span class="tag">Blue/Green</span>
                 </div>
+                <ul class="lane-card-list">
+                  <li>Publica sem downtime</li>
+                  <li>Reduz risco de release</li>
+                </ul>
               </div>
 
               <div class="lane-card">
@@ -571,6 +616,10 @@
                   <span class="tag">APIs &amp; Serviços</span>
                   <span class="tag">Eventos</span>
                 </div>
+                <ul class="lane-card-list">
+                  <li>Entrega valor ao usuário</li>
+                  <li>Escala sob demanda</li>
+                </ul>
               </div>
             </div>
           </section>
@@ -623,4 +672,5 @@
   </main>
 </body>
 </html>
+
 
