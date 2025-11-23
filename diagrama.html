@@ -38,10 +38,10 @@
       justify-content: center;
     }
 
-    /* SLIDE 16:9 – pensado para print em PPT */
+    /* SLIDE – largura fixa, altura mínima 720px para não cortar conteúdo */
     .slide {
       width: 1280px;
-      height: 720px; /* 16:9 */
+      min-height: 720px; /* <<< antes era height: 720px; */
       background: radial-gradient(circle at top left,
           rgba(15, 23, 42, 0.96),
           rgba(2, 6, 23, 0.98));
@@ -123,7 +123,7 @@
       box-shadow: 0 0 10px rgba(248, 113, 113, 0.9);
     }
 
-    /* ÁREA CENTRAL – ocupa de fato o miolo do slide */
+    /* ÁREA CENTRAL – ocupa o miolo do slide */
 
     .main {
       display: grid;
@@ -150,8 +150,6 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      /* altura baseada no conteúdo, mas toda a linha ocupa
-         o espaço porque os três têm densidade similar */
     }
 
     .card-header {
@@ -250,7 +248,7 @@
       color: #fef9c3;
     }
 
-    /* LINHA 2 – FAIXA DE NÚMEROS (3 COLUNAS) */
+    /* LINHA 2 – FAIXA DE NÚMEROS */
 
     .metrics-strip {
       background: rgba(15, 23, 42, 0.97);
@@ -294,7 +292,7 @@
       margin-bottom: 3px;
     }
 
-    /* BARRA FINAL – RESUMO DO DIAGNÓSTICO */
+    /* BASE – RESUMO DO DIAGNÓSTICO */
 
     .diagnostic-bar {
       padding: 8px 12px;
@@ -459,8 +457,8 @@
           <div>
             <div class="metrics-section-title">Aplicações</div>
             <ul class="metrics-list">
-              <li>DF: 1 deploy/mês em média.</li>
-              <li>CFR: ~30% dos deploys exigem rollback.</li>
+              <li>Frequência de deploy (DF): 1 deploy/mês.</li>
+              <li>Change Failure Rate (CFR): ~30% dos deploys exigem rollback.</li>
               <li>MTTR: ~8 horas para recuperar falhas críticas.</li>
               <li>Sem painel consolidado de erros, latência e disponibilidade.</li>
             </ul>
@@ -491,5 +489,3 @@
   </main>
 </body>
 </html>
-
-
