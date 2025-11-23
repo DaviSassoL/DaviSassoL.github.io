@@ -140,7 +140,7 @@
     .diagram-row {
       flex: 1;
       display: flex;
-      align-items: stretch;
+      align-items: flex-start; /* cards não esticam até o fundo */
       justify-content: space-between;
       gap: 14px;
       min-height: 0;
@@ -176,8 +176,7 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-      height: 100%;
-      min-height: 0;
+      /* sem height: 100%; a altura segue o conteúdo */
     }
 
     .block-header {
@@ -244,15 +243,11 @@
       margin-bottom: 3px;
     }
 
-    .spacer {
-      flex: 1;
-    }
-
     .tag-row {
       display: flex;
       flex-wrap: wrap;
       gap: 4px;
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     .tag {
@@ -436,7 +431,6 @@
                 <li>Sem testes automatizados</li>
                 <li>Rollback manual e demorado</li>
               </ul>
-              <div class="spacer"></div>
               <div class="tag-row">
                 <span class="tag bad">DF: 1 deploy/mês</span>
                 <span class="tag bad">CFR ~ 30%</span>
@@ -465,7 +459,6 @@
                 <li>Relatórios fecham só em D+2</li>
                 <li>Dados nulos, duplicados, inconsistentes</li>
               </ul>
-              <div class="spacer"></div>
               <div class="tag-row">
                 <span class="tag data">Freshness: D+2</span>
                 <span class="tag data">~20% ingestões falham</span>
@@ -514,7 +507,6 @@
                 </div>
               </div>
 
-              <div class="spacer"></div>
               <div class="tag-row">
                 <span class="tag risk">Risco alto</span>
                 <span class="tag risk">Retrabalho constante</span>
@@ -539,7 +531,4 @@
   </main>
 </body>
 </html>
-
-
-
 
