@@ -36,20 +36,19 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 32px 16px;
     }
 
-    /* SLIDE – container pensado para print em PPT */
+    /* SLIDE 16:9 – pensado para print em PPT */
     .slide {
-      width: 100%;
-      max-width: 1180px;
+      width: 1280px;
+      height: 720px; /* 16:9 */
       background: radial-gradient(circle at top left,
           rgba(15, 23, 42, 0.96),
           rgba(2, 6, 23, 0.98));
       border-radius: 26px;
       border: 1px solid var(--stroke-strong);
       box-shadow: var(--shadow);
-      padding: 22px 26px 18px;
+      padding: 22px 28px 20px;
       position: relative;
       overflow: hidden;
     }
@@ -71,6 +70,9 @@
     .slide-inner {
       position: relative;
       z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
     }
 
     /* HEADER */
@@ -85,14 +87,14 @@
 
     .header-title h1 {
       margin: 0 0 4px;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
 
     .header-title p {
       margin: 0;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
     }
 
@@ -110,6 +112,7 @@
       text-transform: uppercase;
       letter-spacing: 0.12em;
       backdrop-filter: blur(10px);
+      white-space: nowrap;
     }
 
     .badge-dot {
@@ -120,13 +123,20 @@
       box-shadow: 0 0 10px rgba(248, 113, 113, 0.9);
     }
 
-    /* GRID PRINCIPAL – 3 CARDS */
+    /* ÁREA CENTRAL – 3 CARDS + BOX MÉTRICAS */
+
+    .main-area {
+      flex: 1;
+      display: grid;
+      grid-template-rows: minmax(0, 1.1fr) auto;
+      row-gap: 10px;
+    }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-bottom: 12px;
+      column-gap: 14px;
+      align-items: start;
     }
 
     .card {
@@ -138,6 +148,7 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
+      /* altura controlada pelo conteúdo, sem flex:1 */
     }
 
     .card-header {
@@ -177,12 +188,12 @@
     }
 
     .card-title {
-      font-size: 0.92rem;
+      font-size: 0.94rem;
       font-weight: 600;
     }
 
     .card-subtitle {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
     }
 
@@ -236,41 +247,44 @@
       color: #fef9c3;
     }
 
-    /* MÉTRICAS NO CARD 3 */
+    /* BOX DE MÉTRICAS EMBAIXO DOS CARDS (OCUPA A LARGURA TODA) */
 
-    .metrics-box {
-      margin-top: 6px;
-      border-radius: var(--radius-md);
-      border: 1px dashed rgba(248, 113, 113, 0.8);
-      padding: 7px 9px 6px;
-      background: radial-gradient(circle at top left,
-          rgba(30, 64, 175, 0.32),
-          rgba(15, 23, 42, 1));
-      font-size: 0.74rem;
+    .metrics-strip {
+      margin-top: 4px;
+      background: rgba(15, 23, 42, 0.97);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(248, 113, 113, 0.85);
+      padding: 8px 10px 7px;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      column-gap: 10px;
-      row-gap: 4px;
+      grid-template-columns: 0.9fr 1.1fr 1.1fr;
+      column-gap: 12px;
+      align-items: start;
     }
 
-    .metrics-title {
-      grid-column: 1 / -1;
+    .metrics-strip-title {
+      font-size: 0.8rem;
       text-transform: uppercase;
-      letter-spacing: 0.13em;
-      font-size: 0.7rem;
+      letter-spacing: 0.14em;
       color: var(--text-muted);
-      margin-bottom: 2px;
+    }
+
+    .metrics-strip-text {
+      font-size: 0.78rem;
+      color: var(--text-main);
+      margin-top: 4px;
+      line-height: 1.35;
     }
 
     .metrics-section-title {
       font-weight: 600;
-      font-size: 0.74rem;
+      font-size: 0.78rem;
       margin-bottom: 2px;
     }
 
     .metrics-list {
       margin: 0;
-      padding-left: 12px;
+      padding-left: 14px;
+      font-size: 0.76rem;
       line-height: 1.3;
     }
 
@@ -278,9 +292,10 @@
       margin-bottom: 2px;
     }
 
-    /* RESUMO EMBAIXO */
+    /* RESUMO EMBAIXO – PARA FECHAR O SLIDE VISUALMENTE */
 
     .diagnostic-bar {
+      margin-top: 8px;
       padding: 7px 10px;
       border-radius: 999px;
       border: 1px solid var(--stroke-strong);
@@ -325,32 +340,16 @@
     .diagnostic-chip.obs {
       border-color: rgba(250, 204, 21, 0.9);
     }
-
-    @media (max-width: 900px) {
-      .slide {
-        max-width: 100%;
-        padding: 18px 14px 16px;
-        border-radius: 22px;
-      }
-
-      .header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
   </style>
 </head>
 <body>
   <main class="slide">
     <div class="slide-inner">
+      <!-- HEADER -->
       <header class="header">
         <div class="header-title">
           <h1>Cenário atual: por que nossa operação não escala?</h1>
-          <p>Hoje a empresa entrega código e dados de forma manual, sem esteira nem métricas.</p>
+          <p>Hoje a empresa entrega código e dados de forma manual, sem esteira nem métricas claras.</p>
         </div>
         <div class="badge">
           <span class="badge-dot"></span>
@@ -358,116 +357,127 @@
         </div>
       </header>
 
-      <!-- DIAGRAMA COM 3 BLOCOS (SEM ESPAÇO MORTO DENTRO DOS CARDS) -->
-      <section class="grid">
+      <!-- ÁREA PRINCIPAL -->
+      <section class="main-area">
+        <!-- 3 CARDS (Aplicações / Dados / Impacto) -->
+        <div class="grid">
 
-        <!-- CARD 1 – APLICAÇÕES -->
-        <article class="card">
-          <div class="card-header">
-            <div class="icon-pill">⚠</div>
-            <div>
-              <div class="card-title">Aplicações (sem DevOps)</div>
-              <div class="card-subtitle">
-                Deploy manual, sem testes e quase sem monitoramento.
+          <!-- CARD 1 – APLICAÇÕES -->
+          <article class="card">
+            <div class="card-header">
+              <div class="icon-pill">⚠</div>
+              <div>
+                <div class="card-title">Aplicações (sem DevOps)</div>
+                <div class="card-subtitle">
+                  Deploy manual, sem testes e quase sem monitoramento.
+                </div>
               </div>
             </div>
-          </div>
-          <p class="card-text">
-            Cada release é uma aposta. Se der errado, derruba produção e o rollback é na mão.
-          </p>
-          <ul class="card-list">
-            <li>Deploy direto em produção</li>
-            <li>Sem testes automatizados</li>
-            <li>Mudanças sem revisão estruturada</li>
-          </ul>
-          <div class="tag-row">
-            <span class="tag bad">DF: 1 deploy/mês</span>
-            <span class="tag bad">CFR ~ 30%</span>
-            <span class="tag">Sem métricas de MTTR / LTTC</span>
-          </div>
-        </article>
+            <p class="card-text">
+              Cada release é uma aposta. Se der errado, derruba produção e o rollback é manual.
+            </p>
+            <ul class="card-list">
+              <li>Deploy direto em produção, sem esteira CI/CD.</li>
+              <li>Sem testes automatizados de unidade, integração e contrato.</li>
+              <li>Mudanças sem revisão estruturada (pull request quase inexistente).</li>
+              <li>Sem métricas de DF, LTTC, MTTR ou CFR.</li>
+            </ul>
+            <div class="tag-row">
+              <span class="tag bad">DF: 1 deploy/mês</span>
+              <span class="tag bad">CFR ~ 30%</span>
+              <span class="tag">MTTR médio: ~8h</span>
+            </div>
+          </article>
 
-        <!-- CARD 2 – DADOS -->
-        <article class="card">
-          <div class="card-header">
-            <div class="icon-pill data">🗄️</div>
-            <div>
-              <div class="card-title">Pipelines de Dados (ou a falta deles)</div>
-              <div class="card-subtitle">
-                Scripts soltos, planilhas quebradas, cargas manuais.
+          <!-- CARD 2 – DADOS -->
+          <article class="card">
+            <div class="card-header">
+              <div class="icon-pill data">🗄️</div>
+              <div>
+                <div class="card-title">Pipelines de Dados (ou a falta deles)</div>
+                <div class="card-subtitle">
+                  Scripts soltos, planilhas quebradas e cargas manuais.
+                </div>
               </div>
             </div>
-          </div>
-          <p class="card-text">
-            Cada área monta seu próprio fluxo; não existe DataOps nem padrão de ingestão.
-          </p>
-          <ul class="card-list">
-            <li>Sem pipeline automatizado</li>
-            <li>D+2 para fechar relatórios</li>
-            <li>Dados nulos, duplicados, inconsistentes</li>
-          </ul>
-          <div class="tag-row">
-            <span class="tag data">Freshness: D+2</span>
-            <span class="tag data">~20% cargas falham</span>
-            <span class="tag">Sem testes de qualidade</span>
-          </div>
-        </article>
+            <p class="card-text">
+              Cada área monta o próprio jeito de puxar dados; não existe DataOps nem fluxo padrão.
+            </p>
+            <ul class="card-list">
+              <li>Não há pipeline automatizado de ingestão e transformação.</li>
+              <li>Relatórios chegam com 2 dias de atraso (D+2).</li>
+              <li>Muitos nulos, duplicados e inconsistências entre fontes.</li>
+              <li>Sem testes de qualidade (schema, regras de negócio, freshness).</li>
+            </ul>
+            <div class="tag-row">
+              <span class="tag data">Freshness: D+2</span>
+              <span class="tag data">~20% ingestões falham</span>
+              <span class="tag">Ajustes manuais em planilha</span>
+            </div>
+          </article>
 
-        <!-- CARD 3 – IMPACTO NO NEGÓCIO -->
-        <article class="card">
-          <div class="card-header">
-            <div class="icon-pill impact">📉</div>
-            <div>
-              <div class="card-title">Impacto no Negócio</div>
-              <div class="card-subtitle">
-                Risco alto, retrabalho e pouca confiança nos números.
+          <!-- CARD 3 – IMPACTO NO NEGÓCIO -->
+          <article class="card">
+            <div class="card-header">
+              <div class="icon-pill impact">📉</div>
+              <div>
+                <div class="card-title">Impacto no Negócio</div>
+                <div class="card-subtitle">
+                  Mais risco, mais retrabalho e pouca confiança nos números.
+                </div>
               </div>
             </div>
-          </div>
-          <ul class="card-list">
-            <li>Decisão em dados errados ou atrasados</li>
-            <li>Time de produto sem previsibilidade</li>
-            <li>Experiência ruim: erros, lentidão, ofertas erradas</li>
-          </ul>
+            <ul class="card-list">
+              <li>Decisões tomadas em dados errados ou atrasados.</li>
+              <li>Time de produto sem previsibilidade de entregas.</li>
+              <li>Experiência ruim: erros, lentidão e promoções erradas.</li>
+            </ul>
 
-          <div class="metrics-box">
-            <div class="metrics-title">Situação atual (hoje)</div>
-
-            <div>
-              <div class="metrics-section-title">Aplicações</div>
-              <ul class="metrics-list">
-                <li>DF: 1 deploy/mês</li>
-                <li>CFR: ~30% (rollback)</li>
-                <li>MTTR: ~8h por incidente</li>
-              </ul>
+            <div class="tag-row">
+              <span class="tag risk">Risco operacional alto</span>
+              <span class="tag risk">Retrabalho constante</span>
+              <span class="tag risk">Baixa confiança da diretoria</span>
             </div>
+          </article>
+        </div>
 
-            <div>
-              <div class="metrics-section-title">Dados</div>
-              <ul class="metrics-list">
-                <li>Freshness: D+2</li>
-                <li>~20% ingestões falham</li>
-                <li>Sem testes de schema / regras</li>
-              </ul>
-            </div>
+        <!-- FAIXA DE MÉTRICAS – SITUAÇÃO ATUAL (OCUPA LARGURA TODA) -->
+        <div class="metrics-strip">
+          <div>
+            <div class="metrics-strip-title">Situação atual (hoje)</div>
+            <p class="metrics-strip-text">
+              Hoje a empresa não tem esteira, não mede quase nada e ainda decide com dado atrasado
+              e inconsistente. Resultado: risco alto, retrabalho e pouca confiança em software e relatórios.
+            </p>
           </div>
 
-          <div class="tag-row">
-            <span class="tag risk">Risco alto</span>
-            <span class="tag risk">Retrabalho constante</span>
-            <span class="tag risk">Baixa confiança da diretoria</span>
+          <div>
+            <div class="metrics-section-title">Aplicações</div>
+            <ul class="metrics-list">
+              <li>Frequência de deploy (DF): 1 deploy/mês.</li>
+              <li>Change Failure Rate (CFR): ~30% exigem rollback.</li>
+              <li>MTTR: ~8 horas para recuperar após falha.</li>
+            </ul>
           </div>
-        </article>
 
+          <div>
+            <div class="metrics-section-title">Dados</div>
+            <ul class="metrics-list">
+              <li>Freshness: D+2 (relatórios ficam prontos dois dias depois).</li>
+              <li>Taxa de falha de ingestão: ~20% exigem intervenção manual.</li>
+              <li>Sem testes de qualidade de dados ou auditoria de mudanças.</li>
+            </ul>
+          </div>
+        </div>
       </section>
 
-      <!-- RESUMO DO DIAGNÓSTICO -->
+      <!-- RESUMO FINAL DO DIAGNÓSTICO -->
       <section class="diagnostic-bar">
         <span class="diagnostic-label">Resumo do diagnóstico</span>
         <div class="diagnostic-chips">
-          <span class="diagnostic-chip dev">Deploy manual, sem CI/CD</span>
-          <span class="diagnostic-chip data">Scripts soltos e planilhas frágeis</span>
-          <span class="diagnostic-chip obs">Sem métricas, monitoramento ou rastreabilidade</span>
+          <span class="diagnostic-chip dev">Deploy manual, sem CI/CD e sem métricas DevOps</span>
+          <span class="diagnostic-chip data">Dados D+2, scripts soltos e planilhas frágeis</span>
+          <span class="diagnostic-chip obs">Sem monitoramento, rastreabilidade ou confiança executiva</span>
         </div>
       </section>
     </div>
