@@ -41,9 +41,11 @@
       padding: 32px 16px;
     }
 
+    /* AQUI: formato tipo slide PPT (16:9) */
     .board {
       width: 100%;
-      max-width: 1180px;
+      max-width: 1280px;          /* largura típica 1920x1080 escalada */
+      aspect-ratio: 16 / 9;       /* proporção de slide */
       background: radial-gradient(circle at top left,
           rgba(15, 23, 42, 0.96),
           rgba(2, 6, 23, 0.98));
@@ -53,6 +55,7 @@
       padding: 22px 24px 20px;
       position: relative;
       overflow: hidden;
+      display: flex;
     }
 
     .board::before {
@@ -72,6 +75,9 @@
     .board-inner {
       position: relative;
       z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
 
     /* HEADER */
@@ -126,6 +132,8 @@
       display: grid;
       grid-template-columns: minmax(0, 2.3fr) minmax(0, 1fr);
       gap: 16px;
+      flex: 1;
+      min-height: 0;
     }
 
     @media (max-width: 900px) {
@@ -135,7 +143,10 @@
       body {
         padding: 22px 10px;
       }
+      /* em telas menores, não forçar formato slide */
       .board {
+        aspect-ratio: auto;
+        max-width: 100%;
         padding: 18px 14px 16px;
         border-radius: 22px;
       }
@@ -311,6 +322,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      min-height: 0;
     }
 
     .side-header {
