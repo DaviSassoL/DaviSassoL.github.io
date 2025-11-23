@@ -2,22 +2,25 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Arquitetura DevOps + DataOps – Visão Executiva</title>
+  <title>Cenário atual – Por que a operação não escala?</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
       --bg: #020617;
-      --card-bg: #020617;
-      --card-inner: #020617;
-      --accent: #38bdf8;
-      --accent-2: #a855f7;
-      --accent-3: #22c55e;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --border-subtle: rgba(148, 163, 184, 0.4);
+      --panel: #020617;
+      --card: rgba(15, 23, 42, 0.97);
+      --stroke: rgba(148, 163, 184, 0.45);
+      --stroke-strong: rgba(148, 163, 184, 0.75);
+      --accent-red: #f97373;
+      --accent-blue: #38bdf8;
+      --accent-yellow: #facc15;
+      --accent-green: #22c55e;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
       --radius-lg: 22px;
-      --shadow-soft: 0 20px 50px rgba(15, 23, 42, 0.85);
-      --transition-fast: 0.18s ease-out;
+      --radius-md: 14px;
+      --shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
+      --transition: 0.18s ease-out;
     }
 
     * {
@@ -27,458 +30,38 @@
     body {
       margin: 0;
       min-height: 100vh;
-      padding: 32px 16px;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
-      color: var(--text);
+      background:
+        radial-gradient(circle at top, #0b1220 0, #020617 40%, #020617 100%);
+      color: var(--text-main);
       display: flex;
       align-items: center;
       justify-content: center;
-      background:
-        radial-gradient(circle at top, #0b1120 0, #020617 40%, #020617 100%);
+      padding: 32px 16px;
     }
 
-    /* AQUI: formato tipo slide de PPT (16:9) */
-    .shell {
+    /* SLIDE 16:9 */
+
+    .slide {
       width: 100%;
-      max-width: 1280px;          /* largura típica de slide */
-      aspect-ratio: 16 / 9;       /* proporção de slide */
-      background:
-        radial-gradient(circle at top left,
-                  rgba(30, 64, 175, 0.45),
-                  transparent 55%),
-        radial-gradient(circle at bottom right,
-                  rgba(67, 56, 202, 0.6),
-                  #020617 65%);
-      border-radius: 26px;
-      padding: 24px 24px 22px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      box-shadow: var(--shadow-soft);
+      max-width: 1280px;
+      aspect-ratio: 16 / 9;
+      background: radial-gradient(circle at top left,
+          rgba(15, 23, 42, 0.96),
+          rgba(2, 6, 23, 0.98));
+      border-radius: 28px;
+      border: 1px solid var(--stroke-strong);
+      box-shadow: var(--shadow);
+      padding: 24px 28px 20px;
       position: relative;
       overflow: hidden;
       display: flex;
-      flex-direction: column;
     }
 
-    .shell::before {
+    .slide::before {
       content: "";
       position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top left,
-        rgba(56, 189, 248, 0.14), transparent 55%);
-      pointer-events: none;
-      opacity: 0.9;
-    }
+      inse
 
-    .header {
-      position: relative;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 16px;
-      margin-bottom: 20px;
-      z-index: 1;
-    }
-
-    .header-left h1 {
-      margin: 0 0 4px;
-      font-size: 1.5rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #e5e7eb;
-    }
-
-    .header-left p {
-      margin: 0;
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .status-pill {
-      align-self: center;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.92);
-      font-size: 0.75rem;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      color: var(--muted);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.8);
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent-3);
-      box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
-    }
-
-    /* faixa de resumo de valor */
-    .value-row {
-      position: relative;
-      margin: 0 2px 18px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-      z-index: 1;
-    }
-
-    .value-label {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.13em;
-      color: var(--muted);
-      margin-right: 6px;
-      white-space: nowrap;
-    }
-
-    .chip {
-      font-size: 0.78rem;
-      padding: 3px 10px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.96);
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      color: #e5e7eb;
-      white-space: nowrap;
-    }
-
-    .chip.dev {
-      border-color: rgba(96, 165, 250, 0.9);
-    }
-
-    .chip.data {
-      border-color: rgba(56, 189, 248, 0.9);
-    }
-
-    .chip.obs {
-      border-color: rgba(52, 211, 153, 0.9);
-    }
-
-    /* GRID PRINCIPAL: 3 CARTÕES */
-    .grid {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      z-index: 1;
-      flex: 1;
-    }
-
-    @media (max-width: 900px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      /* em telas menores, não forçar formato de slide */
-      .shell {
-        aspect-ratio: auto;
-        max-width: 100%;
-        padding: 20px 16px 18px;
-        border-radius: 22px;
-      }
-
-      .header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-
-    .card {
-      position: relative;
-      background: rgba(15, 23, 42, 0.96);
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      padding: 14px 14px 13px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.9);
-      transition: transform var(--transition-fast), box-shadow var(--transition-fast),
-                  border-color var(--transition-fast), background var(--transition-fast);
-      backdrop-filter: blur(8px);
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top left,
-                rgba(56, 189, 248, 0.22),
-                transparent 55%);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity var(--transition-fast);
-    }
-
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 20px 50px rgba(15, 23, 42, 1);
-      border-color: rgba(56, 189, 248, 0.9);
-      background: radial-gradient(circle at top,
-                  rgba(15, 23, 42, 0.95),
-                  rgba(15, 23, 42, 1));
-    }
-
-    .card:hover::before {
-      opacity: 1;
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 8px;
-    }
-
-    .card-title-block {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .card-kicker {
-      font-size: 0.7rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .card-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #e5e7eb;
-    }
-
-    .card-tag {
-      font-size: 0.7rem;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.96);
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      white-space: nowrap;
-    }
-
-    .card-tag.dev {
-      border-color: rgba(96, 165, 250, 0.9);
-    }
-
-    .card-tag.data {
-      border-color: rgba(56, 189, 248, 0.95);
-    }
-
-    .card-tag.obs {
-      border-color: rgba(52, 211, 153, 0.95);
-    }
-
-    .section-title {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.13em;
-      color: var(--muted);
-      margin-bottom: 3px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .section-title::before {
-      content: "";
-      width: 18px;
-      height: 1px;
-      background: linear-gradient(to right, rgba(148, 163, 184, 0.9), transparent);
-    }
-
-    .section-body {
-      font-size: 0.8rem;
-      color: #d1d5db;
-      line-height: 1.5;
-      margin-bottom: 4px;
-    }
-
-    .bullets {
-      margin: 0;
-      padding-left: 16px;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .bullets li {
-      margin-bottom: 3px;
-    }
-
-    .impact-row {
-      margin-top: 4px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .impact-pill {
-      font-size: 0.72rem;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.96);
-      border: 1px solid rgba(74, 222, 128, 0.9);
-      color: #bbf7d0;
-      white-space: nowrap;
-    }
-
-    .impact-pill.warn {
-      border-color: rgba(251, 191, 36, 0.9);
-      color: #fef9c3;
-    }
-  </style>
-</head>
-<body>
-  <main class="shell">
-    <header class="header">
-      <div class="header-left">
-        <h1>Arquitetura Integrada DevOps + DataOps</h1>
-        <p>Visão executiva da solução: como entregamos software e dados confiáveis, com impacto direto no negócio.</p>
-      </div>
-      <div class="status-pill">
-        <span class="status-dot"></span>
-        <span>Ambiente proposto</span>
-      </div>
-    </header>
-
-    <!-- faixa de valor para o negócio -->
-    <section class="value-row">
-      <span class="value-label">Resultado para o negócio</span>
-      <span class="chip dev">Deploys: 1/mês ➜ 2 por dia</span>
-      <span class="chip dev">MTTR: 8h ➜ &lt; 1h</span>
-      <span class="chip data">Freshness dos dados: D+2 ➜ H+1</span>
-      <span class="chip data">Falhas de ingestão: 20% ➜ &lt; 2%</span>
-      <span class="chip obs">Incidente detectado em &lt; 15 minutos</span>
-    </section>
-
-    <!-- TRÊS GRANDES BLOCOS -->
-    <section class="grid">
-
-      <!-- DEVOPS -->
-      <article class="card">
-        <div class="card-header">
-          <div class="card-title-block">
-            <span class="card-kicker">Camada de Aplicações</span>
-            <span class="card-title">DevOps – Entrega Contínua</span>
-          </div>
-          <span class="card-tag dev">Software</span>
-        </div>
-
-        <section>
-          <h3 class="section-title">Objetivo</h3>
-          <p class="section-body">
-            Permitir que o time lance novas funcionalidades com alta frequência e baixo risco, mantendo o ambiente estável.
-          </p>
-        </section>
-
-        <section>
-          <h3 class="section-title">Como funciona</h3>
-          <ul class="bullets">
-            <li>Código versionado em Git com revisão via pull request.</li>
-            <li>Pipeline de CI executa build, testes automatizados e checagens de qualidade a cada commit.</li>
-            <li>CD faz deploy automatizado (blue/green ou canary) em containers/Kubernetes.</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3 class="section-title">Impacto direto</h3>
-          <div class="impact-row">
-            <span class="impact-pill">DF: 1/mês ➜ 2 deploys/dia</span>
-            <span class="impact-pill">MTTR: 8h ➜ &lt; 1h</span>
-            <span class="impact-pill">CFR: 30% ➜ &lt; 10%</span>
-          </div>
-        </section>
-      </article>
-
-      <!-- DATAOPS -->
-      <article class="card">
-        <div class="card-header">
-          <div class="card-title-block">
-            <span class="card-kicker">Camada de Dados</span>
-            <span class="card-title">DataOps – Dados Confiáveis</span>
-          </div>
-          <span class="card-tag data">Analytics</span>
-        </div>
-
-        <section>
-          <h3 class="section-title">Objetivo</h3>
-          <p class="section-body">
-            Garantir que diretoria e times operem com dados atuais, consistentes e auditáveis, sem depender de planilhas manuais.
-          </p>
-        </section>
-
-        <section>
-          <h3 class="section-title">Como funciona</h3>
-          <ul class="bullets">
-            <li>Ingestão automatizada a partir de ERP, CRM, e-commerce e aplicações.</li>
-            <li>Orquestrador (ex.: Airflow) coordena ingestão, transformações e cargas incrementais.</li>
-            <li>Data Lake + Data Warehouse organizam os dados; dbt aplica regras de negócio e testes de qualidade.</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3 class="section-title">Impacto direto</h3>
-          <div class="impact-row">
-            <span class="impact-pill">Freshness: D+2 ➜ H+1</span>
-            <span class="impact-pill">Falhas de ingestão: 20% ➜ &lt; 2%</span>
-            <span class="impact-pill">100% dos datasets críticos testados</span>
-          </div>
-        </section>
-      </article>
-
-      <!-- OBSERVABILIDADE & GOVERNANÇA -->
-      <article class="card">
-        <div class="card-header">
-          <div class="card-title-block">
-            <span class="card-kicker">Camada Transversal</span>
-            <span class="card-title">Observabilidade &amp; Governança</span>
-          </div>
-          <span class="card-tag obs">Confiabilidade</span>
-        </div>
-
-        <section>
-          <h3 class="section-title">Objetivo</h3>
-          <p class="section-body">
-            Monitorar ponta a ponta aplicações e dados, garantindo segurança, LGPD e resposta rápida a incidentes.
-          </p>
-        </section>
-
-        <section>
-          <h3 class="section-title">Como funciona</h3>
-          <ul class="bullets">
-            <li>Prometheus, Grafana e logs centralizados para saúde das aplicações.</li>
-            <li>Ferramentas de Data Quality monitoram freshness, volume e anomalias no pipeline analítico.</li>
-            <li>Catálogo de dados + políticas de LGPD para rastrear quem acessa o quê.</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3 class="section-title">Impacto direto</h3>
-          <div class="impact-row">
-            <span class="impact-pill">Incidentes detectados em &lt; 15 min</span>
-            <span class="impact-pill">Menos retrabalho e chamados</span>
-            <span class="impact-pill warn">Mais confiança da diretoria nos números</span>
-          </div>
-        </section>
-      </article>
-
-    </section>
-  </main>
-</body>
-</html>
 
