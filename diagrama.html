@@ -38,13 +38,16 @@
         radial-gradient(circle at top, #0b1120 0, #020617 40%, #020617 100%);
     }
 
+    /* AQUI: formato tipo slide de PPT (16:9) */
     .shell {
       width: 100%;
-      max-width: 1100px;
-      background: radial-gradient(circle at top left,
+      max-width: 1280px;          /* largura típica de slide */
+      aspect-ratio: 16 / 9;       /* proporção de slide */
+      background:
+        radial-gradient(circle at top left,
                   rgba(30, 64, 175, 0.45),
-                  transparent 55%)
-                  , radial-gradient(circle at bottom right,
+                  transparent 55%),
+        radial-gradient(circle at bottom right,
                   rgba(67, 56, 202, 0.6),
                   #020617 65%);
       border-radius: 26px;
@@ -53,6 +56,8 @@
       box-shadow: var(--shadow-soft);
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
     .shell::before {
@@ -72,6 +77,7 @@
       align-items: flex-start;
       gap: 16px;
       margin-bottom: 20px;
+      z-index: 1;
     }
 
     .header-left h1 {
@@ -125,6 +131,7 @@
       flex-wrap: wrap;
       gap: 8px;
       align-items: center;
+      z-index: 1;
     }
 
     .value-label {
@@ -164,16 +171,23 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 16px;
+      z-index: 1;
+      flex: 1;
     }
 
     @media (max-width: 900px) {
       .grid {
         grid-template-columns: 1fr;
       }
+
+      /* em telas menores, não forçar formato de slide */
       .shell {
+        aspect-ratio: auto;
+        max-width: 100%;
         padding: 20px 16px 18px;
         border-radius: 22px;
       }
+
       .header {
         flex-direction: column;
         align-items: flex-start;
