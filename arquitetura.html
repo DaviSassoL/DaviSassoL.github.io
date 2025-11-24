@@ -1,222 +1,155 @@
-<section class="w-full bg-slate-950 py-20">
-  <div class="max-w-7xl mx-auto px-6">
+<section id="arquitetura-mvp" class="w-full bg-slate-950 py-20">
+  <div class="max-w-6xl mx-auto px-6 lg:px-8">
 
-    <!-- Cabeçalho -->
-    <div class="text-center mb-14">
-      <p class="text-xs font-semibold tracking-[0.25em] text-sky-400 uppercase">
-        MVP • Data Engineering & Machine Learning
+    <!-- Header -->
+    <header class="text-center mb-14">
+      <p class="text-[11px] font-semibold tracking-[0.25em] text-sky-400 uppercase">
+        MVP • Plataforma Inteligente de Treinos
       </p>
       <h2 class="mt-4 text-3xl md:text-4xl font-bold text-slate-50">
-        Arquitetura da Plataforma Inteligente de Treinos
+        Arquitetura da Solução em Engenharia de Dados
       </h2>
-      <p class="mt-4 text-slate-400 max-w-2xl mx-auto">
-        Pipeline de dados orientado à Medallion Architecture, da ingestão via Hevy API
-        até dashboards e modelos de Machine Learning.
+      <p class="mt-4 text-sm md:text-base text-slate-400 max-w-2xl mx-auto">
+        Pipeline orientado à Medallion Architecture (Bronze → Silver → Gold), 
+        da ingestão via Hevy API até dashboards e modelos de Machine Learning.
       </p>
-    </div>
+    </header>
 
-    <!-- Card da Arquitetura -->
-    <div class="relative rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 md:p-8 shadow-[0_18px_60px_rgba(15,23,42,0.75)] overflow-hidden">
-
-      <!-- Glow de fundo -->
-      <div class="pointer-events-none absolute inset-0 opacity-40 mix-blend-screen">
-        <div class="absolute -left-20 top-10 h-64 w-64 rounded-full bg-sky-500 blur-3xl"></div>
-        <div class="absolute right-0 bottom-0 h-64 w-64 rounded-full bg-amber-400 blur-3xl"></div>
-      </div>
-
-      <!-- Linha de passos (topo) -->
-      <div class="relative mb-10 hidden lg:flex items-center justify-between gap-4 text-xs font-medium text-slate-300">
+    <!-- Stepper / Fluxo -->
+    <div class="mb-10">
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-[11px] md:text-xs font-medium text-slate-300">
         <div class="flex items-center gap-3">
-          <div class="flex h-7 w-7 items-center justify-center rounded-full bg-sky-500 text-white text-xs font-semibold">1</div>
+          <span class="flex h-7 w-7 items-center justify-center rounded-full bg-sky-500 text-white text-xs font-semibold">1</span>
           <span>Ingestão &amp; Data Sources</span>
         </div>
-        <div class="flex-1 h-px bg-slate-700/70"></div>
+        <div class="hidden md:block flex-1 h-px bg-slate-800"></div>
+
         <div class="flex items-center gap-3">
-          <div class="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500 text-white text-xs font-semibold">2</div>
-          <span>Bronze &amp; Silver</span>
+          <span class="flex h-7 w-7 items-center justify-center rounded-full bg-amber-700 text-white text-xs font-semibold">2</span>
+          <span>Camada Bronze (Raw)</span>
         </div>
-        <div class="flex-1 h-px bg-slate-700/70"></div>
+        <div class="hidden md:block flex-1 h-px bg-slate-800"></div>
+
         <div class="flex items-center gap-3">
-          <div class="flex h-7 w-7 items-center justify-center rounded-full bg-amber-400 text-slate-900 text-xs font-semibold">3</div>
-          <span>Gold / Serving Layer</span>
+          <span class="flex h-7 w-7 items-center justify-center rounded-full bg-slate-400 text-slate-900 text-xs font-semibold">3</span>
+          <span>Camada Silver (Refinada)</span>
         </div>
-        <div class="flex-1 h-px bg-slate-700/70"></div>
+        <div class="hidden md:block flex-1 h-px bg-slate-800"></div>
+
         <div class="flex items-center gap-3">
-          <div class="flex h-7 w-7 items-center justify-center rounded-full bg-rose-500 text-white text-xs font-semibold">4</div>
-          <span>Analytics &amp; Machine Learning</span>
+          <span class="flex h-7 w-7 items-center justify-center rounded-full bg-amber-300 text-slate-900 text-xs font-semibold">4</span>
+          <span>Camada Gold &amp; Serving Layer</span>
+        </div>
+        <div class="hidden md:block flex-1 h-px bg-slate-800"></div>
+
+        <div class="flex items-center gap-3">
+          <span class="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500 text-white text-xs font-semibold">5</span>
+          <span>Dashboards &amp; Machine Learning</span>
         </div>
       </div>
+    </div>
 
-      <!-- Grid principal (zonas da arquitetura) -->
-      <div class="relative grid gap-5 lg:grid-cols-4">
+    <!-- Grid principal -->
+    <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-5">
 
-        <!-- Coluna 1: Data Sources & Ingestion -->
-        <div class="rounded-2xl border border-sky-500/40 bg-sky-500/5 backdrop-blur-sm p-4 flex flex-col gap-4">
-          <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-wide text-sky-300 uppercase">
-            <span class="h-2 w-2 rounded-full bg-sky-400"></span>
-            Data Sources &amp; Ingestion
-          </div>
-
-          <div class="space-y-3 text-sm text-slate-100/90">
-            <div class="rounded-xl border border-sky-500/40 bg-slate-950/40 px-3 py-2.5">
-              <p class="text-[11px] uppercase tracking-wide text-sky-300">Fonte principal</p>
-              <p class="mt-1 text-sm font-medium">Hevy API</p>
-              <p class="mt-1 text-xs text-slate-400">
-                Captura treinos reais dos usuários (ingestão incremental com <code class="text-[0.7rem] bg-slate-900/80 px-1 py-0.5 rounded">last_sync.json</code>).
-              </p>
-            </div>
-
-            <div class="rounded-xl border border-sky-500/20 bg-slate-950/40 px-3 py-2.5">
-              <p class="text-[11px] uppercase tracking-wide text-sky-300">Input complementar</p>
-              <p class="mt-1 text-sm font-medium">Streamlit Forms</p>
-              <p class="mt-1 text-xs text-slate-400">
-                Cadastro de alunos, feedbacks e registros manuais de treino.
-              </p>
-            </div>
-
-            <div class="rounded-xl border border-sky-500/10 bg-slate-950/40 px-3 py-2.5">
-              <p class="text-[11px] uppercase tracking-wide text-sky-300">Dataset sintético</p>
-              <p class="mt-1 text-sm font-medium">Silver CSV (Kaggle-like)</p>
-              <p class="mt-1 text-xs text-slate-400">
-                Base de apoio para testes e modelagem inicial.
-              </p>
-            </div>
-          </div>
-
-          <div class="mt-3 flex items-center gap-2 text-[11px] text-slate-300">
-            <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-slate-900 border border-sky-500/50 text-[10px]">
-              ETL
-            </span>
-            <span>Python + PySpark orquestram a ingestão para o Data Lake.</span>
-          </div>
+      <!-- Data Sources / Ingestion -->
+      <article class="group relative rounded-2xl border border-sky-500/40 bg-slate-900/70 p-4 flex flex-col justify-between transition duration-300 hover:border-sky-400 hover:shadow-[0_18px_60px_rgba(56,189,248,0.25)]">
+        <div>
+          <p class="text-[11px] tracking-wide text-sky-300 uppercase mb-1">Camada 0</p>
+          <h3 class="text-lg font-semibold text-slate-50 mb-3">Data Sources &amp; Ingestão</h3>
+          <ul class="space-y-1.5 text-xs text-slate-300">
+            <li>• <span class="font-medium">Hevy API</span> — treinos reais dos usuários.</li>
+            <li>• <span class="font-medium">Streamlit</span> — cadastros, feedbacks e inputs manuais.</li>
+            <li>• Jobs em <span class="font-medium">Python + PySpark</span> para ingestão incremental.</li>
+            <li>• Escrita direta no Data Lake (<span class="font-medium">MinIO</span>).</li>
+          </ul>
         </div>
+        <p class="mt-4 text-[11px] text-slate-400">
+          Controle de estado via <code class="bg-slate-800 px-1 py-0.5 rounded">last_sync.json</code> garante ingestão incremental.
+        </p>
+      </article>
 
-        <!-- Coluna 2: Bronze & Silver -->
-        <div class="rounded-2xl border border-emerald-400/40 bg-emerald-500/5 backdrop-blur-sm p-4 flex flex-col gap-4">
-          <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-wide text-emerald-300 uppercase">
-            <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-            Bronze &amp; Silver (Data Lake)
-          </div>
-
-          <!-- Bronze -->
-          <div class="rounded-xl bg-slate-950/60 border border-emerald-500/40 px-3 py-3">
-            <div class="flex items-center justify-between">
-              <p class="text-sm font-semibold text-slate-50">Camada Bronze</p>
-              <span class="rounded-full bg-slate-900 px-2 py-0.5 text-[10px] font-medium text-emerald-300 border border-emerald-500/40">RAW</span>
-            </div>
-            <ul class="mt-2 space-y-1.5 text-xs text-slate-300">
-              <li>• JSON bruto vindo da Hevy API.</li>
-              <li>• Histórico completo preservado.</li>
-              <li>• Nenhuma transformação aplicada.</li>
-              <li>• Zona de verdade do Data Lake.</li>
-            </ul>
-          </div>
-
-          <!-- Silver -->
-          <div class="rounded-xl bg-slate-950/40 border border-emerald-400/30 px-3 py-3">
-            <div class="flex items-center justify-between">
-              <p class="text-sm font-semibold text-slate-50">Camada Silver</p>
-              <span class="rounded-full bg-slate-900 px-2 py-0.5 text-[10px] font-medium text-emerald-200 border border-emerald-400/40">REFINED</span>
-            </div>
-            <ul class="mt-2 space-y-1.5 text-xs text-slate-300">
-              <li>• Tabela unificada de treinos dos alunos.</li>
-              <li>• Padronização de datas, cargas, repetições e exercícios.</li>
-              <li>• Estrutura analítica clara (colunas consistentes).</li>
-              <li>• Armazenado em Parquet (otimizado para Spark).</li>
-            </ul>
-          </div>
-
-          <p class="mt-1 text-[11px] text-slate-300">
-            Toda a persistência é feita no <span class="font-semibold text-emerald-200">MinIO (S3-like)</span>, atuando como Data Lake.
-          </p>
+      <!-- Bronze -->
+      <article class="group relative rounded-2xl border border-amber-800/60 bg-gradient-to-b from-amber-950/70 via-slate-950 to-slate-950 p-4 flex flex-col justify-between transition duration-300 hover:border-amber-400 hover:shadow-[0_20px_70px_rgba(217,119,6,0.35)]">
+        <div>
+          <p class="text-[11px] tracking-wide text-amber-300 uppercase mb-1">Camada 1</p>
+          <h3 class="text-lg font-semibold text-slate-50 mb-3">Bronze — Dados Brutos</h3>
+          <ul class="space-y-1.5 text-xs text-slate-200">
+            <li>• Armazena JSON bruto da Hevy API.</li>
+            <li>• Mantém histórico completo de treinos.</li>
+            <li>• Nenhuma transformação aplicada.</li>
+            <li>• Zona de verdade do Data Lake.</li>
+          </ul>
         </div>
+        <p class="mt-4 text-[11px] text-amber-200/90">
+          Pasta lógica: <code class="bg-amber-950/60 px-1 py-0.5 rounded">s3://bronze/hevy/workouts/</code>
+        </p>
+      </article>
 
-        <!-- Coluna 3: Gold / Serving Layer -->
-        <div class="rounded-2xl border border-amber-400/40 bg-amber-400/5 backdrop-blur-sm p-4 flex flex-col gap-4">
-          <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-wide text-amber-300 uppercase">
-            <span class="h-2 w-2 rounded-full bg-amber-400"></span>
-            Gold / Serving Layer
-          </div>
-
-          <div class="rounded-xl bg-slate-950/50 border border-amber-400/60 px-3 py-3">
-            <p class="text-sm font-semibold text-slate-50">Modelo Dimensional (Star Schema)</p>
-            <ul class="mt-2 space-y-1.5 text-xs text-slate-300">
-              <li>• FatoTreinos: duração, volume total, intensidade, séries.</li>
-              <li>• DimAluno, DimExercício, DimData, DimGrupoMuscular.</li>
-              <li>• Base para dashboards em Power BI / Streamlit.</li>
-            </ul>
-          </div>
-
-          <div class="rounded-xl bg-slate-950/40 border border-amber-300/40 px-3 py-3">
-            <p class="text-sm font-semibold text-slate-50">Wide Table para Machine Learning</p>
-            <ul class="mt-2 space-y-1.5 text-xs text-slate-300">
-              <li>• Features comportamentais por aluno.</li>
-              <li>• Agregações temporais (janelas de tempo).</li>
-              <li>• Variáveis analíticas de desempenho.</li>
-              <li>• Split treino / validação / teste.</li>
-            </ul>
-          </div>
-
-          <p class="mt-1 text-[11px] text-slate-300">
-            Essa camada é otimizada para<strong> baixa latência</strong> na leitura pelos dashboards e pelos modelos de IA.
-          </p>
+      <!-- Silver -->
+      <article class="group relative rounded-2xl border border-slate-400/70 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 p-4 flex flex-col justify-between transition duration-300 hover:border-slate-200 hover:shadow-[0_20px_70px_rgba(148,163,184,0.35)]">
+        <div>
+          <p class="text-[11px] tracking-wide text-slate-300 uppercase mb-1">Camada 2</p>
+          <h3 class="text-lg font-semibold text-slate-50 mb-3">Silver — Dados Padronizados</h3>
+          <ul class="space-y-1.5 text-xs text-slate-200">
+            <li>• Tabela unificada de treinos por aluno.</li>
+            <li>• Padronização de datas, cargas, repetições e exercícios.</li>
+            <li>• Esquema consistente para consultas analíticas.</li>
+            <li>• Armazenamento em <span class="font-medium">Parquet</span> otimizado para Spark.</li>
+          </ul>
         </div>
+        <p class="mt-4 text-[11px] text-slate-300">
+          Inclui dataset sintético para desenvolvimento e testes de modelo.
+        </p>
+      </article>
 
-        <!-- Coluna 4: Analytics & ML -->
-        <div class="rounded-2xl border border-rose-400/40 bg-rose-500/5 backdrop-blur-sm p-4 flex flex-col gap-5">
-          <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-wide text-rose-300 uppercase">
-            <span class="h-2 w-2 rounded-full bg-rose-400"></span>
-            Data Analytics &amp; Machine Learning
-          </div>
-
-          <div class="space-y-3 text-sm text-slate-100/90">
-            <div class="rounded-xl bg-slate-950/50 border border-rose-400/50 px-3 py-3">
-              <p class="text-sm font-semibold text-slate-50 flex items-center gap-2">
-                📊 Dashboards &amp; Visualização
-              </p>
-              <ul class="mt-2 space-y-1.5 text-xs text-slate-300">
-                <li>• Power BI conectado ao modelo dimensional Gold.</li>
-                <li>• Streamlit para monitorar treinos e inputs manuais.</li>
-                <li>• Visão tática para instrutores e time de dados.</li>
-              </ul>
-            </div>
-
-            <div class="rounded-xl bg-slate-950/40 border border-rose-300/40 px-3 py-3">
-              <p class="text-sm font-semibold text-slate-50 flex items-center gap-2">
-                🤖 Modelos de Machine Learning
-              </p>
-              <ul class="mt-2 space-y-1.5 text-xs text-slate-300">
-                <li>• Python + PySpark usando a Wide Table.</li>
-                <li>• Foco em recomendações personalizadas de treino.</li>
-                <li>• Preparado para execução serverless via AWS Lambda.</li>
-              </ul>
-            </div>
-          </div>
-
-          <p class="mt-1 text-[11px] text-slate-300">
-            Esta camada fecha o ciclo: dados reais &rarr; insights acionáveis &rarr; personalização contínua dos treinos.
-          </p>
+      <!-- Gold -->
+      <article class="group relative rounded-2xl border border-amber-300/70 bg-gradient-to-b from-amber-100/10 via-slate-950 to-slate-950 p-4 flex flex-col justify-between transition duration-300 hover:border-amber-200 hover:shadow-[0_20px_70px_rgba(252,211,77,0.35)]">
+        <div>
+          <p class="text-[11px] tracking-wide text-amber-200 uppercase mb-1">Camada 3</p>
+          <h3 class="text-lg font-semibold text-slate-50 mb-3">Gold — Analytics &amp; Features</h3>
+          <ul class="space-y-1.5 text-xs text-slate-100">
+            <li>• <span class="font-medium">Modelo Dimensional (Star Schema)</span> com FatoTreinos e dimensões.</li>
+            <li>• Métricas agregadas de duração, volume, intensidade e frequência.</li>
+            <li>• <span class="font-medium">Wide Table</span> com features comportamentais por aluno.</li>
+            <li>• Base pronta para treinamento de modelos de recomendação.</li>
+          </ul>
         </div>
+        <p class="mt-4 text-[11px] text-amber-100/80">
+          Otimizado para leitura de baixa latência por dashboards e jobs de ML.
+        </p>
+      </article>
 
-      </div>
-
-      <!-- Infraestrutura & Projeto (barra inferior) -->
-      <div class="relative mt-7 rounded-2xl border border-slate-700 bg-slate-900/80 px-4 py-4 flex flex-wrap items-center gap-4 text-[11px] text-slate-300">
-        <div class="flex items-center gap-2">
-          <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-slate-800 border border-slate-600 text-[13px]">🏗️</span>
-          <span><strong>Infra:</strong> MinIO (S3-like) • Docker • GitHub • Observabilidade planejada.</span>
+      <!-- Analytics & ML -->
+      <article class="group relative rounded-2xl border border-emerald-400/50 bg-gradient-to-b from-emerald-500/10 via-slate-950 to-slate-950 p-4 flex flex-col justify-between transition duration-300 hover:border-emerald-300 hover:shadow-[0_20px_70px_rgba(16,185,129,0.35)]">
+        <div>
+          <p class="text-[11px] tracking-wide text-emerald-300 uppercase mb-1">Camada 4</p>
+          <h3 class="text-lg font-semibold text-slate-50 mb-3">Dashboards &amp; Machine Learning</h3>
+          <ul class="space-y-1.5 text-xs text-slate-100">
+            <li>• <span class="font-medium">Power BI</span> conectado ao modelo dimensional Gold.</li>
+            <li>• <span class="font-medium">Streamlit</span> para monitorar treinos e registrar inputs.</li>
+            <li>• Modelos em <span class="font-medium">Python / PySpark</span> usando a Wide Table.</li>
+            <li>• Integração planejada com <span class="font-medium">AWS Lambda</span> para execução serverless.</li>
+          </ul>
         </div>
-        <div class="flex items-center gap-2">
-          <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-slate-800 border border-slate-600 text-[13px]">📁</span>
-          <span><strong>Repo:</strong> estrutura modular <code class="px-1 py-0.5 bg-slate-800 rounded">src/instructor_workout/etl/...</code></span>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-slate-800 border border-slate-600 text-[13px]">👥</span>
-          <span><strong>Equipe:</strong> Davi Sasso • Rodrigo Alex • Victor Barradas.</span>
-        </div>
-      </div>
+        <p class="mt-4 text-[11px] text-emerald-200/90">
+          Fecha o ciclo: dados reais → insights acionáveis → personalização de treinos.
+        </p>
+      </article>
 
     </div>
+
+    <!-- Stack / Footer da seção -->
+    <footer class="mt-10 rounded-2xl border border-slate-800 bg-slate-900/80 px-4 py-4 flex flex-wrap items-center gap-3 text-[11px] text-slate-300">
+      <span class="inline-flex items-center gap-2">
+        <span class="h-6 w-6 flex items-center justify-center rounded-full bg-slate-800 border border-slate-700 text-[13px]">⚙️</span>
+        <span><strong>Stack:</strong> Python 3.12 • PySpark • MinIO (S3-like) • Docker • GitHub • AWS Lambda.</span>
+      </span>
+      <span class="inline-flex items-center gap-2">
+        <span class="h-6 w-6 flex items-center justify-center rounded-full bg-slate-800 border border-slate-700 text-[13px]">📁</span>
+        <span><strong>Repo:</strong> estrutura modular em <code class="bg-slate-800 px-1 py-0.5 rounded">src/instructor_workout/etl/...</code></span>
+      </span>
+    </footer>
+
   </div>
 </section>
-
