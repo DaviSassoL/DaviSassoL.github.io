@@ -1,0 +1,111 @@
+<section class="w-full bg-gray-50 py-20">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <!-- Título -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-gray-900">Arquitetura da Plataforma Inteligente de Treinos</h2>
+      <p class="text-lg text-gray-600 mt-4">
+        MVP – Data Engineering & Machine Learning • Hevy API • Medallion Architecture
+      </p>
+    </div>
+
+    <!-- Grid principal -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+      <!-- Bronze -->
+      <div class="bg-white shadow-lg rounded-2xl p-8 border-t-4 border-orange-400">
+        <h3 class="text-2xl font-semibold text-gray-900 mb-4">🥉 Bronze — Dados Brutos</h3>
+        <ul class="space-y-3 text-gray-700 text-base">
+          <li>• Dados brutos da <strong>Hevy API</strong></li>
+          <li>• Histórico completo preservado</li>
+          <li>• Formato original em JSON</li>
+          <li>• Ingestão incremental (<em>last_sync.json</em>)</li>
+          <li>• Fonte da verdade do Data Lake</li>
+        </ul>
+      </div>
+
+      <!-- Silver -->
+      <div class="bg-white shadow-lg rounded-2xl p-8 border-t-4 border-gray-400">
+        <h3 class="text-2xl font-semibold text-gray-900 mb-4">🥈 Silver — Dados Padronizados</h3>
+        <ul class="space-y-3 text-gray-700 text-base">
+          <li>• Estruturação e limpeza dos dados</li>
+          <li>• Tabela unificada de treinos</li>
+          <li>• Padronização de datas, cargas e repetições</li>
+          <li>• Dados analíticos em Parquet</li>
+        </ul>
+      </div>
+
+      <!-- Gold -->
+      <div class="bg-white shadow-lg rounded-2xl p-8 border-t-4 border-yellow-500">
+        <h3 class="text-2xl font-semibold text-gray-900 mb-4">🥇 Gold — Analytics & ML</h3>
+        <ul class="space-y-3 text-gray-700 text-base">
+          <li>• Modelo dimensional (Star Schema)</li>
+          <li>• FatoTreinos + DimAluno + DimExercício</li>
+          <li>• Wide Table para Machine Learning</li>
+          <li>• Features comportamentais e agregações</li>
+          <li>• Base para recomendações personalizadas</li>
+        </ul>
+      </div>
+
+      <!-- Tecnologias -->
+      <div class="bg-white shadow-lg rounded-2xl p-8 border-t-4 border-blue-500">
+        <h3 class="text-2xl font-semibold text-gray-900 mb-4">⚙️ Stack Tecnológica</h3>
+        <ul class="space-y-3 text-gray-700 text-base">
+          <li>• Python 3.12</li>
+          <li>• PySpark 4</li>
+          <li>• MinIO (S3-like)</li>
+          <li>• Power BI & Streamlit</li>
+          <li>• Docker & GitHub</li>
+          <li>• AWS Lambda (serverless)</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Fluxo Visual -->
+    <div class="mt-20">
+      <h3 class="text-3xl font-semibold text-gray-900 text-center mb-10">Fluxo da Arquitetura</h3>
+
+      <div class="flex flex-col items-center space-y-8">
+
+        <!-- Step 1 -->
+        <div class="flex flex-col items-center">
+          <div class="rounded-full bg-blue-600 text-white w-16 h-16 flex items-center justify-center text-2xl font-bold shadow-lg">1</div>
+          <p class="text-xl text-gray-800 font-medium mt-4">Hevy API → Bronze (Ingestão Incremental)</p>
+        </div>
+
+        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+        </svg>
+
+        <!-- Step 2 -->
+        <div class="flex flex-col items-center">
+          <div class="rounded-full bg-gray-700 text-white w-16 h-16 flex items-center justify-center text-2xl font-bold shadow-lg">2</div>
+          <p class="text-xl text-gray-800 font-medium mt-4">Transformação com PySpark → Silver</p>
+        </div>
+
+        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+        </svg>
+
+        <!-- Step 3 -->
+        <div class="flex flex-col items-center">
+          <div class="rounded-full bg-yellow-500 text-white w-16 h-16 flex items-center justify-center text-2xl font-bold shadow-lg">3</div>
+          <p class="text-xl text-gray-800 font-medium mt-4">Enriquecimento → Gold (Analytics & ML)</p>
+        </div>
+
+        <!-- Output -->
+        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+        </svg>
+
+        <div class="flex flex-col items-center">
+          <div class="rounded-full bg-green-600 text-white w-16 h-16 flex items-center justify-center text-2xl font-bold shadow-lg">4</div>
+          <p class="text-xl text-gray-800 font-medium mt-4">Power BI • Streamlit • Modelos de IA</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
