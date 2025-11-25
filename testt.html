@@ -84,6 +84,12 @@
       box-shadow: 0 16px 40px rgba(15, 23, 42, 1);
     }
 
+    @media (max-width: 900px) {
+      .download-bar {
+        justify-content: center;
+      }
+    }
+
     /* SLIDE / BOARD BASE */
 
     .board {
@@ -133,9 +139,6 @@
         aspect-ratio: auto;
         padding: 18px 14px 18px;
         border-radius: 22px;
-      }
-      .download-bar {
-        justify-content: center;
       }
     }
 
@@ -625,7 +628,7 @@
   <!-- Botão de download do PowerPoint -->
   <div class="download-bar">
     <a
-      href="instructor_workout_mvp_presentation.pptx"
+      href="/mnt/data/instructor_workout_mvp_presentation.pptx"
       download
       class="download-btn"
     >
@@ -771,7 +774,7 @@
                 </div>
                 <div class="lane-metrics">
                   <span class="metric-pill info">Freshness H+1</span>
-                  <span class="metric-pill good">Histórico preservado</span>
+                  <span class="metric-pill.good">Histórico preservado</span>
                 </div>
               </div>
 
@@ -1032,3 +1035,4 @@
   </div>
 </body>
 </html>
+
