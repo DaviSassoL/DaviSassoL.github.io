@@ -1,155 +1,687 @@
-<section id="arquitetura-mvp" class="w-full bg-slate-950 py-20">
-  <div class="max-w-6xl mx-auto px-6 lg:px-8">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Arquitetura – Plataforma Inteligente de Treinos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #020617;
+      --panel: #020617;
+      --lane-bg: rgba(15, 23, 42, 0.96);
+      --side-bg: rgba(15, 23, 42, 0.98);
+      --stroke: rgba(148, 163, 184, 0.45);
+      --stroke-strong: rgba(148, 163, 184, 0.7);
+      --accent-blue: #38bdf8;
+      --accent-green: #22c55e;
+      --accent-purple: #a855f7;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --radius-lg: 22px;
+      --radius-md: 14px;
+      --shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
+      --transition: 0.18s ease-out;
+    }
 
-    <!-- Header -->
-    <header class="text-center mb-14">
-      <p class="text-[11px] font-semibold tracking-[0.25em] text-sky-400 uppercase">
-        MVP • Plataforma Inteligente de Treinos
-      </p>
-      <h2 class="mt-4 text-3xl md:text-4xl font-bold text-slate-50">
-        Arquitetura da Solução em Engenharia de Dados
-      </h2>
-      <p class="mt-4 text-sm md:text-base text-slate-400 max-w-2xl mx-auto">
-        Pipeline orientado à Medallion Architecture (Bronze → Silver → Gold), 
-        da ingestão via Hevy API até dashboards e modelos de Machine Learning.
-      </p>
-    </header>
+    * {
+      box-sizing: border-box;
+    }
 
-    <!-- Stepper / Fluxo -->
-    <div class="mb-10">
-      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-[11px] md:text-xs font-medium text-slate-300">
-        <div class="flex items-center gap-3">
-          <span class="flex h-7 w-7 items-center justify-center rounded-full bg-sky-500 text-white text-xs font-semibold">1</span>
-          <span>Ingestão &amp; Data Sources</span>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, #0b1220 0, #020617 40%, #020617 100%);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    /* FORMATO SLIDE (16:9) */
+    .board {
+      width: 100%;
+      max-width: 1280px;
+      aspect-ratio: 16 / 9;
+      background: radial-gradient(circle at top left,
+          rgba(15, 23, 42, 0.96),
+          rgba(2, 6, 23, 0.98));
+      border-radius: 28px;
+      border: 1px solid var(--stroke-strong);
+      box-shadow: var(--shadow);
+      padding: 26px 30px 24px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .board::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top left,
+          rgba(56, 189, 248, 0.16),
+          transparent 55%),
+        radial-gradient(circle at bottom right,
+          rgba(168, 85, 247, 0.16),
+          transparent 60%);
+      pointer-events: none;
+    }
+
+    .board-inner {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    /* HEADER */
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+
+    .header-title h1 {
+      margin: 0 0 6px;
+      font-size: 1.45rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .header-title div {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      align-self: center;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke-strong);
+      background: rgba(15, 23, 42, 0.94);
+      color: var(--text-muted);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      backdrop-filter: blur(10px);
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-green);
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+    }
+
+    /* LAYOUT PRINCIPAL */
+
+    .layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 2.3fr) minmax(0, 1fr);
+      grid-template-rows: 1fr;
+      gap: 18px;
+      min-height: 0;
+      align-items: stretch;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      body {
+        padding: 22px 10px;
+      }
+      .board {
+        aspect-ratio: auto;
+        max-width: 100%;
+        padding: 18px 14px 16px;
+        border-radius: 22px;
+      }
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .lanes {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      height: 100%;
+    }
+
+    .lane {
+      background: var(--lane-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--stroke-strong);
+      padding: 12px 12px 10px;
+      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.86);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .lane-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .lane-title {
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lane-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+    }
+
+    .lane-data .lane-dot {
+      background: var(--accent-blue);
+    }
+
+    .lane-consumption .lane-dot {
+      background: var(--accent-green);
+    }
+
+    .lane-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: flex-end;
+    }
+
+    .metric-pill {
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke-strong);
+      background: rgba(15, 23, 42, 0.96);
+      white-space: nowrap;
+    }
+
+    .metric-pill.good {
+      border-color: rgba(34, 197, 94, 0.9);
+      color: #bbf7d0;
+    }
+
+    .metric-pill.info {
+      border-color: rgba(56, 189, 248, 0.9);
+      color: #e0f2fe;
+    }
+
+    /* FLOW */
+
+    .lane-flow {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      gap: 10px;
+      margin-top: 6px;
+      padding: 10px 6px 6px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .lane-flow::before {
+      content: "";
+      position: absolute;
+      left: 5%;
+      right: 5%;
+      top: 50%;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(148, 163, 184, 0.7),
+        transparent
+      );
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    .lane-card {
+      position: relative;
+      z-index: 1;
+      flex: 1 1 0;
+      min-width: 110px;
+      background: radial-gradient(circle at top left,
+          rgba(15, 23, 42, 0.96),
+          #020617);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--stroke);
+      padding: 8px 8px 7px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: left;
+      transition: transform var(--transition), box-shadow var(--transition),
+        border-color var(--transition), background var(--transition);
+    }
+
+    .lane-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px rgba(15, 23, 42, 0.95);
+      border-color: rgba(56, 189, 248, 0.9);
+      background: radial-gradient(circle at top left,
+          rgba(56, 189, 248, 0.22),
+          #020617);
+    }
+
+    .lane-card-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .lane-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .tag {
+      font-size: 0.66rem;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .tag.key {
+      border-color: rgba(56, 189, 248, 0.95);
+      color: #e0f2fe;
+    }
+
+    /* Bullets dentro dos cards */
+
+    .lane-card-list {
+      margin: 4px 0 0;
+      padding-left: 14px;
+      font-size: 0.66rem;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    .lane-card-list li {
+      margin-bottom: 2px;
+    }
+
+    /* SIDE COLUMN */
+
+    .side {
+      background: var(--side-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--stroke-strong);
+      padding: 14px 14px 10px;
+      box-shadow: 0 20px 46px rgba(15, 23, 42, 0.95);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 0;
+      height: 100%;
+    }
+
+    .side-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .side-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .side-kicker {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .side-title {
+      font-size: 0.96rem;
+      font-weight: 600;
+    }
+
+    .side-tag {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+
+    .side-section-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+      min-height: 0;
+      margin-top: 4px;
+    }
+
+    .side-section {
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      padding: 8px 8px 6px;
+      background: radial-gradient(circle at top left,
+          rgba(15, 23, 42, 0.96),
+          #020617);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .side-section-title {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
+    .side-section-title::before {
+      content: "";
+      width: 16px;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        rgba(148, 163, 184, 0.9),
+        transparent
+      );
+    }
+
+    .side-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .side-chip {
+      font-size: 0.68rem;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.96);
+      white-space: nowrap;
+      color: var(--text-muted);
+    }
+
+    .side-chip.good {
+      border-color: rgba(34, 197, 94, 0.9);
+      color: #bbf7d0;
+    }
+
+    .side-chip.info {
+      border-color: rgba(56, 189, 248, 0.95);
+      color: #e0f2fe;
+    }
+  </style>
+</head>
+<body>
+  <main class="board">
+    <div class="board-inner">
+      <header class="header">
+        <div class="header-title">
+          <h1>Arquitetura da Plataforma Inteligente de Treinos</h1>
+          <div>Visão de alto nível do MVP de Engenharia de Dados (Medallion Architecture).</div>
         </div>
-        <div class="hidden md:block flex-1 h-px bg-slate-800"></div>
-
-        <div class="flex items-center gap-3">
-          <span class="flex h-7 w-7 items-center justify-center rounded-full bg-amber-700 text-white text-xs font-semibold">2</span>
-          <span>Camada Bronze (Raw)</span>
+        <div class="badge">
+          <span class="badge-dot"></span>
+          <span>MVP – Versão 1.0</span>
         </div>
-        <div class="hidden md:block flex-1 h-px bg-slate-800"></div>
+      </header>
 
-        <div class="flex items-center gap-3">
-          <span class="flex h-7 w-7 items-center justify-center rounded-full bg-slate-400 text-slate-900 text-xs font-semibold">3</span>
-          <span>Camada Silver (Refinada)</span>
-        </div>
-        <div class="hidden md:block flex-1 h-px bg-slate-800"></div>
+      <section class="layout">
 
-        <div class="flex items-center gap-3">
-          <span class="flex h-7 w-7 items-center justify-center rounded-full bg-amber-300 text-slate-900 text-xs font-semibold">4</span>
-          <span>Camada Gold &amp; Serving Layer</span>
-        </div>
-        <div class="hidden md:block flex-1 h-px bg-slate-800"></div>
+        <!-- LANES ESQUERDA -->
+        <div class="lanes">
 
-        <div class="flex items-center gap-3">
-          <span class="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500 text-white text-xs font-semibold">5</span>
-          <span>Dashboards &amp; Machine Learning</span>
+          <!-- PIPELINE DE DADOS -->
+          <section class="lane lane-data">
+            <div class="lane-header">
+              <div class="lane-title">
+                <span class="lane-dot"></span>
+                PIPELINE DE DADOS · Medallion
+              </div>
+              <div class="lane-metrics">
+                <span class="metric-pill info">Freshness H+1</span>
+                <span class="metric-pill good">Histórico 100% preservado</span>
+              </div>
+            </div>
+
+            <div class="lane-flow">
+              <div class="lane-card">
+                <div class="lane-card-title">Fontes de Dados</div>
+                <div class="lane-card-tags">
+                  <span class="tag key">Hevy API</span>
+                  <span class="tag">Streamlit</span>
+                  <span class="tag">Dataset sintético</span>
+                </div>
+                <ul class="lane-card-list">
+                  <li>Capta treinos reais dos usuários</li>
+                  <li>Inputs manuais e feedbacks</li>
+                  <li>Base de apoio para testes</li>
+                </ul>
+              </div>
+
+              <div class="lane-card">
+                <div class="lane-card-title">Ingestão Incremental</div>
+                <div class="lane-card-tags">
+                  <span class="tag key">Python + PySpark</span>
+                  <span class="tag">last_sync.json</span>
+                  <span class="tag">Jobs agendados</span>
+                </div>
+                <ul class="lane-card-list">
+                  <li>Busca apenas treinos novos</li>
+                  <li>Normaliza e valida estrutura</li>
+                  <li>Escreve JSON no Data Lake</li>
+                </ul>
+              </div>
+
+              <div class="lane-card">
+                <div class="lane-card-title">Camada Bronze</div>
+                <div class="lane-card-tags">
+                  <span class="tag key">RAW</span>
+                  <span class="tag">MinIO (S3-like)</span>
+                  <span class="tag">JSON</span>
+                </div>
+                <ul class="lane-card-list">
+                  <li>Histórico completo de treinos</li>
+                  <li>Nenhuma transformação aplicada</li>
+                  <li>Fonte de verdade do pipeline</li>
+                </ul>
+              </div>
+
+              <div class="lane-card">
+                <div class="lane-card-title">Camada Silver</div>
+                <div class="lane-card-tags">
+                  <span class="tag key">Parquet</span>
+                  <span class="tag">Tabela unificada</span>
+                </div>
+                <ul class="lane-card-list">
+                  <li>Datas, cargas e repetições padronizadas</li>
+                  <li>Estrutura analítica consistente</li>
+                  <li>Base pronta para queries</li>
+                </ul>
+              </div>
+
+              <div class="lane-card">
+                <div class="lane-card-title">Camada Gold</div>
+                <div class="lane-card-tags">
+                  <span class="tag key">Star Schema</span>
+                  <span class="tag">Wide Table</span>
+                  <span class="tag">Features</span>
+                </div>
+                <ul class="lane-card-list">
+                  <li>FatoTreinos + Dimensões (Aluno, Exercício, Data)</li>
+                  <li>Métricas agregadas de desempenho</li>
+                  <li>Tabela enriquecida para ML</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- CONSUMO & INTELIGÊNCIA -->
+          <section class="lane lane-consumption">
+            <div class="lane-header">
+              <div class="lane-title">
+                <span class="lane-dot"></span>
+                CONSUMO · Dashboards &amp; Machine Learning
+              </div>
+              <div class="lane-metrics">
+                <span class="metric-pill info">Insight quase em tempo real</span>
+                <span class="metric-pill good">Foco em personalização</span>
+              </div>
+            </div>
+
+            <div class="lane-flow">
+              <div class="lane-card">
+                <div class="lane-card-title">Modelo Dimensional</div>
+                <div class="lane-card-tags">
+                  <span class="tag key">FatoTreinos</span>
+                  <span class="tag">DimAluno</span>
+                  <span class="tag">DimExercício</span>
+                </div>
+                <ul class="lane-card-list">
+                  <li>Visão analítica da performance</li>
+                  <li>Suporta cortes por aluno, grupo muscular, período</li>
+                </ul>
+              </div>
+
+              <div class="lane-card">
+                <div class="lane-card-title">Dashboards</div>
+                <div class="lane-card-tags">
+                  <span class="tag key">Power BI</span>
+                  <span class="tag">Streamlit</span>
+                </div>
+                <ul class="lane-card-list">
+                  <li>Monitoramento dos treinos</li>
+                  <li>Visão tática para instrutores</li>
+                  <li>Exploração de métricas de evolução</li>
+                </ul>
+              </div>
+
+              <div class="lane-card">
+                <div class="lane-card-title">Modelos de ML</div>
+                <div class="lane-card-tags">
+                  <span class="tag key">Python</span>
+                  <span class="tag">PySpark</span>
+                  <span class="tag">Recomendação</span>
+                </div>
+                <ul class="lane-card-list">
+                  <li>Usam a Wide Table Gold</li>
+                  <li>Identificam padrões de treino</li>
+                  <li>Abrem caminho para recomendações personalizadas</li>
+                </ul>
+              </div>
+
+              <div class="lane-card">
+                <div class="lane-card-title">Feedback Loop</div>
+                <div class="lane-card-tags">
+                  <span class="tag key">Usuário &amp; Instrutor</span>
+                  <span class="tag">Novos dados</span>
+                </div>
+                <ul class="lane-card-list">
+                  <li>Feedbacks registrados via Streamlit</li>
+                  <li>Alimentam novamente o Data Lake</li>
+                  <li>Permitem melhoria contínua dos modelos</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
         </div>
-      </div>
+
+        <!-- COLUNA LATERAL: STACK & EXECUÇÃO -->
+        <aside class="side">
+          <div class="side-header">
+            <div class="side-title-block">
+              <div class="side-kicker">Camada Transversal</div>
+              <div class="side-title">Stack &amp; Execução do MVP</div>
+            </div>
+            <div class="side-tag">Data Engineering · MLOps</div>
+          </div>
+
+          <div class="side-section-group">
+            <section class="side-section">
+              <div class="side-section-title">Stack Principal</div>
+              <div class="side-tags">
+                <span class="side-chip info">Python 3.12</span>
+                <span class="side-chip info">PySpark</span>
+                <span class="side-chip">MinIO (S3-like)</span>
+                <span class="side-chip">Streamlit</span>
+                <span class="side-chip">Power BI</span>
+              </div>
+            </section>
+
+            <section class="side-section">
+              <div class="side-section-title">Execução &amp; Automação</div>
+              <div class="side-tags">
+                <span class="side-chip info">AWS Lambda (futuro)</span>
+                <span class="side-chip">Scripts agendados</span>
+                <span class="side-chip">Docker para dev</span>
+                <span class="side-chip">GitHub · versionamento</span>
+              </div>
+            </section>
+
+            <section class="side-section">
+              <div class="side-section-title">Benefícios do MVP</div>
+              <div class="side-tags">
+                <span class="side-chip good">Dados reais via API</span>
+                <span class="side-chip good">Arquitetura em camadas</span>
+                <span class="side-chip">Escalável e observável</span>
+                <span class="side-chip">Pronto para personalizar treinos</span>
+              </div>
+            </section>
+          </div>
+        </aside>
+
+      </section>
     </div>
-
-    <!-- Grid principal -->
-    <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-5">
-
-      <!-- Data Sources / Ingestion -->
-      <article class="group relative rounded-2xl border border-sky-500/40 bg-slate-900/70 p-4 flex flex-col justify-between transition duration-300 hover:border-sky-400 hover:shadow-[0_18px_60px_rgba(56,189,248,0.25)]">
-        <div>
-          <p class="text-[11px] tracking-wide text-sky-300 uppercase mb-1">Camada 0</p>
-          <h3 class="text-lg font-semibold text-slate-50 mb-3">Data Sources &amp; Ingestão</h3>
-          <ul class="space-y-1.5 text-xs text-slate-300">
-            <li>• <span class="font-medium">Hevy API</span> — treinos reais dos usuários.</li>
-            <li>• <span class="font-medium">Streamlit</span> — cadastros, feedbacks e inputs manuais.</li>
-            <li>• Jobs em <span class="font-medium">Python + PySpark</span> para ingestão incremental.</li>
-            <li>• Escrita direta no Data Lake (<span class="font-medium">MinIO</span>).</li>
-          </ul>
-        </div>
-        <p class="mt-4 text-[11px] text-slate-400">
-          Controle de estado via <code class="bg-slate-800 px-1 py-0.5 rounded">last_sync.json</code> garante ingestão incremental.
-        </p>
-      </article>
-
-      <!-- Bronze -->
-      <article class="group relative rounded-2xl border border-amber-800/60 bg-gradient-to-b from-amber-950/70 via-slate-950 to-slate-950 p-4 flex flex-col justify-between transition duration-300 hover:border-amber-400 hover:shadow-[0_20px_70px_rgba(217,119,6,0.35)]">
-        <div>
-          <p class="text-[11px] tracking-wide text-amber-300 uppercase mb-1">Camada 1</p>
-          <h3 class="text-lg font-semibold text-slate-50 mb-3">Bronze — Dados Brutos</h3>
-          <ul class="space-y-1.5 text-xs text-slate-200">
-            <li>• Armazena JSON bruto da Hevy API.</li>
-            <li>• Mantém histórico completo de treinos.</li>
-            <li>• Nenhuma transformação aplicada.</li>
-            <li>• Zona de verdade do Data Lake.</li>
-          </ul>
-        </div>
-        <p class="mt-4 text-[11px] text-amber-200/90">
-          Pasta lógica: <code class="bg-amber-950/60 px-1 py-0.5 rounded">s3://bronze/hevy/workouts/</code>
-        </p>
-      </article>
-
-      <!-- Silver -->
-      <article class="group relative rounded-2xl border border-slate-400/70 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 p-4 flex flex-col justify-between transition duration-300 hover:border-slate-200 hover:shadow-[0_20px_70px_rgba(148,163,184,0.35)]">
-        <div>
-          <p class="text-[11px] tracking-wide text-slate-300 uppercase mb-1">Camada 2</p>
-          <h3 class="text-lg font-semibold text-slate-50 mb-3">Silver — Dados Padronizados</h3>
-          <ul class="space-y-1.5 text-xs text-slate-200">
-            <li>• Tabela unificada de treinos por aluno.</li>
-            <li>• Padronização de datas, cargas, repetições e exercícios.</li>
-            <li>• Esquema consistente para consultas analíticas.</li>
-            <li>• Armazenamento em <span class="font-medium">Parquet</span> otimizado para Spark.</li>
-          </ul>
-        </div>
-        <p class="mt-4 text-[11px] text-slate-300">
-          Inclui dataset sintético para desenvolvimento e testes de modelo.
-        </p>
-      </article>
-
-      <!-- Gold -->
-      <article class="group relative rounded-2xl border border-amber-300/70 bg-gradient-to-b from-amber-100/10 via-slate-950 to-slate-950 p-4 flex flex-col justify-between transition duration-300 hover:border-amber-200 hover:shadow-[0_20px_70px_rgba(252,211,77,0.35)]">
-        <div>
-          <p class="text-[11px] tracking-wide text-amber-200 uppercase mb-1">Camada 3</p>
-          <h3 class="text-lg font-semibold text-slate-50 mb-3">Gold — Analytics &amp; Features</h3>
-          <ul class="space-y-1.5 text-xs text-slate-100">
-            <li>• <span class="font-medium">Modelo Dimensional (Star Schema)</span> com FatoTreinos e dimensões.</li>
-            <li>• Métricas agregadas de duração, volume, intensidade e frequência.</li>
-            <li>• <span class="font-medium">Wide Table</span> com features comportamentais por aluno.</li>
-            <li>• Base pronta para treinamento de modelos de recomendação.</li>
-          </ul>
-        </div>
-        <p class="mt-4 text-[11px] text-amber-100/80">
-          Otimizado para leitura de baixa latência por dashboards e jobs de ML.
-        </p>
-      </article>
-
-      <!-- Analytics & ML -->
-      <article class="group relative rounded-2xl border border-emerald-400/50 bg-gradient-to-b from-emerald-500/10 via-slate-950 to-slate-950 p-4 flex flex-col justify-between transition duration-300 hover:border-emerald-300 hover:shadow-[0_20px_70px_rgba(16,185,129,0.35)]">
-        <div>
-          <p class="text-[11px] tracking-wide text-emerald-300 uppercase mb-1">Camada 4</p>
-          <h3 class="text-lg font-semibold text-slate-50 mb-3">Dashboards &amp; Machine Learning</h3>
-          <ul class="space-y-1.5 text-xs text-slate-100">
-            <li>• <span class="font-medium">Power BI</span> conectado ao modelo dimensional Gold.</li>
-            <li>• <span class="font-medium">Streamlit</span> para monitorar treinos e registrar inputs.</li>
-            <li>• Modelos em <span class="font-medium">Python / PySpark</span> usando a Wide Table.</li>
-            <li>• Integração planejada com <span class="font-medium">AWS Lambda</span> para execução serverless.</li>
-          </ul>
-        </div>
-        <p class="mt-4 text-[11px] text-emerald-200/90">
-          Fecha o ciclo: dados reais → insights acionáveis → personalização de treinos.
-        </p>
-      </article>
-
-    </div>
-
-    <!-- Stack / Footer da seção -->
-    <footer class="mt-10 rounded-2xl border border-slate-800 bg-slate-900/80 px-4 py-4 flex flex-wrap items-center gap-3 text-[11px] text-slate-300">
-      <span class="inline-flex items-center gap-2">
-        <span class="h-6 w-6 flex items-center justify-center rounded-full bg-slate-800 border border-slate-700 text-[13px]">⚙️</span>
-        <span><strong>Stack:</strong> Python 3.12 • PySpark • MinIO (S3-like) • Docker • GitHub • AWS Lambda.</span>
-      </span>
-      <span class="inline-flex items-center gap-2">
-        <span class="h-6 w-6 flex items-center justify-center rounded-full bg-slate-800 border border-slate-700 text-[13px]">📁</span>
-        <span><strong>Repo:</strong> estrutura modular em <code class="bg-slate-800 px-1 py-0.5 rounded">src/instructor_workout/etl/...</code></span>
-      </span>
-    </footer>
-
-  </div>
-</section>
+  </main>
+</body>
+</html>
