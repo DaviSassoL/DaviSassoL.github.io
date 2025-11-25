@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Instructor Workout – Apresentação MVP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #020617;
+      --panel: #020617;
+      --lane-bg: rgba(15, 23, 42, 0.96);
+      --side-bg: rgba(15, 23, 42, 0.98);
+      --stroke: rgba(148, 163, 184, 0.45);
+      --stroke-strong: rgba(148, 163, 184, 0.7);
+      --accent-blue: #38bdf8;
+      --accent-green: #22c55e;
+      --accent-gold: #facc15;
+      --accent-purple: #a855f7;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --radius-lg: 22px;
+      --radius-md: 14px;
+      --shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
+      --transition: 0.18s ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, #0b1220 0, #020617 40%, #020617 100%);
+      color: var(--text-main);
+      padding: 32px 16px 40px;
+    }
+
+    .deck {
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+      align-items: center;
+    }
+
+    /* SLIDE / BOARD BASE */
+
+    .board {
+      width: 100%;
+      max-width: 1280px;
+      aspect-ratio: 16 / 9;
+      background: radial-gradient(circle at top left,
+          rgba(15, 23, 42, 0.96),
+          rgba(2, 6, 23, 0.98));
+      border-radius: 28px;
+      border: 1px solid var(--stroke-strong);
+      box-shadow: var(--shadow);
+      padding: 26px 30px 24px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .board::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top left,
+          rgba(56, 189, 248, 0.18),
+          transparent 55%),
+        radial-gradient(circle at bottom right,
+          rgba(168, 85, 247, 0.18),
+          transparent 60%);
+      pointer-events: none;
+    }
+
+    .board-inner {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 16px 10px 28px;
+      }
+      .board {
+        aspect-ratio: auto;
+        padding: 18px 14px 18px;
+        border-radius: 22px;
+      }
+    }
+
+    /* HEADER GENÉRICO DE SLIDE */
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+
+    .header-title h1 {
+      margin: 0 0 6px;
+      font-size: 1.55rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .header-title div {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      align-self: center;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke-strong);
+      background: rgba(15, 23, 42, 0.94);
+      color: var(--text-muted);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      backdrop-filter: blur(10px);
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-green);
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+    }
+
+    /* COVER SLIDE */
+
+    .cover-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 22px;
+      align-items: center;
+      height: 100%;
+    }
+
+    .cover-left h2 {
+      font-size: 2.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin: 0 0 10px;
+    }
+
+    .cover-left h3 {
+      margin: 0 0 14px;
+      font-size: 1.2rem;
+      color: var(--text-muted);
+    }
+
+    .cover-meta {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    .cover-logo-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cover-logo {
+      max-width: 260px;
+      width: 100%;
+      border-radius: 24px;
+      padding: 16px 16px 14px;
+      background: radial-gradient(circle at top,
+          rgba(15, 23, 42, 0.9),
+          rgba(2, 6, 23, 1));
+      border: 1px solid rgba(56, 189, 248, 0.6);
+      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.9);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .chip {
+      font-size: 0.72rem;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .chip.key {
+      border-color: rgba(56, 189, 248, 0.9);
+      color: #e0f2fe;
+    }
+
+    /* LIST SLIDES */
+
+    .list-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 20px;
+      height: 100%;
+    }
+
+    .list-left-title {
+      font-size: 1.1rem;
+      margin: 0 0 8px;
+    }
+
+    .kicker {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent-blue);
+      margin-bottom: 6px;
+    }
+
+    .bullets {
+      list-style: none;
+      padding: 0;
+      margin: 6px 0 0;
+      font-size: 0.96rem;
+      color: var(--text-main);
+    }
+
+    .bullets li {
+      margin-bottom: 6px;
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .bullets li::before {
+      content: "•";
+      position: absolute;
+      left: 3px;
+      top: 1px;
+      color: var(--accent-blue);
+    }
+
+    .note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* PIPELINE / MEDALLION SLIDE */
+
+    .layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 2.3fr) minmax(0, 1fr);
+      gap: 18px;
+      min-height: 0;
+      align-items: stretch;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .lanes {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      height: 100%;
+    }
+
+    .lane {
+      background: var(--lane-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--stroke-strong);
+      padding: 12px 12px 10px;
+      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.86);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .lane-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .lane-title {
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lane-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+    }
+
+    .lane-data .lane-dot {
+      background: var(--accent-blue);
+    }
+
+    .lane-consumption .lane-dot {
+      background: var(--accent-green);
+    }
+
+    .lane-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: flex-end;
+    }
+
+    .metric-pill {
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke-strong);
+      background: rgba(15, 23, 42, 0.96);
+      white-space: nowrap;
+    }
+
+    .metric-pill.good {
+      border-color: rgba(34, 197, 94, 0.9);
+      color: #bbf7d0;
+    }
+
+    .metric-pill.info {
+      border-color: rgba(56, 189, 248, 0.9);
+      color: #e0f2fe;
+    }
+
+    .lane-flow {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      gap: 10px;
+      margin-top: 6px;
+      padding: 10px 6px 6px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .lane-flow::before {
+      content: "";
+      position: absolute;
+      left: 5%;
+      right: 5%;
+      top: 50%;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(148, 163, 184, 0.7),
+        transparent
+      );
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    .lane-card {
+      position: relative;
+      z-index: 1;
+      flex: 1 1 0;
+      min-width: 110px;
+      background: radial-gradient(circle at top left,
+          rgba(15, 23, 42, 0.96),
+          #020617);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--stroke);
+      padding: 8px 8px 7px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: left;
+      transition: transform var(--transition), box-shadow var(--transition),
+        border-color var(--transition), background var(--transition);
+    }
+
+    .lane-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px rgba(15, 23, 42, 0.95);
+      border-color: rgba(56, 189, 248, 0.9);
+      background: radial-gradient(circle at top left,
+          rgba(56, 189, 248, 0.22),
+          #020617);
+    }
+
+    .lane-card-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .lane-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .tag {
+      font-size: 0.66rem;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .tag.key {
+      border-color: rgba(56, 189, 248, 0.95);
+      color: #e0f2fe;
+    }
+
+    .lane-card-list {
+      margin: 4px 0 0;
+      padding-left: 14px;
+      font-size: 0.66rem;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    .lane-card-list li {
+      margin-bottom: 2px;
+    }
+
+    /* SIDE COLUMN */
+
+    .side {
+      background: var(--side-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--stroke-strong);
+      padding: 14px 14px 10px;
+      box-shadow: 0 20px 46px rgba(15, 23, 42, 0.95);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 0;
+      height: 100%;
+    }
+
+    .side-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .side-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .side-kicker {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .side-title {
+      font-size: 0.96rem;
+      font-weight: 600;
+    }
+
+    .side-tag {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+
+    .side-section-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+      min-height: 0;
+      margin-top: 4px;
+    }
+
+    .side-section {
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      padding: 8px 8px 6px;
+      background: radial-gradient(circle at top left,
+          rgba(15, 23, 42, 0.96),
+          #020617);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .side-section-title {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
+    .side-section-title::before {
+      content: "";
+      width: 16px;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        rgba(148, 163, 184, 0.9),
+        transparent
+      );
+    }
+
+    .side-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .side-chip {
+      font-size: 0.68rem;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.96);
+      white-space: nowrap;
+      color: var(--text-muted);
+    }
+
+    .side-chip.good {
+      border-color: rgba(34, 197, 94, 0.9);
+      color: #bbf7d0;
+    }
+
+    .side-chip.info {
+      border-color: rgba(56, 189, 248, 0.95);
+      color: #e0f2fe;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="deck">
+
+    <!-- SLIDE 1 – CAPA -->
+    <section class="board">
+      <div class="board-inner">
+        <div class="cover-layout">
+          <div class="cover-left">
+            <p class="kicker">MVP · Engenharia de Dados & Machine Learning</p>
+            <h2>INSTRUCTOR WORKOUT</h2>
+            <h3>Plataforma Inteligente de Treinos</h3>
+            <p>
+              Primeira versão funcional de uma solução que usa dados reais de treinos
+              para construir a base de personalização de exercícios para cada aluno.
+            </p>
+            <div class="cover-meta">
+              Davi Sasso · Rodrigo Alex · Victor Barradas
+              <div class="chip-row" style="margin-top:10px;">
+                <span class="chip key">Medallion Architecture</span>
+                <span class="chip">Hevy API</span>
+                <span class="chip">PySpark</span>
+                <span class="chip">MinIO (S3-like)</span>
+              </div>
+            </div>
+          </div>
+          <div class="cover-logo-wrap">
+            <img
+              src="/mnt/data/A_logo_for_\"Instructor_Workout\"_is_displayed_on_a_.png"
+              alt="Logo Instructor Workout"
+              class="cover-logo"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2 – CONTEXTO / MOTIVAÇÃO -->
+    <section class="board">
+      <div class="board-inner">
+        <header class="header">
+          <div class="header-title">
+            <h1>Contexto & Motivação</h1>
+            <div>Por que construir uma plataforma de treinos orientada a dados?</div>
+          </div>
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span>Problema Real de Negócio</span>
+          </div>
+        </header>
+        <div class="list-layout">
+          <div>
+            <p class="kicker">Cenário Atual</p>
+            <h2 class="list-left-title">Apps de treino ainda são genéricos</h2>
+            <ul class="bullets">
+              <li>Planos de treino pouco adaptados ao comportamento real do aluno.</li>
+              <li>Falta de visão consolidada da evolução física ao longo do tempo.</li>
+              <li>Dados de treinos espalhados, pouco estruturados e pouco usados.</li>
+            </ul>
+            <p class="note">
+              Oportunidade: usar Engenharia de Dados + Analytics para transformar dados de treino
+              em um motor de personalização.
+            </p>
+          </div>
+          <div>
+            <p class="kicker">Proposta</p>
+            <ul class="bullets">
+              <li>Capturar treinos reais via <strong>Hevy API</strong>.</li>
+              <li>Centralizar tudo em um <strong>Data Lake</strong> escalável.</li>
+              <li>Enriquecer os dados com métricas analíticas e comportamentais.</li>
+              <li>Preparar a base para <strong>dashboards</strong> e <strong>modelos de IA</strong>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3 – OBJETIVO DO MVP -->
+    <section class="board">
+      <div class="board-inner">
+        <header class="header">
+          <div class="header-title">
+            <h1>Objetivo do MVP</h1>
+            <div>Validar o pipeline de dados e a arquitetura da solução.</div>
+          </div>
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span>Versão 1.0 da Plataforma</span>
+          </div>
+        </header>
+
+        <div class="list-layout">
+          <div>
+            <p class="kicker">O que queremos provar</p>
+            <ul class="bullets">
+              <li>Conseguir ingerir treinos reais de forma incremental e confiável.</li>
+              <li>Organizar os dados em <strong>Bronze, Silver e Gold</strong> (Medallion Architecture).</li>
+              <li>Entregar dados prontos para dashboards e experimentos de Machine Learning.</li>
+            </ul>
+          </div>
+          <div>
+            <p class="kicker">Resultados Esperados</p>
+            <ul class="bullets">
+              <li>Data Lake funcional com histórico de treinos.</li>
+              <li>Modelo dimensional para análise da performance dos alunos.</li>
+              <li>Wide table com features para futuros modelos de recomendação.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4 – ARQUITETURA (MEDALLION) -->
+    <section class="board">
+      <div class="board-inner">
+        <header class="header">
+          <div class="header-title">
+            <h1>Arquitetura de Dados · Medallion</h1>
+            <div>Do dado bruto da Hevy API até a camada de Analytics & Machine Learning.</div>
+          </div>
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span>Bronze · Silver · Gold</span>
+          </div>
+        </header>
+
+        <section class="layout">
+
+          <!-- Lado esquerdo: pipeline -->
+          <div class="lanes">
+
+            <!-- PIPELINE DE DADOS -->
+            <section class="lane lane-data">
+              <div class="lane-header">
+                <div class="lane-title">
+                  <span class="lane-dot"></span>
+                  PIPELINE DE DADOS
+                </div>
+                <div class="lane-metrics">
+                  <span class="metric-pill info">Freshness H+1</span>
+                  <span class="metric-pill good">Histórico preservado</span>
+                </div>
+              </div>
+
+              <div class="lane-flow">
+                <div class="lane-card">
+                  <div class="lane-card-title">Fontes de Dados</div>
+                  <div class="lane-card-tags">
+                    <span class="tag key">Hevy API</span>
+                    <span class="tag">Streamlit</span>
+                    <span class="tag">Dataset sintético</span>
+                  </div>
+                  <ul class="lane-card-list">
+                    <li>Treinos reais dos usuários</li>
+                    <li>Feedbacks e cadastros manuais</li>
+                  </ul>
+                </div>
+
+                <div class="lane-card">
+                  <div class="lane-card-title">Ingestão</div>
+                  <div class="lane-card-tags">
+                    <span class="tag key">Python + PySpark</span>
+                    <span class="tag">last_sync.json</span>
+                  </div>
+                  <ul class="lane-card-list">
+                    <li>Busca apenas treinos novos</li>
+                    <li>Escreve JSON na Bronze</li>
+                  </ul>
+                </div>
+
+                <div class="lane-card">
+                  <div class="lane-card-title">Bronze</div>
+                  <div class="lane-card-tags">
+                    <span class="tag key">RAW</span>
+                    <span class="tag">MinIO</span>
+                    <span class="tag">JSON</span>
+                  </div>
+                  <ul class="lane-card-list">
+                    <li>Histórico completo</li>
+                    <li>Nenhuma transformação</li>
+                  </ul>
+                </div>
+
+                <div class="lane-card">
+                  <div class="lane-card-title">Silver</div>
+                  <div class="lane-card-tags">
+                    <span class="tag key">Parquet</span>
+                    <span class="tag">Tabela unificada</span>
+                  </div>
+                  <ul class="lane-card-list">
+                    <li>Padronização de datas, cargas e repetições</li>
+                    <li>Dados analíticos consistentes</li>
+                  </ul>
+                </div>
+
+                <div class="lane-card">
+                  <div class="lane-card-title">Gold</div>
+                  <div class="lane-card-tags">
+                    <span class="tag key">Star Schema</span>
+                    <span class="tag">Wide Table</span>
+                  </div>
+                  <ul class="lane-card-list">
+                    <li>FatoTreinos + Dimensões</li>
+                    <li>Features para Machine Learning</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <!-- CONSUMO -->
+            <section class="lane lane-consumption">
+              <div class="lane-header">
+                <div class="lane-title">
+                  <span class="lane-dot"></span>
+                  CONSUMO & INTELIGÊNCIA
+                </div>
+                <div class="lane-metrics">
+                  <span class="metric-pill info">Dashboards & ML</span>
+                  <span class="metric-pill good">Pronto para personalização</span>
+                </div>
+              </div>
+
+              <div class="lane-flow">
+                <div class="lane-card">
+                  <div class="lane-card-title">Modelo Dimensional</div>
+                  <div class="lane-card-tags">
+                    <span class="tag key">FatoTreinos</span>
+                    <span class="tag">DimAluno</span>
+                    <span class="tag">DimExercício</span>
+                  </div>
+                  <ul class="lane-card-list">
+                    <li>Visão analítica da performance</li>
+                    <li>Cortes por aluno, grupo muscular, período</li>
+                  </ul>
+                </div>
+
+                <div class="lane-card">
+                  <div class="lane-card-title">Dashboards</div>
+                  <div class="lane-card-tags">
+                    <span class="tag key">Power BI</span>
+                    <span class="tag">Streamlit</span>
+                  </div>
+                  <ul class="lane-card-list">
+                    <li>Monitoramento de treinos</li>
+                    <li>Insights para instrutores</li>
+                  </ul>
+                </div>
+
+                <div class="lane-card">
+                  <div class="lane-card-title">Modelos de ML</div>
+                  <div class="lane-card-tags">
+                    <span class="tag key">Python</span>
+                    <span class="tag">PySpark</span>
+                  </div>
+                  <ul class="lane-card-list">
+                    <li>Utilizam a Wide Table Gold</li>
+                    <li>Foco em recomendações de treino</li>
+                  </ul>
+                </div>
+
+                <div class="lane-card">
+                  <div class="lane-card-title">Feedback Loop</div>
+                  <div class="lane-card-tags">
+                    <span class="tag key">Usuário & Instrutor</span>
+                    <span class="tag">Novos dados</span>
+                  </div>
+                  <ul class="lane-card-list">
+                    <li>Feedbacks alimentam o Data Lake</li>
+                    <li>Melhoria contínua dos modelos</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- Lado direito: stack/resumo -->
+          <aside class="side">
+            <div class="side-header">
+              <div class="side-title-block">
+                <div class="side-kicker">Camada Transversal</div>
+                <div class="side-title">Stack & Execução</div>
+              </div>
+              <div class="side-tag">Data Engineering · MLOps</div>
+            </div>
+
+            <div class="side-section-group">
+              <section class="side-section">
+                <div class="side-section-title">Stack Principal</div>
+                <div class="side-tags">
+                  <span class="side-chip info">Python 3.12</span>
+                  <span class="side-chip info">PySpark</span>
+                  <span class="side-chip">MinIO (S3-like)</span>
+                  <span class="side-chip">Streamlit</span>
+                  <span class="side-chip">Power BI</span>
+                </div>
+              </section>
+
+              <section class="side-section">
+                <div class="side-section-title">Execução & Automação</div>
+                <div class="side-tags">
+                  <span class="side-chip info">AWS Lambda (futuro)</span>
+                  <span class="side-chip">Scripts agendados</span>
+                  <span class="side-chip">Docker</span>
+                  <span class="side-chip">GitHub · versionamento</span>
+                </div>
+              </section>
+
+              <section class="side-section">
+                <div class="side-section-title">Benefícios do MVP</div>
+                <div class="side-tags">
+                  <span class="side-chip good">Dados reais via API</span>
+                  <span class="side-chip good">Arquitetura em camadas</span>
+                  <span class="side-chip">Escalável e profissional</span>
+                  <span class="side-chip">Base para personalização de treinos</span>
+                </div>
+              </section>
+            </div>
+          </aside>
+
+        </section>
+      </div>
+    </section>
+
+    <!-- SLIDE 5 – EXECUÇÃO & PRÓXIMOS PASSOS -->
+    <section class="board">
+      <div class="board-inner">
+        <header class="header">
+          <div class="header-title">
+            <h1>Execução do MVP & Próximos Passos</h1>
+            <div>O que já foi entregue e para onde o projeto pode evoluir.</div>
+          </div>
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span>Roadmap</span>
+          </div>
+        </header>
+
+        <div class="list-layout">
+          <div>
+            <p class="kicker">O que já está pronto</p>
+            <ul class="bullets">
+              <li>Ingestão incremental da <strong>Hevy API</strong> para a camada Bronze.</li>
+              <li>Dataset Silver carregado no Data Lake, com upload automatizado.</li>
+              <li>Arquitetura modular no repositório
+                <code>src/instructor_workout/etl/...</code>.
+              </li>
+            </ul>
+          </div>
+          <div>
+            <p class="kicker">Próximas evoluções</p>
+            <ul class="bullets">
+              <li>Finalizar transformação Silver → Gold (duração, timezones, features).</li>
+              <li>Construir dashboards no <strong>Power BI</strong> para instrutores.</li>
+              <li>Treinar o primeiro modelo de recomendação de treinos.</li>
+              <li>Orquestrar scripts via <strong>AWS Lambda</strong> para escala.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6 – CONCLUSÃO -->
+    <section class="board">
+      <div class="board-inner">
+        <header class="header">
+          <div class="header-title">
+            <h1>Conclusão</h1>
+            <div>Dados reais, arquitetura profissional e base pronta para IA em treinos.</div>
+          </div>
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span>Plataforma Inteligente</span>
+          </div>
+        </header>
+
+        <div class="list-layout">
+          <div>
+            <p class="kicker">Resumo</p>
+            <ul class="bullets">
+              <li>O MVP comprova a aplicação prática de <strong>Engenharia de Dados</strong> no contexto de treinos físicos.</li>
+              <li>A arquitetura em camadas (Bronze, Silver, Gold) garante histórico, qualidade e escalabilidade.</li>
+              <li>O ambiente está pronto para evoluir com dashboards avançados e modelos de Machine Learning.</li>
+            </ul>
+          </div>
+          <div>
+            <p class="kicker">Próximo nível</p>
+            <ul class="bullets">
+              <li>Transformar a base Gold em recomendações reais de treino.</li>
+              <li>Fechar o ciclo entre dados, instrutor e aluno.</li>
+            </ul>
+            <p class="note">
+              “Não é só um app de treino; é uma plataforma de dados preparada para tornar cada treino mais inteligente.”
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>
