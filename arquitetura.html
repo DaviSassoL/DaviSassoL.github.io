@@ -467,7 +467,7 @@
       <header class="header">
         <div class="header-title">
           <h1>Arquitetura da Plataforma Inteligente de Treinos</h1>
-          <div>Visão de alto nível do MVP de Engenharia de Dados (Medallion Architecture).</div>
+          <div>Visão de alto nível do MVP de Engenharia de Dados em AWS (Medallion Architecture).</div>
         </div>
         <div class="badge">
           <span class="badge-dot"></span>
@@ -485,15 +485,16 @@
             <div class="lane-header">
               <div class="lane-title">
                 <span class="lane-dot"></span>
-                PIPELINE DE DADOS · Medallion
+                PIPELINE DE DADOS · Medallion (S3)
               </div>
               <div class="lane-metrics">
-                <span class="metric-pill info">Freshness H+1</span>
+                <span class="metric-pill info">Bronze · Silver · Gold</span>
                 <span class="metric-pill good">Histórico 100% preservado</span>
               </div>
             </div>
 
             <div class="lane-flow">
+              <!-- FONTES -->
               <div class="lane-card">
                 <div class="lane-card-title">Fontes de Dados</div>
                 <div class="lane-card-tags">
@@ -508,58 +509,62 @@
                 </ul>
               </div>
 
+              <!-- INGESTÃO -->
               <div class="lane-card">
                 <div class="lane-card-title">Ingestão Incremental</div>
                 <div class="lane-card-tags">
                   <span class="tag key">Python + PySpark</span>
+                  <span class="tag">AWS Lambda / Glue</span>
                   <span class="tag">last_sync.json</span>
-                  <span class="tag">Jobs agendados</span>
                 </div>
                 <ul class="lane-card-list">
+                  <li>Jobs agendados via EventBridge</li>
                   <li>Busca apenas treinos novos</li>
-                  <li>Normaliza e valida estrutura</li>
-                  <li>Escreve JSON no Data Lake</li>
+                  <li>Escreve dados RAW na Bronze (S3)</li>
                 </ul>
               </div>
 
+              <!-- BRONZE -->
               <div class="lane-card">
                 <div class="lane-card-title">Camada Bronze</div>
                 <div class="lane-card-tags">
                   <span class="tag key">RAW</span>
-                  <span class="tag">MinIO (S3-like)</span>
-                  <span class="tag">JSON</span>
+                  <span class="tag">Amazon S3 · Data Lake</span>
                 </div>
                 <ul class="lane-card-list">
-                  <li>Histórico completo de treinos</li>
-                  <li>Nenhuma transformação aplicada</li>
+                  <li>Histórico completo de treinos e feedbacks</li>
+                  <li>Nenhuma transformação de negócio</li>
                   <li>Fonte de verdade do pipeline</li>
                 </ul>
               </div>
 
+              <!-- SILVER -->
               <div class="lane-card">
                 <div class="lane-card-title">Camada Silver</div>
                 <div class="lane-card-tags">
-                  <span class="tag key">Parquet</span>
-                  <span class="tag">Tabela unificada</span>
+                  <span class="tag key">AWS Glue · Spark</span>
+                  <span class="tag">Parquet em S3</span>
+                  <span class="tag">Dados padronizados</span>
                 </div>
                 <ul class="lane-card-list">
-                  <li>Datas, cargas e repetições padronizadas</li>
-                  <li>Estrutura analítica consistente</li>
-                  <li>Base pronta para queries</li>
+                  <li>Flatten de estruturas e tipos normalizados</li>
+                  <li>Remoção de duplicados e regras de qualidade</li>
+                  <li>Tabelas prontas para o modelo dimensional</li>
                 </ul>
               </div>
 
+              <!-- GOLD -->
               <div class="lane-card">
                 <div class="lane-card-title">Camada Gold</div>
                 <div class="lane-card-tags">
-                  <span class="tag key">Star Schema</span>
-                  <span class="tag">Wide Table</span>
-                  <span class="tag">Features</span>
+                  <span class="tag key">Star Schema (BI)</span>
+                  <span class="tag">Wide Table (ML)</span>
+                  <span class="tag">Athena</span>
                 </div>
                 <ul class="lane-card-list">
-                  <li>FatoTreinos + Dimensões (Aluno, Exercício, Data)</li>
+                  <li>FatoTreinos + DimAluno, DimExercício, DimTempo, DimTreino</li>
                   <li>Métricas agregadas de desempenho</li>
-                  <li>Tabela enriquecida para ML</li>
+                  <li>Features por aluno/semana para modelos de ML</li>
                 </ul>
               </div>
             </div>
@@ -579,23 +584,28 @@
             </div>
 
             <div class="lane-flow">
+              <!-- MODELO DIMENSIONAL -->
               <div class="lane-card">
-                <div class="lane-card-title">Modelo Dimensional</div>
+                <div class="lane-card-title">Modelo Dimensional (Gold)</div>
                 <div class="lane-card-tags">
                   <span class="tag key">FatoTreinos</span>
                   <span class="tag">DimAluno</span>
                   <span class="tag">DimExercício</span>
+                  <span class="tag">DimTempo / DimTreino</span>
                 </div>
                 <ul class="lane-card-list">
                   <li>Visão analítica da performance</li>
-                  <li>Suporta cortes por aluno, grupo muscular, período</li>
+                  <li>Suporta cortes por aluno, grupo muscular e período</li>
+                  <li>Consumido via Athena + Power BI</li>
                 </ul>
               </div>
 
+              <!-- DASHBOARDS -->
               <div class="lane-card">
                 <div class="lane-card-title">Dashboards</div>
                 <div class="lane-card-tags">
                   <span class="tag key">Power BI</span>
+                  <span class="tag">Amazon Athena</span>
                   <span class="tag">Streamlit</span>
                 </div>
                 <ul class="lane-card-list">
@@ -605,20 +615,22 @@
                 </ul>
               </div>
 
+              <!-- MODELOS ML -->
               <div class="lane-card">
                 <div class="lane-card-title">Modelos de ML</div>
                 <div class="lane-card-tags">
                   <span class="tag key">Python</span>
                   <span class="tag">PySpark</span>
-                  <span class="tag">Recomendação</span>
+                  <span class="tag">Wide Table Gold</span>
                 </div>
                 <ul class="lane-card-list">
-                  <li>Usam a Wide Table Gold</li>
-                  <li>Identificam padrões de treino</li>
-                  <li>Abrem caminho para recomendações personalizadas</li>
+                  <li>Recomendação de treinos e progressão de carga</li>
+                  <li>Segmentação de perfis de treino</li>
+                  <li>Saída gravada em Gold (recomendações por aluno)</li>
                 </ul>
               </div>
 
+              <!-- FEEDBACK LOOP -->
               <div class="lane-card">
                 <div class="lane-card-title">Feedback Loop</div>
                 <div class="lane-card-tags">
@@ -627,7 +639,7 @@
                 </div>
                 <ul class="lane-card-list">
                   <li>Feedbacks registrados via Streamlit</li>
-                  <li>Alimentam novamente o Data Lake</li>
+                  <li>Retornam ao pipeline Bronze → Silver → Gold</li>
                   <li>Permitem melhoria contínua dos modelos</li>
                 </ul>
               </div>
@@ -647,34 +659,42 @@
           </div>
 
           <div class="side-section-group">
+            <!-- STACK PRINCIPAL -->
             <section class="side-section">
               <div class="side-section-title">Stack Principal</div>
               <div class="side-tags">
                 <span class="side-chip info">Python 3.12</span>
                 <span class="side-chip info">PySpark</span>
-                <span class="side-chip">MinIO (S3-like)</span>
-                <span class="side-chip">Streamlit</span>
+                <span class="side-chip info">AWS Glue (ETL)</span>
+                <span class="side-chip">Amazon S3 · Data Lake</span>
+                <span class="side-chip">Glue Data Catalog</span>
+                <span class="side-chip">Amazon Athena</span>
                 <span class="side-chip">Power BI</span>
+                <span class="side-chip">Streamlit</span>
+                <span class="side-chip">MinIO (backup)</span>
               </div>
             </section>
 
+            <!-- EXECUÇÃO & AUTOMAÇÃO -->
             <section class="side-section">
               <div class="side-section-title">Execução &amp; Automação</div>
               <div class="side-tags">
-                <span class="side-chip info">AWS Lambda (futuro)</span>
-                <span class="side-chip">Scripts agendados</span>
+                <span class="side-chip info">AWS Lambda</span>
+                <span class="side-chip info">EventBridge / CloudWatch</span>
+                <span class="side-chip">Glue Jobs agendados</span>
                 <span class="side-chip">Docker para dev</span>
                 <span class="side-chip">GitHub · versionamento</span>
               </div>
             </section>
 
+            <!-- BENEFÍCIOS -->
             <section class="side-section">
               <div class="side-section-title">Benefícios do MVP</div>
               <div class="side-tags">
                 <span class="side-chip good">Dados reais via API</span>
-                <span class="side-chip good">Arquitetura em camadas</span>
-                <span class="side-chip">Escalável e observável</span>
-                <span class="side-chip">Pronto para personalizar treinos</span>
+                <span class="side-chip good">Arquitetura em camadas (Medallion)</span>
+                <span class="side-chip">Escalável e observável na AWS</span>
+                <span class="side-chip">Base pronta para personalizar treinos</span>
               </div>
             </section>
           </div>
