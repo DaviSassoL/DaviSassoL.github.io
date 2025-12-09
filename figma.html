@@ -2,13 +2,12 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Instructor Workout – Apresentação</title>
+  <title>Instructor Workout – Slides 16:9</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #02040a;
-      --bg-soft: #050918;
-      --bg-panel: #060c18;
+      --bg-panel: #050918;
       --accent: #37e0b7;
       --accent-soft: rgba(55, 224, 183, 0.16);
       --accent-2: #4ea3ff;
@@ -18,7 +17,7 @@
       --border-soft: rgba(255, 255, 255, 0.06);
       --radius-xl: 26px;
       --radius-lg: 20px;
-      --shadow-soft: 0 26px 80px rgba(0, 0, 0, 0.85);
+      --shadow-soft: 0 22px 70px rgba(0, 0, 0, 0.85);
     }
 
     * {
@@ -35,37 +34,42 @@
     }
 
     body {
-      padding: 24px;
+      padding: 16px;
     }
 
+    /* Cada seção = 1 slide na rolagem */
     .slide {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 16px;
     }
 
+    /* Quadro 16:9 centralizado (estilo slide do Keynote) */
     .frame {
-      width: 100%;
-      max-width: 1360px;
+      position: relative;
+      width: 90vw;
+      max-width: 1440px;         /* 1440x810 = 16:9 */
+      aspect-ratio: 16 / 9;
       background: radial-gradient(circle at top left, #10172a 0, #050814 55%, #020308 100%);
       border-radius: var(--radius-xl);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.09);
       box-shadow: var(--shadow-soft);
-      position: relative;
       overflow: hidden;
-      padding: 32px 40px;
+      padding: 22px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: stretch;
     }
 
     .frame::before {
       content: "";
       position: absolute;
-      inset: -40%;
+      inset: -30%;
       background:
-        radial-gradient(circle at 10% 0%, rgba(55, 224, 183, 0.12), transparent 55%),
+        radial-gradient(circle at 10% 0%, rgba(55, 224, 183, 0.16), transparent 55%),
         radial-gradient(circle at 90% 20%, rgba(78, 163, 255, 0.18), transparent 55%);
-      opacity: 0.9;
+      opacity: 1;
       z-index: 0;
       pointer-events: none;
     }
@@ -73,13 +77,14 @@
     .frame-inner {
       position: relative;
       z-index: 1;
-      border-radius: calc(var(--radius-xl) - 6px);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
       background: radial-gradient(circle at top, rgba(255, 255, 255, 0.03), rgba(3, 6, 14, 0.98));
-      padding: 32px 34px 30px;
+      padding: 26px 30px 22px;
+      height: 100%;
       display: grid;
       grid-template-columns: 3fr 2fr;
-      gap: 28px;
+      gap: 26px;
     }
 
     .frame-full {
@@ -88,52 +93,53 @@
 
     .slide-header-eyebrow {
       font-size: 0.68rem;
-      letter-spacing: 0.28em;
+      letter-spacing: 0.26em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 12px;
-    }
-
-    .slide-title {
-      font-size: 2.1rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      font-weight: 700;
       margin-bottom: 10px;
     }
 
+    .slide-title {
+      font-size: 2rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
     .slide-subtitle {
-      font-size: 1rem;
+      font-size: 1.02rem;
       font-weight: 500;
-      color: #d4ddff;
-      margin-bottom: 18px;
+      color: #dbe3ff;
+      margin-bottom: 16px;
     }
 
     .body-text {
-      font-size: 0.92rem;
+      font-size: 0.94rem;
       color: var(--muted);
-      max-width: 620px;
-      line-height: 1.6;
-      margin-bottom: 18px;
+      max-width: 640px;
+      line-height: 1.65;
+      margin-bottom: 14px;
     }
 
     .author {
       font-size: 0.82rem;
       color: #c3cdef;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .chip-row {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
+      margin-top: 4px;
     }
 
     .chip {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 4px 11px;
+      padding: 4px 12px;
       border-radius: 999px;
       border: 1px solid rgba(255, 255, 255, 0.12);
       background: rgba(2, 6, 15, 0.9);
@@ -163,9 +169,12 @@
       background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.06) 0, #050a15 48%);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--radius-lg);
-      padding: 18px 18px 16px;
-      min-height: 160px;
+      padding: 16px 16px 14px;
+      min-height: 170px;
       box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7);
+      font-size: 0.86rem;
+      color: var(--muted);
+      line-height: 1.6;
     }
 
     .card-title {
@@ -176,46 +185,42 @@
       margin-bottom: 10px;
     }
 
-    .card-body {
-      font-size: 0.86rem;
-      color: var(--muted);
-      line-height: 1.55;
-      white-space: pre-line;
-    }
-
-    .card-bullets {
-      font-size: 0.86rem;
-      color: var(--muted);
-      line-height: 1.6;
-      list-style: none;
-    }
-
-    .card-bullets li::before {
-      content: "•";
-      color: var(--accent);
-      margin-right: 6px;
-    }
-
     .card-meta-title {
       font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 0.16em;
       color: #c7d0f0;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
-    .two-cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+    .card-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .card-bullets li {
+      margin-bottom: 6px;
+      position: relative;
+      padding-left: 14px;
+    }
+
+    .card-bullets li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+      font-size: 0.9rem;
     }
 
     .section-title {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: #cdd7ff;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
+      margin-top: 4px;
     }
 
     .bullet-list {
@@ -227,8 +232,8 @@
 
     .bullet-list li {
       margin-bottom: 6px;
+      padding-left: 14px;
       position: relative;
-      padding-left: 16px;
     }
 
     .bullet-list li::before {
@@ -253,50 +258,30 @@
       margin-top: 8px;
     }
 
-    .pill-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-
-    .pill-label span.icon {
-      width: 16px;
-      height: 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      color: var(--accent);
-      background: rgba(0, 0, 0, 0.6);
+    .two-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 6px;
     }
 
     .footnote {
-      margin-top: 16px;
-      font-size: 0.76rem;
+      margin-top: 14px;
+      font-size: 0.78rem;
       color: var(--muted);
       opacity: 0.9;
     }
 
     .slide-footer {
-      position: absolute;
-      inset-inline: 34px;
-      bottom: 18px;
+      position: relative;
+      z-index: 1;
+      margin-top: 6px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-size: 0.72rem;
-      color: rgba(174, 187, 224, 0.8);
-    }
-
-    .slide-footer span {
-      opacity: 0.85;
+      color: rgba(174, 187, 224, 0.85);
+      padding-inline: 6px;
     }
 
     .nav-hint {
@@ -308,28 +293,18 @@
       .frame-inner {
         grid-template-columns: 1fr;
       }
-      .slide-footer {
-        position: static;
-        margin-top: 18px;
+      .layout-columns {
+        grid-template-columns: 1fr 1fr;
       }
     }
 
-    @media (max-width: 720px) {
-      body {
-        padding: 12px;
-      }
+    @media (max-width: 800px) {
       .frame {
-        padding: 18px 18px 22px;
+        width: 100vw;
+        border-radius: 0;
+        box-shadow: none;
       }
-      .frame-inner {
-        padding: 20px 18px 20px;
-      }
-      .slide-title {
-        font-size: 1.6rem;
-      }
-      .layout-columns {
-        grid-template-columns: 1fr;
-      }
+      .layout-columns,
       .two-cards {
         grid-template-columns: 1fr;
       }
@@ -372,14 +347,16 @@
 
       <aside class="card">
         <div class="card-title">Cenário do cliente</div>
-        <div class="card-body">
-          Dados de treinos espalhados em aplicativos, planilhas e anotações manuais.{"\n"}
-          Dificuldade para acompanhar evolução de cargas, volume e frequência.{"\n"}
-          Personalização de treinos feita de forma manual, sem uso estruturado de dados.{"\n\n"}
-          <strong>Objetivo:</strong> propor um pipeline de dados em nuvem,
-          automatizado e observável, que unifique as fontes, gere métricas
-          confiáveis e permita um app analítico com suporte de IA.
-        </div>
+        <p>
+          Dados de treinos espalhados em aplicativos, planilhas e anotações manuais,
+          dificultando uma visão confiável de evolução. Usuários não conseguem acompanhar
+          de forma simples cargas, volume e frequência de treino ao longo do tempo.<br><br>
+          Personal trainers ajustam treinos de forma manual, sem uma base consolidada de
+          dados para apoiar decisões.<br><br>
+          <strong>Objetivo:</strong> propor um pipeline de dados em nuvem, automatizado e
+          observável, que unifique as fontes, gere métricas confiáveis e permita um app
+          analítico com suporte de IA.
+        </p>
       </aside>
     </div>
     <div class="slide-footer">
@@ -389,7 +366,7 @@
   </div>
 </section>
 
-<!-- SLIDE 2 – CONTEXTO E PROBLEMA -->
+<!-- SLIDE 2 – CONTEXTO & PROBLEMA -->
 <section class="slide" id="slide-2">
   <div class="frame">
     <div class="frame-inner frame-full">
@@ -401,25 +378,26 @@
           <div class="card">
             <div class="card-meta-title">Setor – Saúde, Fitness &amp; Bem-estar</div>
             <ul class="card-bullets">
-              <li>Crescimento de apps de treino e plataformas digitais de bem-estar.</li>
-              <li>Usuários registram treinos em múltiplos sistemas, nem sempre integrados.</li>
-              <li>Personal trainers precisam de visão consolidada para ajustar planos.</li>
+              <li>Crescimento de apps de treino, wearables e plataformas digitais de bem-estar.</li>
+              <li>Grande volume de dados gerados em diferentes ferramentas e formatos.</li>
+              <li>Necessidade de análises mais inteligentes sobre progresso e consistência.</li>
             </ul>
           </div>
 
           <div class="card">
             <div class="card-meta-title">Problema de Negócio</div>
             <ul class="card-bullets">
-              <li>Ausência de visão unificada de treinos, cargas e volume ao longo do tempo.</li>
-              <li>Dificuldade para comparar evolução individual com médias globais.</li>
-              <li>Tomada de decisão pouco orientada a dados na prescrição de treinos.</li>
+              <li>Ausência de visão unificada de treinos, cargas e volume por usuário.</li>
+              <li>Dificuldade para comparar evolução individual com médias globais ou grupos.</li>
+              <li>Personalização de treinos feita “no olho”, com pouco uso de dados históricos.</li>
             </ul>
           </div>
         </div>
 
         <p class="footnote">
-          Pergunta central: <strong>como usar Engenharia de Dados para transformar
-          dados de treino em insights acionáveis para usuários e instrutores?</strong>
+          Pergunta central: <strong>como usar Engenharia de Dados para transformar dados
+          de treino em insights acionáveis para usuários e instrutores, de forma escalável
+          e confiável?</strong>
         </p>
       </div>
     </div>
@@ -443,24 +421,25 @@
             <div class="section-title">Objetivo Geral</div>
             <p class="body-text">
               Implementar uma arquitetura de dados em nuvem, inspirada no modelo Lambda,
-              para suportar um MVP analítico de treinos personalizados, com Data Lake em S3,
-              pipelines orquestrados por Airflow e um app Streamlit com IA.
+              para suportar um MVP analítico de treinos personalizados, com Data Lake em
+              S3, pipelines orquestrados por Airflow e um app Streamlit com IA generativa.
             </p>
           </div>
           <div>
             <div class="section-title">Objetivos Técnicos</div>
             <ul class="bullet-list small">
               <li>Construir um Data Lake em AWS S3 com camadas Bronze, Silver e Gold.</li>
-              <li>Automatizar ingestão e transformações com Apache Airflow.</li>
-              <li>Modelar a camada Gold em Star Schema / Wide Table.</li>
+              <li>Automatizar ingestão e transformações com Apache Airflow (ETL/ELT).</li>
+              <li>Modelar a camada Gold em Star Schema / tabelão de métricas.</li>
+              <li>Disponibilizar dados prontos para dashboards e modelos de ML.</li>
             </ul>
           </div>
           <div>
             <div class="section-title">Objetivos de Negócio</div>
             <ul class="bullet-list small">
-              <li>Consolidar histórico de treinos por usuário.</li>
-              <li>Facilitar acompanhamento de evolução de volume e cargas.</li>
-              <li>Suportar recomendações de treino personalizadas com IA.</li>
+              <li>Consolidar histórico completo de treinos por usuário.</li>
+              <li>Facilitar acompanhamento de evolução de volume, cargas e frequência.</li>
+              <li>Suportar recomendações de treino personalizadas via IA.</li>
             </ul>
           </div>
         </div>
@@ -473,7 +452,7 @@
   </div>
 </section>
 
-<!-- SLIDE 4 – VISÃO GERAL DA SOLUÇÃO -->
+<!-- SLIDE 4 – VISÃO GERAL -->
 <section class="slide" id="slide-4">
   <div class="frame">
     <div class="frame-inner frame-full">
@@ -486,7 +465,7 @@
             <div class="card-meta-title">1 · Fontes de Dados</div>
             <ul class="card-bullets">
               <li>API Hevy – workouts, séries e exercícios em formato JSON.</li>
-              <li>Formulário do app Streamlit – perfil, objetivos e restrições.</li>
+              <li>Formulário do app Streamlit – perfil, objetivos e restrições do usuário.</li>
               <li>Datasets externos – Kaggle e dados sintéticos para catálogo de exercícios.</li>
             </ul>
           </div>
@@ -494,18 +473,18 @@
           <div class="card">
             <div class="card-meta-title">2 · Pipeline &amp; Orquestração</div>
             <ul class="card-bullets">
-              <li>Apache Airflow coordenando tasks de ingestão e transformação.</li>
-              <li>Scripts Python + Pandas compondo os ETLs.</li>
-              <li>Execução em batch, com dependências e monitoramento centralizado.</li>
+              <li>Apache Airflow coordinando tasks de ingestão e transformação.</li>
+              <li>Scripts Python + Pandas compondo o ETL da Bronze à Gold.</li>
+              <li>Execução em batch, com dependências, logs e retries configuráveis.</li>
             </ul>
           </div>
 
           <div class="card">
             <div class="card-meta-title">3 · Consumo &amp; Experiência</div>
             <ul class="card-bullets">
-              <li>App Streamlit para login, formulário, chat IA e dashboard.</li>
+              <li>App Streamlit com login, formulário, chat IA e dashboard.</li>
               <li>Camada Gold alimentando relatórios e possíveis ferramentas de BI.</li>
-              <li>Base pronta para modelos preditivos futuros (ex.: risco de abandono).</li>
+              <li>Base preparada para modelos preditivos de aderência e performance.</li>
             </ul>
           </div>
         </div>
@@ -522,7 +501,7 @@
   </div>
 </section>
 
-<!-- SLIDE 5 – ARQUITETURA LAMBDA / DATA LAKE -->
+<!-- SLIDE 5 – ARQUITETURA LAMBDA -->
 <section class="slide" id="slide-5">
   <div class="frame">
     <div class="frame-inner frame-full">
@@ -539,22 +518,20 @@
               <li>Dados chegam inicialmente em formatos brutos (JSON, CSV, Parquet).</li>
             </ul>
           </div>
-
           <div>
             <div class="section-title">Batch / Lambda Layer</div>
             <ul class="bullet-list small">
               <li>Airflow coordena o fluxo create_lake_structure → ingest_* → silver_* → gold_metrics.</li>
-              <li>Transformações em batch usando Python + Pandas.</li>
-              <li>Camadas lógicas: Bronze (Raw) → Silver (Trusted) → Gold (Curated).</li>
+              <li>Transformações em batch com Python + Pandas, aplicando regras de negócio.</li>
+              <li>Entrega dados prontos para consumo na camada Gold.</li>
             </ul>
           </div>
-
           <div>
             <div class="section-title">Serving &amp; Consumo</div>
             <ul class="bullet-list small">
-              <li>Data Lake em S3 como armazenamento central.</li>
-              <li>Streamlit App consumindo a camada Gold.</li>
-              <li>Possibilidade de conexão com ferramentas de BI (Power BI, Looker Studio).</li>
+              <li>Data Lake em S3 como armazenamento central e barato.</li>
+              <li>Streamlit App utilizando diretamente a Gold para gerar valor.</li>
+              <li>Conectores possíveis com ferramentas de BI corporativas.</li>
             </ul>
           </div>
         </div>
@@ -567,7 +544,7 @@
   </div>
 </section>
 
-<!-- SLIDE 6 – BRONZE / SILVER / GOLD -->
+<!-- SLIDE 6 – BRONZE/SILVER/GOLD -->
 <section class="slide" id="slide-6">
   <div class="frame">
     <div class="frame-inner frame-full">
@@ -580,31 +557,31 @@
             <div class="card-meta-title">Bronze – Raw</div>
             <ul class="card-bullets">
               <li>Dados brutos exatamente como chegam das fontes.</li>
-              <li>Ex.: <code>hevy/raw_workouts.parquet</code>, <code>users/raw_form.parquet</code>.</li>
-              <li>Foco em rastreabilidade e histórico completo.</li>
+              <li>Ex.: <code>hevy/raw_workouts.parquet</code> e <code>users/raw_form.parquet</code>.</li>
+              <li>Preserva histórico e garante rastreabilidade total.</li>
             </ul>
           </div>
           <div class="card">
             <div class="card-meta-title">Silver – Trusted</div>
             <ul class="card-bullets">
-              <li>Dados limpos, tipados e integrados.</li>
-              <li>Tabelas de usuários, treinos, séries e exercícios.</li>
-              <li>Aplicação de regras de qualidade, conversão de tipos e cálculo de campos derivados.</li>
+              <li>Dados limpos, padronizados e tipados.</li>
+              <li>Tabelas de usuários, treinos, séries e exercícios já integradas.</li>
+              <li>Tratamento de nulos, deduplicação e cálculo de métricas básicas.</li>
             </ul>
           </div>
           <div class="card">
             <div class="card-meta-title">Gold – Curated</div>
             <ul class="card-bullets">
-              <li>Modelagem em Star Schema com tabelão de métricas.</li>
+              <li>Star Schema com tabelão de métricas para BI e ML.</li>
               <li><code>fact_workout_metrics</code>, <code>dim_user</code>, <code>dim_date</code>, <code>dim_exercise</code>.</li>
-              <li>Base otimizada para dashboards e análises OLAP / ML.</li>
+              <li>Base otimizada para dashboards de evolução e comparação.</li>
             </ul>
           </div>
         </div>
 
         <p class="footnote">
           Decisão de design: <strong>usar um Star Schema na Gold</strong> para simplificar
-          consultas analíticas e manter flexibilidade para novos indicadores.
+          consultas analíticas e manter flexibilidade para novos indicadores de treino.
         </p>
       </div>
     </div>
@@ -615,7 +592,7 @@
   </div>
 </section>
 
-<!-- SLIDE 7 – ORQUESTRAÇÃO COM AIRFLOW -->
+<!-- SLIDE 7 – AIRFLOW -->
 <section class="slide" id="slide-7">
   <div class="frame">
     <div class="frame-inner">
@@ -625,8 +602,8 @@
 
         <p class="body-text">
           O Apache Airflow coordena todas as etapas do ETL, garantindo dependências,
-          agendamentos e reexecução em caso de falhas. Em vez de scripts soltos, o
-          pipeline passa a ser descrito como um grafo de tarefas.
+          agendamento e monitoramento. O pipeline deixa de ser uma coleção de scripts
+          manuais e passa a ser descrito como um grafo de tarefas observável.
         </p>
 
         <div class="section-title">DAG principal</div>
@@ -638,7 +615,7 @@
         </ul>
 
         <p class="footnote">
-          O Airflow executa as tasks em ordem, monitora logs, permite retries automáticos
+          O Airflow executa as tasks em ordem, registra logs, permite retries automáticos
           e facilita o reprocessamento de períodos específicos quando necessário.
         </p>
       </div>
@@ -649,7 +626,7 @@
           <li>Cada task usa <strong>BashOperator</strong> para disparar scripts Python.</li>
           <li>Execuções podem ser agendadas (ex.: diária) ou disparadas manualmente.</li>
           <li>Falhas interrompem as tasks dependentes, evitando dados inconsistentes na Gold.</li>
-          <li>A interface do Airflow exibe o grafo, status de cada task e histórico de runs.</li>
+          <li>A UI do Airflow exibe o grafo, status de cada task e histórico de execuções.</li>
         </ul>
       </aside>
     </div>
@@ -660,7 +637,7 @@
   </div>
 </section>
 
-<!-- SLIDE 8 – MODELAGEM STAR SCHEMA -->
+<!-- SLIDE 8 – MODELAGEM -->
 <section class="slide" id="slide-8">
   <div class="frame">
     <div class="frame-inner frame-full">
@@ -680,15 +657,15 @@
           <div>
             <div class="section-title">Dimensões Principais</div>
             <ul class="bullet-list small">
-              <li><strong>dim_user:</strong> dados de perfil, objetivos, experiência.</li>
-              <li><strong>dim_date:</strong> dia, semana, mês, ano, dia da semana, feriados.</li>
+              <li><strong>dim_user:</strong> perfil, objetivos, experiência e restrições.</li>
+              <li><strong>dim_date:</strong> dia, semana, mês, ano, dia da semana, flag de fim de semana.</li>
               <li><strong>dim_exercise:</strong> nome, grupo muscular, tipo de equipamento.</li>
             </ul>
           </div>
           <div>
             <div class="section-title">Benefícios</div>
             <ul class="bullet-list small">
-              <li>Facilidade de leitura por ferramentas de BI.</li>
+              <li>Facilidade de leitura por ferramentas de BI e pela equipe de negócio.</li>
               <li>Consultas analíticas simples com agregações por tempo, usuário ou exercício.</li>
               <li>Base consistente para futuros modelos de Machine Learning.</li>
             </ul>
@@ -718,7 +695,8 @@
 
         <p class="body-text">
           A camada de consumo materializa o valor do pipeline para o usuário final,
-          através de um app web simples, porém conectado ao Data Lake e a um modelo de IA.
+          através de um app web simples, porém conectado ao Data Lake e a um modelo
+          de IA generativa especializado em treinos.
         </p>
 
         <div class="layout-columns">
@@ -738,27 +716,34 @@
               <li>Gera recomendações de treino e ajustes semanais personalizados.</li>
             </ul>
           </div>
+          <div>
+            <div class="section-title">Dados de teste</div>
+            <ul class="bullet-list small">
+              <li>Script <code>generate_fake_test_data.py</code> gera <code>fact_workouts_test_user.parquet</code>.</li>
+              <li>Usuário de demonstração: <strong>testuser@example.com / 123456</strong>.</li>
+              <li>Permite validar toda a jornada sem depender de APIs externas em tempo real.</li>
+            </ul>
+          </div>
         </div>
       </div>
 
       <aside class="card">
-        <div class="card-meta-title">Dados de teste</div>
-        <div class="card-body">
-          • Script <code>generate_fake_test_data.py</code> gera
-          <code>fact_workouts_test_user.parquet</code> na área de teste do S3.{"\n"}
-          • Usuário de demonstração: <strong>testuser@example.com / 123456</strong>.{"\n"}
-          • Permite validar toda a jornada sem depender de APIs externas em tempo real.
-        </div>
+        <div class="card-meta-title">Experiência do usuário</div>
+        <ul class="card-bullets">
+          <li>Usuário faz login, preenche o formulário e passa a ter seu histórico centralizado.</li>
+          <li>Consegue visualizar rapidamente evolução de volume, cargas e frequência.</li>
+          <li>Pode conversar com a IA para ajustar treinos de forma guiada e contextualizada.</li>
+        </ul>
       </aside>
     </div>
     <div class="slide-footer">
       <span>Slide 9 · MVP Streamlit &amp; IA</span>
-      <span class="nav-hint">Próximo: Governança &amp; Qualidade</span>
+      <span class="nav-hint">Próximo: Governança &amp; Automação</span>
     </div>
   </div>
 </section>
 
-<!-- SLIDE 10 – GOVERNANÇA, QUALIDADE, CI/CD, IAC -->
+<!-- SLIDE 10 – GOVERNANÇA / QUALIDADE / CI-CD -->
 <section class="slide" id="slide-10">
   <div class="frame">
     <div class="frame-inner frame-full">
@@ -771,7 +756,7 @@
             <div class="section-title">Governança &amp; LGPD</div>
             <ul class="bullet-list small">
               <li>Nomenclatura por camada/domínio: <code>bronze/hevy</code>, <code>silver/users</code>, <code>gold/fact_workout_metrics</code>.</li>
-              <li>Uso mínimo de dados pessoais; foco em identificadores técnicos.</li>
+              <li>Uso mínimo de dados pessoais; foco em IDs técnicos e informações de treino.</li>
               <li>Possibilidade de criptografia em repouso (S3) e controle de acesso via IAM.</li>
             </ul>
           </div>
@@ -786,12 +771,17 @@
           <div>
             <div class="section-title">CI/CD &amp; IaC (Visão Conceitual)</div>
             <ul class="bullet-list small">
-              <li>GitHub como repositório central e controle de versão.</li>
+              <li>GitHub como repositório central e controle de versão de código.</li>
               <li>Pipeline CI/CD proposto com GitHub Actions para testes e build de containers.</li>
-              <li>Terraform sugerido para provisionar bucket S3, usuários IAM e infraestrutura de execução.</li>
+              <li>Terraform sugerido para provisionar bucket S3, usuários IAM e infraestrutura.</li>
             </ul>
           </div>
         </div>
+
+        <p class="footnote">
+          Mesmo sendo um projeto acadêmico, as decisões foram guiadas por práticas de
+          governança, segurança e automação utilizadas em ambientes produtivos.
+        </p>
       </div>
     </div>
     <div class="slide-footer">
@@ -828,7 +818,7 @@
       <aside class="card">
         <div class="card-meta-title">Próximos Passos</div>
         <ul class="card-bullets">
-          <li>Incorporar ingestão em streaming (Speed Layer) para treinos em quase tempo real.</li>
+          <li>Incorporar ingestão em streaming (Speed Layer) para treinos quase em tempo real.</li>
           <li>Adicionar modelos de ML para prever risco de abandono e sugerir planos ideais.</li>
           <li>Conectar a camada Gold a ferramentas de BI corporativas.</li>
           <li>Evoluir CI/CD e IaC para ambientes de produção multi-conta.</li>
@@ -873,7 +863,15 @@
             <ul class="bullet-list small">
               <li>Importância de desenhar camadas de dados desde o início.</li>
               <li>Benefícios de separar ingestão, transformação e consumo.</li>
-              <li>Como pequenos incrementos (MVP) aceleram validação de ideias.</li>
+              <li>Valor de um MVP funcional para validar ideias com rapidez.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="section-title">Próximas Explorações</div>
+            <ul class="bullet-list small">
+              <li>Incluir métricas de recuperação, sono e nutrição em futuras versões.</li>
+              <li>Explorar personalização baseada em clusters de usuários semelhantes.</li>
+              <li>Integrar notificações e automações com ferramentas de treino.</li>
             </ul>
           </div>
         </div>
