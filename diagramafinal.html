@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Instructor Workout - Arquitetura de Dados</title>
+  <style>
+    :root {
+      --bg-main: #020617;
+      --bg-panel: #020617;
+      --bg-card: rgba(15, 23, 42, 0.9);
+      --bg-chip: rgba(15, 23, 42, 0.85);
+      --border-subtle: rgba(148, 163, 184, 0.18);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --accent-green: #22c55e;
+      --accent-blue: #38bdf8;
+      --accent-yellow: #facc15;
+      --accent-pink: #ec4899;
+      --accent-orange: #fb923c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #020617 0, #000 55%, #020617 100%);
+      color: var(--text-main);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+
+    .diagram-wrapper {
+      width: 100%;
+      max-width: 1280px;
+    }
+
+    .diagram-panel {
+      position: relative;
+      border-radius: 32px;
+      padding: 28px 32px 32px;
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.18), transparent 60%),
+        var(--bg-panel);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow:
+        0 24px 90px rgba(15, 23, 42, 0.9),
+        inset 0 0 0 1px rgba(15, 23, 42, 0.8);
+      overflow: hidden;
+    }
+
+    /* Linha principal de fluxo */
+    .flow-line {
+      position: absolute;
+      top: 55%;
+      left: 10%;
+      right: 10%;
+      height: 3px;
+      background: linear-gradient(
+        90deg,
+        rgba(56, 189, 248, 0.05),
+        rgba(56, 189, 248, 0.45),
+        rgba(250, 204, 21, 0.5),
+        rgba(236, 72, 153, 0.4)
+      );
+      opacity: 0.75;
+      pointer-events: none;
+    }
+
+    .flow-node {
+      position: absolute;
+      top: 54%;
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      border: 2px solid rgba(15, 23, 42, 0.9);
+      box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.75);
+    }
+
+    .flow-node.sources   { left: 13%; background: var(--accent-blue); }
+    .flow-node.airflow   { left: 35%; background: var(--accent-green); }
+    .flow-node.datalake  { left: 60%; background: var(--accent-yellow); }
+    .flow-node.serving   { left: 84%; background: var(--accent-pink); }
+
+    .diagram-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+
+    .title-block h1 {
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 4px;
+    }
+
+    .title-block h2 {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .title-block p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      max-width: 420px;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .legend-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--bg-chip);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text-muted);
+      backdrop-filter: blur(8px);
+      white-space: nowrap;
+    }
+
+    .legend-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+
+    .legend-dot.sources  { background: var(--accent-blue); }
+    .legend-dot.etl      { background: var(--accent-green); }
+    .legend-dot.storage  { background: var(--accent-yellow); }
+    .legend-dot.serving  { background: var(--accent-pink); }
+
+    /* GRID PRINCIPAL */
+
+    .diagram-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1.1fr 1.2fr 1.1fr;
+      gap: 18px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .column-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin-left: 4px;
+    }
+
+    .card {
+      position: relative;
+      padding: 14px 14px 12px;
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at top left, rgba(148, 163, 184, 0.21), transparent 55%),
+        var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 12px 40px rgba(15, 23, 42, 0.65);
+    }
+
+    .card.compact {
+      padding: 10px 12px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.6);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .card-title-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-pill {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      background: radial-gradient(circle at 30% 0%, rgba(148, 163, 184, 0.4), transparent 70%);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #e5e7eb;
+    }
+
+    .icon-pill.blue   { box-shadow: 0 0 24px rgba(56, 189, 248, 0.35); }
+    .icon-pill.green  { box-shadow: 0 0 24px rgba(34, 197, 94, 0.35); }
+    .icon-pill.yellow { box-shadow: 0 0 24px rgba(250, 204, 21, 0.3); }
+    .icon-pill.pink   { box-shadow: 0 0 24px rgba(236, 72, 153, 0.35); }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .card-tag {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-muted);
+    }
+
+    .card-body {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .card-body ul {
+      list-style: none;
+      margin-top: 4px;
+    }
+
+    .card-body li {
+      display: flex;
+      align-items: flex-start;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .card-body li::before {
+      content: "•";
+      font-size: 12px;
+      color: rgba(148, 163, 184, 0.85);
+      margin-top: 1px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .badge {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      color: #9ca3af;
+      white-space: nowrap;
+    }
+
+    .badge.highlight {
+      border-color: rgba(34, 197, 94, 0.6);
+      color: #bbf7d0;
+    }
+
+    .muted {
+      opacity: 0.85;
+    }
+
+    /* Responsivo */
+    @media (max-width: 1024px) {
+      body {
+        padding: 16px;
+      }
+
+      .diagram-panel {
+        padding: 22px 18px 20px;
+        border-radius: 24px;
+      }
+
+      .diagram-header {
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .diagram-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .flow-line,
+      .flow-node {
+        display: none; /* linhas de fluxo somem no mobile para não poluir */
+      }
+    }
+
+    @media (max-width: 720px) {
+      .diagram-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .title-block h2 {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="diagram-wrapper">
+    <div class="diagram-panel">
+      <!-- Linha de fluxo de alta -->
+      <div class="flow-line"></div>
+      <div class="flow-node sources"></div>
+      <div class="flow-node airflow"></div>
+      <div class="flow-node datalake"></div>
+      <div class="flow-node serving"></div>
+
+      <header class="diagram-header">
+        <div class="title-block">
+          <h1>INSTRUCTOR WORKOUT</h1>
+          <h2>Arquitetura de Dados – Lambda / Data Lake em S3</h2>
+          <p>
+            Fluxo de dados de treinos: fontes &rarr; Airflow ETL &rarr; Data Lake em S3
+            (Bronze / Silver / Gold) &rarr; App Streamlit com IA e dashboards analíticos.
+          </p>
+        </div>
+        <div class="legend">
+          <div class="legend-chip">
+            <span class="legend-dot sources"></span>
+            <span>Entrada / Source Systems</span>
+          </div>
+          <div class="legend-chip">
+            <span class="legend-dot etl"></span>
+            <span>Orquestração / ETL</span>
+          </div>
+          <div class="legend-chip">
+            <span class="legend-dot storage"></span>
+            <span>Armazenamento / Data Lake</span>
+          </div>
+          <div class="legend-chip">
+            <span class="legend-dot serving"></span>
+            <span>Consumo / App &amp; Analytics</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="diagram-grid">
+        <!-- COLUNA 1: SOURCE SYSTEMS -->
+        <section class="column">
+          <div class="column-label">Source Systems</div>
+
+          <article class="card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <div class="icon-pill blue">API</div>
+                <div class="card-title">API Hevy</div>
+              </div>
+              <span class="card-tag">Treinos Reais</span>
+            </div>
+            <div class="card-body">
+              <p class="muted">
+                Workouts, séries e exercícios coletados em tempo quase real via API Hevy.
+              </p>
+              <ul>
+                <li>Histórico de treinos por usuário</li>
+                <li>Detalhes de sets (carga, reps, etc.)</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card compact">
+            <div class="card-header">
+              <div class="card-title-group">
+                <div class="icon-pill blue">UX</div>
+                <div class="card-title">Formulário Streamlit</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="muted">
+                Perfil, objetivos e experiência do usuário.
+              </p>
+              <div class="badge-row">
+                <span class="badge">user_profiles</span>
+                <span class="badge">Preferências de treino</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card compact">
+            <div class="card-header">
+              <div class="card-title-group">
+                <div class="icon-pill blue">DS</div>
+                <div class="card-title">Datasets externos</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="muted">
+                Kaggle + dados sintéticos em Python.
+              </p>
+              <div class="badge-row">
+                <span class="badge">Catálogo de exercícios</span>
+                <span class="badge">Muscle groups</span>
+                <span class="badge">Test data</span>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- COLUNA 2: AIRFLOW ETL -->
+        <section class="column">
+          <div class="column-label">Airflow ETL</div>
+
+          <article class="card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <div class="icon-pill green">DAG</div>
+                <div class="card-title">DAG Instructor Workout</div>
+              </div>
+              <span class="card-tag">Orquestração</span>
+            </div>
+            <div class="card-body">
+              <p class="muted">
+                Pipeline batch com tarefas em BashOperator chamando scripts Python.
+              </p>
+              <ul>
+                <li><strong>create_lake_structure</strong> cria a hierarquia S3</li>
+                <li>Agendamento recorrente (batch)</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card compact">
+            <div class="card-header">
+              <div class="card-title-group">
+                <div class="icon-pill green">BZ</div>
+                <div class="card-title">Ingestão &rarr; Bronze</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <ul>
+                <li><strong>ingest_users_form</strong> (perfil)</li>
+                <li><strong>ingest_hevy / ingest_hevy_base</strong></li>
+                <li><strong>ingest_kaggle</strong> (catálogos)</li>
+              </ul>
+              <div class="badge-row">
+                <span class="badge highlight">Dados brutos</span>
+                <span class="badge">Parquet / CSV</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card compact">
+            <div class="card-header">
+              <div class="card-title-group">
+                <div class="icon-pill green">SV</div>
+                <div class="card-title">Transformações Silver</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <ul>
+                <li><strong>silver_users</strong> (perfil limpo)</li>
+                <li><strong>silver_transform</strong> (workouts/sets)</li>
+                <li><strong>silver_kaggle</strong> (auxiliares)</li>
+              </ul>
+              <div class="badge-row">
+                <span class="badge">Normalização</span>
+                <span class="badge">Tipos &amp; nulos</span>
+                <span class="badge">Volume (kg)</span>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- COLUNA 3: DATA LAKE EM S3 -->
+        <section class="column">
+          <div class="column-label">Data Lake – AWS S3</div>
+
+          <article class="card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <div class="icon-pill yellow">BZ</div>
+                <div class="card-title">Bronze</div>
+              </div>
+              <span class="card-tag">Raw Layer</span>
+            </div>
+            <div class="card-body">
+              <p class="muted">
+                Dados exatamente como vêm das fontes para rastreabilidade.
+              </p>
+              <div class="badge-row">
+                <span class="badge">bronze/hevy/raw_workouts</span>
+                <span class="badge">bronze/users/raw_user_form</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card compact">
+            <div class="card-header">
+              <div class="card-title-group">
+                <div class="icon-pill yellow">SV</div>
+                <div class="card-title">Silver</div>
+              </div>
+              <span class="card-tag">Dados tratados</span>
+            </div>
+            <div class="card-body">
+              <p class="muted">
+                Tabelas padronizadas para consumo analítico.
+              </p>
+              <div class="badge-row">
+                <span class="badge">silver/users</span>
+                <span class="badge">silver/workouts</span>
+                <span class="badge">silver/sets</span>
+                <span class="badge">silver/exercises</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <div class="icon-pill yellow">GD</div>
+                <div class="card-title">Gold – Star Schema</div>
+              </div>
+              <span class="card-tag">Camada de Métricas</span>
+            </div>
+            <div class="card-body">
+              <p class="muted">
+                Tabelão de métricas de treino + dimensões de apoio para dashboards e
+                modelos de Machine Learning.
+              </p>
+              <ul>
+                <li><strong>fact_workout_metrics</strong></li>
+                <li>dim_date, dim_user, dim_exercise</li>
+              </ul>
+              <div class="badge-row">
+                <span class="badge">weekly_volume_kg</span>
+                <span class="badge">max_load_kg</span>
+                <span class="badge">consistency_score</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card compact">
+            <div class="card-header">
+              <div class="card-title-group">
+                <div class="icon-pill yellow">T</div>
+                <div class="card-title">Área de Teste</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="muted">
+                Dados fake gerados em Python para demonstração do app.
+              </p>
+              <div class="badge-row">
+                <span class="badge">test/fact_workouts_test_user</span>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- COLUNA 4: SERVING LAYER -->
+        <section class="column">
+          <div class="column-label">Serving Layer / Consumo</div>
+
+          <article class="card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <div class="icon-pill pink">APP</div>
+                <div class="card-title">Streamlit App</div>
+              </div>
+              <span class="card-tag">Camada de Consumo</span>
+            </div>
+            <div class="card-body">
+              <p class="muted">
+                Interface principal para usuários finais, lendo dados da camada Gold.
+              </p>
+              <ul>
+                <li>Login e autenticação (users_app.parquet)</li>
+                <li>Formulário de perfil de treino</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card compact">
+            <div class="card-header">
+              <div class="card-title-group">
+                <div class="icon-pill pink">IA</div>
+                <div class="card-title">Chat IA – Personal Trainer</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="muted">
+                Modelo LLaMA 3.1 via GROQ com contexto do perfil + métricas de treino.
+              </p>
+              <div class="badge-row">
+                <span class="badge">groq_service.py</span>
+                <span class="badge">Recomendações de treino</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card compact">
+            <div class="card-header">
+              <div class="card-title-group">
+                <div class="icon-pill pink">BI</div>
+                <div class="card-title">Dashboards Analíticos</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="muted">
+                Visualizações em cima de <strong>fact_workout_metrics</strong>:
+              </p>
+              <ul>
+                <li>Evolução de carga por período</li>
+                <li>Volume por grupo muscular</li>
+                <li>Comparação com média global</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card compact">
+            <div class="card-header">
+              <div class="card-title-group">
+                <div class="icon-pill pink">OPS</div>
+                <div class="card-title">Infra &amp; Segurança</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="muted">
+                S3, containers (Airflow / Streamlit), IAM e segredos via arquivos de config.
+              </p>
+              <div class="badge-row">
+                <span class="badge">S3 SSE</span>
+                <span class="badge">IAM Roles</span>
+                <span class="badge">Secrets (.env / secrets.toml)</span>
+              </div>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
