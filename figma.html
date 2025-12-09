@@ -7,14 +7,13 @@
   <style>
     :root {
       --bg: #02040a;
-      --bg-panel: #050918;
       --accent: #37e0b7;
       --accent-soft: rgba(55, 224, 183, 0.16);
       --accent-2: #4ea3ff;
       --accent-2-soft: rgba(78, 163, 255, 0.18);
       --text: #f5f7ff;
-      --muted: #93a0c0;
-      --border-soft: rgba(255, 255, 255, 0.06);
+      --muted: #a3afcf;
+      --border-soft: rgba(255, 255, 255, 0.08);
       --radius-xl: 26px;
       --radius-lg: 20px;
       --shadow-soft: 0 22px 70px rgba(0, 0, 0, 0.85);
@@ -24,6 +23,10 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+
+    html {
+      font-size: 16px; /* ~12pt */
     }
 
     html, body {
@@ -37,7 +40,6 @@
       padding: 16px;
     }
 
-    /* Cada seção = 1 slide na rolagem */
     .slide {
       min-height: 100vh;
       display: flex;
@@ -45,15 +47,15 @@
       justify-content: center;
     }
 
-    /* Quadro 16:9 centralizado (estilo slide do Keynote) */
+    /* quadro 16:9 */
     .frame {
       position: relative;
       width: 90vw;
-      max-width: 1440px;         /* 1440x810 = 16:9 */
+      max-width: 1440px;
       aspect-ratio: 16 / 9;
-      background: radial-gradient(circle at top left, #10172a 0, #050814 55%, #020308 100%);
+      background: radial-gradient(circle at top left, #11182b 0, #050814 55%, #020308 100%);
       border-radius: var(--radius-xl);
-      border: 1px solid rgba(255, 255, 255, 0.09);
+      border: 1px solid var(--border-soft);
       box-shadow: var(--shadow-soft);
       overflow: hidden;
       padding: 22px 26px;
@@ -69,7 +71,6 @@
       background:
         radial-gradient(circle at 10% 0%, rgba(55, 224, 183, 0.16), transparent 55%),
         radial-gradient(circle at 90% 20%, rgba(78, 163, 255, 0.18), transparent 55%);
-      opacity: 1;
       z-index: 0;
       pointer-events: none;
     }
@@ -80,7 +81,7 @@
       border-radius: 22px;
       border: 1px solid rgba(255, 255, 255, 0.07);
       background: radial-gradient(circle at top, rgba(255, 255, 255, 0.03), rgba(3, 6, 14, 0.98));
-      padding: 26px 30px 22px;
+      padding: 26px 30px 20px;
       height: 100%;
       display: grid;
       grid-template-columns: 3fr 2fr;
@@ -92,7 +93,7 @@
     }
 
     .slide-header-eyebrow {
-      font-size: 0.68rem;
+      font-size: 0.9rem;
       letter-spacing: 0.26em;
       text-transform: uppercase;
       color: var(--muted);
@@ -100,31 +101,31 @@
     }
 
     .slide-title {
-      font-size: 2rem;
+      font-size: 2.3rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .slide-subtitle {
-      font-size: 1.02rem;
+      font-size: 1.1rem;
       font-weight: 500;
       color: #dbe3ff;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
     .body-text {
-      font-size: 0.94rem;
+      font-size: 1rem;
       color: var(--muted);
-      max-width: 640px;
-      line-height: 1.65;
+      max-width: 720px;
+      line-height: 1.7;
       margin-bottom: 14px;
     }
 
     .author {
-      font-size: 0.82rem;
-      color: #c3cdef;
+      font-size: 0.95rem;
+      color: #d0d8fa;
       margin-bottom: 14px;
     }
 
@@ -132,18 +133,18 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     .chip {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 4px 12px;
+      padding: 5px 13px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       background: rgba(2, 6, 15, 0.9);
-      font-size: 0.72rem;
+      font-size: 0.9rem;
       color: var(--muted);
     }
 
@@ -166,30 +167,30 @@
     }
 
     .card {
-      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.06) 0, #050a15 48%);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.05) 0, #050a15 50%);
+      border: 1px solid rgba(255, 255, 255, 0.09);
       border-radius: var(--radius-lg);
       padding: 16px 16px 14px;
-      min-height: 170px;
-      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7);
-      font-size: 0.86rem;
+      min-height: 180px;
+      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.75);
+      font-size: 0.98rem;
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     .card-title {
-      font-size: 0.82rem;
+      font-size: 0.95rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: #d4ddff;
+      color: #e0e7ff;
       margin-bottom: 10px;
     }
 
     .card-meta-title {
-      font-size: 0.8rem;
+      font-size: 0.95rem;
       text-transform: uppercase;
       letter-spacing: 0.16em;
-      color: #c7d0f0;
+      color: #d0d8fa;
       margin-bottom: 8px;
     }
 
@@ -200,9 +201,9 @@
     }
 
     .card-bullets li {
-      margin-bottom: 6px;
+      margin-bottom: 7px;
       position: relative;
-      padding-left: 14px;
+      padding-left: 15px;
     }
 
     .card-bullets li::before {
@@ -211,28 +212,28 @@
       left: 0;
       top: 0;
       color: var(--accent);
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
 
     .section-title {
-      font-size: 0.9rem;
+      font-size: 1rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: #cdd7ff;
+      color: #e0e7ff;
       margin-bottom: 8px;
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     .bullet-list {
       list-style: none;
-      font-size: 0.9rem;
+      font-size: 0.98rem;
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     .bullet-list li {
       margin-bottom: 6px;
-      padding-left: 14px;
+      padding-left: 15px;
       position: relative;
     }
 
@@ -244,32 +245,32 @@
       background: var(--accent);
       position: absolute;
       left: 0;
-      top: 0.55rem;
+      top: 0.6rem;
     }
 
     .bullet-list.small li {
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
 
     .layout-columns {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 8px;
+      gap: 18px;
+      margin-top: 10px;
     }
 
     .two-cards {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 18px;
-      margin-top: 6px;
+      margin-top: 8px;
     }
 
     .footnote {
       margin-top: 14px;
-      font-size: 0.78rem;
+      font-size: 0.9rem;
       color: var(--muted);
-      opacity: 0.9;
+      opacity: 0.95;
     }
 
     .slide-footer {
@@ -279,13 +280,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 0.72rem;
-      color: rgba(174, 187, 224, 0.85);
+      font-size: 0.85rem;
+      color: rgba(174, 187, 224, 0.9);
       padding-inline: 6px;
     }
 
     .nav-hint {
-      font-size: 0.74rem;
+      font-size: 0.85rem;
       color: var(--muted);
     }
 
@@ -319,17 +320,19 @@
     <div class="frame-inner">
       <div>
         <div class="slide-header-eyebrow">
-          TRABALHO FINAL · ENGENHARIA DE DADOS EM BIG DATA 2025
+          TRABALHO FINAL · HANDS-ON ENGENHARIA DE DADOS EM BIG DATA 2025
         </div>
         <h1 class="slide-title">INSTRUCTOR WORKOUT</h1>
         <p class="slide-subtitle">Pipeline de Dados &amp; IA para Treinos Personalizados</p>
 
         <p class="body-text">
-          Projeto de arquitetura de dados para consolidar informações de treinos físicos,
-          integrando API Hevy, formulários de usuários e datasets externos em um Data Lake
-          na AWS. A solução utiliza Airflow para orquestrar o pipeline Bronze–Silver–Gold
-          e um app Streamlit com IA para apoiar praticantes e instrutores na criação de
-          treinos personalizados baseados em dados.
+          Projeto de arquitetura de dados que integra múltiplas fontes de informação de treinos
+          físicos — API Hevy, formulários de usuários e datasets externos — em um Data Lake em
+          nuvem. A solução aplica os conceitos pedidos no Hands-on: arquitetura Lambda,
+          camadas Bronze–Silver–Gold, modelagem analítica, governança, CI/CD e Infraestrutura
+          como Código. Na camada de consumo, um app Streamlit com IA generativa posiciona o
+          usuário no centro da jornada, mostrando a evolução de treinos de forma clara e
+          orientada a dados.
         </p>
 
         <p class="author">
@@ -339,23 +342,24 @@
 
         <div class="chip-row">
           <div class="chip"><span class="chip-dot"></span>Engenharia de Dados</div>
-          <div class="chip"><span class="chip-dot blue"></span>Arquitetura Lambda</div>
-          <div class="chip"><span class="chip-dot"></span>Data Lake em AWS</div>
-          <div class="chip"><span class="chip-dot gold"></span>IA &amp; Analytics</div>
+          <div class="chip"><span class="chip-dot blue"></span>Arquitetura Lambda em Nuvem</div>
+          <div class="chip"><span class="chip-dot"></span>Data Lake em AWS S3</div>
+          <div class="chip"><span class="chip-dot gold"></span>IA &amp; Analytics de Treinos</div>
         </div>
       </div>
 
       <aside class="card">
         <div class="card-title">Cenário do cliente</div>
         <p>
-          Dados de treinos espalhados em aplicativos, planilhas e anotações manuais,
-          dificultando uma visão confiável de evolução. Usuários não conseguem acompanhar
-          de forma simples cargas, volume e frequência de treino ao longo do tempo.<br><br>
-          Personal trainers ajustam treinos de forma manual, sem uma base consolidada de
-          dados para apoiar decisões.<br><br>
-          <strong>Objetivo:</strong> propor um pipeline de dados em nuvem, automatizado e
-          observável, que unifique as fontes, gere métricas confiáveis e permita um app
-          analítico com suporte de IA.
+          Uma pessoa que treina regularmente registra as sessões em diferentes sistemas,
+          planilhas e anotações. Os dados existem, mas não se transformam em um ativo
+          estratégico. Falta uma visão integrada que responda perguntas simples, como:
+          “estou evoluindo na carga do supino?”, “meu volume semanal está consistente?” ou
+          “como estou em relação à média de outros praticantes?”.<br><br>
+          Do ponto de vista do instrutor, a personalização dos treinos depende de memória,
+          experiência e consultas manuais a registros espalhados. O objetivo deste projeto é
+          propor uma esteira de dados que unifique essas informações, gere métricas confiáveis
+          e permita uma experiência analítica apoiada por IA — da fonte ao insight.
         </p>
       </aside>
     </div>
@@ -371,39 +375,43 @@
   <div class="frame">
     <div class="frame-inner frame-full">
       <div>
-        <div class="slide-header-eyebrow">Contexto</div>
-        <h2 class="slide-title">Setor &amp; Problema de Negócio</h2>
+        <div class="slide-header-eyebrow">Contexto do Projeto</div>
+        <h2 class="slide-title">Setor, dor e oportunidade</h2>
 
         <div class="two-cards">
           <div class="card">
             <div class="card-meta-title">Setor – Saúde, Fitness &amp; Bem-estar</div>
             <ul class="card-bullets">
-              <li>Crescimento de apps de treino, wearables e plataformas digitais de bem-estar.</li>
-              <li>Grande volume de dados gerados em diferentes ferramentas e formatos.</li>
-              <li>Necessidade de análises mais inteligentes sobre progresso e consistência.</li>
+              <li>Mercado em crescimento, com apps de treino, wearables e plataformas digitais.</li>
+              <li>Usuários registram treinos, sono, nutrição e métricas corporais em diversos
+                  sistemas, gerando grandes volumes de dados pouco explorados.</li>
+              <li>Empresas e instrutores procuram maneiras de transformar esses dados em planos
+                  mais personalizados, aumento de aderência e redução de abandono.</li>
             </ul>
           </div>
 
           <div class="card">
             <div class="card-meta-title">Problema de Negócio</div>
             <ul class="card-bullets">
-              <li>Ausência de visão unificada de treinos, cargas e volume por usuário.</li>
-              <li>Dificuldade para comparar evolução individual com médias globais ou grupos.</li>
-              <li>Personalização de treinos feita “no olho”, com pouco uso de dados históricos.</li>
+              <li>Ausência de uma <strong>visão única do histórico de treinos</strong> de cada usuário.</li>
+              <li>Dificuldade para acompanhar evolução de cargas, volume e frequência de treino
+                  de forma visual e confiável.</li>
+              <li>Comparações com médias globais ou grupos de praticantes quase inexistentes.</li>
+              <li>Decisões de ajuste de treino baseadas mais em percepção subjetiva do que em dados.</li>
             </ul>
           </div>
         </div>
 
         <p class="footnote">
-          Pergunta central: <strong>como usar Engenharia de Dados para transformar dados
-          de treino em insights acionáveis para usuários e instrutores, de forma escalável
-          e confiável?</strong>
+          Pergunta orientadora do projeto: <strong>como uma arquitetura de dados em nuvem,
+          bem governada, pode tornar o histórico de treinos um insumo estratégico para
+          decisões de usuários e instrutores?</strong>
         </p>
       </div>
     </div>
     <div class="slide-footer">
       <span>Slide 2 · Contexto &amp; Problema</span>
-      <span class="nav-hint">Fontes → Pipeline → Data Lake → App</span>
+      <span class="nav-hint">Próximo: objetivos alinhados ao Hands-on</span>
     </div>
   </div>
 </section>
@@ -413,33 +421,40 @@
   <div class="frame">
     <div class="frame-inner frame-full">
       <div>
-        <div class="slide-header-eyebrow">Objetivos</div>
-        <h2 class="slide-title">O que o projeto se propõe a entregar</h2>
+        <div class="slide-header-eyebrow">Objetivos do Trabalho</div>
+        <h2 class="slide-title">Do requisito da disciplina à solução técnica</h2>
 
         <div class="layout-columns">
           <div>
             <div class="section-title">Objetivo Geral</div>
             <p class="body-text">
-              Implementar uma arquitetura de dados em nuvem, inspirada no modelo Lambda,
-              para suportar um MVP analítico de treinos personalizados, com Data Lake em
-              S3, pipelines orquestrados por Airflow e um app Streamlit com IA generativa.
+              Desenvolver uma solução de Engenharia de Dados que atenda ao escopo do Hands-on:
+              diagnosticar um problema de negócio, projetar uma arquitetura Lambda em nuvem,
+              implementar um Data Lake com camadas Bronze, Silver e Gold, aplicar boas práticas
+              de governança e disponibilizar uma camada de consumo capaz de gerar insights
+              realmente úteis para o contexto escolhido.
             </p>
           </div>
           <div>
             <div class="section-title">Objetivos Técnicos</div>
             <ul class="bullet-list small">
-              <li>Construir um Data Lake em AWS S3 com camadas Bronze, Silver e Gold.</li>
-              <li>Automatizar ingestão e transformações com Apache Airflow (ETL/ELT).</li>
-              <li>Modelar a camada Gold em Star Schema / tabelão de métricas.</li>
-              <li>Disponibilizar dados prontos para dashboards e modelos de ML.</li>
+              <li>Desenhar e implementar uma <strong>arquitetura Lambda</strong> em nuvem (AWS S3 + Airflow).</li>
+              <li>Modelar a camada analítica usando <strong>Star Schema</strong> e tabelão de métricas
+                  compatível com cenários de OLAP e ML, conforme o professor propõe (Star + Wide Table).</li>
+              <li>Propor um fluxo de <strong>CI/CD</strong> e <strong>Infraestrutura como Código</strong>
+                  para automatizar deploys e provisionamento.</li>
+              <li>Organizar o código em repositório GitHub com README e documentação detalhada.</li>
             </ul>
           </div>
           <div>
             <div class="section-title">Objetivos de Negócio</div>
             <ul class="bullet-list small">
-              <li>Consolidar histórico completo de treinos por usuário.</li>
-              <li>Facilitar acompanhamento de evolução de volume, cargas e frequência.</li>
-              <li>Suportar recomendações de treino personalizadas via IA.</li>
+              <li>Consolidar o histórico de treinos em uma visão única por usuário.</li>
+              <li>Disponibilizar indicadores claros de evolução: volume, carga máxima, frequência.</li>
+              <li>Permitir interação com um <strong>Personal Trainer virtual</strong> que utilize o
+                  contexto do usuário em tempo real.</li>
+              <li>Oferecer uma base preparada para futuros estudos de consistência, risco de
+                  abandono e recomendação de planos de treino.</li>
             </ul>
           </div>
         </div>
@@ -458,45 +473,56 @@
     <div class="frame-inner frame-full">
       <div>
         <div class="slide-header-eyebrow">Visão Geral</div>
-        <h2 class="slide-title">Da fonte ao insight</h2>
+        <h2 class="slide-title">Da coleta ao insight para o usuário</h2>
 
         <div class="layout-columns">
           <div class="card">
             <div class="card-meta-title">1 · Fontes de Dados</div>
             <ul class="card-bullets">
-              <li>API Hevy – workouts, séries e exercícios em formato JSON.</li>
-              <li>Formulário do app Streamlit – perfil, objetivos e restrições do usuário.</li>
-              <li>Datasets externos – Kaggle e dados sintéticos para catálogo de exercícios.</li>
+              <li><strong>API Hevy</strong> – workouts, séries e exercícios em JSON, representando o
+                  comportamento real do praticante ao longo do tempo.</li>
+              <li><strong>Formulário Streamlit</strong> – captura de perfil, objetivos, restrições e
+                  contexto do usuário (por exemplo, foco em hipertrofia, saúde geral ou performance).</li>
+              <li><strong>Datasets externos</strong> – Kaggle e dados sintéticos para complementar
+                  catálogo de exercícios e permitir testes mesmo sem conexão com a API.</li>
             </ul>
           </div>
 
           <div class="card">
             <div class="card-meta-title">2 · Pipeline &amp; Orquestração</div>
             <ul class="card-bullets">
-              <li>Apache Airflow coordinando tasks de ingestão e transformação.</li>
-              <li>Scripts Python + Pandas compondo o ETL da Bronze à Gold.</li>
-              <li>Execução em batch, com dependências, logs e retries configuráveis.</li>
+              <li>Apache Airflow coordena a ingestão, as transformações e a carga nas camadas
+                  do Data Lake, garantindo dependências e reexecução controlada.</li>
+              <li>Scripts em Python e Pandas fazem a limpeza, padronização, cálculo de métricas e
+                  enriquecimento dos dados, evoluindo de Bronze para Silver e, depois, Gold.</li>
+              <li>O pipeline é pensado como um <strong>grafo de tarefas</strong>, não como scripts
+                  isolados, alinhado à proposta de arquitetura do professor.</li>
             </ul>
           </div>
 
           <div class="card">
             <div class="card-meta-title">3 · Consumo &amp; Experiência</div>
             <ul class="card-bullets">
-              <li>App Streamlit com login, formulário, chat IA e dashboard.</li>
-              <li>Camada Gold alimentando relatórios e possíveis ferramentas de BI.</li>
-              <li>Base preparada para modelos preditivos de aderência e performance.</li>
+              <li>Um app Streamlit lê a camada Gold para produzir dashboards, relatórios e
+                  visualizações simples para o usuário final.</li>
+              <li>Um chat de IA, baseado em LLaMA 3.1 via Groq, usa o perfil e o histórico para
+                  responder perguntas e sugerir ajustes nos treinos.</li>
+              <li>A estrutura da Gold permite conectar ferramentas de BI como Power BI, Redshift
+                  ou Looker, caso a solução seja levada para um ambiente corporativo.</li>
             </ul>
           </div>
         </div>
 
         <p class="footnote">
-          Fluxo resumido: <strong>Fontes → Airflow ETL → Data Lake em S3 (Bronze / Silver / Gold) → Streamlit &amp; BI</strong>.
+          Em termos de storytelling: começamos em dados brutos dispersos, passamos por uma esteira
+          automatizada de tratamento e terminamos em uma experiência em que o usuário enxerga sua
+          jornada de treino com clareza, suportada por IA.
         </p>
       </div>
     </div>
     <div class="slide-footer">
       <span>Slide 4 · Visão Geral da Arquitetura</span>
-      <span class="nav-hint">Próximo: Arquitetura Lambda &amp; Data Lake</span>
+      <span class="nav-hint">Próximo: Arquitetura Lambda detalhada</span>
     </div>
   </div>
 </section>
@@ -507,31 +533,42 @@
     <div class="frame-inner frame-full">
       <div>
         <div class="slide-header-eyebrow">Arquitetura Lambda</div>
-        <h2 class="slide-title">Camadas da solução em nuvem</h2>
+        <h2 class="slide-title">Camadas propostas no Hands-on, aplicadas ao caso</h2>
 
         <div class="layout-columns">
           <div>
-            <div class="section-title">Source &amp; Acquisition</div>
+            <div class="section-title">Source &amp; Data Acquisition</div>
             <ul class="bullet-list small">
-              <li>Source Systems: API Hevy, formulário Streamlit, datasets Kaggle/sintéticos.</li>
-              <li>Scripts Python fazem a aquisição e preparam arquivos para ingestão.</li>
-              <li>Dados chegam inicialmente em formatos brutos (JSON, CSV, Parquet).</li>
+              <li><strong>Source Systems:</strong> API Hevy, formulário Streamlit, datasets Kaggle
+                  e dados sintéticos gerados por script.</li>
+              <li><strong>Data Acquisition Layer:</strong> scripts Python que consomem as APIs,
+                  leem arquivos externos e organizam os dados para ingestão.</li>
+              <li>Essa etapa trata autenticação, paginação, limites de API e normalização básica
+                  de esquemas.</li>
             </ul>
           </div>
           <div>
-            <div class="section-title">Batch / Lambda Layer</div>
+            <div class="section-title">Batch / Processing Layer</div>
             <ul class="bullet-list small">
-              <li>Airflow coordena o fluxo create_lake_structure → ingest_* → silver_* → gold_metrics.</li>
-              <li>Transformações em batch com Python + Pandas, aplicando regras de negócio.</li>
-              <li>Entrega dados prontos para consumo na camada Gold.</li>
+              <li>Airflow implementa a camada de processamento batch, conectando as tasks
+                  <code>create_lake_structure → ingest_* → silver_* → gold_metrics</code>.</li>
+              <li>Transformações com Pandas realizam limpeza, enriquecimento e cálculos de
+                  métricas de treino, seguindo o modelo de camadas Bronze/Silver/Gold
+                  sugerido pelo professor.</li>
+              <li>O objetivo é chegar a dados prontos para análise OLAP e para um possível
+                  Wide Table voltado a machine learning.</li>
             </ul>
           </div>
           <div>
-            <div class="section-title">Serving &amp; Consumo</div>
+            <div class="section-title">Storage &amp; Serving Layer</div>
             <ul class="bullet-list small">
-              <li>Data Lake em S3 como armazenamento central e barato.</li>
-              <li>Streamlit App utilizando diretamente a Gold para gerar valor.</li>
-              <li>Conectores possíveis com ferramentas de BI corporativas.</li>
+              <li><strong>Data Storage Layer:</strong> AWS S3 como Data Lake, com estrutura em
+                  pastas por camada e domínio de negócio.</li>
+              <li><strong>Serving Layer:</strong> Streamlit + possíveis ferramentas de BI
+                  consumindo a Gold; APIs adicionais podem ser construídas sobre o mesmo
+                  modelo de dados.</li>
+              <li>A arquitetura respeita o desenho proposto no material: das fontes, passando
+                  por processamento batch, até a apresentação dos dados ao usuário final.</li>
             </ul>
           </div>
         </div>
@@ -539,7 +576,7 @@
     </div>
     <div class="slide-footer">
       <span>Slide 5 · Arquitetura Lambda</span>
-      <span class="nav-hint">Próximo: Bronze / Silver / Gold</span>
+      <span class="nav-hint">Próximo: Bronze, Silver e Gold em detalhes</span>
     </div>
   </div>
 </section>
@@ -556,38 +593,48 @@
           <div class="card">
             <div class="card-meta-title">Bronze – Raw</div>
             <ul class="card-bullets">
-              <li>Dados brutos exatamente como chegam das fontes.</li>
-              <li>Ex.: <code>hevy/raw_workouts.parquet</code> e <code>users/raw_form.parquet</code>.</li>
-              <li>Preserva histórico e garante rastreabilidade total.</li>
+              <li>Dados brutos exatamente como chegam das fontes, preservando a fidelidade ao
+                  sistema de origem.</li>
+              <li>Pastas organizadas por domínio, por exemplo:
+                  <code>bronze/hevy/raw_workouts.parquet</code> e
+                  <code>bronze/users/raw_form.parquet</code>.</li>
+              <li>Importante para auditoria, reprocessamento e trilhas de governança.</li>
             </ul>
           </div>
           <div class="card">
             <div class="card-meta-title">Silver – Trusted</div>
             <ul class="card-bullets">
-              <li>Dados limpos, padronizados e tipados.</li>
-              <li>Tabelas de usuários, treinos, séries e exercícios já integradas.</li>
-              <li>Tratamento de nulos, deduplicação e cálculo de métricas básicas.</li>
+              <li>Dados limpos, padronizados e tipados, com atenção a datas, unidades de medida
+                  e identificadores.</li>
+              <li>Tabelas de usuários, treinos, séries e exercícios integradas, com chaves
+                  consistentes para relacionamentos.</li>
+              <li>Aplicação de regras de qualidade (remoção de duplicidades, preenchimento de
+                  valores ausentes quando possível, validação de faixas plausíveis).</li>
             </ul>
           </div>
           <div class="card">
             <div class="card-meta-title">Gold – Curated</div>
             <ul class="card-bullets">
-              <li>Star Schema com tabelão de métricas para BI e ML.</li>
-              <li><code>fact_workout_metrics</code>, <code>dim_user</code>, <code>dim_date</code>, <code>dim_exercise</code>.</li>
-              <li>Base otimizada para dashboards de evolução e comparação.</li>
+              <li>Star Schema com tabelão de métricas de treino:
+                  <code>fact_workout_metrics</code> + dimensões de usuário, data e exercício.</li>
+              <li>Estrutura pensada tanto para <strong>análise OLAP</strong> quanto para servir de
+                  base a uma possível Wide Table para machine learning, em linha com as
+                  recomendações da disciplina.</li>
+              <li>Camada que alimenta dashboards, notebooks analíticos e o app Streamlit.</li>
             </ul>
           </div>
         </div>
 
         <p class="footnote">
-          Decisão de design: <strong>usar um Star Schema na Gold</strong> para simplificar
-          consultas analíticas e manter flexibilidade para novos indicadores de treino.
+          A divisão em Bronze, Silver e Gold facilita o entendimento do fluxo de maturidade
+          dos dados: de “apenas coletado” para “confiável” e, por fim, “pronto para gerar
+          valor de negócio”.
         </p>
       </div>
     </div>
     <div class="slide-footer">
       <span>Slide 6 · Camadas do Data Lake</span>
-      <span class="nav-hint">Próximo: Orquestração com Airflow</span>
+      <span class="nav-hint">Próximo: Airflow orquestrando o ETL</span>
     </div>
   </div>
 </section>
@@ -601,38 +648,51 @@
         <h2 class="slide-title">Airflow como maestro do pipeline</h2>
 
         <p class="body-text">
-          O Apache Airflow coordena todas as etapas do ETL, garantindo dependências,
-          agendamento e monitoramento. O pipeline deixa de ser uma coleção de scripts
-          manuais e passa a ser descrito como um grafo de tarefas observável.
+          Para atender ao requisito de integração e automação, o projeto utiliza o Apache
+          Airflow como componente central de orquestração. Em vez de rodar scripts
+          independentes, o fluxo de dados é descrito como uma DAG (Directed Acyclic Graph),
+          que deixa explícita a ordem correta das atividades, as dependências entre elas e
+          os pontos de falha possíveis.
         </p>
 
-        <div class="section-title">DAG principal</div>
+        <div class="section-title">DAG principal – instructor_workout_pipeline</div>
         <ul class="bullet-list small">
-          <li><strong>create_lake_structure</strong> – prepara a estrutura do Data Lake em S3.</li>
-          <li><strong>ingest_users_form</strong>, <strong>ingest_hevy</strong>, <strong>ingest_kaggle</strong> – ingestão paralela para Bronze.</li>
-          <li><strong>silver_users</strong>, <strong>silver_transform</strong>, <strong>silver_kaggle</strong> – transformações para Silver.</li>
-          <li><strong>gold_metrics</strong> – consolidação final na camada Gold.</li>
+          <li><strong>create_lake_structure</strong> – cria a estrutura de pastas do Data Lake
+              (Bronze, Silver, Gold) no S3.</li>
+          <li><strong>ingest_users_form</strong>, <strong>ingest_hevy</strong>,
+              <strong>ingest_kaggle</strong> – tarefas que fazem a ingestão das diferentes
+              fontes para a camada Bronze, podendo rodar em paralelo.</li>
+          <li><strong>silver_users</strong>, <strong>silver_transform</strong>,
+              <strong>silver_kaggle</strong> – transformações em Python/Pandas que elevam a
+              qualidade dos dados para a Silver.</li>
+          <li><strong>gold_metrics</strong> – etapa final que gera o Star Schema e o
+              tabelão de métricas consumido pelo app e por ferramentas de BI.</li>
         </ul>
 
         <p class="footnote">
-          O Airflow executa as tasks em ordem, registra logs, permite retries automáticos
-          e facilita o reprocessamento de períodos específicos quando necessário.
+          O Airflow registra logs detalhados, permite tentativas automáticas em caso de
+          erro e facilita o reprocessamento de um intervalo de tempo específico, algo
+          essencial em pipelines de dados em produção.
         </p>
       </div>
 
       <aside class="card">
-        <div class="card-meta-title">Na prática</div>
+        <div class="card-meta-title">Aspectos práticos</div>
         <ul class="card-bullets">
-          <li>Cada task usa <strong>BashOperator</strong> para disparar scripts Python.</li>
-          <li>Execuções podem ser agendadas (ex.: diária) ou disparadas manualmente.</li>
-          <li>Falhas interrompem as tasks dependentes, evitando dados inconsistentes na Gold.</li>
-          <li>A UI do Airflow exibe o grafo, status de cada task e histórico de execuções.</li>
+          <li>Cada task utiliza <strong>BashOperator</strong> para acionar scripts Python
+              versionados no GitHub.</li>
+          <li>O pipeline pode ser agendado (por exemplo, execuções diárias) ou acionado
+              manualmente para reprocessamentos pontuais.</li>
+          <li>Se uma ingestão falha, as tasks dependentes não são executadas, evitando
+              que a camada Gold seja alimentada com dados incompletos.</li>
+          <li>A interface web do Airflow exibe o grafo, o histórico de execuções e os
+              tempos de cada etapa, contribuindo para observabilidade.</li>
         </ul>
       </aside>
     </div>
     <div class="slide-footer">
-      <span>Slide 7 · Airflow</span>
-      <span class="nav-hint">Próximo: Modelagem de Dados</span>
+      <span>Slide 7 · Orquestração com Airflow</span>
+      <span class="nav-hint">Próximo: Modelagem Star Schema</span>
     </div>
   </div>
 </section>
@@ -643,38 +703,48 @@
     <div class="frame-inner frame-full">
       <div>
         <div class="slide-header-eyebrow">Modelagem de Dados</div>
-        <h2 class="slide-title">Star Schema na camada Gold</h2>
+        <h2 class="slide-title">Star Schema e preparação para Wide Table</h2>
 
         <div class="layout-columns">
           <div>
             <div class="section-title">Tabela Fato – fact_workout_metrics</div>
             <ul class="bullet-list small">
-              <li>Grão: métricas de treino por usuário, data e exercício.</li>
-              <li>Métricas: total de séries, repetições, volume (kg), carga máxima, frequência.</li>
-              <li>Chaves: <code>date_key</code>, <code>user_key</code>, <code>exercise_key</code>.</li>
+              <li>Grão definido como <strong>métricas por usuário, data e exercício</strong>.</li>
+              <li>Métricas principais: total de séries, repetições, volume (kg), carga máxima,
+                  duração, número de treinos por período.</li>
+              <li>Chaves técnicas conectando às dimensões:
+                  <code>user_key</code>, <code>date_key</code>, <code>exercise_key</code>.</li>
             </ul>
           </div>
           <div>
-            <div class="section-title">Dimensões Principais</div>
+            <div class="section-title">Dimensões</div>
             <ul class="bullet-list small">
-              <li><strong>dim_user:</strong> perfil, objetivos, experiência e restrições.</li>
-              <li><strong>dim_date:</strong> dia, semana, mês, ano, dia da semana, flag de fim de semana.</li>
-              <li><strong>dim_exercise:</strong> nome, grupo muscular, tipo de equipamento.</li>
+              <li><strong>dim_user:</strong> informações de perfil, objetivos, nível de
+                  experiência, eventuais restrições médicas.</li>
+              <li><strong>dim_date:</strong> data completa, semana, mês, ano, dia da semana
+                  e identificadores úteis para análises sazonais.</li>
+              <li><strong>dim_exercise:</strong> nome do exercício, grupo muscular, tipo de
+                  equipamento, se é composto ou isolado, entre outros atributos.</li>
             </ul>
           </div>
           <div>
-            <div class="section-title">Benefícios</div>
+            <div class="section-title">Conexão com o Hands-on</div>
             <ul class="bullet-list small">
-              <li>Facilidade de leitura por ferramentas de BI e pela equipe de negócio.</li>
-              <li>Consultas analíticas simples com agregações por tempo, usuário ou exercício.</li>
-              <li>Base consistente para futuros modelos de Machine Learning.</li>
+              <li>O Star Schema atende ao requisito de <strong>análise OLAP</strong>
+                  destacado pelo professor.</li>
+              <li>A partir dessa estrutura, é possível construir uma
+                  <strong>Wide Table</strong> para alimentar modelos de machine learning
+                  focados em predição de aderência ou performance.</li>
+              <li>O mesmo modelo pode ser consumido por ferramentas de BI corporativas,
+                  sem necessidade de reformulação completa.</li>
             </ul>
           </div>
         </div>
 
         <p class="footnote">
-          A opção por um <strong>Star Schema</strong> equilibra performance de consulta,
-          simplicidade de entendimento e flexibilidade para novos indicadores de treino.
+          A modelagem reforça o storytelling de evolução: os dados saem de registros
+          transacionais de treinos e são reorganizados em torno de perguntas analíticas
+          sobre carga, consistência e progresso ao longo do tempo.
         </p>
       </div>
     </div>
@@ -690,38 +760,47 @@
   <div class="frame">
     <div class="frame-inner">
       <div>
-        <div class="slide-header-eyebrow">MVP · Aplicação</div>
-        <h2 class="slide-title">Streamlit App &amp; Chat IA</h2>
+        <div class="slide-header-eyebrow">Serving Layer</div>
+        <h2 class="slide-title">MVP: App Streamlit e Chat IA</h2>
 
         <p class="body-text">
-          A camada de consumo materializa o valor do pipeline para o usuário final,
-          através de um app web simples, porém conectado ao Data Lake e a um modelo
-          de IA generativa especializado em treinos.
+          A camada de consumo conecta a arquitetura técnica ao usuário final. Em vez de
+          expor apenas tabelas e arquivos, o projeto entrega uma aplicação que fala a
+          linguagem de quem treina: telas simples, métricas claras e um assistente
+          virtual que entende o contexto de treino.
         </p>
 
         <div class="layout-columns">
           <div>
-            <div class="section-title">Streamlit</div>
+            <div class="section-title">Streamlit App</div>
             <ul class="bullet-list small">
-              <li>Login com usuários armazenados em <code>users_app.parquet</code> no S3.</li>
-              <li>Formulário coleta dados de perfil e objetivos, gravados em <code>user_profiles/</code>.</li>
-              <li>Dashboard lê a camada Gold para exibir evolução de treinos e comparações.</li>
+              <li><strong>Login</strong> com usuários armazenados em
+                  <code>users_app.parquet</code> no S3, permitindo simulação de múltiplos perfis.</li>
+              <li><strong>Formulário</strong> que alimenta a pasta <code>user_profiles/</code> com
+                  informações de objetivo, rotina e restrições.</li>
+              <li><strong>Dashboard</strong> que lê a Gold e apresenta evolução de volume, carga
+                  máxima e frequência em nível de usuário.</li>
             </ul>
           </div>
           <div>
             <div class="section-title">Chat IA – Personal Trainer</div>
             <ul class="bullet-list small">
-              <li>Integração com modelo LLaMA 3.1 via Groq API.</li>
-              <li>Uso de contexto: perfil + histórico de treinos do usuário.</li>
-              <li>Gera recomendações de treino e ajustes semanais personalizados.</li>
+              <li>Implementado com modelo LLaMA 3.1 via Groq API, consumido a partir do app.</li>
+              <li>O contexto da conversa inclui informações de perfil e recortes da
+                  <code>fact_workout_metrics</code>, permitindo respostas personalizadas.</li>
+              <li>Exemplos de uso: sugestões de ajustes semanais, divisão de treino, dicas de
+                  progressão de carga.</li>
             </ul>
           </div>
           <div>
-            <div class="section-title">Dados de teste</div>
+            <div class="section-title">Dados de Teste e Demonstração</div>
             <ul class="bullet-list small">
-              <li>Script <code>generate_fake_test_data.py</code> gera <code>fact_workouts_test_user.parquet</code>.</li>
-              <li>Usuário de demonstração: <strong>testuser@example.com / 123456</strong>.</li>
-              <li>Permite validar toda a jornada sem depender de APIs externas em tempo real.</li>
+              <li>Script <code>generate_fake_test_data.py</code> gera
+                  <code>fact_workouts_test_user.parquet</code> com um usuário fictício.</li>
+              <li>Usuário de demonstração:
+                  <strong>testuser@example.com / 123456</strong>, já com histórico preenchido.</li>
+              <li>Esse arranjo permite demonstrar todas as funcionalidades, mesmo em cenários
+                  sem acesso a APIs externas em tempo real.</li>
             </ul>
           </div>
         </div>
@@ -730,63 +809,80 @@
       <aside class="card">
         <div class="card-meta-title">Experiência do usuário</div>
         <ul class="card-bullets">
-          <li>Usuário faz login, preenche o formulário e passa a ter seu histórico centralizado.</li>
-          <li>Consegue visualizar rapidamente evolução de volume, cargas e frequência.</li>
-          <li>Pode conversar com a IA para ajustar treinos de forma guiada e contextualizada.</li>
+          <li>O usuário deixa de ver seus treinos como registros isolados e passa a
+              enxergar uma narrativa: onde estava, onde está e para onde pode ir.</li>
+          <li>O instrutor tem um ponto único de consulta para analisar padrões de treino
+              e sugerir adaptações.</li>
+          <li>A IA entra como camada de suporte, traduzindo métricas em recomendações
+              de treino em linguagem natural.</li>
         </ul>
       </aside>
     </div>
     <div class="slide-footer">
       <span>Slide 9 · MVP Streamlit &amp; IA</span>
-      <span class="nav-hint">Próximo: Governança &amp; Automação</span>
+      <span class="nav-hint">Próximo: Governança, Qualidade e Automação</span>
     </div>
   </div>
 </section>
 
-<!-- SLIDE 10 – GOVERNANÇA / QUALIDADE / CI-CD -->
+<!-- SLIDE 10 – GOVERNANÇA / QUALIDADE / CI-CD / IAC -->
 <section class="slide" id="slide-10">
   <div class="frame">
     <div class="frame-inner frame-full">
       <div>
         <div class="slide-header-eyebrow">Boas Práticas</div>
-        <h2 class="slide-title">Governança, Qualidade &amp; Automação</h2>
+        <h2 class="slide-title">Governança, Qualidade e Automação</h2>
 
         <div class="layout-columns">
           <div>
             <div class="section-title">Governança &amp; LGPD</div>
             <ul class="bullet-list small">
-              <li>Nomenclatura por camada/domínio: <code>bronze/hevy</code>, <code>silver/users</code>, <code>gold/fact_workout_metrics</code>.</li>
-              <li>Uso mínimo de dados pessoais; foco em IDs técnicos e informações de treino.</li>
-              <li>Possibilidade de criptografia em repouso (S3) e controle de acesso via IAM.</li>
+              <li>Estrutura de pastas e tabelas organizada por camada e domínio, ex.:
+                  <code>bronze/hevy</code>, <code>silver/users</code>,
+                  <code>gold/fact_workout_metrics</code>.</li>
+              <li>Uso mínimo de dados pessoais, priorizando identificadores técnicos e
+                  informações de treino; dados sensíveis podem ser ofuscados ou
+                  pseudonimizados.</li>
+              <li>Controles de acesso e criptografia em repouso podem ser implementados
+                  via políticas de IAM e configurações do S3 em um cenário de produção.</li>
             </ul>
           </div>
           <div>
             <div class="section-title">Qualidade de Dados</div>
             <ul class="bullet-list small">
-              <li>Validação de tipos, faixas e nulos nas transformações Silver.</li>
-              <li>Deduplicação de registros por chaves de negócio + timestamps.</li>
-              <li>Cálculo de métricas derivadas (volume, cargas) de forma padronizada.</li>
+              <li>Validações em Silver para garantir tipos corretos, ranges plausíveis e
+                  coerência entre entidades (por exemplo, séries não negativas, datas
+                  dentro de períodos válidos).</li>
+              <li>Deduplicação de registros por chaves de negócio e timestamps para evitar
+                  contagens infladas de volume ou frequência.</li>
+              <li>Padronização de cálculos de métricas, garantindo que “volume de treino”
+                  signifique a mesma coisa em todos os relatórios.</li>
             </ul>
           </div>
           <div>
-            <div class="section-title">CI/CD &amp; IaC (Visão Conceitual)</div>
+            <div class="section-title">CI/CD &amp; IaC – Entregáveis do Hands-on</div>
             <ul class="bullet-list small">
-              <li>GitHub como repositório central e controle de versão de código.</li>
-              <li>Pipeline CI/CD proposto com GitHub Actions para testes e build de containers.</li>
-              <li>Terraform sugerido para provisionar bucket S3, usuários IAM e infraestrutura.</li>
+              <li>GitHub como repositório de versionamento do código de ETL, do Airflow e
+                  do app Streamlit, atendendo ao requisito de documentação e controle.</li>
+              <li>Proposta de pipeline CI/CD com GitHub Actions para rodar testes, lint e
+                  build de imagens Docker a cada alteração relevante.</li>
+              <li>Uso sugerido de Terraform para provisionar buckets S3, usuários IAM e
+                  infraestrutura de execução, alinhando o projeto ao conceito de
+                  <strong>Infraestrutura como Código</strong> descrito no material.</li>
             </ul>
           </div>
         </div>
 
         <p class="footnote">
-          Mesmo sendo um projeto acadêmico, as decisões foram guiadas por práticas de
-          governança, segurança e automação utilizadas em ambientes produtivos.
+          Mesmo em um projeto acadêmico, a preocupação com governança, qualidade e
+          automação aproxima a solução dos desafios reais enfrentados por times de
+          Engenharia de Dados em produção.
         </p>
       </div>
     </div>
     <div class="slide-footer">
-      <span>Slide 10 · Governança &amp; Automação</span>
-      <span class="nav-hint">Próximo: Resultados &amp; Futuro</span>
+      <span>Slide 10 · Governança, Qualidade &amp; Automação</span>
+      <span class="nav-hint">Próximo: Resultados e próximos passos</span>
     </div>
   </div>
 </section>
@@ -801,33 +897,44 @@
 
         <div class="section-title">Resultados Técnicos</div>
         <ul class="bullet-list small">
-          <li>Data Lake em S3 estruturado em Bronze, Silver e Gold.</li>
-          <li>Pipeline batch automatizado com Airflow, da ingestão à camada Gold.</li>
-          <li>Modelagem Star Schema viabilizando consultas analíticas e dashboards.</li>
-          <li>MVP funcional de app Streamlit com login, formulário, dashboard e chat IA.</li>
+          <li>Arquitetura Lambda implementada em nuvem, com Data Lake em S3 e Airflow
+              orquestrando as etapas de ingestão e transformação.</li>
+          <li>Camadas Bronze, Silver e Gold estruturadas, permitindo rastreabilidade e
+              reprocessamentos controlados.</li>
+          <li>Modelagem Star Schema na camada Gold, apta tanto para consumo analítico
+              quanto para derivação de Wide Tables focadas em ML.</li>
+          <li>MVP funcional em Streamlit, integrando login, formulário de perfil,
+              dashboard analítico e chat de IA.</li>
         </ul>
 
         <div class="section-title" style="margin-top:16px;">Resultados de Negócio</div>
         <ul class="bullet-list small">
-          <li>Visão consolidada da evolução de treinos por usuário.</li>
-          <li>Métricas de volume, carga e frequência para apoiar personal trainers.</li>
-          <li>Fundação para análises avançadas de performance e aderência a treinos.</li>
+          <li>Visão consolidada da evolução de treinos por usuário, com foco em carga,
+              volume e frequência.</li>
+          <li>Ferramentas visuais que facilitam a conversa entre praticante e instrutor
+              com base em dados concretos, não apenas percepções.</li>
+          <li>Base preparada para análises avançadas, como identificação de padrões de
+              consistência ou risco de abandono ao longo do tempo.</li>
         </ul>
       </div>
 
       <aside class="card">
         <div class="card-meta-title">Próximos Passos</div>
         <ul class="card-bullets">
-          <li>Incorporar ingestão em streaming (Speed Layer) para treinos quase em tempo real.</li>
-          <li>Adicionar modelos de ML para prever risco de abandono e sugerir planos ideais.</li>
-          <li>Conectar a camada Gold a ferramentas de BI corporativas.</li>
-          <li>Evoluir CI/CD e IaC para ambientes de produção multi-conta.</li>
+          <li>Ampliar a arquitetura para incluir uma <strong>Speed Layer</strong> em tempo
+              quase real, integrando eventos de treino assim que são registrados.</li>
+          <li>Desenvolver modelos de machine learning usando Wide Tables derivadas da
+              Gold, com foco em predição de aderência e recomendação de treinos.</li>
+          <li>Integrar ferramentas de BI corporativas, permitindo que times de negócio
+              construam painéis adicionais sobre o mesmo modelo de dados.</li>
+          <li>Evoluir a esteira de CI/CD e IaC para um cenário multiambiente
+              (desenvolvimento, homologação, produção).</li>
         </ul>
       </aside>
     </div>
     <div class="slide-footer">
       <span>Slide 11 · Resultados &amp; Próximos Passos</span>
-      <span class="nav-hint">Próximo: Encerramento</span>
+      <span class="nav-hint">Próximo: fechamento</span>
     </div>
   </div>
 </section>
@@ -838,47 +945,55 @@
     <div class="frame-inner frame-full">
       <div>
         <div class="slide-header-eyebrow">Encerramento</div>
-        <h2 class="slide-title">Resumo &amp; Agradecimentos</h2>
+        <h2 class="slide-title">Resumo do storytelling técnico</h2>
 
         <p class="body-text">
-          O projeto <strong>Instructor Workout</strong> demonstra, de forma integrada,
-          como Engenharia de Dados, nuvem e IA podem apoiar decisões no contexto de
-          treinos físicos. A solução conecta múltiplas fontes de dados, organiza-as em
-          um Data Lake estruturado e disponibiliza insights em um MVP acessível.
+          O trabalho do <strong>Instructor Workout</strong> conecta diretamente os pilares do
+          Hands-on de Engenharia de Dados em Big Data ao contexto de treinos físicos:
+          partindo de um problema de negócio claro, passando pela construção de uma
+          arquitetura Lambda em nuvem, pela criação de um Data Lake governado e pela
+          modelagem analítica, até chegar a um MVP de aplicação com IA focado no usuário.
         </p>
 
         <div class="layout-columns">
           <div>
             <div class="section-title">Pontos-chave</div>
             <ul class="bullet-list small">
-              <li>Arquitetura Lambda adaptada ao contexto de fitness.</li>
-              <li>Data Lake em AWS com Bronze, Silver e Gold.</li>
-              <li>Airflow garantindo orquestração e reprocessamento.</li>
-              <li>Modelagem Star Schema para análise de treinos.</li>
-              <li>App Streamlit + IA aproximando o usuário final dos dados.</li>
+              <li>Arquitetura em camadas (Bronze, Silver, Gold) alinhada às boas práticas
+                  de Engenharia de Dados.</li>
+              <li>Orquestração com Airflow, permitindo automação, observabilidade e
+                  reprocessamentos seguros.</li>
+              <li>Modelagem Star Schema preparada para evoluir para cenários de
+                  machine learning (Wide Table).</li>
             </ul>
           </div>
           <div>
             <div class="section-title">Aprendizados</div>
             <ul class="bullet-list small">
-              <li>Importância de desenhar camadas de dados desde o início.</li>
-              <li>Benefícios de separar ingestão, transformação e consumo.</li>
-              <li>Valor de um MVP funcional para validar ideias com rapidez.</li>
+              <li>Importância de começar pelo problema de negócio e não pela tecnologia.</li>
+              <li>Benefícios de separar ingestão, transformação, armazenamento e consumo
+                  em componentes bem definidos.</li>
+              <li>Valor de um MVP funcional para demonstrar, na prática, o impacto de uma
+                  arquitetura de dados bem desenhada.</li>
             </ul>
           </div>
           <div>
             <div class="section-title">Próximas Explorações</div>
             <ul class="bullet-list small">
-              <li>Incluir métricas de recuperação, sono e nutrição em futuras versões.</li>
-              <li>Explorar personalização baseada em clusters de usuários semelhantes.</li>
-              <li>Integrar notificações e automações com ferramentas de treino.</li>
+              <li>Incluir novas fontes (por exemplo, dados de sono, nutrição ou wearables),
+                  ampliando a visão 360º do usuário.</li>
+              <li>Explorar personalização baseada em grupos de usuários semelhantes
+                  (clusterização) e trilhas de treino automatizadas.</li>
+              <li>Transformar o MVP em um produto completo, com monitoramento, alertas e
+                  integrações com academias e plataformas de fitness.</li>
             </ul>
           </div>
         </div>
 
         <p class="footnote">
-          Obrigado pela atenção. Fico à disposição para dúvidas sobre arquitetura,
-          decisões técnicas e possibilidades de evolução desta solução.
+          Obrigado pela atenção. Ficam abertas as discussões sobre melhorias de
+          arquitetura, evolução de modelos de dados e novas oportunidades de uso de IA
+          dentro desta solução.
         </p>
       </div>
     </div>
@@ -891,3 +1006,4 @@
 
 </body>
 </html>
+
