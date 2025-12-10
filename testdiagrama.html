@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Instructor Workout - Arquitetura Bronze / Silver / Gold</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #030712;
+      --bg-card: #050816;
+      --bg-inner: #020617;
+      --border-soft: rgba(148, 163, 184, 0.25);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --accent-bronze: #f97316;
+      --accent-silver: #9ca3af;
+      --accent-gold: #facc15;
+      --pill-bg: rgba(15, 23, 42, 0.85);
+      --pill-border: rgba(148, 163, 184, 0.4);
+      --shadow-soft: 0 24px 60px rgba(15, 23, 42, 0.85);
+      --radius-xl: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.18), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(236, 72, 153, 0.15), transparent 55%),
+        radial-gradient(circle at 50% 100%, rgba(234, 179, 8, 0.15), transparent 55%),
+        var(--bg-main);
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .frame {
+      width: 100%;
+      max-width: 1280px;
+      border-radius: 32px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.98));
+      box-shadow: var(--shadow-soft);
+      padding: 32px 32px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Glow bordas */
+    .frame::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg,
+        rgba(96, 165, 250, 0.35),
+        rgba(167, 139, 250, 0.4),
+        rgba(251, 191, 36, 0.35));
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background-color: rgba(15, 23, 42, 0.9);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .eyebrow-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #a855f7, #22d3ee);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
+    }
+
+    .title {
+      font-size: 24px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Steps */
+    .steps {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin: 20px auto 26px;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+
+    .step {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background-color: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .step-index {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .step-index.sources  { background: radial-gradient(circle at 30% 20%, #38bdf8, #6366f1); }
+    .step-index.ingest   { background: radial-gradient(circle at 30% 20%, #22c55e, #a3e635); }
+    .step-index.medal    { background: radial-gradient(circle at 30% 20%, #f97316, #facc15); }
+    .step-index.analytics{ background: radial-gradient(circle at 30% 20%, #6366f1, #ec4899); }
+
+    /* Main columns */
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 960px) {
+      .frame {
+        padding: 24px 18px 20px;
+      }
+      .columns {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .column {
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.96));
+      padding: 16px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .column::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top,
+        rgba(248, 250, 252, 0.06),
+        transparent 56%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .column-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .column-title {
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .column-title span:first-child {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .badge-layer {
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      background-color: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .bronze .badge-layer {
+      border-color: rgba(248, 113, 22, 0.7);
+      color: var(--accent-bronze);
+    }
+    .silver .badge-layer {
+      border-color: rgba(148, 163, 184, 0.9);
+      color: var(--accent-silver);
+    }
+    .gold .badge-layer {
+      border-color: rgba(250, 204, 21, 0.7);
+      color: var(--accent-gold);
+    }
+
+    .column-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 2px;
+      margin-bottom: 6px;
+    }
+
+    .pill {
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--pill-border);
+      background-color: var(--pill-bg);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* Tables / arquivos */
+    .tables {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 7px;
+      position: relative;
+      z-index: 1;
+      margin-top: 6px;
+    }
+
+    .table-card {
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.99));
+      border: 1px solid rgba(30, 64, 175, 0.35);
+      padding: 7px 9px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 11px;
+    }
+
+    .table-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .table-name {
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .table-desc {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    .table-tag {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background-color: rgba(15, 23, 42, 0.9);
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .bronze .table-card { border-color: rgba(248, 113, 22, 0.5); }
+    .silver .table-card { border-color: rgba(148, 163, 184, 0.7); }
+    .gold .table-card   { border-color: rgba(250, 204, 21, 0.6); }
+
+    /* Footer */
+    .footer {
+      margin-top: 20px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer span strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .footer .runtime {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background-color: rgba(15, 23, 42, 0.95);
+    }
+
+    .dot-green {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #4ade80, #22c55e);
+      box-shadow: 0 0 8px rgba(74, 222, 128, 0.9);
+    }
+  </style>
+</head>
+<body>
+  <main class="frame">
+    <!-- Header -->
+    <header class="header">
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span>Instructor Workout • Data Platform</span>
+      </div>
+      <h1 class="title">Medallion Data Lake Architecture</h1>
+      <p class="subtitle">
+        Três camadas de dados orquestradas pelo Airflow: Bronze (Raw), Silver (Refinada) e Gold (Modelo Dimensional).
+      </p>
+    </header>
+
+    <!-- Steps -->
+    <section class="steps">
+      <div class="step">
+        <span class="step-index sources">1</span>
+        <span>Fontes &amp; APIs</span>
+      </div>
+      <div class="step">
+        <span class="step-index ingest">2</span>
+        <span>Ingestão &amp; DAG</span>
+      </div>
+      <div class="step">
+        <span class="step-index medal">3</span>
+        <span>Lake Medallion</span>
+      </div>
+      <div class="step">
+        <span class="step-index analytics">4</span>
+        <span>BI &amp; Machine Learning</span>
+      </div>
+    </section>
+
+    <!-- Columns Bronze / Silver / Gold -->
+    <section class="columns">
+      <!-- BRONZE -->
+      <article class="column bronze">
+        <div class="column-header">
+          <div class="column-title">
+            <span>Camada 01</span>
+            <span>Bronze • Raw Landing</span>
+          </div>
+          <div class="badge-layer">Bronze</div>
+        </div>
+        <p class="column-desc">
+          Dados brutos vindos das fontes (Hevy API, formulários e Kaggle), armazenados exatamente como chegam,
+          servindo como trilha de auditoria completa.
+        </p>
+
+        <div class="pill-row">
+          <div class="pill">Hevy API</div>
+          <div class="pill">Streamlit Form</div>
+          <div class="pill">Kaggle / Sintético</div>
+        </div>
+
+        <div class="tables">
+          <div class="table-card">
+            <div class="table-info">
+              <span class="table-name">ingest_users_form</span>
+              <span class="table-desc">Dump de leads e usuários capturados no formulário.</span>
+            </div>
+            <span class="table-tag">raw / landing</span>
+          </div>
+
+          <div class="table-card">
+            <div class="table-info">
+              <span class="table-name">ingest_hevy</span>
+              <span class="table-desc">Treinos, séries e repetições extraídas da Hevy API.</span>
+            </div>
+            <span class="table-tag">raw / workouts</span>
+          </div>
+
+          <div class="table-card">
+            <div class="table-info">
+              <span class="table-name">ingest_hevy_base</span>
+              <span class="table-desc">Base auxiliar com cadastros e metadados de usuários.</span>
+            </div>
+            <span class="table-tag">raw / base</span>
+          </div>
+
+          <div class="table-card">
+            <div class="table-info">
+              <span class="table-name">ingest_kaggle</span>
+              <span class="table-desc">Dados históricos de exercícios importados do Kaggle.</span>
+            </div>
+            <span class="table-tag">raw / kaggle</span>
+          </div>
+
+          <div class="table-card">
+            <div class="table-info">
+              <span class="table-name">ingest_depara_heavy_kaggle</span>
+              <span class="table-desc">Mapeamento de exercícios entre Hevy e Kaggle (de-para).</span>
+            </div>
+            <span class="table-tag">raw / mapping</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- SILVER -->
+      <article class="column silver">
+        <div class="column-header">
+          <div class="column-title">
+            <span>Camada 02</span>
+            <span>Silver • Dados Refinados</span>
+          </div>
+          <div class="badge-layer">Silver</div>
+        </div>
+        <p class="column-desc">
+          Dados integrados, limpos e padronizados. Nesta camada aplicamos regras de negócio,
+          de-para de exercícios e consolidamos entidades analíticas.
+        </p>
+
+        <div class="pill-row">
+          <div class="pill">Limpeza &amp; Qualidade</div>
+          <div class="pill">De-para Exercícios</div>
+          <div class="pill">Modelagem Lógica</div>
+        </div>
+
+        <div class="tables">
+          <div class="table-card">
+            <div class="table-info">
+              <span class="table-name">silver_users</span>
+              <span class="table-desc">Visão única de usuário com informações do formulário e da Hevy.</span>
+            </div>
+            <span class="table-tag">refined / users</span>
+          </div>
+
+          <div class="table-card">
+            <div class="table-info">
+              <span class="table-name">silver_depara_heavy_kaggle</span>
+              <span class="table-desc">Chave padrão de exercícios entre todas as fontes.</span>
+            </div>
+            <span class="table-tag">refined / mapping</span>
+          </div>
+
+          <div class="table-card">
+            <div class="table-info">
+              <span class="table-name">silver_kaggle</span>
+              <span class="table-desc">Exercícios do Kaggle já normalizados para o padrão interno.</span>
+            </div>
+            <span class="table-tag">refined / kaggle</span>
+          </div>
+
+          <div class="table-card">
+            <div class="table-info">
+              <span class="table-name">silver_transform</span>
+              <span class="table-desc">Camada de staging com métricas derivadas por treino/usuário.</span>
+            </div>
+            <span class="table-tag">staging / metrics</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- GOLD -->
+      <article class="column gold">
+        <div class="column-header">
+          <div class="column-title">
+            <span>Camada 03</span>
+            <span>Gold • Modelo Dimensional</span>
+          </div>
+          <div class="badge-layer">Gold</div>
+        </div>
+        <p class="column-desc">
+          Camada voltada para consumo analítico: modelo dimensional com tabela fato e dimensões,
+          pronto para Power BI, dashboards e modelos de Machine Learning.
+        </p>
+
+        <div class="pill-row">
+          <div class="pill">Star Schema</div>
+          <div class="pill">BI &amp; Dashboards</div>
+          <div class="pill">ML Features</div>
+        </div>
+
+        <div class="tables">
+          <div class="table-card">
+            <div class="table-info">
+              <span class="table-name">gold_dim_exercise</span>
+              <span class="table-desc">Dimensão de exercícios: grupos musculares, equipamento, nível etc.</span>
+            </div>
+            <span class="table-tag">dimension</span>
+          </div>
+
+          <div class="table-card">
+            <div class="table-info">
+              <span class="table-name">gold_metrics</span>
+              <span class="table-desc">
+                Tabela fato com métricas de treino por usuário, sessão, exercício e período.
+              </span>
+            </div>
+            <span class="table-tag">fact table</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span>Pipeline orquestrado com <strong>Apache Airflow</strong> e armazenado em <strong>S3 Lakehouse</strong>.</span>
+      <span class="runtime">
+        <span class="dot-green"></span>
+        docker compose exec app python jobs/minha_job.py
+      </span>
+    </footer>
+  </main>
+</body>
+</html>
