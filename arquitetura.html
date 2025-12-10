@@ -93,7 +93,7 @@
     /* PIPELINE / STEPPER -------------------------------------- */
     .pipeline-strip {
       margin: 14px auto 10px;
-      max-width: 820px;
+      max-width: 780px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -154,7 +154,7 @@
       flex: 1;
       margin-top: 6px;
       display: grid;
-      grid-template-columns: 1.1fr 1.2fr 1.6fr 1.3fr;
+      grid-template-columns: 1.1fr 1.1fr 1.4fr 1.2fr;
       column-gap: 20px;
       padding-top: 4px;
     }
@@ -167,7 +167,7 @@
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      gap: 8px;
+      gap: 10px;
       box-shadow: 0 14px 40px rgba(15, 23, 42, 0.85);
     }
 
@@ -175,7 +175,7 @@
       text-align: center;
       padding-bottom: 6px;
       border-bottom: 1px solid rgba(75, 85, 99, 0.75);
-      margin-bottom: 2px;
+      margin-bottom: 4px;
     }
 
     .col-title {
@@ -241,34 +241,12 @@
       color: var(--muted);
     }
 
-    /* PÍLULAS DE DETALHE -------------------------------------- */
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 4px;
-      max-width: 100%;
-    }
-
-    .pill {
-      font-size: 8.5px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      padding: 2px 6px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      color: var(--muted);
-      white-space: nowrap;
-      background: rgba(15, 23, 42, 0.9);
-    }
-
     /* ÍCONES SIMPLES ------------------------------------------ */
     .icon-grid,
     .icon-gear,
     .icon-cylinder,
     .icon-screen,
-    .icon-chat,
-    .icon-context {
+    .icon-chat {
       position: relative;
     }
 
@@ -347,16 +325,6 @@
       border-color: var(--accent-serve) transparent transparent transparent;
     }
 
-    .icon-context::before {
-      content: "";
-      width: 22px;
-      height: 18px;
-      border-radius: 6px;
-      border: 2px solid var(--accent-lake);
-      display: block;
-      box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.9);
-    }
-
     /* MEDALLION: BRONZE / SILVER / GOLD ---------------------- */
     .medallion {
       display: flex;
@@ -431,19 +399,19 @@
     <div class="pipeline-strip">
       <div class="step sources">
         <div class="step-circle">1</div>
-        <div class="step-label">Source Systems</div>
+        <div class="step-label">Sources</div>
       </div>
       <div class="step ingest">
         <div class="step-circle">2</div>
-        <div class="step-label">Airflow ETL</div>
+        <div class="step-label">Ingest</div>
       </div>
       <div class="step lake">
         <div class="step-circle">3</div>
-        <div class="step-label">Data Lake S3</div>
+        <div class="step-label">Data Lake</div>
       </div>
       <div class="step serve">
         <div class="step-circle">4</div>
-        <div class="step-label">Serving &amp; AI</div>
+        <div class="step-label">Analytics &amp; AI</div>
       </div>
     </div>
 
@@ -459,169 +427,73 @@
         <div class="box">
           <div class="icon-grid"></div>
           <div class="box-label">Hevy API</div>
-          <div class="box-tag">Workouts / Sets</div>
-          <div class="pill-row">
-            <span class="pill">Workouts</span>
-            <span class="pill">Sets</span>
-            <span class="pill">Exercises</span>
-          </div>
+          <div class="box-tag">Workouts</div>
         </div>
 
         <div class="box small">
           <div class="icon-grid"></div>
           <div class="box-label">Streamlit Form</div>
-          <div class="pill-row">
-            <span class="pill">User Profiles</span>
-          </div>
         </div>
 
         <div class="box small">
           <div class="icon-grid"></div>
           <div class="box-label">Kaggle / Synthetic</div>
-          <div class="pill-row">
-            <span class="pill">Exercises Catalog</span>
-            <span class="pill">Muscle Groups</span>
-          </div>
         </div>
       </section>
 
-      <!-- AIRFLOW ETL -->
+      <!-- INGESTÃO -->
       <section class="col ingest">
         <div class="col-header">
-          <div class="col-title">Airflow ETL</div>
-          <div class="col-tag">Lambda / Batch Layer</div>
+          <div class="col-title">Ingest</div>
+          <div class="col-tag">Airflow ETL</div>
         </div>
 
         <div class="box">
           <div class="icon-gear"></div>
-          <div class="box-label">DAG instructor_workout_pipeline</div>
-          <div class="box-tag">BashOperator + Python</div>
-        </div>
-
-        <div class="box small">
-          <div class="box-label">Ingestion (Bronze)</div>
-          <div class="pill-row">
-            <span class="pill">create_lake_structure</span>
-            <span class="pill">ingest_users_form</span>
-            <span class="pill">ingest_hevy</span>
-            <span class="pill">ingest_hevy_base</span>
-            <span class="pill">ingest_kaggle</span>
-          </div>
-        </div>
-
-        <div class="box small">
-          <div class="box-label">Transformations (Silver)</div>
-          <div class="pill-row">
-            <span class="pill">silver_users</span>
-            <span class="pill">silver_transform</span>
-            <span class="pill">silver_kaggle</span>
-          </div>
-        </div>
-
-        <div class="box small">
-          <div class="box-label">Metrics (Gold)</div>
-          <div class="pill-row">
-            <span class="pill">gold_metrics</span>
-          </div>
+          <div class="box-label">DAG Pipeline</div>
+          <div class="box-tag">Batch Orchestration</div>
         </div>
       </section>
 
-      <!-- DATA LAKE S3 -->
+      <!-- DATA LAKE -->
       <section class="col lake">
         <div class="col-header">
           <div class="col-title">Data Lake</div>
-          <div class="col-tag">AWS S3 Lakehouse</div>
+          <div class="col-tag">S3 Lakehouse</div>
         </div>
 
         <div class="box">
           <div class="icon-cylinder"></div>
-          <div class="box-label">Medallion Layers</div>
+          <div class="box-label">Medallion</div>
           <div class="medallion">
             <div class="med-layer bronze">Bronze</div>
             <div class="med-layer silver">Silver</div>
             <div class="med-layer gold">Gold</div>
           </div>
         </div>
-
-        <div class="box small">
-          <div class="box-label">Bronze (Raw)</div>
-          <div class="pill-row">
-            <span class="pill">bronze/hevy/raw_workouts</span>
-            <span class="pill">bronze/hevy/raw_sets</span>
-            <span class="pill">bronze/users/raw_user_form</span>
-            <span class="pill">bronze/kaggle/raw_exercises</span>
-          </div>
-        </div>
-
-        <div class="box small">
-          <div class="box-label">Silver (Clean)</div>
-          <div class="pill-row">
-            <span class="pill">silver/users</span>
-            <span class="pill">silver/workouts</span>
-            <span class="pill">silver/sets</span>
-            <span class="pill">silver/exercises</span>
-          </div>
-        </div>
-
-        <div class="box small">
-          <div class="box-label">Gold (Star Schema)</div>
-          <div class="pill-row">
-            <span class="pill">fact_workout_metrics</span>
-            <span class="pill">dim_date</span>
-            <span class="pill">dim_user</span>
-            <span class="pill">dim_exercise</span>
-          </div>
-        </div>
-
-        <div class="box small">
-          <div class="box-label">Test Area</div>
-          <div class="pill-row">
-            <span class="pill">test/fact_workouts_test_user</span>
-          </div>
-        </div>
       </section>
 
-      <!-- SERVING & AI -->
+      <!-- SERVING -->
       <section class="col serve">
         <div class="col-header">
-          <div class="col-title">Serving Layer</div>
-          <div class="col-tag">Analytics &amp; IA</div>
+          <div class="col-title">Analytics</div>
+          <div class="col-tag">Serving Layer</div>
         </div>
 
         <div class="box">
           <div class="icon-screen"></div>
           <div class="box-label">Streamlit App</div>
-          <div class="pill-row">
-            <span class="pill">Login</span>
-            <span class="pill">Formulário</span>
-            <span class="pill">Dashboard</span>
-          </div>
-        </div>
-
-        <div class="box small">
-          <div class="icon-context"></div>
-          <div class="box-label">Context Builder</div>
-          <div class="pill-row">
-            <span class="pill">Perfil (Silver)</span>
-            <span class="pill">Métricas Gold</span>
-          </div>
+          <div class="box-tag">Dashboards</div>
         </div>
 
         <div class="box small">
           <div class="icon-chat"></div>
           <div class="box-label">LLM Coach</div>
-          <div class="pill-row">
-            <span class="pill">LLaMA 3.1</span>
-            <span class="pill">GROQ API</span>
-          </div>
         </div>
 
         <div class="box small">
           <div class="icon-screen"></div>
           <div class="box-label">BI / Reports</div>
-          <div class="pill-row">
-            <span class="pill">Dashboards Gold</span>
-          </div>
         </div>
       </section>
     </div>
