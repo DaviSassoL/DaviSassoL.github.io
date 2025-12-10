@@ -5,35 +5,41 @@
   <title>Arquitetura de Dados - Instructor Workout</title>
   <style>
     :root {
-      --bg-main: #003366;
-      --bg-panel: #0b1e3a;
-      --border-col: #ffffff33;
-      --border-box: #ffffff66;
-      --text: #f9fafb;
-      --muted: #d1d5db;
-      --accent-ingest: #38bdf8;
-      --accent-lake: #facc15;
-      --accent-serve: #22c55e;
+      --bg-main: #020617;
+      --bg-panel: #020617;
+      --bg-col: #0b1220;
+      --border-col: #1f2937;
+      --border-box: #4b5563;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+
       --accent-source: #a855f7;
+      --accent-ingest: #38bdf8;
+      --accent-lake: #fbbf24;
+      --accent-serve: #22c55e;
+
       --bronze: #f97316;
       --silver: #e5e7eb;
       --gold: #facc15;
     }
 
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
       min-height: 100vh;
-      background: radial-gradient(circle at top, #1e3a8a 0, #020617 55%, #000 100%);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, #1d4ed8 0, transparent 55%),
+        radial-gradient(circle at bottom, #4c1d95 0, transparent 55%),
+        var(--bg-main);
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 24px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
     }
 
@@ -41,121 +47,192 @@
       width: 100%;
       max-width: 1280px;
       aspect-ratio: 16 / 9;
-      background: linear-gradient(180deg, #0f172a 0, #020617 100%);
-      border-radius: 24px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      box-shadow: 0 24px 80px rgba(15, 23, 42, 0.9);
-      padding: 18px 26px;
-      position: relative;
-      overflow: hidden;
+      background: radial-gradient(circle at top left, #111827 0, #020617 55%);
+      border-radius: 28px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      box-shadow: 0 26px 80px rgba(15, 23, 42, 0.95);
+      padding: 20px 26px 26px;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* Título */
+    /* HEADER -------------------------------------------------- */
     .header {
       text-align: center;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
 
     .header-title {
-      font-size: 22px;
+      font-size: 20px;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: #9ca3af;
-      margin-bottom: 2px;
+      margin-bottom: 3px;
     }
 
     .header-subtitle {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 600;
       letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     .header-line {
-      margin: 8px auto 0;
-      width: 240px;
+      width: 260px;
       height: 2px;
+      margin: 10px auto 0;
       background: linear-gradient(
         90deg,
         transparent,
-        rgba(248, 250, 252, 0.9),
+        rgba(248, 250, 252, 0.95),
         transparent
       );
+      border-radius: 999px;
     }
 
-    /* Colunas principais */
+    /* PIPELINE / STEPPER -------------------------------------- */
+    .pipeline-strip {
+      margin: 14px auto 10px;
+      max-width: 780px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .step {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+    }
+
+    .step:not(:last-child)::after {
+      content: "";
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(
+        90deg,
+        rgba(148, 163, 184, 0.1),
+        rgba(148, 163, 184, 0.8),
+        rgba(148, 163, 184, 0.1)
+      );
+      border-radius: 999px;
+      margin-left: 8px;
+    }
+
+    .step-circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      border: 2px solid rgba(148, 163, 184, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      background: #020617;
+      box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.95);
+    }
+
+    .step-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .step.sources .step-circle { border-color: var(--accent-source); color: var(--accent-source); }
+    .step.ingest  .step-circle { border-color: var(--accent-ingest); color: var(--accent-ingest); }
+    .step.lake    .step-circle { border-color: var(--accent-lake);   color: var(--accent-lake); }
+    .step.serve   .step-circle { border-color: var(--accent-serve);  color: var(--accent-serve); }
+
+    /* GRID DE COLUNAS ----------------------------------------- */
     .columns {
-      position: absolute;
-      inset: 64px 24px 28px;
+      flex: 1;
+      margin-top: 6px;
       display: grid;
       grid-template-columns: 1.1fr 1.1fr 1.4fr 1.2fr;
-      column-gap: 18px;
+      column-gap: 20px;
+      padding-top: 4px;
     }
 
     .col {
-      position: relative;
+      background: linear-gradient(180deg, #020617 0, #020617 40%, #020617 100%);
+      border-radius: 20px;
+      border: 1px solid rgba(55, 65, 81, 0.8);
+      padding: 10px 10px 12px;
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      padding: 10px 8px 10px;
+      gap: 10px;
+      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.85);
     }
 
-    .col::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      border-left: 1px solid var(--border-col);
-      opacity: 0.6;
-    }
-
-    .col:first-child::before {
-      border-left: none;
+    .col-header {
+      text-align: center;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(75, 85, 99, 0.75);
+      margin-bottom: 4px;
     }
 
     .col-title {
-      font-size: 12px;
+      font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.2em;
-      padding: 4px 0 6px;
-      text-align: center;
+      letter-spacing: 0.22em;
     }
 
-    .col-title.sources { color: var(--accent-source); }
-    .col-title.ingest  { color: var(--accent-ingest); }
-    .col-title.lake    { color: var(--accent-lake); }
-    .col-title.serve   { color: var(--accent-serve); }
+    .col-tag {
+      margin-top: 4px;
+      display: inline-flex;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      background: #020617;
+    }
 
-    /* Blocos (sem muito texto) */
+    .col.sources .col-title { color: var(--accent-source); }
+    .col.ingest  .col-title { color: var(--accent-ingest); }
+    .col.lake    .col-title { color: var(--accent-lake); }
+    .col.serve   .col-title { color: var(--accent-serve); }
+
+    /* BOXES (BLOCOS) ------------------------------------------ */
     .box {
       flex: 1;
       border-radius: 14px;
       border: 1px solid var(--border-box);
-      background: rgba(15, 23, 42, 0.9);
+      background: radial-gradient(circle at top, #111827 0, #020617 80%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 10px 8px;
       gap: 8px;
-      padding: 12px 8px;
     }
 
     .box.small {
       flex: 0 0 auto;
-      margin-top: 8px;
       padding: 8px 6px;
+      gap: 6px;
     }
 
     .box-label {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
-      text-align: center;
-      text-transform: uppercase;
       letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+      white-space: nowrap;
     }
 
     .box-tag {
-      font-size: 10px;
+      font-size: 9px;
       text-transform: uppercase;
       letter-spacing: 0.16em;
       padding: 3px 8px;
@@ -164,10 +241,10 @@
       color: var(--muted);
     }
 
-    /* Ícones simples com CSS */
+    /* ÍCONES SIMPLES ------------------------------------------ */
     .icon-grid,
-    .icon-cylinder,
     .icon-gear,
+    .icon-cylinder,
     .icon-screen,
     .icon-chat {
       position: relative;
@@ -175,22 +252,22 @@
 
     .icon-grid::before {
       content: "";
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       border-radius: 4px;
       border: 2px solid var(--accent-source);
       display: block;
-      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.7);
       background-image:
         linear-gradient(#ffffff33 1px, transparent 1px),
         linear-gradient(90deg, #ffffff33 1px, transparent 1px);
       background-size: 6px 6px;
+      box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.9);
     }
 
     .icon-gear::before {
       content: "";
-      width: 26px;
-      height: 26px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       border: 2px solid var(--accent-ingest);
       display: block;
@@ -201,7 +278,7 @@
       content: "";
       width: 26px;
       height: 28px;
-      border-radius: 50% / 20%;
+      border-radius: 50% / 24%;
       border: 2px solid var(--accent-lake);
       display: block;
       box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.9);
@@ -209,8 +286,8 @@
 
     .icon-screen::before {
       content: "";
-      width: 28px;
-      height: 20px;
+      width: 26px;
+      height: 18px;
       border-radius: 4px;
       border: 2px solid var(--accent-serve);
       display: block;
@@ -219,19 +296,19 @@
 
     .icon-screen::after {
       content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 6px;
       width: 14px;
       height: 2px;
-      background: var(--accent-serve);
-      position: absolute;
-      left: 7px;
-      bottom: -4px;
       border-radius: 999px;
+      background: var(--accent-serve);
     }
 
     .icon-chat::before {
       content: "";
-      width: 26px;
-      height: 20px;
+      width: 24px;
+      height: 18px;
       border-radius: 6px;
       border: 2px solid var(--accent-serve);
       display: block;
@@ -248,181 +325,146 @@
       border-color: var(--accent-serve) transparent transparent transparent;
     }
 
-    /* Medallion (Bronze / Silver / Gold) em linha */
+    /* MEDALLION: BRONZE / SILVER / GOLD ---------------------- */
     .medallion {
       display: flex;
       width: 100%;
       gap: 6px;
-      margin-top: 8px;
+      margin-top: 2px;
     }
 
     .med-layer {
       flex: 1;
       border-radius: 10px;
-      border: 1px solid rgba(248, 250, 252, 0.4);
       padding: 6px 4px;
-      text-align: center;
-      font-size: 11px;
+      font-size: 9px;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.16em;
       font-weight: 600;
+      text-align: center;
+      border: 1px solid rgba(248, 250, 252, 0.5);
     }
 
     .med-layer.bronze {
       background: linear-gradient(180deg, #451a03, #7c2d12);
       color: var(--bronze);
     }
+
     .med-layer.silver {
-      background: linear-gradient(180deg, #1e293b, #374151);
+      background: linear-gradient(180deg, #1f2937, #374151);
       color: var(--silver);
     }
+
     .med-layer.gold {
       background: linear-gradient(180deg, #422006, #854d0e);
       color: var(--gold);
     }
 
-    /* Setas horizontais entre colunas */
-    .arrow {
-      position: absolute;
-      top: 50%;
-      width: 60px;
-      height: 2px;
-      border-top: 2px dashed rgba(248, 250, 252, 0.8);
-    }
-
-    .arrow::after {
-      content: "";
-      position: absolute;
-      right: -4px;
-      top: -3px;
-      border-width: 5px 0 5px 7px;
-      border-style: solid;
-      border-color: transparent transparent transparent rgba(248, 250, 252, 0.9);
-    }
-
-    .arrow.a1 { left: 23%; }
-    .arrow.a2 { left: 48%; }
-    .arrow.a3 { left: 75%; }
-
-    /* Setas internas Bronze -> Silver -> Gold */
-    .arrow-med {
-      position: absolute;
-      bottom: 20%;
-      left: 39%;
-      width: 80px;
-      height: 2px;
-      border-top: 2px solid rgba(250, 250, 250, 0.7);
-    }
-
-    .arrow-med::after {
-      content: "";
-      position: absolute;
-      right: -4px;
-      top: -3px;
-      border-width: 5px 0 5px 7px;
-      border-style: solid;
-      border-color: transparent transparent transparent rgba(250, 250, 250, 0.9);
-    }
-
-    .arrow-med2 {
-      position: absolute;
-      bottom: 20%;
-      left: 49%;
-      width: 80px;
-      height: 2px;
-      border-top: 2px solid rgba(250, 250, 250, 0.7);
-    }
-
-    .arrow-med2::after {
-      content: "";
-      position: absolute;
-      right: -4px;
-      top: -3px;
-      border-width: 5px 0 5px 7px;
-      border-style: solid;
-      border-color: transparent transparent transparent rgba(250, 250, 250, 0.9);
-    }
-
-    /* Responsivo simplificado */
-    @media (max-width: 900px) {
+    /* RESPONSIVO ---------------------------------------------- */
+    @media (max-width: 960px) {
       .diagram {
         aspect-ratio: auto;
-        height: auto;
+        padding: 16px;
       }
       .columns {
-        position: static;
-        margin-top: 24px;
-        display: grid;
         grid-template-columns: 1fr 1fr;
         row-gap: 16px;
-      }
-      .arrow, .arrow-med, .arrow-med2 {
-        display: none;
       }
     }
 
     @media (max-width: 640px) {
+      body { padding: 12px; }
       .columns {
         grid-template-columns: 1fr;
       }
-      .col::before {
-        border-left: none;
+      .pipeline-strip {
+        flex-direction: column;
+        gap: 6px;
+      }
+      .step:not(:last-child)::after {
+        display: none;
       }
     }
   </style>
 </head>
 <body>
   <div class="diagram">
-    <div class="header">
+    <header class="header">
       <div class="header-title">INSTRUCTOR WORKOUT</div>
       <div class="header-subtitle">DATA PLATFORM ARCHITECTURE</div>
       <div class="header-line"></div>
+    </header>
+
+    <!-- PIPELINE / ETAPAS PRINCIPAIS -->
+    <div class="pipeline-strip">
+      <div class="step sources">
+        <div class="step-circle">1</div>
+        <div class="step-label">Sources</div>
+      </div>
+      <div class="step ingest">
+        <div class="step-circle">2</div>
+        <div class="step-label">Ingest</div>
+      </div>
+      <div class="step lake">
+        <div class="step-circle">3</div>
+        <div class="step-label">Data Lake</div>
+      </div>
+      <div class="step serve">
+        <div class="step-circle">4</div>
+        <div class="step-label">Analytics &amp; AI</div>
+      </div>
     </div>
 
-    <!-- Setas entre as colunas -->
-    <div class="arrow a1"></div>
-    <div class="arrow a2"></div>
-    <div class="arrow a3"></div>
-
-    <!-- Setas Bronze -> Silver -> Gold -->
-    <div class="arrow-med"></div>
-    <div class="arrow-med2"></div>
-
+    <!-- COLUNAS DE ARQUITETURA -->
     <div class="columns">
       <!-- FONTES -->
-      <section class="col">
-        <div class="col-title sources">Sources</div>
+      <section class="col sources">
+        <div class="col-header">
+          <div class="col-title">Sources</div>
+          <div class="col-tag">Data Producers</div>
+        </div>
+
         <div class="box">
           <div class="icon-grid"></div>
           <div class="box-label">Hevy API</div>
           <div class="box-tag">Workouts</div>
         </div>
+
         <div class="box small">
           <div class="icon-grid"></div>
           <div class="box-label">Streamlit Form</div>
         </div>
+
         <div class="box small">
           <div class="icon-grid"></div>
           <div class="box-label">Kaggle / Synthetic</div>
         </div>
       </section>
 
-      <!-- INGEST -->
-      <section class="col">
-        <div class="col-title ingest">Ingest &amp; Orchestrate</div>
+      <!-- INGESTÃO -->
+      <section class="col ingest">
+        <div class="col-header">
+          <div class="col-title">Ingest</div>
+          <div class="col-tag">Airflow ETL</div>
+        </div>
+
         <div class="box">
           <div class="icon-gear"></div>
-          <div class="box-label">Airflow DAG</div>
-          <div class="box-tag">Batch ETL</div>
+          <div class="box-label">DAG Pipeline</div>
+          <div class="box-tag">Batch Orchestration</div>
         </div>
       </section>
 
       <!-- DATA LAKE -->
-      <section class="col">
-        <div class="col-title lake">Data Lake – S3</div>
+      <section class="col lake">
+        <div class="col-header">
+          <div class="col-title">Data Lake</div>
+          <div class="col-tag">S3 Lakehouse</div>
+        </div>
+
         <div class="box">
           <div class="icon-cylinder"></div>
-          <div class="box-label">Lakehouse</div>
+          <div class="box-label">Medallion</div>
           <div class="medallion">
             <div class="med-layer bronze">Bronze</div>
             <div class="med-layer silver">Silver</div>
@@ -432,17 +474,23 @@
       </section>
 
       <!-- SERVING -->
-      <section class="col">
-        <div class="col-title serve">Analytics &amp; AI</div>
+      <section class="col serve">
+        <div class="col-header">
+          <div class="col-title">Analytics</div>
+          <div class="col-tag">Serving Layer</div>
+        </div>
+
         <div class="box">
           <div class="icon-screen"></div>
           <div class="box-label">Streamlit App</div>
           <div class="box-tag">Dashboards</div>
         </div>
+
         <div class="box small">
           <div class="icon-chat"></div>
           <div class="box-label">LLM Coach</div>
         </div>
+
         <div class="box small">
           <div class="icon-screen"></div>
           <div class="box-label">BI / Reports</div>
