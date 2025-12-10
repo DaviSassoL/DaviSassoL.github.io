@@ -151,7 +151,7 @@
       flex: 1;
       margin-top: 6px;
       display: grid;
-      grid-template-columns: 1.1fr 1.1fr 1.4fr 1.2fr;
+      grid-template-columns: 1.1fr 1.2fr 1.4fr 1.2fr;
       column-gap: 20px;
       padding-top: 4px;
     }
@@ -235,9 +235,10 @@
       border-radius: 999px;
       border: 1px solid rgba(148, 163, 184, 0.6);
       color: var(--muted);
+      text-align: center;
     }
 
-    /* ÍCONES BEM SIMPLES ----------------------- */
+    /* ÍCONES SIMPLES --------------------------- */
     .icon-grid,
     .icon-gear,
     .icon-cylinder,
@@ -332,7 +333,7 @@
       box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.9);
     }
 
-    /* MEDALLION: Bronze/Silver/Gold ------------- */
+    /* MEDALLION -------------------------------- */
     .medallion {
       display: flex;
       width: 100%;
@@ -434,16 +435,19 @@
         <div class="box">
           <div class="icon-grid"></div>
           <div class="box-label">Hevy API</div>
+          <div class="box-tag">Workouts · Sets · Exercises</div>
         </div>
 
         <div class="box small">
           <div class="icon-grid"></div>
           <div class="box-label">Streamlit Form</div>
+          <div class="box-tag">User Profile</div>
         </div>
 
         <div class="box small">
           <div class="icon-grid"></div>
           <div class="box-label">Kaggle / Synthetic</div>
+          <div class="box-tag">Auxiliary Datasets</div>
         </div>
       </section>
 
@@ -457,11 +461,17 @@
         <div class="box">
           <div class="icon-gear"></div>
           <div class="box-label">DAG Pipeline</div>
+          <div class="box-tag">instructor_workout_pipeline</div>
         </div>
 
         <div class="box small">
-          <div class="box-label">Ingest &amp; Transform</div>
-          <div class="box-tag">Bronze · Silver · Gold</div>
+          <div class="box-label">Ingest</div>
+          <div class="box-tag">create_lake_structure · ingest_*</div>
+        </div>
+
+        <div class="box small">
+          <div class="box-label">Transform &amp; Metrics</div>
+          <div class="box-tag">silver_* · gold_metrics</div>
         </div>
       </section>
 
@@ -483,8 +493,23 @@
         </div>
 
         <div class="box small">
-          <div class="box-label">Test Data</div>
-          <div class="box-tag">Sample User</div>
+          <div class="box-label">Bronze</div>
+          <div class="box-tag">Raw Data from Sources</div>
+        </div>
+
+        <div class="box small">
+          <div class="box-label">Silver</div>
+          <div class="box-tag">Cleaned &amp; Modeled Tables</div>
+        </div>
+
+        <div class="box small">
+          <div class="box-label">Gold</div>
+          <div class="box-tag">fact_workout_metrics · dims</div>
+        </div>
+
+        <div class="box small">
+          <div class="box-label">Test Area</div>
+          <div class="box-tag">Sample User / Demo</div>
         </div>
       </section>
 
@@ -498,16 +523,19 @@
         <div class="box">
           <div class="icon-screen"></div>
           <div class="box-label">Streamlit App</div>
+          <div class="box-tag">Reads Gold Layer</div>
         </div>
 
         <div class="box small">
           <div class="icon-context"></div>
           <div class="box-label">Context Builder</div>
+          <div class="box-tag">Profile + Metrics</div>
         </div>
 
         <div class="box small">
           <div class="icon-chat"></div>
           <div class="box-label">LLM Coach</div>
+          <div class="box-tag">LLaMA 3.1 · GROQ API</div>
         </div>
       </section>
     </div>
