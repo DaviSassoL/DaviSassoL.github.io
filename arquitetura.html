@@ -6,21 +6,19 @@
   <style>
     :root {
       --bg-main: #020617;
-      --bg-panel: #020617;
-      --bg-col: #0b1220;
-      --border-col: #1f2937;
-      --border-box: #4b5563;
       --text: #e5e7eb;
       --muted: #9ca3af;
 
       --accent-source: #a855f7;
       --accent-ingest: #38bdf8;
-      --accent-lake: #fbbf24;
-      --accent-serve: #22c55e;
+      --accent-lake:   #fbbf24;
+      --accent-serve:  #22c55e;
 
       --bronze: #f97316;
       --silver: #e5e7eb;
-      --gold: #facc15;
+      --gold:   #facc15;
+
+      --border-box: #4b5563;
     }
 
     * {
@@ -56,7 +54,7 @@
       flex-direction: column;
     }
 
-    /* HEADER -------------------------------------------------- */
+    /* HEADER ------------------------------------ */
     .header {
       text-align: center;
       margin-bottom: 16px;
@@ -90,7 +88,7 @@
       border-radius: 999px;
     }
 
-    /* PIPELINE / STEPPER -------------------------------------- */
+    /* STEPPER ----------------------------------- */
     .pipeline-strip {
       margin: 14px auto 10px;
       max-width: 780px;
@@ -105,7 +103,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      position: relative;
     }
 
     .step:not(:last-child)::after {
@@ -149,7 +146,7 @@
     .step.lake    .step-circle { border-color: var(--accent-lake);   color: var(--accent-lake); }
     .step.serve   .step-circle { border-color: var(--accent-serve);  color: var(--accent-serve); }
 
-    /* GRID DE COLUNAS ----------------------------------------- */
+    /* GRID COLUNAS ------------------------------ */
     .columns {
       flex: 1;
       margin-top: 6px;
@@ -160,22 +157,21 @@
     }
 
     .col {
-      background: linear-gradient(180deg, #020617 0, #020617 40%, #020617 100%);
       border-radius: 20px;
-      border: 1px solid rgba(55, 65, 81, 0.8);
+      border: 1px solid rgba(55, 65, 81, 0.85);
       padding: 10px 10px 12px;
       display: flex;
       flex-direction: column;
-      align-items: stretch;
-      gap: 10px;
-      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.85);
+      gap: 8px;
+      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.8);
+      background: linear-gradient(180deg, #020617 0, #020617 40%, #020617 100%);
     }
 
     .col-header {
       text-align: center;
       padding-bottom: 6px;
-      border-bottom: 1px solid rgba(75, 85, 99, 0.75);
-      margin-bottom: 4px;
+      border-bottom: 1px solid rgba(75, 85, 99, 0.8);
+      margin-bottom: 2px;
     }
 
     .col-title {
@@ -183,6 +179,11 @@
       text-transform: uppercase;
       letter-spacing: 0.22em;
     }
+
+    .col.sources .col-title { color: var(--accent-source); }
+    .col.ingest  .col-title { color: var(--accent-ingest); }
+    .col.lake    .col-title { color: var(--accent-lake); }
+    .col.serve   .col-title { color: var(--accent-serve); }
 
     .col-tag {
       margin-top: 4px;
@@ -197,12 +198,7 @@
       background: #020617;
     }
 
-    .col.sources .col-title { color: var(--accent-source); }
-    .col.ingest  .col-title { color: var(--accent-ingest); }
-    .col.lake    .col-title { color: var(--accent-lake); }
-    .col.serve   .col-title { color: var(--accent-serve); }
-
-    /* BOXES (BLOCOS) ------------------------------------------ */
+    /* BOXES ------------------------------------- */
     .box {
       flex: 1;
       border-radius: 14px;
@@ -241,12 +237,13 @@
       color: var(--muted);
     }
 
-    /* ÍCONES SIMPLES ------------------------------------------ */
+    /* ÍCONES BEM SIMPLES ----------------------- */
     .icon-grid,
     .icon-gear,
     .icon-cylinder,
     .icon-screen,
-    .icon-chat {
+    .icon-chat,
+    .icon-context {
       position: relative;
     }
 
@@ -325,7 +322,17 @@
       border-color: var(--accent-serve) transparent transparent transparent;
     }
 
-    /* MEDALLION: BRONZE / SILVER / GOLD ---------------------- */
+    .icon-context::before {
+      content: "";
+      width: 22px;
+      height: 18px;
+      border-radius: 6px;
+      border: 2px solid var(--accent-lake);
+      display: block;
+      box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.9);
+    }
+
+    /* MEDALLION: Bronze/Silver/Gold ------------- */
     .medallion {
       display: flex;
       width: 100%;
@@ -360,7 +367,7 @@
       color: var(--gold);
     }
 
-    /* RESPONSIVO ---------------------------------------------- */
+    /* RESPONSIVO -------------------------------- */
     @media (max-width: 960px) {
       .diagram {
         aspect-ratio: auto;
@@ -395,7 +402,7 @@
       <div class="header-line"></div>
     </header>
 
-    <!-- PIPELINE / ETAPAS PRINCIPAIS -->
+    <!-- ETAPAS PRINCIPAIS -->
     <div class="pipeline-strip">
       <div class="step sources">
         <div class="step-circle">1</div>
@@ -403,11 +410,11 @@
       </div>
       <div class="step ingest">
         <div class="step-circle">2</div>
-        <div class="step-label">Ingest</div>
+        <div class="step-label">Airflow ETL</div>
       </div>
       <div class="step lake">
         <div class="step-circle">3</div>
-        <div class="step-label">Data Lake</div>
+        <div class="step-label">Data Lake S3</div>
       </div>
       <div class="step serve">
         <div class="step-circle">4</div>
@@ -415,88 +422,10 @@
       </div>
     </div>
 
-    <!-- COLUNAS DE ARQUITETURA -->
+    <!-- COLUNAS -->
     <div class="columns">
-      <!-- FONTES -->
+      <!-- SOURCES -->
       <section class="col sources">
         <div class="col-header">
           <div class="col-title">Sources</div>
-          <div class="col-tag">Data Producers</div>
-        </div>
-
-        <div class="box">
-          <div class="icon-grid"></div>
-          <div class="box-label">Hevy API</div>
-          <div class="box-tag">Workouts</div>
-        </div>
-
-        <div class="box small">
-          <div class="icon-grid"></div>
-          <div class="box-label">Streamlit Form</div>
-        </div>
-
-        <div class="box small">
-          <div class="icon-grid"></div>
-          <div class="box-label">Kaggle / Synthetic</div>
-        </div>
-      </section>
-
-      <!-- INGESTÃO -->
-      <section class="col ingest">
-        <div class="col-header">
-          <div class="col-title">Ingest</div>
-          <div class="col-tag">Airflow ETL</div>
-        </div>
-
-        <div class="box">
-          <div class="icon-gear"></div>
-          <div class="box-label">DAG Pipeline</div>
-          <div class="box-tag">Batch Orchestration</div>
-        </div>
-      </section>
-
-      <!-- DATA LAKE -->
-      <section class="col lake">
-        <div class="col-header">
-          <div class="col-title">Data Lake</div>
-          <div class="col-tag">S3 Lakehouse</div>
-        </div>
-
-        <div class="box">
-          <div class="icon-cylinder"></div>
-          <div class="box-label">Medallion</div>
-          <div class="medallion">
-            <div class="med-layer bronze">Bronze</div>
-            <div class="med-layer silver">Silver</div>
-            <div class="med-layer gold">Gold</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SERVING -->
-      <section class="col serve">
-        <div class="col-header">
-          <div class="col-title">Analytics</div>
-          <div class="col-tag">Serving Layer</div>
-        </div>
-
-        <div class="box">
-          <div class="icon-screen"></div>
-          <div class="box-label">Streamlit App</div>
-          <div class="box-tag">Dashboards</div>
-        </div>
-
-        <div class="box small">
-          <div class="icon-chat"></div>
-          <div class="box-label">LLM Coach</div>
-        </div>
-
-        <div class="box small">
-          <div class="icon-screen"></div>
-          <div class="box-label">BI / Reports</div>
-        </div>
-      </section>
-    </div>
-  </div>
-</body>
-</html>
+          <di
