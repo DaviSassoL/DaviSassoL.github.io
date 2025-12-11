@@ -2,23 +2,18 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Modelo de Dados - Bronze / Silver / Gold</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <title>Arquitetura Bronze / Silver / Gold</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-main: #030712;
-      --bg-card: #050816;
-      --bg-inner: #020617;
+      --bg-main: #020617;
+      --bg-card: #020617;
       --border-soft: rgba(148, 163, 184, 0.25);
       --text-main: #e5e7eb;
       --text-muted: #9ca3af;
-      --accent-bronze: #f97316;
-      --accent-silver: #e5e7eb;
-      --accent-gold: #facc15;
-      --pill-bg: rgba(15, 23, 42, 0.85);
-      --pill-border: rgba(148, 163, 184, 0.4);
-      --shadow-soft: 0 24px 60px rgba(15, 23, 42, 0.85);
-      --radius-xl: 24px;
+      --bronze: #f97316;
+      --silver: #e5e7eb;
+      --gold: #facc15;
     }
 
     * {
@@ -30,12 +25,12 @@
     body {
       min-height: 100vh;
       background:
-        radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.18), transparent 55%),
-        radial-gradient(circle at 100% 0%, rgba(236, 72, 153, 0.15), transparent 55%),
-        radial-gradient(circle at 50% 100%, rgba(234, 179, 8, 0.15), transparent 55%),
+        radial-gradient(circle at 0% 0%, rgba(59,130,246,0.2), transparent 50%),
+        radial-gradient(circle at 100% 0%, rgba(236,72,153,0.2), transparent 50%),
+        radial-gradient(circle at 50% 100%, rgba(234,179,8,0.18), transparent 55%),
         var(--bg-main);
+      font-family: "Poppins", system-ui, sans-serif;
       color: var(--text-main);
-      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -44,12 +39,12 @@
 
     .frame {
       width: 100%;
-      max-width: 1280px;
-      border-radius: 32px;
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.82), rgba(15, 23, 42, 0.98));
-      box-shadow: var(--shadow-soft);
+      max-width: 1250px;
       padding: 28px 28px 22px;
+      border-radius: 28px;
+      border: 1px solid rgba(148,163,184,0.4);
+      background: radial-gradient(circle at top, #020617, #020617);
+      box-shadow: 0 26px 80px rgba(15,23,42,0.8);
       position: relative;
       overflow: hidden;
     }
@@ -61,22 +56,21 @@
       border-radius: inherit;
       padding: 1px;
       background: linear-gradient(135deg,
-        rgba(248, 113, 22, 0.4),
-        rgba(148, 163, 184, 0.5),
-        rgba(250, 204, 21, 0.45));
+        rgba(249,115,22,0.55),
+        rgba(148,163,184,0.65),
+        rgba(250,204,21,0.6));
       -webkit-mask:
         linear-gradient(#000 0 0) content-box,
         linear-gradient(#000 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
-      opacity: 0.85;
+      opacity: .82;
       pointer-events: none;
     }
 
-    /* HEADER */
     .header {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
       position: relative;
       z-index: 1;
     }
@@ -87,500 +81,261 @@
       gap: 8px;
       padding: 4px 14px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      background-color: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148,163,184,0.35);
+      background: rgba(15,23,42,0.9);
       font-size: 11px;
-      letter-spacing: 0.18em;
+      letter-spacing: .16em;
       text-transform: uppercase;
       color: var(--text-muted);
       margin-bottom: 8px;
     }
 
-    .eyebrow-dot {
+    .dot {
       width: 8px;
       height: 8px;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 20%, #f97316, #facc15);
-      box-shadow: 0 0 14px rgba(249, 115, 22, 0.9);
+      background: radial-gradient(circle at 30% 20%, #38bdf8, #a855f7);
+      box-shadow: 0 0 12px rgba(56,189,248,.9);
     }
 
     .title {
       font-size: 22px;
-      letter-spacing: 0.22em;
+      letter-spacing: .22em;
       text-transform: uppercase;
       font-weight: 500;
-      margin-bottom: 4px;
+      color: var(--text-main);
     }
 
-    .subtitle {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    /* MEDALLION STEPS (1 Bronze / 2 Silver / 3 Gold) */
-    .medal-steps {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin: 18px auto 18px;
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      flex-wrap: wrap;
-    }
-
-    .medal-step {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 11px;
-      border-radius: 999px;
-      background-color: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(55, 65, 81, 0.9);
-    }
-
-    .step-index {
-      width: 18px;
-      height: 18px;
-      border-radius: 999px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 600;
-      color: #e5e7eb;
-    }
-
-    .bronze-step { background: radial-gradient(circle at 30% 20%, #f97316, #ea580c); }
-    .silver-step { background: radial-gradient(circle at 30% 20%, #e5e7eb, #9ca3af); }
-    .gold-step   { background: radial-gradient(circle at 30% 20%, #facc15, #eab308); }
-
-    /* COLUNAS PRINCIPAIS */
     .columns {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(3,minmax(0,1fr));
       gap: 18px;
+      margin-top: 8px;
       position: relative;
       z-index: 1;
     }
 
     @media (max-width: 960px) {
-      .frame {
-        padding: 22px 18px 18px;
-      }
-      .columns {
-        grid-template-columns: 1fr;
-      }
+      .frame { padding: 22px 18px 18px; }
+      .columns { grid-template-columns: 1fr; }
     }
 
     .column {
-      border-radius: var(--radius-xl);
+      border-radius: 22px;
       border: 1px solid var(--border-soft);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.97));
-      padding: 16px 18px 16px;
+      background: radial-gradient(circle at top, #020617, #020617);
+      padding: 16px 16px 14px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       position: relative;
-      overflow: hidden;
     }
 
     .column::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top,
-        rgba(248, 250, 252, 0.06),
-        transparent 56%);
-      opacity: 0.7;
-      pointer-events: none;
+      content:"";
+      position:absolute;
+      inset:0;
+      background: radial-gradient(circle at top, rgba(15,23,42,0.6), transparent 60%);
+      opacity: .9;
+      pointer-events:none;
     }
 
-    .column-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-      margin-bottom: 2px;
+    .col-header {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      position:relative;
+      z-index:1;
     }
 
-    .column-title {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
+    .col-title {
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-size:11px;
     }
 
-    .column-title span:first-child {
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--text-muted);
+    .layer-name {
+      font-size:13px;
+      letter-spacing:.2em;
     }
 
-    .column-title span:last-child {
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+    .badge {
+      padding:3px 10px;
+      border-radius:999px;
+      font-size:10px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      border:1px solid rgba(148,163,184,0.6);
+      display:flex;
+      align-items:center;
+      gap:6px;
+      background:rgba(15,23,42,0.96);
     }
 
-    .badge-layer {
-      padding: 3px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      background-color: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(148, 163, 184, 0.5);
+    .badge-dot {
+      width:8px;
+      height:8px;
+      border-radius:999px;
     }
 
-    .bronze .badge-layer {
-      border-color: rgba(248, 113, 22, 0.7);
-      color: var(--accent-bronze);
-    }
-    .silver .badge-layer {
-      border-color: rgba(148, 163, 184, 0.9);
-      color: var(--accent-silver);
-    }
-    .gold .badge-layer {
-      border-color: rgba(250, 204, 21, 0.7);
-      color: var(--accent-gold);
-    }
+    .bronze .badge-dot { background:var(--bronze); box-shadow:0 0 12px rgba(249,115,22,.9); }
+    .silver .badge-dot { background:var(--silver); box-shadow:0 0 12px rgba(209,213,219,.7); }
+    .gold   .badge-dot { background:var(--gold);   box-shadow:0 0 12px rgba(250,204,21,.9); }
 
-    .column-desc {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.5;
-      position: relative;
-      z-index: 1;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 6px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .pill {
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid var(--pill-border);
-      background-color: var(--pill-bg);
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    /* LISTA DE TABELAS / ARQUIVOS */
     .tables {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 7px;
-      margin-top: 6px;
-      position: relative;
-      z-index: 1;
+      position:relative;
+      z-index:1;
+      margin-top:6px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
     }
 
-    .table-card {
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.99));
-      border: 1px solid rgba(30, 64, 175, 0.35);
-      padding: 7px 9px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      font-size: 11px;
-    }
-
-    .table-info {
-      display: flex;
-      flex-direction: column;
+    .table {
+      border-radius:12px;
+      padding:7px 9px;
+      font-size:11px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      background:linear-gradient(135deg,#020617,#020617);
+      border:1px solid rgba(30,64,175,0.4);
     }
 
     .table-name {
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .table-desc {
-      font-size: 10px;
-      color: var(--text-muted);
-      margin-top: 1px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-weight:500;
     }
 
     .table-tag {
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      background-color: rgba(15, 23, 42, 0.9);
-      color: var(--text-muted);
-      white-space: nowrap;
+      font-size:9px;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      padding:3px 8px;
+      border-radius:999px;
+      border:1px solid rgba(55,65,81,0.9);
+      color:var(--text-muted);
     }
 
-    .bronze .table-card { border-color: rgba(248, 113, 22, 0.5); }
-    .silver .table-card { border-color: rgba(148, 163, 184, 0.7); }
-    .gold .table-card   { border-color: rgba(250, 204, 21, 0.6); }
+    .bronze .table { border-color:rgba(249,115,22,0.6); }
+    .silver .table { border-color:rgba(156,163,175,0.8); }
+    .gold   .table { border-color:rgba(250,204,21,0.7); }
 
-    /* FOOTER */
-    .footer {
-      margin-top: 18px;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
+    .fact    { border-color:rgba(96,165,250,0.8) !important; }
+    .dim     { border-color:rgba(52,211,153,0.8) !important; }
 
-    .footer span strong {
-      color: #e5e7eb;
-      font-weight: 500;
-    }
-
-    .footer .runtime {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background-color: rgba(15, 23, 42, 0.95);
-      white-space: nowrap;
-    }
-
-    .dot-green {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 20%, #4ade80, #22c55e);
-      box-shadow: 0 0 8px rgba(74, 222, 128, 0.9);
-    }
-
-    @media (max-width: 640px) {
-      .footer {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
   </style>
 </head>
 <body>
   <main class="frame">
-    <!-- HEADER -->
     <header class="header">
       <div class="eyebrow">
-        <span class="eyebrow-dot"></span>
-        <span>Arquitetura de Dados • Instructor Workout</span>
+        <span class="dot"></span>
+        <span>Data Platform · Instructor Workout</span>
       </div>
-      <h1 class="title">Modelo de Dados Medallion</h1>
-      <p class="subtitle">
-        Três camadas de dados (Bronze, Silver e Gold) com o modelo dimensional exposto na camada Gold.
-      </p>
+      <h1 class="title">Bronze · Silver · Gold</h1>
     </header>
 
-    <!-- PASSOS DO MEDALLION -->
-    <section class="medal-steps">
-      <div class="medal-step">
-        <span class="step-index bronze-step">1</span>
-        <span>Camada Bronze • Raw</span>
-      </div>
-      <div class="medal-step">
-        <span class="step-index silver-step">2</span>
-        <span>Camada Silver • Refinada</span>
-      </div>
-      <div class="medal-step">
-        <span class="step-index gold-step">3</span>
-        <span>Camada Gold • Dimensional</span>
-      </div>
-    </section>
-
-    <!-- COLUNAS BRONZE / SILVER / GOLD -->
     <section class="columns">
       <!-- BRONZE -->
       <article class="column bronze">
-        <div class="column-header">
-          <div class="column-title">
+        <div class="col-header">
+          <div class="col-title">
             <span>Camada 01</span>
-            <span>Bronze • Raw Landing</span>
+            <span class="layer-name">Bronze</span>
           </div>
-          <div class="badge-layer">Bronze</div>
-        </div>
-        <p class="column-desc">
-          Zona <strong>raw</strong> do lake. Armazena os arquivos/tabelas exatamente como ingeridos das fontes,
-          preservando a fidelidade e o histórico dos dados.
-        </p>
-
-        <div class="pill-row">
-          <div class="pill">Formulário Streamlit</div>
-          <div class="pill">Hevy API</div>
-          <div class="pill">Kaggle / Sintético</div>
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span>Raw</span>
+          </div>
         </div>
 
         <div class="tables">
-          <div class="table-card">
-            <div class="table-info">
-              <span class="table-name">ingest_users_form</span>
-              <span class="table-desc">Dump de usuários/leads capturados via formulário.</span>
-            </div>
-            <span class="table-tag">raw / landing</span>
+          <div class="table">
+            <span class="table-name">ingest_users_form</span>
+            <span class="table-tag">form</span>
           </div>
-
-          <div class="table-card">
-            <div class="table-info">
-              <span class="table-name">ingest_hevy</span>
-              <span class="table-desc">Treinos, séries e repetições vindos da Hevy.</span>
-            </div>
-            <span class="table-tag">raw / workouts</span>
+          <div class="table">
+            <span class="table-name">ingest_hevy</span>
+            <span class="table-tag">hevy api</span>
           </div>
-
-          <div class="table-card">
-            <div class="table-info">
-              <span class="table-name">ingest_hevy_base</span>
-              <span class="table-desc">Metadados e cadastros auxiliares de usuários/treinos.</span>
-            </div>
-            <span class="table-tag">raw / base</span>
+          <div class="table">
+            <span class="table-name">ingest_hevy_base</span>
+            <span class="table-tag">hevy base</span>
           </div>
-
-          <div class="table-card">
-            <div class="table-info">
-              <span class="table-name">ingest_kaggle</span>
-              <span class="table-desc">Histórico de exercícios do dataset Kaggle.</span>
-            </div>
-            <span class="table-tag">raw / kaggle</span>
+          <div class="table">
+            <span class="table-name">ingest_kaggle</span>
+            <span class="table-tag">kaggle</span>
           </div>
-
-          <div class="table-card">
-            <div class="table-info">
-              <span class="table-name">ingest_depara_heavy_kaggle</span>
-              <span class="table-desc">Mapeamento “de-para” de exercícios entre Hevy e Kaggle.</span>
-            </div>
-            <span class="table-tag">raw / mapping</span>
+          <div class="table">
+            <span class="table-name">ingest_depara_heavy_kaggle</span>
+            <span class="table-tag">mapping</span>
           </div>
         </div>
       </article>
 
       <!-- SILVER -->
       <article class="column silver">
-        <div class="column-header">
-          <div class="column-title">
+        <div class="col-header">
+          <div class="col-title">
             <span>Camada 02</span>
-            <span>Silver • Dados Refinados</span>
+            <span class="layer-name">Silver</span>
           </div>
-          <div class="badge-layer">Silver</div>
-        </div>
-        <p class="column-desc">
-          Dados já <strong>limpos, padronizados e integrados</strong>. Aplicamos regras de negócio,
-          de-para de exercícios e construímos entidades analíticas prontas para consumo downstream.
-        </p>
-
-        <div class="pill-row">
-          <div class="pill">Qualidade &amp; Limpeza</div>
-          <div class="pill">Integração Fontes</div>
-          <div class="pill">Normalização</div>
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span>Refined</span>
+          </div>
         </div>
 
         <div class="tables">
-          <div class="table-card">
-            <div class="table-info">
-              <span class="table-name">silver_users</span>
-              <span class="table-desc">Visão única de usuário (form + Hevy).</span>
-            </div>
-            <span class="table-tag">refined / user</span>
+          <div class="table">
+            <span class="table-name">silver_users</span>
+            <span class="table-tag">users</span>
           </div>
-
-          <div class="table-card">
-            <div class="table-info">
-              <span class="table-name">silver_depara_heavy_kaggle</span>
-              <span class="table-desc">Chave canônica para exercícios entre todas as fontes.</span>
-            </div>
-            <span class="table-tag">refined / mapping</span>
+          <div class="table">
+            <span class="table-name">silver_depara_heavy_kaggle</span>
+            <span class="table-tag">mapping</span>
           </div>
-
-          <div class="table-card">
-            <div class="table-info">
-              <span class="table-name">silver_kaggle</span>
-              <span class="table-desc">Kaggle já padronizado para o modelo interno.</span>
-            </div>
-            <span class="table-tag">refined / kaggle</span>
+          <div class="table">
+            <span class="table-name">silver_kaggle</span>
+            <span class="table-tag">kaggle</span>
           </div>
-
-          <div class="table-card">
-            <div class="table-info">
-              <span class="table-name">silver_transform</span>
-              <span class="table-desc">Staging com métricas calculadas por treino/usuário.</span>
-            </div>
-            <span class="table-tag">staging / metrics</span>
+          <div class="table">
+            <span class="table-name">silver_transform</span>
+            <span class="table-tag">staging</span>
           </div>
         </div>
       </article>
 
       <!-- GOLD -->
       <article class="column gold">
-        <div class="column-header">
-          <div class="column-title">
+        <div class="col-header">
+          <div class="col-title">
             <span>Camada 03</span>
-            <span>Gold • Modelo Dimensional</span>
+            <span class="layer-name">Gold</span>
           </div>
-          <div class="badge-layer">Gold</div>
-        </div>
-        <p class="column-desc">
-          Camada otimizada para <strong>consumo analítico</strong>. Aqui expomos o
-          <strong>modelo dimensional</strong> (tabela fato + dimensões) utilizado por Power BI,
-          dashboards e modelos de Machine Learning.
-        </p>
-
-        <div class="pill-row">
-          <div class="pill">Star Schema</div>
-          <div class="pill">BI / Dashboards</div>
-          <div class="pill">Features para ML</div>
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span>Dimensional</span>
+          </div>
         </div>
 
         <div class="tables">
-          <div class="table-card">
-            <div class="table-info">
-              <span class="table-name">gold_dim_exercise</span>
-              <span class="table-desc">
-                <strong>Dimensão</strong> de exercícios (grupo muscular, equipamento, categoria, etc.).
-              </span>
-            </div>
-            <span class="table-tag">dimensão</span>
+          <div class="table dim">
+            <span class="table-name">gold_dim_exercise</span>
+            <span class="table-tag">dim</span>
           </div>
-
-          <div class="table-card">
-            <div class="table-info">
-              <span class="table-name">gold_metrics</span>
-              <span class="table-desc">
-                <strong>Tabela fato</strong> com métricas de treino por usuário, sessão, exercício e período.
-              </span>
-            </div>
-            <span class="table-tag">fato</span>
+          <div class="table fact">
+            <span class="table-name">gold_metrics</span>
+            <span class="table-tag">fact</span>
           </div>
         </div>
       </article>
     </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-      <span>Camadas armazenadas em <strong>S3 Lakehouse</strong> e orquestradas via <strong>Apache Airflow</strong>.</span>
-      <span class="runtime">
-        <span class="dot-green"></span>
-        docker compose exec app python jobs/minha_job.py
-      </span>
-    </footer>
   </main>
 </body>
 </html>
