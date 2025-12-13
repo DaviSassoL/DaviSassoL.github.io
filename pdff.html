@@ -3,16 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Arquitetura de Dados — Lambda / Data Lake</title>
+  <title>Arquitetura — Data Lake (Bronze / Silver / Gold)</title>
+
   <style>
     :root{
       --bg0:#070a12;
       --bg1:#0b1220;
-      --card:#0e172a;
-      --card2:#0b1324;
-      --line:rgba(255,255,255,.10);
-      --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.62);
+      --panel: rgba(255,255,255,.03);
+      --card: rgba(15,23,42,.78);
+      --stroke: rgba(255,255,255,.10);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.65);
 
       --green:#22c55e;
       --blue:#3b82f6;
@@ -22,176 +23,191 @@
       --violet:#8b5cf6;
       --orange:#f97316;
 
-      --r:18px;
-      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --r1: 22px;
+      --r2: 16px;
+      --shadow: 0 18px 70px rgba(0,0,0,.45);
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background:
-        radial-gradient(1200px 800px at 20% 0%, rgba(59,130,246,.18), transparent 55%),
-        radial-gradient(900px 700px at 80% 20%, rgba(245,158,11,.14), transparent 55%),
-        radial-gradient(900px 700px at 50% 100%, rgba(34,197,94,.10), transparent 55%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% 0%, rgba(59,130,246,.18), transparent 55%),
+        radial-gradient(900px 700px at 85% 15%, rgba(245,158,11,.14), transparent 55%),
+        radial-gradient(900px 650px at 50% 100%, rgba(34,197,94,.12), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
     }
 
     .wrap{
-      max-width: 1320px;
+      max-width: 1440px;
       margin: 0 auto;
-      padding: 28px 18px 40px;
+      padding: 22px 18px 32px;
     }
 
     /* Header */
     .topbar{
       display:flex;
       flex-wrap:wrap;
+      gap:14px;
       align-items:flex-end;
       justify-content:space-between;
-      gap:14px;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
     .kicker{
       display:inline-flex;
-      align-items:center;
       gap:10px;
+      align-items:center;
       padding:8px 12px;
-      border:1px solid var(--line);
-      border-radius:999px;
+      border:1px solid var(--stroke);
       background: rgba(255,255,255,.03);
-      color: var(--muted);
+      border-radius:999px;
+      font-size:12px;
       letter-spacing:.12em;
       text-transform:uppercase;
-      font-size:12px;
+      color: var(--muted);
+      width:fit-content;
     }
     h1{
       margin:10px 0 6px;
       font-size: 34px;
-      line-height:1.1;
+      line-height:1.05;
       letter-spacing:.02em;
     }
     .subtitle{
       margin:0;
       color: var(--muted);
-      max-width: 860px;
-      line-height:1.5;
+      line-height:1.45;
+      max-width: 880px;
+      font-size: 14px;
     }
 
     .legend{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      align-items:center;
       justify-content:flex-end;
     }
-    .legend .pill{
+    .pill{
       display:inline-flex;
       align-items:center;
       gap:10px;
       padding:8px 12px;
-      border:1px solid var(--line);
+      border:1px solid var(--stroke);
       border-radius:999px;
       background: rgba(255,255,255,.03);
       font-size:12px;
       color: var(--muted);
+      white-space:nowrap;
     }
-    .dot{
-      width:10px;height:10px;border-radius:999px;
-      box-shadow: 0 0 0 4px rgba(255,255,255,.04);
-    }
+    .dot{width:10px;height:10px;border-radius:999px; box-shadow:0 0 0 4px rgba(255,255,255,.04)}
 
-    /* Layout */
+    /* Board */
     .board{
-      border:1px solid var(--line);
-      border-radius: 26px;
+      border:1px solid var(--stroke);
+      border-radius: 28px;
       background:
-        radial-gradient(900px 600px at 50% 0%, rgba(255,255,255,.05), transparent 60%),
+        radial-gradient(900px 520px at 50% 0%, rgba(255,255,255,.06), transparent 60%),
         linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
       box-shadow: var(--shadow);
-      padding: 18px;
+      padding: 14px;
+      overflow:hidden;
     }
 
-    .grid{
+    /* Pipeline row: 4 columns ALWAYS on desktop; stacks on small screens */
+    .pipeline{
       display:grid;
       gap:14px;
-      grid-template-columns: repeat(12, 1fr);
+      grid-template-columns: repeat(4, minmax(260px, 1fr));
       align-items:stretch;
     }
 
-    .col-3{grid-column: span 3;}
-    .col-4{grid-column: span 4;}
-    .col-5{grid-column: span 5;}
-    .col-12{grid-column: span 12;}
-
-    @media (max-width: 1160px){
-      .col-3,.col-4,.col-5{grid-column: span 12;}
+    /* On smaller screens: stack */
+    @media (max-width: 1120px){
+      .pipeline{grid-template-columns: 1fr;}
       .legend{justify-content:flex-start}
     }
 
-    /* Sections */
+    /* Section */
     .section{
-      border:1px solid var(--line);
-      border-radius: 22px;
+      border:1px solid var(--stroke);
+      border-radius: var(--r1);
       background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-      padding: 14px;
       position:relative;
       overflow:hidden;
+      min-height: 560px; /* keeps columns aligned */
+      display:flex;
+      flex-direction:column;
     }
-    .section:before{
+
+    .section::before{
       content:"";
       position:absolute; inset:-2px;
-      background: radial-gradient(500px 200px at 20% 0%, rgba(255,255,255,.06), transparent 60%);
+      background: radial-gradient(520px 220px at 18% 0%, rgba(255,255,255,.07), transparent 60%);
       pointer-events:none;
     }
 
     .section-head{
+      position:relative;
+      z-index:1;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
-      margin-bottom:12px;
-      position:relative;
-      z-index:1;
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      backdrop-filter: blur(10px);
     }
-
     .section-title{
       display:flex;
-      align-items:baseline;
       gap:10px;
-      font-weight:700;
-      letter-spacing:.14em;
+      align-items:baseline;
       text-transform:uppercase;
+      letter-spacing:.14em;
       font-size:12px;
-      color: rgba(255,255,255,.80);
+      color: rgba(255,255,255,.82);
+      font-weight:700;
     }
-
     .badge{
       display:inline-flex;
       align-items:center;
       gap:8px;
       padding:6px 10px;
       border-radius:999px;
-      border:1px solid var(--line);
+      border:1px solid var(--stroke);
       background: rgba(255,255,255,.03);
       font-size:11px;
       color: var(--muted);
       text-transform:uppercase;
-      letter-spacing:.14em;
+      letter-spacing:.12em;
       white-space:nowrap;
     }
 
-    /* Cards inside */
-    .stack{display:flex; flex-direction:column; gap:12px; position:relative; z-index:1;}
-    .card{
-      border:1px solid var(--line);
-      border-radius: var(--r);
-      background: linear-gradient(180deg, rgba(14,23,42,.92), rgba(11,19,36,.92));
-      padding: 12px 12px 10px;
+    /* Scrollable content area inside each column */
+    .section-body{
+      position:relative;
+      z-index:1;
+      padding: 12px 14px 14px;
+      overflow:auto;                 /* prevents "cut off" */
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,.18) transparent;
+      flex:1;
     }
-    .card .title-row{
+    .section-body::-webkit-scrollbar{height:10px;width:10px}
+    .section-body::-webkit-scrollbar-thumb{background: rgba(255,255,255,.16); border-radius: 999px}
+    .section-body::-webkit-scrollbar-track{background: transparent}
+
+    /* Cards */
+    .stack{display:flex; flex-direction:column; gap:12px;}
+    .card{
+      border:1px solid var(--stroke);
+      border-radius: var(--r2);
+      background: linear-gradient(180deg, rgba(15,23,42,.86), rgba(10,16,30,.86));
+      padding: 12px;
+    }
+    .title-row{
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
@@ -199,119 +215,118 @@
     }
     .card h3{
       margin:0;
-      font-size:16px;
+      font-size: 15px;
       letter-spacing:.01em;
     }
     .card p{
       margin:6px 0 10px;
       color: var(--muted);
-      font-size:13px;
+      font-size: 13px;
       line-height:1.35;
     }
-    .chips{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-    }
+    .chips{display:flex; flex-wrap:wrap; gap:8px;}
     .chip{
-      border:1px solid var(--line);
+      border:1px solid rgba(255,255,255,.12);
       border-radius:999px;
       padding:5px 10px;
       font-size:12px;
-      color: rgba(255,255,255,.75);
+      color: rgba(255,255,255,.74);
       background: rgba(255,255,255,.03);
       white-space:nowrap;
     }
 
-    /* Color accents */
-    .accent-green{ box-shadow: 0 0 0 1px rgba(34,197,94,.25) inset; }
-    .accent-blue{  box-shadow: 0 0 0 1px rgba(59,130,246,.25) inset; }
-    .accent-amber{ box-shadow: 0 0 0 1px rgba(245,158,11,.25) inset; }
-    .accent-pink{  box-shadow: 0 0 0 1px rgba(236,72,153,.25) inset; }
-    .accent-cyan{  box-shadow: 0 0 0 1px rgba(6,182,212,.25) inset; }
-    .accent-violet{box-shadow: 0 0 0 1px rgba(139,92,246,.25) inset; }
-    .accent-orange{box-shadow: 0 0 0 1px rgba(249,115,22,.25) inset; }
+    /* Accent outlines (subtle) */
+    .accent-green{ box-shadow: 0 0 0 1px rgba(34,197,94,.26) inset; }
+    .accent-blue{  box-shadow: 0 0 0 1px rgba(59,130,246,.26) inset; }
+    .accent-amber{ box-shadow: 0 0 0 1px rgba(245,158,11,.26) inset; }
+    .accent-pink{  box-shadow: 0 0 0 1px rgba(236,72,153,.26) inset; }
+    .accent-cyan{  box-shadow: 0 0 0 1px rgba(6,182,212,.26) inset; }
+    .accent-violet{box-shadow: 0 0 0 1px rgba(139,92,246,.26) inset; }
+    .accent-orange{box-shadow: 0 0 0 1px rgba(249,115,22,.26) inset; }
 
-    .chip.green{ border-color: rgba(34,197,94,.35); color: rgba(34,197,94,.95); background: rgba(34,197,94,.08); }
-    .chip.blue{  border-color: rgba(59,130,246,.35); color: rgba(59,130,246,.95); background: rgba(59,130,246,.08); }
-    .chip.amber{ border-color: rgba(245,158,11,.35); color: rgba(245,158,11,.95); background: rgba(245,158,11,.08); }
-    .chip.pink{  border-color: rgba(236,72,153,.35); color: rgba(236,72,153,.95); background: rgba(236,72,153,.08); }
-    .chip.cyan{  border-color: rgba(6,182,212,.35); color: rgba(6,182,212,.95); background: rgba(6,182,212,.08); }
-    .chip.violet{border-color: rgba(139,92,246,.35); color: rgba(139,92,246,.95); background: rgba(139,92,246,.08); }
-    .chip.orange{border-color: rgba(249,115,22,.35); color: rgba(249,115,22,.95); background: rgba(249,115,22,.08); }
+    /* Data lake (3 sub-columns inside) */
+    .lake-cols{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:12px;
+    }
+    .lake-col{
+      border:1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      padding: 10px;
+      min-width: 0;
+    }
+    .lake-col-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom: 8px;
+      gap:10px;
+    }
+    .lake-col h4{
+      margin:0;
+      font-size: 12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.82);
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:5px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      font-size:11px;
+      color: var(--muted);
+      white-space:nowrap;
+    }
+    .tag .dot{width:8px;height:8px;box-shadow:none}
 
-    /* Data lake inner columns */
-    .lake-grid{
+    /* Serving layer cards in a clear grid */
+    .serve-grid{
       display:grid;
       grid-template-columns: 1fr;
       gap:12px;
     }
-    .lake-cols{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-    }
-    @media (max-width: 1160px){
-      .lake-cols{grid-template-columns: 1fr;}
+    .serve-grid .card{
+      min-height: 0;
     }
 
-    .lake-col{
-      border:1px solid var(--line);
-      border-radius: 20px;
-      padding:12px;
-      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
-      min-height: 200px;
-    }
-    .lake-col .col-head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom:10px;
-    }
-    .lake-col h4{
-      margin:0;
-      font-size:14px;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      color: rgba(255,255,255,.82);
-    }
-
+    /* tiny helper */
     .note{
-      color: var(--muted);
-      font-size:12px;
       margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
     }
 
-    /* Flow arrows */
-    .flow{
+    /* little “flow” on top of pipeline for clarity */
+    .flowline{
       display:flex;
+      gap:10px;
       align-items:center;
       justify-content:space-between;
-      gap:10px;
-      margin: 14px 0 0;
+      margin: 10px 0 14px;
       color: var(--muted);
-      font-size:12px;
+      font-size: 12px;
+      padding: 0 6px;
     }
-    .arrow{
+    .flowline .arrow{
       flex:1;
       height:1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
       position:relative;
+      min-width: 40px;
     }
-    .arrow:after{
+    .flowline .arrow:after{
       content:"";
       position:absolute;
-      right:6px; top:-3px;
-      border-left:6px solid rgba(255,255,255,.28);
+      right:4px; top:-3px;
+      border-left:6px solid rgba(255,255,255,.30);
       border-top:4px solid transparent;
       border-bottom:4px solid transparent;
-      opacity:.9;
-    }
-
-    /* optional "planned" style */
-    .planned{
-      border-style:dashed;
-      opacity:.85;
     }
   </style>
 </head>
@@ -323,147 +338,154 @@
         <div class="kicker">INSTRUCTOR WORKOUT DATA &amp; AI PIPELINE</div>
         <h1>ARQUITETURA DE DADOS — LAMBDA / DATA LAKE</h1>
         <p class="subtitle">
-          Fluxo da solução: <strong>fontes de dados</strong> → <strong>Airflow (ETL)</strong> → <strong>Data Lake em S3</strong>
-          (Bronze / Silver / Gold) → <strong>camada de consumo</strong> (Streamlit &amp; Dashboards).
+          Fluxo: <strong>fontes</strong> → <strong>Airflow (ETL)</strong> → <strong>S3 Data Lake</strong> (Bronze / Silver / Gold) → <strong>Consumo</strong>.
+          Layout otimizado para <strong>não cortar conteúdo</strong> e manter o <strong>Serving Layer lado a lado</strong>.
         </p>
       </div>
 
       <div class="legend">
-        <div class="pill"><span class="dot" style="background:var(--green)"></span> Processo / Pipeline</div>
-        <div class="pill"><span class="dot" style="background:var(--blue)"></span> Armazenamento / Data Lake</div>
-        <div class="pill"><span class="dot" style="background:var(--amber)"></span> Consumo / Analytics &amp; App</div>
+        <div class="pill"><span class="dot" style="background:var(--green)"></span> Processo</div>
+        <div class="pill"><span class="dot" style="background:var(--blue)"></span> Data Lake</div>
+        <div class="pill"><span class="dot" style="background:var(--amber)"></span> Consumo</div>
       </div>
     </div>
 
     <div class="board">
-      <div class="grid">
+      <div class="flowline">
+        <span>Sources</span><span class="arrow"></span>
+        <span>Airflow</span><span class="arrow"></span>
+        <span>S3 (B/S/G)</span><span class="arrow"></span>
+        <span>Serving</span>
+      </div>
 
-        <!-- SOURCE SYSTEMS -->
-        <section class="section col-3">
+      <div class="pipeline">
+        <!-- 1) SOURCES -->
+        <section class="section">
           <div class="section-head">
             <div class="section-title">SOURCE SYSTEMS</div>
             <div class="badge"><span class="dot" style="background:var(--green)"></span> ENTRADA</div>
           </div>
 
-          <div class="stack">
-            <div class="card accent-cyan">
-              <div class="title-row">
-                <h3>API Hevy</h3>
-                <span class="chip cyan">JSON</span>
+          <div class="section-body">
+            <div class="stack">
+              <div class="card accent-cyan">
+                <div class="title-row">
+                  <h3>API Hevy</h3>
+                  <span class="chip">JSON</span>
+                </div>
+                <p>Workouts, séries e exercícios coletados da API oficial.</p>
+                <div class="chips">
+                  <span class="chip">Histórico de treinos</span>
+                  <span class="chip">heavy/raw/*.parquet</span>
+                </div>
               </div>
-              <p>Workouts, séries e exercícios coletados da API oficial.</p>
-              <div class="chips">
-                <span class="chip">Histórico de treinos</span>
-                <span class="chip">heavy/raw/*.parquet</span>
-              </div>
-            </div>
 
-            <div class="card accent-green">
-              <div class="title-row">
-                <h3>Formulário Streamlit</h3>
-                <span class="chip green">Input do app</span>
+              <div class="card accent-green">
+                <div class="title-row">
+                  <h3>Formulário Streamlit</h3>
+                  <span class="chip">Input do app</span>
+                </div>
+                <p>Perfil, objetivos e restrições do usuário.</p>
+                <div class="chips">
+                  <span class="chip">user_profiles</span>
+                  <span class="chip">users/raw_form</span>
+                </div>
               </div>
-              <p>Perfil, objetivos e restrições do usuário.</p>
-              <div class="chips">
-                <span class="chip">user_profiles</span>
-                <span class="chip">users/raw_form</span>
-              </div>
-            </div>
 
-            <div class="card accent-violet">
-              <div class="title-row">
-                <h3>Datasets externos</h3>
-                <span class="chip violet">Kaggle</span>
+              <div class="card accent-violet">
+                <div class="title-row">
+                  <h3>Datasets externos</h3>
+                  <span class="chip">Kaggle</span>
+                </div>
+                <p>Kaggle e dados sintéticos com catálogo de exercícios.</p>
+                <div class="chips">
+                  <span class="chip">kaggle/raw/*.parquet</span>
+                  <span class="chip">Synthetic data</span>
+                </div>
               </div>
-              <p>Kaggle e dados sintéticos com catálogo de exercícios.</p>
-              <div class="chips">
-                <span class="chip">Synthetic data</span>
-                <span class="chip">kaggle/raw/*.parquet</span>
-              </div>
-            </div>
 
-            <div class="note">Dados brutos entram no pipeline ↓</div>
+              <div class="note">↓ Dados brutos entram no pipeline</div>
+            </div>
           </div>
         </section>
 
-        <!-- AIRFLOW ETL -->
-        <section class="section col-4">
+        <!-- 2) AIRFLOW -->
+        <section class="section">
           <div class="section-head">
             <div class="section-title">AIRFLOW ETL</div>
             <div class="badge"><span class="dot" style="background:var(--green)"></span> ORQUESTRAÇÃO</div>
           </div>
 
-          <div class="stack">
-            <div class="card accent-green">
-              <div class="title-row">
-                <h3>DAG Instructor Workout</h3>
-                <span class="chip green">Batch</span>
+          <div class="section-body">
+            <div class="stack">
+              <div class="card accent-green">
+                <div class="title-row">
+                  <h3>DAG Instructor Workout</h3>
+                  <span class="chip">Batch</span>
+                </div>
+                <p>create_lake_structure → ingest_* → silver_* → gold_*.</p>
+                <div class="chips">
+                  <span class="chip">BashOperator</span>
+                  <span class="chip">Python</span>
+                </div>
               </div>
-              <p>
-                create_lake_structure → ingest_* → silver_* → gold_* (métricas)
-              </p>
-              <div class="chips">
-                <span class="chip">BashOperator</span>
-                <span class="chip">Python</span>
-              </div>
-            </div>
 
-            <div class="card accent-orange">
-              <div class="title-row">
-                <h3>Ingestão &amp; Bronze</h3>
-                <span class="chip orange">RAW</span>
+              <div class="card accent-orange">
+                <div class="title-row">
+                  <h3>Ingestão (Bronze)</h3>
+                  <span class="chip">RAW</span>
+                </div>
+                <p>Salva dados brutos no S3 (camada Bronze).</p>
+                <div class="chips">
+                  <span class="chip">ingest_users_form</span>
+                  <span class="chip">ingest_hevy</span>
+                  <span class="chip">ingest_hevy_base</span>
+                  <span class="chip">ingest_kaggle</span>
+                  <span class="chip">ingest_depara_hevy_kaggle</span>
+                </div>
               </div>
-              <p>Scripts de ingestão salvam dados brutos no S3 (camada Bronze).</p>
-              <div class="chips">
-                <span class="chip">ingest_users_form</span>
-                <span class="chip">ingest_hevy</span>
-                <span class="chip">ingest_hevy_base</span>
-                <span class="chip">ingest_kaggle</span>
-                <span class="chip">ingest_depara_hevy_kaggle</span>
-              </div>
-            </div>
 
-            <div class="card accent-blue">
-              <div class="title-row">
-                <h3>Transformações</h3>
-                <span class="chip blue">REFINED</span>
+              <div class="card accent-blue">
+                <div class="title-row">
+                  <h3>Transformações (Silver/Gold)</h3>
+                  <span class="chip">Refined</span>
+                </div>
+                <p>Limpa, padroniza e integra dados para consumo e métricas.</p>
+                <div class="chips">
+                  <span class="chip">silver_users</span>
+                  <span class="chip">silver_kaggle</span>
+                  <span class="chip">silver_depara_hevy_kaggle</span>
+                  <span class="chip">silver_transform</span>
+                </div>
               </div>
-              <p>Limpeza, padronização, tipagem e enriquecimento para Silver/Gold.</p>
-              <div class="chips">
-                <span class="chip">silver_users</span>
-                <span class="chip">silver_kaggle</span>
-                <span class="chip">silver_depara_hevy_kaggle</span>
-                <span class="chip">silver_transform</span>
-              </div>
-            </div>
 
-            <div class="note">Airflow automatiza o fluxo das camadas →</div>
+              <div class="note">→ Airflow automatiza o fluxo entre camadas</div>
+            </div>
           </div>
         </section>
 
-        <!-- DATA LAKE - S3 -->
-        <section class="section col-5">
+        <!-- 3) DATA LAKE -->
+        <section class="section">
           <div class="section-head">
             <div class="section-title">DATA LAKE — S3</div>
             <div class="badge"><span class="dot" style="background:var(--blue)"></span> ARMAZENAMENTO</div>
           </div>
 
-          <div class="lake-grid">
+          <div class="section-body">
             <div class="lake-cols">
-
               <!-- Bronze -->
               <div class="lake-col">
-                <div class="col-head">
+                <div class="lake-col-head">
                   <h4>Bronze</h4>
-                  <span class="chip orange">RAW</span>
+                  <span class="tag"><span class="dot" style="background:var(--orange)"></span> RAW</span>
                 </div>
-                <div class="card accent-orange" style="background:linear-gradient(180deg, rgba(14,23,42,.70), rgba(11,19,36,.70));">
-                  <p style="margin-top:0">Dados brutos exatamente como chegam das fontes.</p>
+                <div class="card accent-orange">
+                  <p style="margin-top:0">Dados brutos como chegam das fontes.</p>
                   <div class="chips">
                     <span class="chip">heavy/raw/*.parquet</span>
+                    <span class="chip">hevy_base/raw/*.parquet</span>
                     <span class="chip">kaggle/raw/*.parquet</span>
                     <span class="chip">users/raw_form</span>
-                    <span class="chip">hevy_base/raw/*.parquet</span>
                     <span class="chip">depara/raw/*.parquet</span>
                   </div>
                 </div>
@@ -471,105 +493,91 @@
 
               <!-- Silver -->
               <div class="lake-col">
-                <div class="col-head">
+                <div class="lake-col-head">
                   <h4>Silver</h4>
-                  <span class="chip blue">REFINED</span>
+                  <span class="tag"><span class="dot" style="background:var(--blue)"></span> REFINED</span>
                 </div>
-                <div class="card accent-blue" style="background:linear-gradient(180deg, rgba(14,23,42,.70), rgba(11,19,36,.70));">
-                  <p style="margin-top:0">Dados limpos, tipados e integrados, prontos para modelagem.</p>
+                <div class="card accent-blue">
+                  <p style="margin-top:0">Dados limpos/tipados e prontos para modelagem.</p>
                   <div class="chips">
                     <span class="chip">silver_users</span>
                     <span class="chip">silver_kaggle</span>
                     <span class="chip">silver_depara_hevy_kaggle</span>
                     <span class="chip">silver_transform</span>
                   </div>
-                  <div class="note">
-                    (Se o <em>silver_transform</em> gerar tabelas finais como workouts/sets/exercises, você pode listar aqui como “outputs”.)
-                  </div>
                 </div>
               </div>
 
               <!-- Gold -->
               <div class="lake-col">
-                <div class="col-head">
+                <div class="lake-col-head">
                   <h4>Gold</h4>
-                  <span class="chip amber">DIMENSIONAL</span>
+                  <span class="tag"><span class="dot" style="background:var(--amber)"></span> DIMENSIONAL</span>
                 </div>
-                <div class="card accent-amber" style="background:linear-gradient(180deg, rgba(14,23,42,.70), rgba(11,19,36,.70));">
-                  <p style="margin-top:0">Camada de consumo analítica (métricas/dimensões).</p>
+                <div class="card accent-amber">
+                  <p style="margin-top:0">Tabelas finais para consumo analítico.</p>
                   <div class="chips">
-                    <span class="chip amber">gold_dim_exercise</span>
-                    <span class="chip amber">gold_metrics</span>
-                    <!-- opcionais como "planned": remova se não existir -->
-                    <span class="chip planned">gold_dim_user (planned)</span>
-                    <span class="chip planned">gold_dim_date (planned)</span>
+                    <span class="chip">gold_dim_exercise</span>
+                    <span class="chip">gold_metrics</span>
+                    <!-- Se não existir, pode remover as 2 linhas abaixo -->
+                    <span class="chip" style="opacity:.7;border-style:dashed">gold_dim_user (planned)</span>
+                    <span class="chip" style="opacity:.7;border-style:dashed">gold_dim_date (planned)</span>
                   </div>
                 </div>
               </div>
-
             </div>
 
-            <div class="note">Camada Gold alimenta a zona de consumo ↓</div>
+            <div class="note">↓ Gold alimenta a camada de consumo</div>
           </div>
         </section>
 
-        <!-- SERVING LAYER -->
-        <section class="section col-12">
+        <!-- 4) SERVING -->
+        <section class="section">
           <div class="section-head">
             <div class="section-title">SERVING LAYER</div>
             <div class="badge"><span class="dot" style="background:var(--amber)"></span> CONSUMO</div>
           </div>
 
-          <div class="grid" style="grid-template-columns: repeat(12,1fr); gap:12px; position:relative; z-index:1;">
-            <div class="card accent-amber" style="grid-column: span 4;">
-              <div class="title-row">
-                <h3>Streamlit App</h3>
-                <span class="chip amber">Analíticas de treino</span>
+          <div class="section-body">
+            <div class="serve-grid">
+              <div class="card accent-amber">
+                <div class="title-row">
+                  <h3>Streamlit App</h3>
+                  <span class="chip">Dashboards</span>
+                </div>
+                <p>Login, formulário e leitura direta do Gold.</p>
+                <div class="chips">
+                  <span class="chip">Análises de treino</span>
+                  <span class="chip">Comparação global</span>
+                </div>
               </div>
-              <p>Login, formulário, dashboard e leitura direta da camada Gold.</p>
-              <div class="chips">
-                <span class="chip">Comparação global</span>
-                <span class="chip">Leitura do S3</span>
+
+              <div class="card accent-pink">
+                <div class="title-row">
+                  <h3>Chat IA — Personal Trainer</h3>
+                  <span class="chip">LLM</span>
+                </div>
+                <p>Usa perfil + histórico para sugerir treinos e ajustes.</p>
+                <div class="chips">
+                  <span class="chip">Contexto do usuário</span>
+                  <span class="chip">API (ex.: Groq)</span>
+                </div>
               </div>
+
+              <div class="card accent-blue">
+                <div class="title-row">
+                  <h3>Dashboards / BI</h3>
+                  <span class="chip">KPIs</span>
+                </div>
+                <p>Consumo em Power BI / Looker Studio etc.</p>
+                <div class="chips">
+                  <span class="chip">KPI de volume</span>
+                  <span class="chip">Consistência</span>
+                </div>
+              </div>
+
+              <div class="note">✅ Agora tudo fica lado a lado no desktop, sem cortar conteúdo.</div>
             </div>
-
-            <div class="card accent-pink" style="grid-column: span 4;">
-              <div class="title-row">
-                <h3>Chat IA — Personal Trainer</h3>
-                <span class="chip pink">LLM</span>
-              </div>
-              <p>Usa perfil + histórico para sugerir treinos e ajustes.</p>
-              <div class="chips">
-                <span class="chip">Contexto do usuário</span>
-                <span class="chip">API LLM (ex.: Groq)</span>
-              </div>
-            </div>
-
-            <div class="card accent-blue" style="grid-column: span 4;">
-              <div class="title-row">
-                <h3>Dashboards / BI</h3>
-                <span class="chip blue">KPIs</span>
-              </div>
-              <p>Consumo em ferramentas de BI (Power BI, Looker Studio etc.).</p>
-              <div class="chips">
-                <span class="chip">KPI de volume</span>
-                <span class="chip">Consistência</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="flow">
-            <span>Sources</span>
-            <span class="arrow"></span>
-            <span>Airflow ETL</span>
-            <span class="arrow"></span>
-            <span>S3 (Bronze → Silver → Gold)</span>
-            <span class="arrow"></span>
-            <span>Consumo</span>
-          </div>
-
-          <div class="note" style="text-align:right;">
-            Camada de consumo fecha o ciclo de valor de dados.
           </div>
         </section>
 
@@ -578,3 +586,4 @@
   </div>
 </body>
 </html>
+
