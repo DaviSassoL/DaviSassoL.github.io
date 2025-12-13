@@ -3,25 +3,44 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dicionário de Dados — Variáveis</title>
+  <title>Arquitetura — Instructor Workout</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg-0: #05070f;
-      --bg-1: #070b16;
+      --bg0:#050712;
+      --bg1:#070b18;
 
-      --text: #e9eefc;
-      --muted: rgba(233, 238, 252, .72);
+      --text:#E9EEFC;
+      --muted: rgba(233,238,252,.70);
 
-      --stroke: rgba(155, 186, 255, .16);
+      --stroke: rgba(155,186,255,.16);
+      --stroke2: rgba(155,186,255,.10);
 
-      --accent: #6ee7ff;
+      --panelA: rgba(12,18,38,.62);
+      --panelB: rgba(10,14,28,.48);
 
-      --radius: 22px;
+      --shadow: 0 26px 90px rgba(0,0,0,.55);
+
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --pill: 999px;
+
+      /* Legend colors */
+      --green:#64f2c4; /* Processo */
+      --blue:#60a5fa;  /* Storage */
+      --gold:#ffd166;  /* Consumo */
+
+      /* Layer accents */
+      --bronze:#ff9a3d;
+      --silver: rgba(233,238,252,.78);
+      --gold2:#64f2c4;
+
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
     }
 
     *{ box-sizing:border-box; }
@@ -31,355 +50,561 @@
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(900px 520px at 22% 55%, rgba(120, 215, 255, .18) 0%, rgba(120, 215, 255, 0) 55%),
-        radial-gradient(700px 420px at 70% 20%, rgba(96, 165, 250, .14) 0%, rgba(96, 165, 250, 0) 55%),
-        linear-gradient(180deg, var(--bg-1), var(--bg-0));
+        radial-gradient(1100px 620px at 18% 18%, rgba(96,165,250,.18) 0%, rgba(96,165,250,0) 58%),
+        radial-gradient(900px 520px at 78% 10%, rgba(110,231,255,.14) 0%, rgba(110,231,255,0) 55%),
+        radial-gradient(900px 520px at 62% 78%, rgba(100,242,196,.10) 0%, rgba(100,242,196,0) 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg0));
       display:grid;
       place-items:center;
-      padding: 28px;
+      padding: 26px 18px;
     }
 
     .frame{
-      width: min(1180px, 100%);
-      border-radius: calc(var(--radius) + 8px);
-      border: 1px solid rgba(155, 186, 255, .18);
+      width: min(1500px, 100%);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(155,186,255,.18);
       background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
-      padding: 22px;
+      box-shadow: var(--shadow);
       position: relative;
       overflow: hidden;
-      box-shadow:
-        0 28px 80px rgba(0,0,0,.55),
-        inset 0 0 0 1px rgba(255,255,255,.03);
+      padding: 26px;
     }
 
     .frame::before{
       content:"";
       position:absolute;
       inset:-2px;
-      border-radius: calc(var(--radius) + 10px);
-      background: radial-gradient(1200px 260px at 50% 0%,
+      border-radius: var(--radius-xl);
+      background: radial-gradient(1200px 340px at 50% 0%,
         rgba(110,231,255,.14),
         rgba(110,231,255,0) 60%);
       pointer-events:none;
     }
 
+    /* Header */
     .header{
+      position:relative;
+      z-index:1;
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
-      gap: 16px;
-      margin-bottom: 16px;
-      position: relative;
-      z-index: 1;
+      gap: 18px;
+      flex-wrap:wrap;
+      padding: 6px 2px 18px;
     }
 
-    .title{
-      margin:0;
-      font-size: 18px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
-    .badge{
+    .pill-top{
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(110,231,255,.26);
-      background: rgba(10, 20, 40, .55);
-      color: var(--muted);
+      gap:10px;
+      padding: 8px 14px;
+      border-radius: var(--pill);
+      border: 1px solid rgba(100,242,196,.22);
+      background: rgba(10, 14, 28, .55);
+      color: rgba(233,238,252,.70);
       font-size: 12px;
-      user-select:none;
-      white-space:nowrap;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      backdrop-filter: blur(10px);
+      width: fit-content;
     }
-    .dot{
+    .pill-top .dot{
       width:8px;height:8px;border-radius:999px;
-      background: var(--accent);
-      box-shadow: 0 0 10px rgba(110,231,255,.8);
+      background: rgba(100,242,196,1);
+      box-shadow: 0 0 12px rgba(100,242,196,.9);
     }
 
-    .panel{
-      position: relative;
-      z-index: 1;
-      border-radius: var(--radius);
-      border: 1px solid rgba(155, 186, 255, .16);
-      background: linear-gradient(180deg, rgba(12,18,38,.70), rgba(10,14,28,.55));
-      box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,.03),
-        0 18px 60px rgba(0,0,0,.45);
+    .h1{
+      margin: 10px 0 6px;
+      font-size: 34px;
+      letter-spacing: .02em;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .sub{
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.45;
+      max-width: 760px;
+    }
+
+    .legend{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      flex-wrap:wrap;
+      margin-top: 40px;
+    }
+
+    .legend-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 8px 12px;
+      border-radius: var(--pill);
+      border: 1px solid rgba(155,186,255,.14);
+      background: rgba(8,12,26,.55);
+      color: rgba(233,238,252,.72);
+      font-size: 13px;
+      white-space:nowrap;
+      backdrop-filter: blur(10px);
+    }
+    .legend-chip .ldot{
+      width:10px;height:10px;border-radius:999px;
+      box-shadow: 0 0 12px rgba(0,0,0,.0);
+    }
+    .ldot.green{ background: var(--green); box-shadow: 0 0 12px rgba(100,242,196,.55); }
+    .ldot.blue{ background: var(--blue);  box-shadow: 0 0 12px rgba(96,165,250,.55); }
+    .ldot.gold{ background: var(--gold);  box-shadow: 0 0 12px rgba(255,209,102,.55); }
+
+    /* Diagram container */
+    .diagram{
+      position:relative;
+      z-index:1;
+      margin-top: 14px;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(155,186,255,.14);
+      background: linear-gradient(180deg, rgba(12,18,38,.55), rgba(10,14,28,.40));
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
+      padding: 20px 18px 18px;
       overflow:hidden;
     }
 
-    .table-wrap{
-      overflow:auto;
-      max-height: min(70vh, 720px);
+    /* subtle flow line */
+    .diagram::before{
+      content:"";
+      position:absolute;
+      left: 5%;
+      right: 5%;
+      top: 45%;
+      height: 2px;
+      background: linear-gradient(90deg,
+        rgba(100,242,196,0),
+        rgba(100,242,196,.28),
+        rgba(96,165,250,.28),
+        rgba(255,209,102,.22),
+        rgba(255,209,102,0));
+      opacity:.55;
+      pointer-events:none;
     }
 
-    table{
-      width:100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      min-width: 980px;
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      align-items:start;
     }
 
-    thead th{
-      position: sticky;
-      top: 0;
-      z-index: 5;
-      font-size: 13px;
+    .col{
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(155,186,255,.12);
+      background: linear-gradient(180deg, var(--panelA), var(--panelB));
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.03),
+        0 18px 60px rgba(0,0,0,.30);
+      padding: 16px;
+      position:relative;
+      overflow:hidden;
+      min-height: 560px;
+    }
+
+    .col::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: radial-gradient(circle at 25% 8%, rgba(110,231,255,.10) 0, rgba(110,231,255,0) 55%);
+      opacity:.6;
+      pointer-events:none;
+    }
+
+    .col-head{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 4px 2px 12px;
+      margin-bottom: 6px;
+    }
+
+    .col-title{
+      font-size: 14px;
+      letter-spacing: .18em;
       text-transform: uppercase;
-      letter-spacing: .10em;
-      color: rgba(233, 238, 252, .82);
-      padding: 14px 16px;
-      background: rgba(8, 12, 26, .82);
-      border-bottom: 1px solid var(--stroke);
+      font-weight: 800;
+      color: rgba(233,238,252,.80);
+    }
+
+    .col-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 7px 11px;
+      border-radius: var(--pill);
+      border: 1px solid rgba(155,186,255,.14);
+      background: rgba(8,12,26,.55);
+      color: rgba(233,238,252,.70);
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      white-space:nowrap;
       backdrop-filter: blur(10px);
     }
 
-    thead th:first-child{ width: 56px; color: rgba(233,238,252,.55); }
-    thead th:nth-child(2){ width: 210px; }
+    .col-badge.green{ border-color: rgba(100,242,196,.22); color: rgba(100,242,196,.92); }
+    .col-badge.blue { border-color: rgba(96,165,250,.22);  color: rgba(96,165,250,.92); }
+    .col-badge.gold { border-color: rgba(255,209,102,.22); color: rgba(255,209,102,.92); }
 
-    tbody td{
-      padding: 14px 16px;
-      border-bottom: 1px solid rgba(155, 186, 255, .10);
+    .cards{
+      position:relative;
+      z-index:1;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+      margin-top: 6px;
+    }
+
+    .card{
+      border-radius: 20px;
+      border: 1px solid rgba(155,186,255,.14);
+      background: radial-gradient(120% 120% at 20% 0%, rgba(255,255,255,.06) 0%, rgba(8,12,26,.55) 45%, rgba(8,12,26,.35) 100%);
+      box-shadow: 0 14px 38px rgba(0,0,0,.34);
+      padding: 14px 14px 12px;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(110,231,255,.26);
+      box-shadow: 0 20px 55px rgba(0,0,0,.42);
+    }
+
+    .card-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .card-title{
+      font-size: 18px;
+      font-weight: 800;
+      margin: 0;
+      letter-spacing: .01em;
+    }
+
+    .icon{
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      display:grid;
+      place-items:center;
+      border: 1px solid rgba(155,186,255,.14);
+      background: rgba(8,12,26,.55);
+      font-size: 14px;
+      flex: 0 0 auto;
+    }
+
+    .meta{
+      margin: 0;
+      color: rgba(233,238,252,.68);
       font-size: 14px;
       line-height: 1.35;
-      vertical-align: top;
-      background: rgba(8, 12, 26, .10);
-      color: rgba(233, 238, 252, .92);
     }
 
-    tbody tr:nth-child(even) td{
-      background: rgba(8, 12, 26, .18);
+    .tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      margin-top: 10px;
     }
 
-    /* divisórias verticais */
-    thead th + th,
-    tbody td + td{
-      border-left: 1px solid rgba(155, 186, 255, .10);
-    }
-
-    /* coluna índice mais “fraca” */
-    tbody td.col-idx{
-      color: rgba(233, 238, 252, .55);
-      text-align: right;
-      font-variant-numeric: tabular-nums;
-      background: rgba(8, 12, 26, .22);
-    }
-
-    /* “chip” para Tipo */
-    .chip{
+    .tag{
       display:inline-flex;
       align-items:center;
+      gap: 6px;
       padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(155,186,255,.18);
-      background: rgba(10, 20, 40, .40);
-      color: rgba(233,238,252,.85);
-      font-size: 12px;
-      white-space: nowrap;
-    }
-    .chip.num{ border-color: rgba(110,231,255,.22); }
-    .chip.cat{ border-color: rgba(96,165,250,.22); }
-
-    /* cantos arredondados */
-    thead th:first-child{ border-top-left-radius: var(--radius); }
-    thead th:last-child{ border-top-right-radius: var(--radius); }
-    tbody tr:last-child td:first-child{ border-bottom-left-radius: var(--radius); }
-    tbody tr:last-child td:last-child{ border-bottom-right-radius: var(--radius); }
-    tbody tr:last-child td{ border-bottom: 0; }
-
-    tbody tr:hover td{
-      background: rgba(110,231,255,.06);
+      border-radius: var(--pill);
+      border: 1px solid rgba(155,186,255,.14);
+      background: rgba(8,12,26,.45);
+      color: rgba(233,238,252,.72);
+      font-size: 13px;
+      white-space:nowrap;
     }
 
-    @media (max-width: 640px){
-      .title{ font-size: 16px; }
+    .tag.green{ border-color: rgba(100,242,196,.22); color: rgba(100,242,196,.92); }
+    .tag.blue { border-color: rgba(96,165,250,.22);  color: rgba(96,165,250,.92); }
+    .tag.gold { border-color: rgba(255,209,102,.22); color: rgba(255,209,102,.92); }
+
+    .tag.mono{
+      font-family: var(--mono);
+      letter-spacing: .02em;
+      font-size: 12.5px;
+      color: rgba(233,238,252,.78);
+    }
+
+    /* Data Lake cards: Bronze/Silver/Gold labels */
+    .lake-label{
+      font-weight: 900;
+      letter-spacing: .02em;
+    }
+    .lake-label.bronze{ color: rgba(255,154,61,.92); }
+    .lake-label.silver{ color: rgba(233,238,252,.86); }
+    .lake-label.gold{ color: rgba(100,242,196,.92); }
+
+    /* Footer hints */
+    .hint{
+      margin-top: 10px;
+      text-align:center;
+      color: rgba(233,238,252,.55);
+      font-size: 14px;
+      letter-spacing: .01em;
+    }
+
+    @media (max-width: 1200px){
+      .grid{ grid-template-columns: 1fr 1fr; }
+      .col{ min-height: auto; }
+      .diagram::before{ display:none; }
+    }
+    @media (max-width: 720px){
+      .grid{ grid-template-columns: 1fr; }
+      .h1{ font-size: 26px; }
+      .legend{ margin-top: 10px; }
     }
   </style>
 </head>
 
 <body>
-  <section class="frame">
-    <div class="header">
-      <h1 class="title">Dicionário de Dados</h1>
-      <div class="badge"><span class="dot"></span> VARIÁVEIS</div>
-    </div>
-
-    <div class="panel">
-      <div class="table-wrap" role="region" aria-label="Tabela de dicionário de dados (rolável)">
-        <table aria-label="Dicionário de dados">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Variável</th>
-              <th>Descrição</th>
-              <th>Categorias</th>
-              <th>Tipo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="col-idx">0</td>
-              <td><strong>user_id</strong></td>
-              <td>Identificador único do usuário que realizou o treino.</td>
-              <td>UUID que referencia o usuário na aplicação.</td>
-              <td><span class="chip cat">Categórica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">1</td>
-              <td><strong>title</strong></td>
-              <td>Título do treino/sessão.</td>
-              <td>Ex.: “Treino de bíceps e tríceps”.</td>
-              <td><span class="chip cat">Categórica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">2</td>
-              <td><strong>start_time</strong></td>
-              <td>Data e hora de início do treino.</td>
-              <td>Timestamp indicando quando começou.</td>
-              <td><span class="chip cat">Categórica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">3</td>
-              <td><strong>end_time</strong></td>
-              <td>Data e hora de término do treino.</td>
-              <td>Timestamp indicando quando terminou.</td>
-              <td><span class="chip cat">Categórica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">4</td>
-              <td><strong>description</strong></td>
-              <td>Descrição livre do treino.</td>
-              <td>Texto opcional com detalhes.</td>
-              <td><span class="chip cat">Categórica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">5</td>
-              <td><strong>exercise_title</strong></td>
-              <td>Nome do exercício conforme registrado no treino.</td>
-              <td>Texto livre (pode estar em PT).</td>
-              <td><span class="chip cat">Categórica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">6</td>
-              <td><strong>superset_id</strong></td>
-              <td>Identificador do superset.</td>
-              <td>Indica agrupamento de exercícios em superset.</td>
-              <td><span class="chip num">Numérica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">7</td>
-              <td><strong>exercise_notes</strong></td>
-              <td>Anotações do usuário sobre o exercício.</td>
-              <td>Texto livre.</td>
-              <td><span class="chip cat">Categórica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">8</td>
-              <td><strong>set_index</strong></td>
-              <td>Ordem da série dentro do exercício.</td>
-              <td>Ex.: 0, 1, 2 …</td>
-              <td><span class="chip num">Numérica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">9</td>
-              <td><strong>set_type</strong></td>
-              <td>Tipo da série executada.</td>
-              <td>Ex.: normal, aquecimento, drop set.</td>
-              <td><span class="chip cat">Categórica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">10</td>
-              <td><strong>weight_kg</strong></td>
-              <td>Carga utilizada na série.</td>
-              <td>Peso em quilogramas.</td>
-              <td><span class="chip num">Numérica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">11</td>
-              <td><strong>reps</strong></td>
-              <td>Repetições realizadas na série.</td>
-              <td>Valor inteiro de reps.</td>
-              <td><span class="chip num">Numérica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">12</td>
-              <td><strong>distance_km</strong></td>
-              <td>Distância percorrida no exercício (se aplicável).</td>
-              <td>Usado para cardio; valor em km.</td>
-              <td><span class="chip num">Numérica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">13</td>
-              <td><strong>duration_seconds</strong></td>
-              <td>Duração da série em segundos.</td>
-              <td>Tempo ativo de execução.</td>
-              <td><span class="chip num">Numérica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">14</td>
-              <td><strong>rpe</strong></td>
-              <td>Esforço percebido (RPE).</td>
-              <td>Escala de intensidade subjetiva.</td>
-              <td><span class="chip num">Numérica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">15</td>
-              <td><strong>id</strong></td>
-              <td>Identificador da linha/registro no dataset.</td>
-              <td>Pode representar ID original do evento/linha.</td>
-              <td><span class="chip cat">Categórica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">16</td>
-              <td><strong>routine_id</strong></td>
-              <td>Identificador da rotina/sessão de treino.</td>
-              <td>Agrupa exercícios dentro de uma mesma rotina.</td>
-              <td><span class="chip cat">Categórica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">17</td>
-              <td><strong>updated_at</strong></td>
-              <td>Data de atualização do registro.</td>
-              <td>Timestamp de update.</td>
-              <td><span class="chip cat">Categórica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">18</td>
-              <td><strong>created_at</strong></td>
-              <td>Data de criação do registro.</td>
-              <td>Timestamp de criação.</td>
-              <td><span class="chip cat">Categórica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">19</td>
-              <td><strong>exercises</strong></td>
-              <td>Campo auxiliar/agregado de exercícios.</td>
-              <td>Pode ser nulo/JSON/estrutura aninhada.</td>
-              <td><span class="chip cat">Categórica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">20</td>
-              <td><strong>duracao</strong></td>
-              <td>Duração total do treino.</td>
-              <td>Geralmente em minutos.</td>
-              <td><span class="chip num">Numérica</span></td>
-            </tr>
-            <tr>
-              <td class="col-idx">21</td>
-              <td><strong>id_exercice</strong></td>
-              <td>Identificador original do exercício na fonte externa.</td>
-              <td>Pode ser nulo dependendo da origem do dado.</td>
-              <td><span class="chip cat">Categórica</span></td>
-            </tr>
-          </tbody>
-        </table>
+  <main class="frame">
+    <header class="header">
+      <div>
+        <div class="pill-top"><span class="dot"></span> INSTRUCTOR WORKOUT DATA &amp; AI PIPELINE</div>
+        <h1 class="h1">ARQUITETURA DE DADOS – MEDALLION / DATA LAKE</h1>
+        <p class="sub">
+          Fluxo da solução: fontes de dados → Airflow ETL → Data Lake em S3 (Bronze / Silver / Gold) → Camada de consumo (Streamlit &amp; Dashboards).
+        </p>
       </div>
-    </div>
-  </section>
+
+      <div class="legend" aria-label="Legenda">
+        <div class="legend-chip"><span class="ldot green"></span> Processo / Pipeline</div>
+        <div class="legend-chip"><span class="ldot blue"></span> Armazenamento / Data Lake</div>
+        <div class="legend-chip"><span class="ldot gold"></span> Consumo / Analytics &amp; App</div>
+      </div>
+    </header>
+
+    <section class="diagram">
+      <div class="grid">
+        <!-- SOURCE SYSTEMS -->
+        <section class="col">
+          <div class="col-head">
+            <div class="col-title">SOURCE SYSTEMS</div>
+            <div class="col-badge green">ENTRADA</div>
+          </div>
+
+          <div class="cards">
+            <article class="card">
+              <div class="card-top">
+                <h3 class="card-title">API Hevy</h3>
+                <div class="icon">🌐</div>
+              </div>
+              <p class="meta">Workouts, séries e exercícios coletados da API oficial.</p>
+              <div class="tags">
+                <span class="tag green">JSON</span>
+                <span class="tag">Histórico de treinos</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-top">
+                <h3 class="card-title">Formulário Streamlit</h3>
+                <div class="icon">📝</div>
+              </div>
+              <p class="meta">Perfil, objetivos e restrições do usuário.</p>
+              <div class="tags">
+                <span class="tag mono">user_profiles</span>
+                <span class="tag green">Input do app</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-top">
+                <h3 class="card-title">Datasets externos</h3>
+                <div class="icon">📁</div>
+              </div>
+              <p class="meta">Kaggle e dados sintéticos com catálogo de exercícios.</p>
+              <div class="tags">
+                <span class="tag">Kaggle</span>
+                <span class="tag green">Synthetic data</span>
+              </div>
+            </article>
+
+            <div class="hint">Dados brutos entram no pipeline ↓</div>
+          </div>
+        </section>
+
+        <!-- AIRFLOW ETL -->
+        <section class="col">
+          <div class="col-head">
+            <div class="col-title">AIRFLOW ETL</div>
+            <div class="col-badge green">ORQUESTRAÇÃO</div>
+          </div>
+
+          <div class="cards">
+            <article class="card">
+              <div class="card-top">
+                <h3 class="card-title">DAG Instructor Workout</h3>
+                <div class="icon">⏱</div>
+              </div>
+              <p class="meta">
+                create_lake_structure → ingest_* → silver_* → gold_metrics.
+              </p>
+              <div class="tags">
+                <span class="tag green">Batch</span>
+                <span class="tag">BashOperator</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-top">
+                <h3 class="card-title">Ingestão &amp; Bronze</h3>
+                <div class="icon">⬇️</div>
+              </div>
+              <p class="meta">Scripts salvam dados brutos em S3 (camada Bronze).</p>
+              <div class="tags">
+                <span class="tag mono">ingest_hevy*</span>
+                <span class="tag mono">ingest_kaggle</span>
+                <span class="tag mono">ingest_users_form</span>
+                <span class="tag mono">ingest_depara_hevy_kaggle</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-top">
+                <h3 class="card-title">Transformações</h3>
+                <div class="icon">⚙️</div>
+              </div>
+              <p class="meta">Python + Pandas limpando, tipando e integrando dados.</p>
+              <div class="tags">
+                <span class="tag mono">silver_users</span>
+                <span class="tag mono">silver_transform</span>
+                <span class="tag mono">silver_kaggle</span>
+                <span class="tag mono">silver_depara_heavy_kaggle</span>
+              </div>
+            </article>
+
+            <div class="hint">Airflow automatiza o fluxo das camadas →</div>
+          </div>
+        </section>
+
+        <!-- DATA LAKE -->
+        <section class="col">
+          <div class="col-head">
+            <div class="col-title">DATA LAKE – S3</div>
+            <div class="col-badge blue">ARMAZENAMENTO</div>
+          </div>
+
+          <div class="cards">
+            <article class="card">
+              <div class="card-top">
+                <h3 class="card-title"><span class="lake-label bronze">Bronze</span></h3>
+                <div class="icon">🥉</div>
+              </div>
+              <p class="meta">Dados brutos exatamente como chegam das fontes.</p>
+              <div class="tags">
+                <span class="tag mono">hevy/raw_*.parquet</span>
+                <span class="tag mono">users/raw_form</span>
+                <span class="tag mono">mapping/raw_depara</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-top">
+                <h3 class="card-title"><span class="lake-label silver">Silver</span></h3>
+                <div class="icon">🥈</div>
+              </div>
+              <p class="meta">Dados limpos, tipados e integrados (staging/refined).</p>
+              <div class="tags">
+                <span class="tag mono">users</span>
+                <span class="tag mono">workouts</span>
+                <span class="tag mono">sets</span>
+                <span class="tag mono">exercises</span>
+                <span class="tag mono">depara_hevy_kaggle</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-top">
+                <h3 class="card-title"><span class="lake-label gold">Gold</span></h3>
+                <div class="icon">🥇</div>
+              </div>
+              <p class="meta">Star Schema (dimensional) com fato de métricas para BI/ML.</p>
+              <div class="tags">
+                <span class="tag gold mono">fact_workout_metrics</span>
+                <span class="tag mono">dim_user</span>
+                <span class="tag mono">dim_date</span>
+                <span class="tag mono">dim_exercise</span>
+              </div>
+            </article>
+
+            <div class="hint">Camada Gold alimenta a zona de consumo ↓</div>
+          </div>
+        </section>
+
+        <!-- SERVING -->
+        <section class="col">
+          <div class="col-head">
+            <div class="col-title">SERVING LAYER</div>
+            <div class="col-badge gold">CONSUMO</div>
+          </div>
+
+          <div class="cards">
+            <article class="card">
+              <div class="card-top">
+                <h3 class="card-title">Streamlit App</h3>
+                <div class="icon">📊</div>
+              </div>
+              <p class="meta">Login, formulário, dashboard e leitura da camada Gold.</p>
+              <div class="tags">
+                <span class="tag gold">Análises de treino</span>
+                <span class="tag">Comparação global</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-top">
+                <h3 class="card-title">Chat IA – Personal Trainer</h3>
+                <div class="icon">🤖</div>
+              </div>
+              <p class="meta">LLaMA 3.1 via Groq, usando perfil + histórico para sugerir treinos.</p>
+              <div class="tags">
+                <span class="tag mono">GROQ API</span>
+                <span class="tag">Contexto do usuário</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-top">
+                <h3 class="card-title">Dashboards / BI</h3>
+                <div class="icon">📈</div>
+              </div>
+              <p class="meta">Consumo futuro em BI (Power BI, Looker Studio, etc.).</p>
+              <div class="tags">
+                <span class="tag">KPI de volume</span>
+                <span class="tag">Consistência</span>
+              </div>
+            </article>
+
+            <div class="hint">Camada de consumo fecha o ciclo de valor de dados.</div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
-
