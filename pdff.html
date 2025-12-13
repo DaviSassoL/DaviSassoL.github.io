@@ -1,1416 +1,580 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>Trabalho Final – DevOps & DataOps 2025</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Arquitetura de Dados — Lambda / Data Lake</title>
   <style>
-    :root {
-      --bg: #020617;
-      --panel: #020617;
-      --lane-bg: rgba(15, 23, 42, 0.96);
-      --side-bg: rgba(15, 23, 42, 0.98);
-      --stroke: rgba(148, 163, 184, 0.45);
-      --stroke-strong: rgba(148, 163, 184, 0.7);
-      --accent-blue: #38bdf8;
-      --accent-green: #22c55e;
-      --accent-gold: #facc15;
-      --accent-purple: #a855f7;
-      --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
-      --radius-lg: 22px;
-      --radius-md: 14px;
-      --shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
-      --transition: 0.18s ease-out;
+    :root{
+      --bg0:#070a12;
+      --bg1:#0b1220;
+      --card:#0e172a;
+      --card2:#0b1324;
+      --line:rgba(255,255,255,.10);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.62);
 
-      --card: rgba(15, 23, 42, 0.97);
-      --accent-red: #f97373;
-      --accent-yellow: #facc15;
+      --green:#22c55e;
+      --blue:#3b82f6;
+      --amber:#f59e0b;
+      --pink:#ec4899;
+      --cyan:#06b6d4;
+      --violet:#8b5cf6;
+      --orange:#f97316;
+
+      --r:18px;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       background:
-        radial-gradient(circle at top, #0b1220 0, #020617 40%, #020617 100%);
-      color: var(--text-main);
-      padding: 32px 16px 40px;
+        radial-gradient(1200px 800px at 20% 0%, rgba(59,130,246,.18), transparent 55%),
+        radial-gradient(900px 700px at 80% 20%, rgba(245,158,11,.14), transparent 55%),
+        radial-gradient(900px 700px at 50% 100%, rgba(34,197,94,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      color:var(--text);
     }
 
-    .deck {
-      display: flex;
-      flex-direction: column;
-      gap: 26px;
-      align-items: center;
+    .wrap{
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 28px 18px 40px;
     }
 
-    /* Barra de download */
-
-    .download-bar {
-      max-width: 1280px;
-      margin: 0 auto 16px auto;
-      display: flex;
-      justify-content: flex-end;
+    /* Header */
+    .topbar{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom: 18px;
+    }
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:12px;
+    }
+    h1{
+      margin:10px 0 6px;
+      font-size: 34px;
+      line-height:1.1;
+      letter-spacing:.02em;
+    }
+    .subtitle{
+      margin:0;
+      color: var(--muted);
+      max-width: 860px;
+      line-height:1.5;
     }
 
-    .download-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(56, 189, 248, 0.7);
-      background: rgba(15, 23, 42, 0.96);
-      color: #e5e7eb;
-      font-size: 0.8rem;
-      text-decoration: none;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.9);
-      transition: background var(--transition), transform var(--transition),
-        box-shadow var(--transition), border-color var(--transition);
+    .legend{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .legend .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background: rgba(255,255,255,.03);
+      font-size:12px;
+      color: var(--muted);
+    }
+    .dot{
+      width:10px;height:10px;border-radius:999px;
+      box-shadow: 0 0 0 4px rgba(255,255,255,.04);
     }
 
-    .download-btn::before {
-      content: "⬇";
-      font-size: 0.9rem;
-    }
-
-    .download-btn:hover {
-      background: rgba(56, 189, 248, 0.1);
-      border-color: rgba(56, 189, 248, 1);
-      transform: translateY(-1px);
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 1);
-    }
-
-    @media (max-width: 900px) {
-      .download-bar {
-        justify-content: center;
-      }
-    }
-
-    /* SLIDE / BOARD BASE */
-
-    .board {
-      width: 100%;
-      max-width: 1280px;
-      aspect-ratio: 16 / 9;
-      background: radial-gradient(circle at top left,
-          rgba(15, 23, 42, 0.96),
-          rgba(2, 6, 23, 0.98));
-      border-radius: 28px;
-      border: 1px solid var(--stroke-strong);
+    /* Layout */
+    .board{
+      border:1px solid var(--line);
+      border-radius: 26px;
+      background:
+        radial-gradient(900px 600px at 50% 0%, rgba(255,255,255,.05), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
       box-shadow: var(--shadow);
-      padding: 26px 30px 24px;
-      position: relative;
-      overflow: hidden;
-      display: flex;
+      padding: 18px;
     }
 
-    .board::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at top left,
-          rgba(56, 189, 248, 0.18),
-          transparent 55%),
-        radial-gradient(circle at bottom right,
-          rgba(168, 85, 247, 0.18),
-          transparent 60%);
-      pointer-events: none;
+    .grid{
+      display:grid;
+      gap:14px;
+      grid-template-columns: repeat(12, 1fr);
+      align-items:stretch;
     }
 
-    .board-inner {
-      position: relative;
-      z-index: 1;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      min-height: 0;
+    .col-3{grid-column: span 3;}
+    .col-4{grid-column: span 4;}
+    .col-5{grid-column: span 5;}
+    .col-12{grid-column: span 12;}
+
+    @media (max-width: 1160px){
+      .col-3,.col-4,.col-5{grid-column: span 12;}
+      .legend{justify-content:flex-start}
     }
 
-    @media (max-width: 900px) {
-      body {
-        padding: 16px 10px 28px;
-      }
-      .board {
-        aspect-ratio: auto;
-        padding: 18px 14px 18px;
-        border-radius: 22px;
-      }
+    /* Sections */
+    .section{
+      border:1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      padding: 14px;
+      position:relative;
+      overflow:hidden;
+    }
+    .section:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(500px 200px at 20% 0%, rgba(255,255,255,.06), transparent 60%);
+      pointer-events:none;
     }
 
-    /* HEADER GENÉRICO DE SLIDE */
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 18px;
-      margin-bottom: 16px;
+    .section-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:12px;
+      position:relative;
+      z-index:1;
     }
 
-    .header-title h1 {
-      margin: 0 0 6px;
-      font-size: 1.55rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+    .section-title{
+      display:flex;
+      align-items:baseline;
+      gap:10px;
+      font-weight:700;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-size:12px;
+      color: rgba(255,255,255,.80);
     }
 
-    .header-title div,
-    .header-title p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin: 0;
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      font-size:11px;
+      color: var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      white-space:nowrap;
     }
 
-    .badge {
-      align-self: center;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--stroke-strong);
-      background: rgba(15, 23, 42, 0.94);
-      color: var(--text-muted);
-      font-size: 0.74rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      backdrop-filter: blur(10px);
-      white-space: nowrap;
-    }
-
-    .badge-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent-green);
-      box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
-    }
-
-    /* COVER SLIDE */
-
-    .cover-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-      gap: 22px;
-      align-items: center;
-      height: 100%;
-    }
-
-    .cover-left h2 {
-      font-size: 2.1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      margin: 0 0 10px;
-    }
-
-    .cover-left h3 {
-      margin: 0 0 14px;
-      font-size: 1.2rem;
-      color: var(--text-muted);
-    }
-
-    .cover-meta {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-top: 8px;
-    }
-
-    .cover-logo-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .cover-logo {
-      max-width: 320px;
-      width: 100%;
-      border-radius: 24px;
-      padding: 16px 16px 14px;
-      background: radial-gradient(circle at top,
-          rgba(15, 23, 42, 0.9),
-          rgba(2, 6, 23, 1));
-      border: 1px solid rgba(56, 189, 248, 0.6);
-      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.9);
-    }
-
-    .chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 8px;
-    }
-
-    .chip {
-      font-size: 0.72rem;
-      padding: 4px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.96);
-      color: var(--text-muted);
-      white-space: nowrap;
-    }
-
-    .chip.key {
-      border-color: rgba(56, 189, 248, 0.9);
-      color: #e0f2fe;
-    }
-
-    /* LIST SLIDES */
-
-    .list-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 20px;
-      height: auto;
-    }
-
-    .list-left-title {
-      font-size: 1.1rem;
-      margin: 0 0 8px;
-    }
-
-    .kicker {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--accent-blue);
-      margin-bottom: 6px;
-    }
-
-    .bullets {
-      list-style: none;
-      padding: 0;
-      margin: 6px 0 0;
-      font-size: 0.96rem;
-      color: var(--text-main);
-    }
-
-    .bullets li {
-      margin-bottom: 6px;
-      position: relative;
-      padding-left: 18px;
-    }
-
-    .bullets li::before {
-      content: "•";
-      position: absolute;
-      left: 3px;
-      top: 1px;
-      color: var(--accent-blue);
-    }
-
-    .note {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 6px;
-    }
-
-    /* PIPELINE / LAYOUT GERAL */
-
-    .layout {
-      flex: 1;
-      display: grid;
-      grid-template-columns: minmax(0, 2.3fr) minmax(0, 1fr);
-      gap: 18px;
-      min-height: 0;
-      align-items: stretch;
-    }
-
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .lanes {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      height: 100%;
-    }
-
-    .lane {
-      background: var(--lane-bg);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--stroke-strong);
+    /* Cards inside */
+    .stack{display:flex; flex-direction:column; gap:12px; position:relative; z-index:1;}
+    .card{
+      border:1px solid var(--line);
+      border-radius: var(--r);
+      background: linear-gradient(180deg, rgba(14,23,42,.92), rgba(11,19,36,.92));
       padding: 12px 12px 10px;
-      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.86);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      min-height: 0;
+    }
+    .card .title-row{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .card h3{
+      margin:0;
+      font-size:16px;
+      letter-spacing:.01em;
+    }
+    .card p{
+      margin:6px 0 10px;
+      color: var(--muted);
+      font-size:13px;
+      line-height:1.35;
+    }
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .chip{
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:5px 10px;
+      font-size:12px;
+      color: rgba(255,255,255,.75);
+      background: rgba(255,255,255,.03);
+      white-space:nowrap;
     }
 
-    .lane-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
+    /* Color accents */
+    .accent-green{ box-shadow: 0 0 0 1px rgba(34,197,94,.25) inset; }
+    .accent-blue{  box-shadow: 0 0 0 1px rgba(59,130,246,.25) inset; }
+    .accent-amber{ box-shadow: 0 0 0 1px rgba(245,158,11,.25) inset; }
+    .accent-pink{  box-shadow: 0 0 0 1px rgba(236,72,153,.25) inset; }
+    .accent-cyan{  box-shadow: 0 0 0 1px rgba(6,182,212,.25) inset; }
+    .accent-violet{box-shadow: 0 0 0 1px rgba(139,92,246,.25) inset; }
+    .accent-orange{box-shadow: 0 0 0 1px rgba(249,115,22,.25) inset; }
+
+    .chip.green{ border-color: rgba(34,197,94,.35); color: rgba(34,197,94,.95); background: rgba(34,197,94,.08); }
+    .chip.blue{  border-color: rgba(59,130,246,.35); color: rgba(59,130,246,.95); background: rgba(59,130,246,.08); }
+    .chip.amber{ border-color: rgba(245,158,11,.35); color: rgba(245,158,11,.95); background: rgba(245,158,11,.08); }
+    .chip.pink{  border-color: rgba(236,72,153,.35); color: rgba(236,72,153,.95); background: rgba(236,72,153,.08); }
+    .chip.cyan{  border-color: rgba(6,182,212,.35); color: rgba(6,182,212,.95); background: rgba(6,182,212,.08); }
+    .chip.violet{border-color: rgba(139,92,246,.35); color: rgba(139,92,246,.95); background: rgba(139,92,246,.08); }
+    .chip.orange{border-color: rgba(249,115,22,.35); color: rgba(249,115,22,.95); background: rgba(249,115,22,.08); }
+
+    /* Data lake inner columns */
+    .lake-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
+    .lake-cols{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 1160px){
+      .lake-cols{grid-template-columns: 1fr;}
     }
 
-    .lane-title {
-      font-size: 0.8rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .lake-col{
+      border:1px solid var(--line);
+      border-radius: 20px;
+      padding:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      min-height: 200px;
+    }
+    .lake-col .col-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:10px;
+    }
+    .lake-col h4{
+      margin:0;
+      font-size:14px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.82);
     }
 
-    .lane-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
+    .note{
+      color: var(--muted);
+      font-size:12px;
+      margin-top: 10px;
     }
 
-    .lane-data .lane-dot {
-      background: var(--accent-blue);
+    /* Flow arrows */
+    .flow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size:12px;
+    }
+    .arrow{
+      flex:1;
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+      position:relative;
+    }
+    .arrow:after{
+      content:"";
+      position:absolute;
+      right:6px; top:-3px;
+      border-left:6px solid rgba(255,255,255,.28);
+      border-top:4px solid transparent;
+      border-bottom:4px solid transparent;
+      opacity:.9;
     }
 
-    .lane-consumption .lane-dot {
-      background: var(--accent-green);
-    }
-
-    .lane-metrics {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      justify-content: flex-end;
-    }
-
-    .metric-pill {
-      font-size: 0.72rem;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid var(--stroke-strong);
-      background: rgba(15, 23, 42, 0.96);
-      white-space: nowrap;
-    }
-
-    .metric-pill.good {
-      border-color: rgba(34, 197, 94, 0.9);
-      color: #bbf7d0;
-    }
-
-    .metric-pill.info {
-      border-color: rgba(56, 189, 248, 0.9);
-      color: #e0f2fe;
-    }
-
-    .lane-flow {
-      position: relative;
-      display: flex;
-      align-items: stretch;
-      gap: 10px;
-      margin-top: 6px;
-      padding: 10px 6px 6px;
-      flex: 1;
-      min-height: 0;
-    }
-
-    .lane-flow::before {
-      content: "";
-      position: absolute;
-      left: 5%;
-      right: 5%;
-      top: 50%;
-      height: 1px;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(148, 163, 184, 0.7),
-        transparent
-      );
-      opacity: 0.85;
-      pointer-events: none;
-    }
-
-    .lane-card {
-      position: relative;
-      z-index: 1;
-      flex: 1 1 0;
-      min-width: 110px;
-      background: radial-gradient(circle at top left,
-          rgba(15, 23, 42, 0.96),
-          #020617);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--stroke);
-      padding: 8px 8px 7px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      text-align: left;
-      transition: transform var(--transition), box-shadow var(--transition),
-        border-color var(--transition), background var(--transition);
-    }
-
-    .lane-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 36px rgba(15, 23, 42, 0.95);
-      border-color: rgba(56, 189, 248, 0.9);
-      background: radial-gradient(circle at top left,
-          rgba(56, 189, 248, 0.22),
-          #020617);
-    }
-
-    .lane-card-title {
-      font-size: 0.82rem;
-      font-weight: 600;
-    }
-
-    .lane-card-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-      margin-top: 2px;
-    }
-
-    .tag {
-      font-size: 0.66rem;
-      padding: 2px 6px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.96);
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      color: var(--text-muted);
-      white-space: nowrap;
-    }
-
-    .tag.key {
-      border-color: rgba(56, 189, 248, 0.95);
-      color: #e0f2fe;
-    }
-
-    .lane-card-list {
-      margin: 4px 0 0;
-      padding-left: 14px;
-      font-size: 0.66rem;
-      color: var(--text-muted);
-      line-height: 1.3;
-    }
-
-    .lane-card-list li {
-      margin-bottom: 2px;
-    }
-
-    /* SIDE COLUMN */
-
-    .side {
-      background: var(--side-bg);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--stroke-strong);
-      padding: 14px 14px 10px;
-      box-shadow: 0 20px 46px rgba(15, 23, 42, 0.95);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      min-height: 0;
-      height: 100%;
-    }
-
-    .side-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .side-title-block {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .side-kicker {
-      font-size: 0.72rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    .side-title {
-      font-size: 0.96rem;
-      font-weight: 600;
-    }
-
-    .side-tag {
-      font-size: 0.7rem;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.96);
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      white-space: nowrap;
-    }
-
-    .side-section-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      flex: 1;
-      min-height: 0;
-      margin-top: 4px;
-    }
-
-    .side-section {
-      border-radius: 14px;
-      border: 1px solid var(--stroke);
-      padding: 8px 8px 6px;
-      background: radial-gradient(circle at top left,
-          rgba(15, 23, 42, 0.96),
-          #020617);
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      flex: 1;
-      min-height: 0;
-    }
-
-    .side-section-title {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.13em;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 2px;
-    }
-
-    .side-section-title::before {
-      content: "";
-      width: 16px;
-      height: 1px;
-      background: linear-gradient(
-        to right,
-        rgba(148, 163, 184, 0.9),
-        transparent
-      );
-    }
-
-    .side-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-      margin-top: 2px;
-    }
-
-    .side-chip {
-      font-size: 0.68rem;
-      padding: 3px 7px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.96);
-      white-space: nowrap;
-      color: var(--text-muted);
-    }
-
-    .side-chip.good {
-      border-color: rgba(34, 197, 94, 0.9);
-      color: #bbf7d0;
-    }
-
-    .side-chip.info {
-      border-color: rgba(56, 189, 248, 0.95);
-      color: #e0f2fe;
-    }
-
-    /* === SLIDE 2 – CENÁRIO ATUAL (layout específico) === */
-
-    .main {
-      display: grid;
-      grid-template-rows: 1.2fr 1fr;
-      row-gap: 10px;
-      height: 100%;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      column-gap: 16px;
-      align-items: stretch;
-    }
-
-    .card {
-      background: var(--card);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--stroke-strong);
-      padding: 14px 14px 12px;
-      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.86);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .card-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 2px;
-    }
-
-    .icon-pill {
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.05rem;
-      background: radial-gradient(circle at 30% 20%,
-        rgba(248, 113, 113, 0.2),
-        rgba(15, 23, 42, 1));
-      border: 1px solid rgba(248, 113, 113, 0.7);
-      flex-shrink: 0;
-    }
-
-    .icon-pill.data {
-      background: radial-gradient(circle at 30% 20%,
-        rgba(56, 189, 248, 0.22),
-        rgba(15, 23, 42, 1));
-      border-color: rgba(56, 189, 248, 0.7);
-    }
-
-    .icon-pill.impact {
-      background: radial-gradient(circle at 30% 20%,
-        rgba(250, 204, 21, 0.25),
-        rgba(15, 23, 42, 1));
-      border-color: rgba(250, 204, 21, 0.85);
-    }
-
-    .card-title {
-      font-size: 1rem;
-      font-weight: 600;
-    }
-
-    .card-subtitle {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-
-    .card-text {
-      font-size: 0.84rem;
-      color: var(--text-muted);
-      line-height: 1.45;
-    }
-
-    .card-list {
-      margin: 4px 0 0;
-      padding-left: 16px;
-      font-size: 0.8rem;
-      color: var(--text-main);
-      line-height: 1.35;
-    }
-
-    .card-list li {
-      margin-bottom: 3px;
-    }
-
-    .tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 4px;
-    }
-
-    .tag.bad {
-      border-color: rgba(248, 113, 113, 0.9);
-      color: #fecaca;
-    }
-
-    .tag.data {
-      border-color: rgba(56, 189, 248, 0.9);
-      color: #e0f2fe;
-    }
-
-    .tag.risk {
-      border-color: rgba(250, 204, 21, 0.9);
-      color: #fef9c3;
-    }
-
-    .metrics-strip {
-      background: rgba(15, 23, 42, 0.97);
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148, 163, 184, 0.8);
-      padding: 10px 14px 9px;
-      display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr;
-      column-gap: 16px;
-      align-items: start;
-    }
-
-    .metrics-strip-title {
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-
-    .metrics-strip-text {
-      font-size: 0.8rem;
-      color: var(--text-main);
-      line-height: 1.4;
-      margin-bottom: 6px;
-    }
-
-    .metrics-section-title {
-      font-weight: 600;
-      font-size: 0.8rem;
-      margin-bottom: 4px;
-    }
-
-    .metrics-list {
-      margin: 0;
-      padding-left: 16px;
-      font-size: 0.78rem;
-      line-height: 1.3;
-    }
-
-    .metrics-list li {
-      margin-bottom: 3px;
-    }
-
-    .diagnostic-block-title {
-      font-size: 0.76rem;
-      text-transform: uppercase;
-      letter-spacing: 0.13em;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-
-    .diagnostic-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .diagnostic-chip {
-      font-size: 0.74rem;
-      padding: 3px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.75);
-      background: rgba(15, 23, 42, 0.98);
-      white-space: nowrap;
-      color: var(--text-main);
-    }
-
-    .diagnostic-chip.dev {
-      border-color: rgba(248, 113, 113, 0.9);
-    }
-
-    .diagnostic-chip.data {
-      border-color: rgba(56, 189, 248, 0.9);
-    }
-
-    .diagnostic-chip.obs {
-      border-color: rgba(250, 204, 21, 0.9);
+    /* optional "planned" style */
+    .planned{
+      border-style:dashed;
+      opacity:.85;
     }
   </style>
 </head>
+
 <body>
-  <!-- Botão de download do PowerPoint (ajuste o caminho do .pptx depois) -->
-  <div class="download-bar">
-    <a
-      href="/mnt/data/devops_dataops_presentation.pptx"
-      download
-      class="download-btn"
-    >
-      Baixar slides em PowerPoint (.pptx)
-    </a>
-  </div>
-
-  <div class="deck">
-
-    <!-- SLIDE 1 – CAPA -->
-    <section class="board">
-      <div class="board-inner">
-        <div class="cover-layout">
-          <div class="cover-left">
-            <p class="kicker">Trabalho Final · DevOps &amp; DataOps 2025</p>
-            <h2>DEVOPS + DATAOPS</h2>
-            <h3>Proposta de esteira integrada para um varejo digital</h3>
-            <p>
-              Projeto de consultoria técnica para uma empresa de médio porte do
-              varejo digital, enfrentando instabilidade em produção, atrasos nas
-              entregas de software e relatórios analíticos inconsistentes.
-            </p>
-            <div class="cover-meta">
-              Autor: <strong>Davi Sasso</strong><br />
-              MBA Engenharia de Dados – Universidade Presbiteriana Mackenzie
-              <div class="chip-row" style="margin-top:10px;">
-                <span class="chip key">DevOps</span>
-                <span class="chip key">DataOps</span>
-                <span class="chip">Observabilidade</span>
-                <span class="chip">Governança &amp; LGPD</span>
-              </div>
-            </div>
-          </div>
-          <div class="cover-logo-wrap">
-            <div class="cover-logo">
-              <div style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.16em;color:var(--text-muted);margin-bottom:6px;">
-                Cenário do cliente
-              </div>
-              <ul style="margin:0;padding-left:16px;font-size:0.82rem;color:var(--text-main);line-height:1.45;">
-                <li>Deploys manuais e sem validação sistemática.</li>
-                <li>Dados críticos chegando atrasados e inconsistentes.</li>
-                <li>Ausência de métricas DevOps e painéis consolidados.</li>
-              </ul>
-              <div style="margin-top:10px;font-size:0.8rem;color:var(--text-muted);">
-                Objetivo: propor uma operação integrada, automatizada e
-                observável – da ideia ao dado confiável.
-              </div>
-            </div>
-          </div>
-        </div>
+  <div class="wrap">
+    <div class="topbar">
+      <div>
+        <div class="kicker">INSTRUCTOR WORKOUT DATA &amp; AI PIPELINE</div>
+        <h1>ARQUITETURA DE DADOS — LAMBDA / DATA LAKE</h1>
+        <p class="subtitle">
+          Fluxo da solução: <strong>fontes de dados</strong> → <strong>Airflow (ETL)</strong> → <strong>Data Lake em S3</strong>
+          (Bronze / Silver / Gold) → <strong>camada de consumo</strong> (Streamlit &amp; Dashboards).
+        </p>
       </div>
-    </section>
 
-    <!-- SLIDE 2 – CENÁRIO ATUAL (EXATAMENTE O QUE VOCÊ MANDOU) -->
-    <section class="board">
-      <div class="board-inner">
-        <header class="header">
-          <div class="header-title">
-            <h1>Cenário atual: por que nossa operação não escala?</h1>
-            <p>Hoje entregamos software e dados de forma manual, sem esteira integrada nem métricas de saúde claras.</p>
-          </div>
-          <div class="badge">
-            <span class="badge-dot" style="background:var(--accent-red);box-shadow:0 0 10px rgba(248,113,113,0.9);"></span>
-            <span>Situação atual</span>
-          </div>
-        </header>
+      <div class="legend">
+        <div class="pill"><span class="dot" style="background:var(--green)"></span> Processo / Pipeline</div>
+        <div class="pill"><span class="dot" style="background:var(--blue)"></span> Armazenamento / Data Lake</div>
+        <div class="pill"><span class="dot" style="background:var(--amber)"></span> Consumo / Analytics &amp; App</div>
+      </div>
+    </div>
 
-        <section class="main">
-          <!-- LINHA 1: 3 BLOCOS PRINCIPAIS -->
-          <div class="grid">
+    <div class="board">
+      <div class="grid">
 
-            <!-- CARD 1 – APLICAÇÕES -->
-            <article class="card">
-              <div class="card-header">
-                <div class="icon-pill">⚠</div>
-                <div>
-                  <div class="card-title">Aplicações (sem DevOps)</div>
-                  <div class="card-subtitle">
-                    Deploy manual, sem testes automatizados e quase sem monitoramento.
-                  </div>
-                </div>
-              </div>
-              <p class="card-text">
-                Cada deploy em produção é uma operação de risco. Se algo quebra, o rollback é manual e lento.
-              </p>
-              <ul class="card-list">
-                <li>Deploy direto em produção, sem esteira CI/CD.</li>
-                <li>Sem testes automatizados de unidade, integração e contrato.</li>
-                <li>Pouca revisão de código (pull request quase inexistente).</li>
-                <li>Sem métricas de DF, LTTC, MTTR ou CFR consolidadas.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag bad">DF: 1 deploy/mês</span>
-                <span class="tag bad">CFR: ~30% com rollback</span>
-                <span class="tag">MTTR médio: ~8h por incidente</span>
-              </div>
-            </article>
-
-            <!-- CARD 2 – DADOS -->
-            <article class="card">
-              <div class="card-header">
-                <div class="icon-pill data">🗄️</div>
-                <div>
-                  <div class="card-title">Pipelines de Dados (ou a falta deles)</div>
-                  <div class="card-subtitle">
-                    Scripts soltos, planilhas frágeis e muitas cargas manuais.
-                  </div>
-                </div>
-              </div>
-              <p class="card-text">
-                Cada área criou seu próprio fluxo. Não existe DataOps, padrão de ingestão ou testes de qualidade.
-              </p>
-              <ul class="card-list">
-                <li>Sem pipeline automatizado de ingestão e transformação.</li>
-                <li>Relatórios chegam com 2 dias de atraso (D+2).</li>
-                <li>Nulos, duplicidades e inconsistências entre sistemas.</li>
-                <li>Sem testes de schema, regras de negócio ou freshness.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag data">Freshness: D+2</span>
-                <span class="tag data">~20% ingestões falham</span>
-                <span class="tag">Ajustes manuais em planilhas</span>
-              </div>
-            </article>
-
-            <!-- CARD 3 – IMPACTO NO NEGÓCIO -->
-            <article class="card">
-              <div class="card-header">
-                <div class="icon-pill impact">📉</div>
-                <div>
-                  <div class="card-title">Impacto no Negócio</div>
-                  <div class="card-subtitle">
-                    Decisões lentas, alto risco e pouca confiança em software e relatórios.
-                  </div>
-                </div>
-              </div>
-              <p class="card-text">
-                A diretoria e as áreas de negócio operam sem visibilidade em tempo hábil e com medo de que os dados estejam errados.
-              </p>
-              <ul class="card-list">
-                <li>Decisões em dados atrasados ou incorretos.</li>
-                <li>Time de produto sem previsibilidade de entregas.</li>
-                <li>Experiência ruim: erros, lentidão e promoções erradas.</li>
-                <li>Discussões longas para “confiar” em um número.</li>
-              </ul>
-              <div class="tag-row">
-                <span class="tag risk">Risco operacional alto</span>
-                <span class="tag risk">Retrabalho recorrente</span>
-                <span class="tag risk">Confiança baixa da diretoria</span>
-              </div>
-            </article>
+        <!-- SOURCE SYSTEMS -->
+        <section class="section col-3">
+          <div class="section-head">
+            <div class="section-title">SOURCE SYSTEMS</div>
+            <div class="badge"><span class="dot" style="background:var(--green)"></span> ENTRADA</div>
           </div>
 
-          <!-- LINHA 2: FAIXA DE NÚMEROS -->
-          <div class="metrics-strip">
-            <div>
-              <div class="metrics-strip-title">Situação atual (visão executiva)</div>
-              <p class="metrics-strip-text">
-                Hoje a empresa não tem esteira integrada, quase não mede desempenho
-                e ainda toma decisão com dado atrasado e inconsistente. O resultado
-                é simples: risco alto, retrabalho constante e pouca confiança nos números.
-              </p>
-
-              <div class="diagnostic-block-title">Resumo do diagnóstico</div>
-              <div class="diagnostic-chips">
-                <span class="diagnostic-chip dev">Deploy manual, sem CI/CD e sem métricas DevOps</span>
-                <span class="diagnostic-chip data">Dados D+2, pipelines frágeis e alta intervenção manual</span>
-                <span class="diagnostic-chip obs">Monitoramento limitado e baixa confiança executiva nos números</span>
+          <div class="stack">
+            <div class="card accent-cyan">
+              <div class="title-row">
+                <h3>API Hevy</h3>
+                <span class="chip cyan">JSON</span>
+              </div>
+              <p>Workouts, séries e exercícios coletados da API oficial.</p>
+              <div class="chips">
+                <span class="chip">Histórico de treinos</span>
+                <span class="chip">heavy/raw/*.parquet</span>
               </div>
             </div>
 
-            <div>
-              <div class="metrics-section-title">Aplicações</div>
-              <ul class="metrics-list">
-                <li>Frequência de deploy (DF): 1 deploy/mês.</li>
-                <li>Change Failure Rate (CFR): ~30% dos deploys exigem rollback.</li>
-                <li>MTTR: ~8 horas para recuperar falhas críticas.</li>
-                <li>Sem painel consolidado de erros, latência e disponibilidade.</li>
-              </ul>
+            <div class="card accent-green">
+              <div class="title-row">
+                <h3>Formulário Streamlit</h3>
+                <span class="chip green">Input do app</span>
+              </div>
+              <p>Perfil, objetivos e restrições do usuário.</p>
+              <div class="chips">
+                <span class="chip">user_profiles</span>
+                <span class="chip">users/raw_form</span>
+              </div>
             </div>
 
-            <div>
-              <div class="metrics-section-title">Dados</div>
-              <ul class="metrics-list">
-                <li>Freshness: D+2 – relatórios chegam com 2 dias de atraso.</li>
-                <li>Falhas de ingestão: ~20% exigem intervenção manual.</li>
-                <li>Sem testes automatizados de qualidade ou auditoria.</li>
-                <li>Dependência forte de planilhas locais e “ajustes de último minuto”.</li>
-              </ul>
+            <div class="card accent-violet">
+              <div class="title-row">
+                <h3>Datasets externos</h3>
+                <span class="chip violet">Kaggle</span>
+              </div>
+              <p>Kaggle e dados sintéticos com catálogo de exercícios.</p>
+              <div class="chips">
+                <span class="chip">Synthetic data</span>
+                <span class="chip">kaggle/raw/*.parquet</span>
+              </div>
             </div>
+
+            <div class="note">Dados brutos entram no pipeline ↓</div>
           </div>
         </section>
-      </div>
-    </section>
 
-    <!-- SLIDE 3 – SOLUÇÃO INTEGRADA (COM MENOS ESPAÇO “MORTO” E MAIS DETALHE) -->
-    <section class="board">
-      <div class="board-inner" style="display:flex;flex-direction:column;gap:14px;">
-        <header class="header">
-          <div class="header-title">
-            <h1>Solução: DevOps + DataOps + Observabilidade</h1>
-            <div>
-              Uma esteira integrada da ideia ao dado confiável, com entregas frequentes,
-              dados frescos e monitoramento de ponta a ponta.
-            </div>
+        <!-- AIRFLOW ETL -->
+        <section class="section col-4">
+          <div class="section-head">
+            <div class="section-title">AIRFLOW ETL</div>
+            <div class="badge"><span class="dot" style="background:var(--green)"></span> ORQUESTRAÇÃO</div>
           </div>
-          <div class="badge">
-            <span class="badge-dot"></span>
-            <span>Proposta de solução</span>
-          </div>
-        </header>
 
-        <!-- LINHA 1: VISÃO GERAL + GANHOS -->
-        <div class="list-layout" style="margin-bottom:6px;">
-          <div>
-            <p class="kicker">Visão geral</p>
-            <h2 class="list-left-title">Três pilares trabalhando juntos</h2>
-            <ul class="bullets">
-              <li><strong>DevOps</strong>: tornar a entrega de software rápida, segura e previsível.</li>
-              <li><strong>DataOps</strong>: garantir dados frescos, consistentes e auditáveis.</li>
-              <li><strong>Observabilidade &amp; Governança</strong>: visibilidade contínua, alertas e compliance.</li>
-            </ul>
-            <p class="note">
-              Ideia central: sair de uma operação manual e reativa para uma esteira contínua,
-              automatizada e orientada a métricas.
-            </p>
-          </div>
-          <div>
-            <p class="kicker">Impacto esperado</p>
-            <ul class="bullets">
-              <li><strong>DF</strong>: de 1 deploy/mês para até 2 deploys/dia.</li>
-              <li><strong>Lead Time</strong>: de ~10 dias para &lt; 1 dia entre commit e produção.</li>
-              <li><strong>CFR</strong>: de ~30% para &lt; 10% de deploys com rollback.</li>
-              <li><strong>MTTR</strong>: de ~8h para ~1h por incidente.</li>
-              <li><strong>Freshness de dados</strong>: de D+2 para H+1, com falhas &lt; 2%.</li>
-            </ul>
-            <p class="note">
-              Esses números criam previsibilidade para a diretoria e reduzem risco operacional.
-            </p>
-          </div>
-        </div>
-
-        <!-- LINHA 2: 3 PILARES EM CARTÕES (APROXIMADOS PARA CIMA) -->
-        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:2px;margin-bottom:6px;flex:1;">
-          <!-- PILAR 1 – DEVOPS -->
-          <article class="lane-card">
-            <div class="lane-card-title">Pilar 1 · DevOps</div>
-            <div class="lane-card-tags">
-              <span class="tag key">CI/CD</span>
-              <span class="tag">Git</span>
-              <span class="tag">Docker · Kubernetes</span>
-            </div>
-            <ul class="lane-card-list">
-              <li>Versionamento de código em <strong>Git</strong> com feature branches.</li>
-              <li>Pipeline CI (GitHub Actions/Jenkins) executando lint, testes e builds.</li>
-              <li>CD automatizado com <strong>Docker</strong> e orquestração em <strong>Kubernetes</strong>.</li>
-              <li>Métricas DevOps (DF, LTTC, MTTR, CFR) expostas em dashboards.</li>
-            </ul>
-          </article>
-
-          <!-- PILAR 2 – DATAOPS -->
-          <article class="lane-card">
-            <div class="lane-card-title">Pilar 2 · DataOps</div>
-            <div class="lane-card-tags">
-              <span class="tag key">Airbyte/Airflow</span>
-              <span class="tag">dbt</span>
-              <span class="tag">Data Lake · DW</span>
-            </div>
-            <ul class="lane-card-list">
-              <li>Coleta automática de ERP, CRM, gateway e e-commerce via <strong>Airbyte/Airflow</strong>.</li>
-              <li>Armazenamento em Data Lake (S3) nas camadas Bronze e Silver.</li>
-              <li>Transformações com <strong>dbt</strong>, gerando tabelas como
-                <em>stg_pedidos</em>, <em>stg_clientes</em>,
-                <em>fato_vendas</em> e <em>dim_cliente</em>.
-              </li>
-              <li>Testes automatizados de schema, regras de negócio e freshness antes dos dashboards.</li>
-            </ul>
-          </article>
-
-          <!-- PILAR 3 – OBSERVABILIDADE & GOVERNANÇA -->
-          <article class="lane-card">
-            <div class="lane-card-title">Pilar 3 · Observabilidade &amp; Governança</div>
-            <div class="lane-card-tags">
-              <span class="tag key">Prometheus · Grafana</span>
-              <span class="tag">Loki</span>
-              <span class="tag">Data Catalog</span>
-            </div>
-            <ul class="lane-card-list">
-              <li>Monitoria de disponibilidade, latência e erros com <strong>Prometheus/Grafana</strong>.</li>
-              <li>Logs centralizados com <strong>Loki</strong> para análise rápida de incidentes.</li>
-              <li>Monitoria de dados (freshness, volume, schema) com <strong>Soda/Monte Carlo</strong>.</li>
-              <li>Catálogo e linhagem de dados com <strong>DataHub/Purview</strong>,
-                  apoiando LGPD e auditoria.</li>
-            </ul>
-          </article>
-        </div>
-
-        <!-- LINHA 3: RESUMO EXECUTIVO DA SOLUÇÃO (PREENCHENDO O RODAPÉ) -->
-        <div style="
-          margin-top:4px;
-          padding:10px 12px 8px;
-          border-radius:18px;
-          border:1px solid rgba(148,163,184,0.75);
-          background:rgba(15,23,42,0.9);
-          font-size:0.84rem;
-          color:var(--text-muted);
-        ">
-          <strong>Resumo executivo da solução:</strong>
-          conectamos a esteira de software (DevOps) com a esteira de dados (DataOps),
-          ambas monitoradas por observabilidade e governança. O resultado é uma operação
-          contínua, com menos retrabalho, menor risco, dados confiáveis e capacidade real
-          de escalar a operação de varejo digital.
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 4 – ARQUITETURA ALVO -->
-    <section class="board">
-      <div class="board-inner">
-        <header class="header">
-          <div class="header-title">
-            <h1>Arquitetura alvo: tudo conectado, tudo automatizado</h1>
-            <div>
-              Do commit ao deploy, da fonte de dados ao dashboard, com observabilidade em toda a jornada.
-            </div>
-          </div>
-          <div class="badge">
-            <span class="badge-dot"></span>
-            <span>Arquitetura final</span>
-          </div>
-        </header>
-
-        <section class="layout">
-          <!-- Lado esquerdo: fluxos DevOps e DataOps -->
-          <div class="lanes">
-            <!-- DEVOPS -->
-            <section class="lane lane-data">
-              <div class="lane-header">
-                <div class="lane-title">
-                  <span class="lane-dot"></span>
-                  Fluxo DevOps · Aplicações
-                </div>
-                <div class="lane-metrics">
-                  <span class="metric-pill info">DF ↑</span>
-                  <span class="metric-pill.good">CFR &amp; MTTR ↓</span>
-                </div>
+          <div class="stack">
+            <div class="card accent-green">
+              <div class="title-row">
+                <h3>DAG Instructor Workout</h3>
+                <span class="chip green">Batch</span>
               </div>
-              <div class="lane-flow">
-                <div class="lane-card">
-                  <div class="lane-card-title">Código &amp; Versionamento</div>
-                  <div class="lane-card-tags">
-                    <span class="tag key">Git</span>
-                    <span class="tag">Feature branches</span>
-                  </div>
-                  <ul class="lane-card-list">
-                    <li>Repositórios organizados por serviço.</li>
-                    <li>Pull requests com revisão obrigatória.</li>
-                  </ul>
-                </div>
-
-                <div class="lane-card">
-                  <div class="lane-card-title">CI · Testes &amp; Quality Gate</div>
-                  <div class="lane-card-tags">
-                    <span class="tag key">GitHub Actions/Jenkins</span>
-                    <span class="tag">Lint · Testes</span>
-                  </div>
-                  <ul class="lane-card-list">
-                    <li>Build automatizado a cada commit.</li>
-                    <li>Testes de unidade, integração e contrato.</li>
-                  </ul>
-                </div>
-
-                <div class="lane-card">
-                  <div class="lane-card-title">Imagens &amp; Registro</div>
-                  <div class="lane-card-tags">
-                    <span class="tag key">Docker</span>
-                    <span class="tag">Registry</span>
-                  </div>
-                  <ul class="lane-card-list">
-                    <li>Imagens versionadas por tag.</li>
-                    <li>Base para deploy imutável.</li>
-                  </ul>
-                </div>
-
-                <div class="lane-card">
-                  <div class="lane-card-title">CD &amp; Execução</div>
-                  <div class="lane-card-tags">
-                    <span class="tag key">Kubernetes</span>
-                    <span class="tag">Helm/ArgoCD</span>
-                  </div>
-                  <ul class="lane-card-list">
-                    <li>Deploy automatizado em ambientes.</li>
-                    <li>Rollbacks rápidos e controlados.</li>
-                  </ul>
-                </div>
+              <p>
+                create_lake_structure → ingest_* → silver_* → gold_* (métricas)
+              </p>
+              <div class="chips">
+                <span class="chip">BashOperator</span>
+                <span class="chip">Python</span>
               </div>
-            </section>
+            </div>
 
-            <!-- DATAOPS -->
-            <section class="lane lane-consumption">
-              <div class="lane-header">
-                <div class="lane-title">
-                  <span class="lane-dot"></span>
-                  Fluxo DataOps · Dados
-                </div>
-                <div class="lane-metrics">
-                  <span class="metric-pill info">Freshness H+1</span>
-                  <span class="metric-pill.good">Qualidade garantida</span>
-                </div>
+            <div class="card accent-orange">
+              <div class="title-row">
+                <h3>Ingestão &amp; Bronze</h3>
+                <span class="chip orange">RAW</span>
               </div>
-              <div class="lane-flow">
-                <div class="lane-card">
-                  <div class="lane-card-title">Fontes de Dados</div>
-                  <div class="lane-card-tags">
-                    <span class="tag key">ERP</span>
-                    <span class="tag">CRM</span>
-                    <span class="tag">Gateway</span>
-                    <span class="tag">E-commerce/App</span>
-                  </div>
-                  <ul class="lane-card-list">
-                    <li>Pedidos, clientes, pagamentos, eventos de navegação.</li>
-                    <li>Conectores padronizados para cada sistema.</li>
-                  </ul>
-                </div>
-
-                <div class="lane-card">
-                  <div class="lane-card-title">Ingestão &amp; Orquestração</div>
-                  <div class="lane-card-tags">
-                    <span class="tag key">Airbyte</span>
-                    <span class="tag">Airflow</span>
-                  </div>
-                  <ul class="lane-card-list">
-                    <li>Jobs agendados e ingestão contínua.</li>
-                    <li>Monitoria de falhas e reprocessamentos.</li>
-                  </ul>
-                </div>
-
-                <div class="lane-card">
-                  <div class="lane-card-title">Data Lake · Bronze/Silver</div>
-                  <div class="lane-card-tags">
-                    <span class="tag key">S3</span>
-                    <span class="tag">Raw &amp; Curado</span>
-                  </div>
-                  <ul class="lane-card-list">
-                    <li>Bronze: dados brutos, históricos.</li>
-                    <li>Silver: dados padronizados e limpos.</li>
-                  </ul>
-                </div>
-
-                <div class="lane-card">
-                  <div class="lane-card-title">Transformações &amp; DW</div>
-                  <div class="lane-card-tags">
-                    <span class="tag key">dbt</span>
-                    <span class="tag">DW Analítico</span>
-                  </div>
-                  <ul class="lane-card-list">
-                    <li>Modelos de negócio (fatos e dimensões).</li>
-                    <li>Testes de qualidade antes da publicação.</li>
-                  </ul>
-                </div>
-
-                <div class="lane-card">
-                  <div class="lane-card-title">Dashboards &amp; KPIs</div>
-                  <div class="lane-card-tags">
-                    <span class="tag key">BI</span>
-                    <span class="tag">KPIs de negócio</span>
-                  </div>
-                  <ul class="lane-card-list">
-                    <li>Dashboards para diretoria e times táticos.</li>
-                    <li>Indicadores técnicos e de negócio lado a lado.</li>
-                  </ul>
-                </div>
+              <p>Scripts de ingestão salvam dados brutos no S3 (camada Bronze).</p>
+              <div class="chips">
+                <span class="chip">ingest_users_form</span>
+                <span class="chip">ingest_hevy</span>
+                <span class="chip">ingest_hevy_base</span>
+                <span class="chip">ingest_kaggle</span>
+                <span class="chip">ingest_depara_hevy_kaggle</span>
               </div>
-            </section>
+            </div>
+
+            <div class="card accent-blue">
+              <div class="title-row">
+                <h3>Transformações</h3>
+                <span class="chip blue">REFINED</span>
+              </div>
+              <p>Limpeza, padronização, tipagem e enriquecimento para Silver/Gold.</p>
+              <div class="chips">
+                <span class="chip">silver_users</span>
+                <span class="chip">silver_kaggle</span>
+                <span class="chip">silver_depara_hevy_kaggle</span>
+                <span class="chip">silver_transform</span>
+              </div>
+            </div>
+
+            <div class="note">Airflow automatiza o fluxo das camadas →</div>
           </div>
-
-          <!-- Lado direito: Stack & Observabilidade -->
-          <aside class="side">
-            <div class="side-header">
-              <div class="side-title-block">
-                <div class="side-kicker">Camada transversal</div>
-                <div class="side-title">Stack &amp; Observabilidade</div>
-              </div>
-              <div class="side-tag">Apps · Dados · KPIs</div>
-            </div>
-
-            <div class="side-section-group">
-              <section class="side-section">
-                <div class="side-section-title">Stack principal</div>
-                <div class="side-tags">
-                  <span class="side-chip info">Git · GitHub/GitLab</span>
-                  <span class="side-chip info">GitHub Actions/Jenkins</span>
-                  <span class="side-chip">Docker · Kubernetes</span>
-                  <span class="side-chip">Airbyte · Airflow</span>
-                  <span class="side-chip">dbt · Data Warehouse</span>
-                </div>
-              </section>
-
-              <section class="side-section">
-                <div class="side-section-title">Observabilidade</div>
-                <div class="side-tags">
-                  <span class="side-chip info">Prometheus · Grafana · Loki</span>
-                  <span class="side-chip">Logs, métricas e traces unificados</span>
-                  <span class="side-chip">Alertas por SLA/SLO críticos</span>
-                  <span class="side-chip">Soda/Monte Carlo para dados</span>
-                </div>
-              </section>
-
-              <section class="side-section">
-                <div class="side-section-title">Governança &amp; segurança</div>
-                <div class="side-tags">
-                  <span class="side-chip good">Data Catalog (DataHub/Purview)</span>
-                  <span class="side-chip">Linhagem ponta a ponta</span>
-                  <span class="side-chip">Controles de acesso · LGPD</span>
-                  <span class="side-chip">Auditoria e trilhas de mudança</span>
-                </div>
-              </section>
-            </div>
-          </aside>
         </section>
-      </div>
-    </section>
 
-    <!-- SLIDE 5 – OBRIGADO / ENCERRAMENTO -->
-    <section class="board">
-      <div class="board-inner">
-        <div class="cover-layout">
-          <!-- LADO ESQUERDO: MENSAGEM FINAL -->
-          <div class="cover-left">
-            <p class="kicker">Encerramento</p>
-            <h2>OBRIGADO!</h2>
-            <h3>DevOps &amp; DataOps 2025 · Esteira integrada para varejo digital</h3>
-            <p>
-              A proposta integra DevOps, DataOps, observabilidade e governança
-              para eliminar processos manuais, reduzir riscos, acelerar entregas
-              e garantir dados confiáveis para decisão.
-            </p>
-            <div class="cover-meta">
-              “Da ideia ao dado confiável, com uma única operação integrada.”
-              <div class="chip-row" style="margin-top:10px;">
-                <span class="chip key">DevOps</span>
-                <span class="chip key">DataOps</span>
-                <span class="chip">Observabilidade</span>
-                <span class="chip">Governança &amp; LGPD</span>
+        <!-- DATA LAKE - S3 -->
+        <section class="section col-5">
+          <div class="section-head">
+            <div class="section-title">DATA LAKE — S3</div>
+            <div class="badge"><span class="dot" style="background:var(--blue)"></span> ARMAZENAMENTO</div>
+          </div>
+
+          <div class="lake-grid">
+            <div class="lake-cols">
+
+              <!-- Bronze -->
+              <div class="lake-col">
+                <div class="col-head">
+                  <h4>Bronze</h4>
+                  <span class="chip orange">RAW</span>
+                </div>
+                <div class="card accent-orange" style="background:linear-gradient(180deg, rgba(14,23,42,.70), rgba(11,19,36,.70));">
+                  <p style="margin-top:0">Dados brutos exatamente como chegam das fontes.</p>
+                  <div class="chips">
+                    <span class="chip">heavy/raw/*.parquet</span>
+                    <span class="chip">kaggle/raw/*.parquet</span>
+                    <span class="chip">users/raw_form</span>
+                    <span class="chip">hevy_base/raw/*.parquet</span>
+                    <span class="chip">depara/raw/*.parquet</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Silver -->
+              <div class="lake-col">
+                <div class="col-head">
+                  <h4>Silver</h4>
+                  <span class="chip blue">REFINED</span>
+                </div>
+                <div class="card accent-blue" style="background:linear-gradient(180deg, rgba(14,23,42,.70), rgba(11,19,36,.70));">
+                  <p style="margin-top:0">Dados limpos, tipados e integrados, prontos para modelagem.</p>
+                  <div class="chips">
+                    <span class="chip">silver_users</span>
+                    <span class="chip">silver_kaggle</span>
+                    <span class="chip">silver_depara_hevy_kaggle</span>
+                    <span class="chip">silver_transform</span>
+                  </div>
+                  <div class="note">
+                    (Se o <em>silver_transform</em> gerar tabelas finais como workouts/sets/exercises, você pode listar aqui como “outputs”.)
+                  </div>
+                </div>
+              </div>
+
+              <!-- Gold -->
+              <div class="lake-col">
+                <div class="col-head">
+                  <h4>Gold</h4>
+                  <span class="chip amber">DIMENSIONAL</span>
+                </div>
+                <div class="card accent-amber" style="background:linear-gradient(180deg, rgba(14,23,42,.70), rgba(11,19,36,.70));">
+                  <p style="margin-top:0">Camada de consumo analítica (métricas/dimensões).</p>
+                  <div class="chips">
+                    <span class="chip amber">gold_dim_exercise</span>
+                    <span class="chip amber">gold_metrics</span>
+                    <!-- opcionais como "planned": remova se não existir -->
+                    <span class="chip planned">gold_dim_user (planned)</span>
+                    <span class="chip planned">gold_dim_date (planned)</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="note">Camada Gold alimenta a zona de consumo ↓</div>
+          </div>
+        </section>
+
+        <!-- SERVING LAYER -->
+        <section class="section col-12">
+          <div class="section-head">
+            <div class="section-title">SERVING LAYER</div>
+            <div class="badge"><span class="dot" style="background:var(--amber)"></span> CONSUMO</div>
+          </div>
+
+          <div class="grid" style="grid-template-columns: repeat(12,1fr); gap:12px; position:relative; z-index:1;">
+            <div class="card accent-amber" style="grid-column: span 4;">
+              <div class="title-row">
+                <h3>Streamlit App</h3>
+                <span class="chip amber">Analíticas de treino</span>
+              </div>
+              <p>Login, formulário, dashboard e leitura direta da camada Gold.</p>
+              <div class="chips">
+                <span class="chip">Comparação global</span>
+                <span class="chip">Leitura do S3</span>
+              </div>
+            </div>
+
+            <div class="card accent-pink" style="grid-column: span 4;">
+              <div class="title-row">
+                <h3>Chat IA — Personal Trainer</h3>
+                <span class="chip pink">LLM</span>
+              </div>
+              <p>Usa perfil + histórico para sugerir treinos e ajustes.</p>
+              <div class="chips">
+                <span class="chip">Contexto do usuário</span>
+                <span class="chip">API LLM (ex.: Groq)</span>
+              </div>
+            </div>
+
+            <div class="card accent-blue" style="grid-column: span 4;">
+              <div class="title-row">
+                <h3>Dashboards / BI</h3>
+                <span class="chip blue">KPIs</span>
+              </div>
+              <p>Consumo em ferramentas de BI (Power BI, Looker Studio etc.).</p>
+              <div class="chips">
+                <span class="chip">KPI de volume</span>
+                <span class="chip">Consistência</span>
               </div>
             </div>
           </div>
 
-          <!-- LADO DIREITO: CONTATO -->
-          <div class="cover-logo-wrap">
-            <div class="cover-logo" style="
-              display:flex;
-              flex-direction:column;
-              align-items:flex-start;
-              gap:8px;
-            ">
-              <div style="
-                font-size:0.78rem;
-                text-transform:uppercase;
-                letter-spacing:0.16em;
-                color:var(--text-muted);
-              ">
-                Contato
-              </div>
-              <div style="font-size:0.96rem;font-weight:600;">
-                Davi Sasso
-              </div>
-              <div style="font-size:0.86rem;color:var(--text-muted);">
-                MBA Engenharia de Dados – Mackenzie
-              </div>
-              <div style="font-size:0.86rem;color:var(--text-muted);">
-                Site: davisasso.com
-              </div>
-              <div style="margin-top:12px;font-size:0.86rem;">
-                Perguntas? Vamos conversar sobre como aplicar
-                esse modelo na prática dentro da operação.
-              </div>
-            </div>
+          <div class="flow">
+            <span>Sources</span>
+            <span class="arrow"></span>
+            <span>Airflow ETL</span>
+            <span class="arrow"></span>
+            <span>S3 (Bronze → Silver → Gold)</span>
+            <span class="arrow"></span>
+            <span>Consumo</span>
           </div>
-        </div>
-      </div>
-    </section>
 
+          <div class="note" style="text-align:right;">
+            Camada de consumo fecha o ciclo de valor de dados.
+          </div>
+        </section>
+
+      </div>
+    </div>
   </div>
 </body>
 </html>
