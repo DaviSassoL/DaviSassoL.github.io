@@ -3,9 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Tabela — Usuário 1 vs Usuário 2</title>
+  <title>Dicionário de Dados — Variáveis</title>
 
-  <!-- (Opcional) Fonte parecida com o visual do slide -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,17 +13,13 @@
     :root{
       --bg-0: #05070f;
       --bg-1: #070b16;
-      --panel: rgba(10, 14, 28, .72);
-      --panel-2: rgba(12, 18, 38, .55);
 
       --text: #e9eefc;
       --muted: rgba(233, 238, 252, .72);
 
       --stroke: rgba(155, 186, 255, .16);
-      --stroke-2: rgba(120, 215, 255, .28);
 
       --accent: #6ee7ff;
-      --accent-2: #60a5fa;
 
       --radius: 22px;
     }
@@ -36,17 +31,16 @@
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(900px 520px at 22% 55%, rgba(120, 215, 255, .22) 0%, rgba(120, 215, 255, 0) 55%),
-        radial-gradient(700px 420px at 70% 20%, rgba(96, 165, 250, .16) 0%, rgba(96, 165, 250, 0) 55%),
+        radial-gradient(900px 520px at 22% 55%, rgba(120, 215, 255, .18) 0%, rgba(120, 215, 255, 0) 55%),
+        radial-gradient(700px 420px at 70% 20%, rgba(96, 165, 250, .14) 0%, rgba(96, 165, 250, 0) 55%),
         linear-gradient(180deg, var(--bg-1), var(--bg-0));
       display:grid;
       place-items:center;
       padding: 28px;
     }
 
-    /* “Frame” parecido com o slide */
     .frame{
-      width: min(980px, 100%);
+      width: min(1180px, 100%);
       border-radius: calc(var(--radius) + 8px);
       border: 1px solid rgba(155, 186, 255, .18);
       background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
@@ -58,14 +52,13 @@
         inset 0 0 0 1px rgba(255,255,255,.03);
     }
 
-    /* brilho sutil na borda */
     .frame::before{
       content:"";
       position:absolute;
       inset:-2px;
       border-radius: calc(var(--radius) + 10px);
       background: radial-gradient(1200px 260px at 50% 0%,
-        rgba(110,231,255,.16),
+        rgba(110,231,255,.14),
         rgba(110,231,255,0) 60%);
       pointer-events:none;
     }
@@ -119,82 +112,91 @@
       overflow:hidden;
     }
 
-    /* tabela */
     .table-wrap{
       overflow:auto;
+      max-height: min(70vh, 720px);
     }
 
     table{
       width:100%;
       border-collapse: separate;
       border-spacing: 0;
-      min-width: 520px; /* ajuda no scroll em telas pequenas */
+      min-width: 980px;
     }
 
     thead th{
+      position: sticky;
+      top: 0;
+      z-index: 5;
       font-size: 13px;
       text-transform: uppercase;
       letter-spacing: .10em;
       color: rgba(233, 238, 252, .82);
-      padding: 16px 18px;
-      background: rgba(8, 12, 26, .55);
+      padding: 14px 16px;
+      background: rgba(8, 12, 26, .82);
       border-bottom: 1px solid var(--stroke);
+      backdrop-filter: blur(10px);
     }
 
-    thead th:first-child{
-      width: 34%;
-      color: rgba(233, 238, 252, .62);
-    }
+    thead th:first-child{ width: 56px; color: rgba(233,238,252,.55); }
+    thead th:nth-child(2){ width: 210px; }
 
-    tbody th,
     tbody td{
-      padding: 16px 18px;
-      border-bottom: 1px solid rgba(155, 186, 255, .12);
-      vertical-align: top;
-      font-size: 15px;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(155, 186, 255, .10);
+      font-size: 14px;
       line-height: 1.35;
-    }
-
-    tbody th{
-      font-weight: 600;
-      color: rgba(233, 238, 252, .78);
-      background: rgba(8, 12, 26, .25);
-    }
-
-    tbody td{
+      vertical-align: top;
+      background: rgba(8, 12, 26, .10);
       color: rgba(233, 238, 252, .92);
-      background: rgba(8, 12, 26, .12);
+    }
+
+    tbody tr:nth-child(even) td{
+      background: rgba(8, 12, 26, .18);
     }
 
     /* divisórias verticais */
     thead th + th,
-    tbody th + td,
     tbody td + td{
       border-left: 1px solid rgba(155, 186, 255, .10);
     }
 
-    /* última linha sem borda forte */
-    tbody tr:last-child th,
-    tbody tr:last-child td{
-      border-bottom: 0;
+    /* coluna índice mais “fraca” */
+    tbody td.col-idx{
+      color: rgba(233, 238, 252, .55);
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      background: rgba(8, 12, 26, .22);
     }
 
-    /* cantos arredondados “limpos” */
+    /* “chip” para Tipo */
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(155,186,255,.18);
+      background: rgba(10, 20, 40, .40);
+      color: rgba(233,238,252,.85);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .chip.num{ border-color: rgba(110,231,255,.22); }
+    .chip.cat{ border-color: rgba(96,165,250,.22); }
+
+    /* cantos arredondados */
     thead th:first-child{ border-top-left-radius: var(--radius); }
     thead th:last-child{ border-top-right-radius: var(--radius); }
-    tbody tr:last-child th{ border-bottom-left-radius: var(--radius); }
+    tbody tr:last-child td:first-child{ border-bottom-left-radius: var(--radius); }
     tbody tr:last-child td:last-child{ border-bottom-right-radius: var(--radius); }
+    tbody tr:last-child td{ border-bottom: 0; }
 
-    /* hover sutil (opcional) */
-    tbody tr:hover th,
     tbody tr:hover td{
       background: rgba(110,231,255,.06);
     }
 
     @media (max-width: 640px){
       .title{ font-size: 16px; }
-      tbody th, tbody td{ padding: 14px 14px; }
-      thead th{ padding: 14px 14px; }
     }
   </style>
 </head>
@@ -202,45 +204,176 @@
 <body>
   <section class="frame">
     <div class="header">
-      <h1 class="title">Comparação de Usuários</h1>
-      <div class="badge"><span class="dot"></span> PERFIS</div>
+      <h1 class="title">Dicionário de Dados</h1>
+      <div class="badge"><span class="dot"></span> VARIÁVEIS</div>
     </div>
 
     <div class="panel">
-      <div class="table-wrap">
-        <table aria-label="Tabela de comparação entre Usuário 1 e Usuário 2">
+      <div class="table-wrap" role="region" aria-label="Tabela de dicionário de dados (rolável)">
+        <table aria-label="Dicionário de dados">
           <thead>
             <tr>
-              <th></th>
-              <th>Usuário 1</th>
-              <th>Usuário 2</th>
+              <th>#</th>
+              <th>Variável</th>
+              <th>Descrição</th>
+              <th>Categorias</th>
+              <th>Tipo</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th scope="row">Objetivo</th>
-              <td>Reduzir gordura</td>
-              <td>Ganho de força</td>
+              <td class="col-idx">0</td>
+              <td><strong>user_id</strong></td>
+              <td>Identificador único do usuário que realizou o treino.</td>
+              <td>UUID que referencia o usuário na aplicação.</td>
+              <td><span class="chip cat">Categórica</span></td>
             </tr>
             <tr>
-              <th scope="row">Gordura</th>
-              <td>Alta</td>
-              <td>Moderada</td>
+              <td class="col-idx">1</td>
+              <td><strong>title</strong></td>
+              <td>Título do treino/sessão.</td>
+              <td>Ex.: “Treino de bíceps e tríceps”.</td>
+              <td><span class="chip cat">Categórica</span></td>
             </tr>
             <tr>
-              <th scope="row">Lesão</th>
-              <td>Joelho</td>
-              <td>Nenhuma</td>
+              <td class="col-idx">2</td>
+              <td><strong>start_time</strong></td>
+              <td>Data e hora de início do treino.</td>
+              <td>Timestamp indicando quando começou.</td>
+              <td><span class="chip cat">Categórica</span></td>
             </tr>
             <tr>
-              <th scope="row">Experiência</th>
-              <td>Iniciante</td>
-              <td>Avançado</td>
+              <td class="col-idx">3</td>
+              <td><strong>end_time</strong></td>
+              <td>Data e hora de término do treino.</td>
+              <td>Timestamp indicando quando terminou.</td>
+              <td><span class="chip cat">Categórica</span></td>
             </tr>
             <tr>
-              <th scope="row">Frequência</th>
-              <td>3x/semana</td>
-              <td>5x/semana</td>
+              <td class="col-idx">4</td>
+              <td><strong>description</strong></td>
+              <td>Descrição livre do treino.</td>
+              <td>Texto opcional com detalhes.</td>
+              <td><span class="chip cat">Categórica</span></td>
+            </tr>
+            <tr>
+              <td class="col-idx">5</td>
+              <td><strong>exercise_title</strong></td>
+              <td>Nome do exercício conforme registrado no treino.</td>
+              <td>Texto livre (pode estar em PT).</td>
+              <td><span class="chip cat">Categórica</span></td>
+            </tr>
+            <tr>
+              <td class="col-idx">6</td>
+              <td><strong>superset_id</strong></td>
+              <td>Identificador do superset.</td>
+              <td>Indica agrupamento de exercícios em superset.</td>
+              <td><span class="chip num">Numérica</span></td>
+            </tr>
+            <tr>
+              <td class="col-idx">7</td>
+              <td><strong>exercise_notes</strong></td>
+              <td>Anotações do usuário sobre o exercício.</td>
+              <td>Texto livre.</td>
+              <td><span class="chip cat">Categórica</span></td>
+            </tr>
+            <tr>
+              <td class="col-idx">8</td>
+              <td><strong>set_index</strong></td>
+              <td>Ordem da série dentro do exercício.</td>
+              <td>Ex.: 0, 1, 2 …</td>
+              <td><span class="chip num">Numérica</span></td>
+            </tr>
+            <tr>
+              <td class="col-idx">9</td>
+              <td><strong>set_type</strong></td>
+              <td>Tipo da série executada.</td>
+              <td>Ex.: normal, aquecimento, drop set.</td>
+              <td><span class="chip cat">Categórica</span></td>
+            </tr>
+            <tr>
+              <td class="col-idx">10</td>
+              <td><strong>weight_kg</strong></td>
+              <td>Carga utilizada na série.</td>
+              <td>Peso em quilogramas.</td>
+              <td><span class="chip num">Numérica</span></td>
+            </tr>
+            <tr>
+              <td class="col-idx">11</td>
+              <td><strong>reps</strong></td>
+              <td>Repetições realizadas na série.</td>
+              <td>Valor inteiro de reps.</td>
+              <td><span class="chip num">Numérica</span></td>
+            </tr>
+            <tr>
+              <td class="col-idx">12</td>
+              <td><strong>distance_km</strong></td>
+              <td>Distância percorrida no exercício (se aplicável).</td>
+              <td>Usado para cardio; valor em km.</td>
+              <td><span class="chip num">Numérica</span></td>
+            </tr>
+            <tr>
+              <td class="col-idx">13</td>
+              <td><strong>duration_seconds</strong></td>
+              <td>Duração da série em segundos.</td>
+              <td>Tempo ativo de execução.</td>
+              <td><span class="chip num">Numérica</span></td>
+            </tr>
+            <tr>
+              <td class="col-idx">14</td>
+              <td><strong>rpe</strong></td>
+              <td>Esforço percebido (RPE).</td>
+              <td>Escala de intensidade subjetiva.</td>
+              <td><span class="chip num">Numérica</span></td>
+            </tr>
+            <tr>
+              <td class="col-idx">15</td>
+              <td><strong>id</strong></td>
+              <td>Identificador da linha/registro no dataset.</td>
+              <td>Pode representar ID original do evento/linha.</td>
+              <td><span class="chip cat">Categórica</span></td>
+            </tr>
+            <tr>
+              <td class="col-idx">16</td>
+              <td><strong>routine_id</strong></td>
+              <td>Identificador da rotina/sessão de treino.</td>
+              <td>Agrupa exercícios dentro de uma mesma rotina.</td>
+              <td><span class="chip cat">Categórica</span></td>
+            </tr>
+            <tr>
+              <td class="col-idx">17</td>
+              <td><strong>updated_at</strong></td>
+              <td>Data de atualização do registro.</td>
+              <td>Timestamp de update.</td>
+              <td><span class="chip cat">Categórica</span></td>
+            </tr>
+            <tr>
+              <td class="col-idx">18</td>
+              <td><strong>created_at</strong></td>
+              <td>Data de criação do registro.</td>
+              <td>Timestamp de criação.</td>
+              <td><span class="chip cat">Categórica</span></td>
+            </tr>
+            <tr>
+              <td class="col-idx">19</td>
+              <td><strong>exercises</strong></td>
+              <td>Campo auxiliar/agregado de exercícios.</td>
+              <td>Pode ser nulo/JSON/estrutura aninhada.</td>
+              <td><span class="chip cat">Categórica</span></td>
+            </tr>
+            <tr>
+              <td class="col-idx">20</td>
+              <td><strong>duracao</strong></td>
+              <td>Duração total do treino.</td>
+              <td>Geralmente em minutos.</td>
+              <td><span class="chip num">Numérica</span></td>
+            </tr>
+            <tr>
+              <td class="col-idx">21</td>
+              <td><strong>id_exercice</strong></td>
+              <td>Identificador original do exercício na fonte externa.</td>
+              <td>Pode ser nulo dependendo da origem do dado.</td>
+              <td><span class="chip cat">Categórica</span></td>
             </tr>
           </tbody>
         </table>
@@ -249,3 +382,4 @@
   </section>
 </body>
 </html>
+
