@@ -9,8 +9,6 @@
     :root{
       --bg0:#070a12;
       --bg1:#0b1220;
-      --panel: rgba(255,255,255,.03);
-      --card: rgba(15,23,42,.78);
       --stroke: rgba(255,255,255,.10);
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.65);
@@ -65,7 +63,7 @@
       background: rgba(255,255,255,.03);
       border-radius:999px;
       font-size:12px;
-      letter-spacing:.12em;
+      letter-spacing:.10em;
       text-transform:uppercase;
       color: var(--muted);
       width:fit-content;
@@ -74,7 +72,7 @@
       margin:10px 0 6px;
       font-size: 34px;
       line-height:1.05;
-      letter-spacing:.02em;
+      letter-spacing:.01em;
     }
     .subtitle{
       margin:0;
@@ -116,15 +114,13 @@
       overflow:hidden;
     }
 
-    /* Pipeline row: 4 columns ALWAYS on desktop; stacks on small screens */
+    /* Pipeline row */
     .pipeline{
       display:grid;
       gap:14px;
       grid-template-columns: repeat(4, minmax(260px, 1fr));
       align-items:stretch;
     }
-
-    /* On smaller screens: stack */
     @media (max-width: 1120px){
       .pipeline{grid-template-columns: 1fr;}
       .legend{justify-content:flex-start}
@@ -137,11 +133,10 @@
       background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
       position:relative;
       overflow:hidden;
-      min-height: 560px; /* keeps columns aligned */
+      min-height: 560px;
       display:flex;
       flex-direction:column;
     }
-
     .section::before{
       content:"";
       position:absolute; inset:-2px;
@@ -160,16 +155,19 @@
       border-bottom: 1px solid rgba(255,255,255,.07);
       backdrop-filter: blur(10px);
     }
+
+    /* smaller / tighter tracking to fit */
     .section-title{
       display:flex;
       gap:10px;
       align-items:baseline;
       text-transform:uppercase;
-      letter-spacing:.14em;
-      font-size:12px;
+      letter-spacing:.08em; /* reduced */
+      font-size:11px;       /* reduced */
       color: rgba(255,255,255,.82);
       font-weight:700;
     }
+
     .badge{
       display:inline-flex;
       align-items:center;
@@ -178,22 +176,21 @@
       border-radius:999px;
       border:1px solid var(--stroke);
       background: rgba(255,255,255,.03);
-      font-size:11px;
+      font-size:10.5px;     /* reduced */
       color: var(--muted);
       text-transform:uppercase;
-      letter-spacing:.12em;
+      letter-spacing:.08em; /* reduced */
       white-space:nowrap;
     }
 
-    /* Scrollable content area inside each column */
     .section-body{
       position:relative;
       z-index:1;
       padding: 12px 14px 14px;
-      overflow:auto;                 /* prevents "cut off" */
+      overflow:auto;
+      flex:1;
       scrollbar-width: thin;
       scrollbar-color: rgba(255,255,255,.18) transparent;
-      flex:1;
     }
     .section-body::-webkit-scrollbar{height:10px;width:10px}
     .section-body::-webkit-scrollbar-thumb{background: rgba(255,255,255,.16); border-radius: 999px}
@@ -235,7 +232,6 @@
       white-space:nowrap;
     }
 
-    /* Accent outlines (subtle) */
     .accent-green{ box-shadow: 0 0 0 1px rgba(34,197,94,.26) inset; }
     .accent-blue{  box-shadow: 0 0 0 1px rgba(59,130,246,.26) inset; }
     .accent-amber{ box-shadow: 0 0 0 1px rgba(245,158,11,.26) inset; }
@@ -244,33 +240,38 @@
     .accent-violet{box-shadow: 0 0 0 1px rgba(139,92,246,.26) inset; }
     .accent-orange{box-shadow: 0 0 0 1px rgba(249,115,22,.26) inset; }
 
-    /* Data lake (3 sub-columns inside) */
-    .lake-cols{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    /* ✅ Data Lake vertical (prevents overlap) */
+    .lake-vertical{
+      display:flex;
+      flex-direction:column;
       gap:12px;
     }
-    .lake-col{
+
+    .lake-box{
       border:1px solid rgba(255,255,255,.08);
       border-radius: 18px;
       background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
       padding: 10px;
-      min-width: 0;
     }
-    .lake-col-head{
+
+    .lake-box-head{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      margin-bottom: 8px;
       gap:10px;
+      margin-bottom: 8px;
     }
-    .lake-col h4{
+
+    /* Make these fit: Bronze / Silver / Gold */
+    .lake-box h4{
       margin:0;
-      font-size: 12px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color: rgba(255,255,255,.82);
+      font-size: 13px;
+      letter-spacing:.02em; /* reduced */
+      text-transform:none;  /* remove uppercase to save space */
+      color: rgba(255,255,255,.88);
+      font-weight: 700;
     }
+
     .tag{
       display:inline-flex;
       align-items:center;
@@ -285,24 +286,19 @@
     }
     .tag .dot{width:8px;height:8px;box-shadow:none}
 
-    /* Serving layer cards in a clear grid */
+    /* Serving layer */
     .serve-grid{
       display:grid;
       grid-template-columns: 1fr;
       gap:12px;
     }
-    .serve-grid .card{
-      min-height: 0;
-    }
 
-    /* tiny helper */
     .note{
       margin-top: 10px;
       font-size: 12px;
       color: var(--muted);
     }
 
-    /* little “flow” on top of pipeline for clarity */
     .flowline{
       display:flex;
       gap:10px;
@@ -339,7 +335,6 @@
         <h1>ARQUITETURA DE DADOS — LAMBDA / DATA LAKE</h1>
         <p class="subtitle">
           Fluxo: <strong>fontes</strong> → <strong>Airflow (ETL)</strong> → <strong>S3 Data Lake</strong> (Bronze / Silver / Gold) → <strong>Consumo</strong>.
-          Layout otimizado para <strong>não cortar conteúdo</strong> e manter o <strong>Serving Layer lado a lado</strong>.
         </p>
       </div>
 
@@ -354,7 +349,7 @@
       <div class="flowline">
         <span>Sources</span><span class="arrow"></span>
         <span>Airflow</span><span class="arrow"></span>
-        <span>S3 (B/S/G)</span><span class="arrow"></span>
+        <span>S3 (Bronze → Silver → Gold)</span><span class="arrow"></span>
         <span>Serving</span>
       </div>
 
@@ -375,8 +370,8 @@
                 </div>
                 <p>Workouts, séries e exercícios coletados da API oficial.</p>
                 <div class="chips">
-                  <span class="chip">Histórico de treinos</span>
                   <span class="chip">heavy/raw/*.parquet</span>
+                  <span class="chip">Histórico de treinos</span>
                 </div>
               </div>
 
@@ -387,8 +382,8 @@
                 </div>
                 <p>Perfil, objetivos e restrições do usuário.</p>
                 <div class="chips">
-                  <span class="chip">user_profiles</span>
                   <span class="chip">users/raw_form</span>
+                  <span class="chip">user_profiles</span>
                 </div>
               </div>
 
@@ -447,10 +442,10 @@
 
               <div class="card accent-blue">
                 <div class="title-row">
-                  <h3>Transformações (Silver/Gold)</h3>
+                  <h3>Transformações</h3>
                   <span class="chip">Refined</span>
                 </div>
-                <p>Limpa, padroniza e integra dados para consumo e métricas.</p>
+                <p>Limpa, padroniza e integra dados para Silver/Gold.</p>
                 <div class="chips">
                   <span class="chip">silver_users</span>
                   <span class="chip">silver_kaggle</span>
@@ -472,10 +467,10 @@
           </div>
 
           <div class="section-body">
-            <div class="lake-cols">
+            <div class="lake-vertical">
               <!-- Bronze -->
-              <div class="lake-col">
-                <div class="lake-col-head">
+              <div class="lake-box">
+                <div class="lake-box-head">
                   <h4>Bronze</h4>
                   <span class="tag"><span class="dot" style="background:var(--orange)"></span> RAW</span>
                 </div>
@@ -492,8 +487,8 @@
               </div>
 
               <!-- Silver -->
-              <div class="lake-col">
-                <div class="lake-col-head">
+              <div class="lake-box">
+                <div class="lake-box-head">
                   <h4>Silver</h4>
                   <span class="tag"><span class="dot" style="background:var(--blue)"></span> REFINED</span>
                 </div>
@@ -509,8 +504,8 @@
               </div>
 
               <!-- Gold -->
-              <div class="lake-col">
-                <div class="lake-col-head">
+              <div class="lake-box">
+                <div class="lake-box-head">
                   <h4>Gold</h4>
                   <span class="tag"><span class="dot" style="background:var(--amber)"></span> DIMENSIONAL</span>
                 </div>
@@ -519,7 +514,6 @@
                   <div class="chips">
                     <span class="chip">gold_dim_exercise</span>
                     <span class="chip">gold_metrics</span>
-                    <!-- Se não existir, pode remover as 2 linhas abaixo -->
                     <span class="chip" style="opacity:.7;border-style:dashed">gold_dim_user (planned)</span>
                     <span class="chip" style="opacity:.7;border-style:dashed">gold_dim_date (planned)</span>
                   </div>
@@ -575,8 +569,6 @@
                   <span class="chip">Consistência</span>
                 </div>
               </div>
-
-              <div class="note">✅ Agora tudo fica lado a lado no desktop, sem cortar conteúdo.</div>
             </div>
           </div>
         </section>
@@ -586,4 +578,3 @@
   </div>
 </body>
 </html>
-
